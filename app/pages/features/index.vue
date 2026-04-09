@@ -44,16 +44,8 @@ const appUrl = config.public.appUrl || 'https://app.earnest.guru';
 </script>
 
 <template>
-  <div class="features-page">
-    <nav class="fp-nav">
-      <nuxt-link to="/" class="fp-nav-brand">
-        <LogoEarnest size="sm" />
-      </nuxt-link>
-      <div class="fp-nav-links">
-        <nuxt-link to="/" class="fp-nav-link">Home</nuxt-link>
-        <nuxt-link to="/blog" class="fp-nav-link">Blog</nuxt-link>
-      </div>
-    </nav>
+  <div class="fp">
+    <SiteNav />
 
     <header class="fp-hero">
       <p class="fp-kicker">The full platform</p>
@@ -89,86 +81,52 @@ const appUrl = config.public.appUrl || 'https://app.earnest.guru';
       <a :href="appUrl + '/register'" class="fp-cta-btn">Get started</a>
     </section>
 
-    <footer class="fp-footer">
-      <p>&copy; {{ new Date().getFullYear() }} Earnest. All rights reserved.</p>
-      <div class="fp-footer-links">
-        <nuxt-link to="/privacy-policy">Privacy</nuxt-link>
-        <nuxt-link to="/terms-of-service">Terms</nuxt-link>
-      </div>
-    </footer>
+    <SiteFooter />
   </div>
 </template>
 
 <style scoped>
-.features-page {
-  --fp-bg: #faf7f4;
-  --fp-text: #0a0a0a;
-  --fp-muted: #6b7280;
-  --fp-pop: #00bfff;
-  --fp-border: rgba(0, 0, 0, 0.06);
-  --fp-font: 'Proxima Nova W01 Regular', system-ui, sans-serif;
-  --fp-font-display: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
-
-  background: var(--fp-bg);
-  color: var(--fp-text);
-  font-family: var(--fp-font);
+.fp {
+  background: #fcfcfc;
+  color: #0a0a0a;
+  font-family: 'Proxima Nova W01 Regular', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Nav */
-.fp-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 32px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.fp-nav-brand { display: flex; align-items: center; }
-.fp-nav-links { display: flex; gap: 24px; }
-.fp-nav-link {
-  font-size: 14px;
-  color: var(--fp-muted);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.fp-nav-link:hover { color: var(--fp-text); }
-
-/* Hero */
 .fp-hero {
   text-align: center;
-  padding: 100px 32px 60px;
+  padding: 120px 32px 60px;
   max-width: 800px;
   margin: 0 auto;
 }
 .fp-kicker {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--fp-pop);
+  letter-spacing: 0.12em;
+  color: #00bfff;
   margin-bottom: 16px;
 }
 .fp-title {
-  font-family: var(--fp-font-display);
+  font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
   font-size: clamp(36px, 6vw, 64px);
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
-.fp-dot { color: var(--fp-pop); }
+.fp-dot { color: #00bfff; }
 .fp-sub {
-  font-size: 18px;
-  color: var(--fp-muted);
+  font-size: 17px;
+  color: #6b7280;
   margin-top: 20px;
   line-height: 1.6;
 }
 
-/* Grid */
+/* Glass cards grid */
 .fp-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 32px 100px;
@@ -176,49 +134,53 @@ const appUrl = config.public.appUrl || 'https://app.earnest.guru';
 .fp-card {
   display: flex;
   flex-direction: column;
-  padding: 28px;
-  background: white;
-  border: 1px solid var(--fp-border);
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.04);
   border-radius: 16px;
   text-decoration: none;
   color: inherit;
-  transition: box-shadow 0.3s, transform 0.3s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
 }
 .fp-card:hover {
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   transform: translateY(-2px);
 }
-.fp-card:hover .fp-card-arrow { opacity: 1; color: var(--fp-pop); }
+.fp-card:hover .fp-card-arrow { opacity: 1; color: #00bfff; }
+.fp-card:active { transform: scale(0.98); }
 .fp-card-icon {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--fp-bg);
+  background: rgba(0, 0, 0, 0.03);
   border-radius: 10px;
-  margin-bottom: 16px;
-  color: var(--fp-text);
-  font-size: 20px;
+  margin-bottom: 14px;
+  color: #0a0a0a;
+  font-size: 18px;
 }
 .fp-card-name {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 .fp-card-desc {
-  font-size: 14px;
-  color: var(--fp-muted);
+  font-size: 13px;
+  color: #6b7280;
   line-height: 1.6;
   flex: 1;
 }
 .fp-card-arrow {
   position: absolute;
-  top: 28px;
-  right: 28px;
-  font-size: 18px;
-  color: var(--fp-muted);
+  top: 24px;
+  right: 24px;
+  font-size: 16px;
+  color: #a1a1aa;
   opacity: 0;
   transition: opacity 0.2s, color 0.2s;
 }
@@ -226,52 +188,43 @@ const appUrl = config.public.appUrl || 'https://app.earnest.guru';
 /* CTA */
 .fp-cta {
   text-align: center;
-  padding: 80px 32px;
-  background: var(--fp-text);
+  padding: 72px 32px;
+  margin: 0 32px;
+  background: #0a0a0a;
   color: white;
+  border-radius: 20px;
+  margin-bottom: 60px;
+  max-width: 1136px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .fp-cta-title {
-  font-family: var(--fp-font-display);
+  font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
   font-size: clamp(28px, 4vw, 44px);
   font-weight: 400;
 }
 .fp-cta-sub {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.6);
-  margin-top: 12px;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 10px;
 }
 .fp-cta-btn {
   display: inline-block;
-  margin-top: 28px;
+  margin-top: 24px;
   padding: 14px 36px;
-  background: var(--fp-pop);
-  color: white;
+  background: white;
+  color: #0a0a0a;
   font-weight: 600;
-  font-size: 15px;
-  border-radius: 10px;
+  font-size: 14px;
+  border-radius: 100px;
   text-decoration: none;
-  transition: opacity 0.2s;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.fp-cta-btn:hover { opacity: 0.9; }
-
-/* Footer */
-.fp-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 32px;
-  max-width: 1200px;
-  margin: 0 auto;
-  font-size: 13px;
-  color: var(--fp-muted);
-}
-.fp-footer-links { display: flex; gap: 20px; }
-.fp-footer-links a { color: var(--fp-muted); text-decoration: none; }
-.fp-footer-links a:hover { color: var(--fp-text); }
+.fp-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15); }
 
 @media (max-width: 700px) {
-  .fp-hero { padding: 60px 20px 40px; }
+  .fp-hero { padding: 80px 20px 40px; }
   .fp-grid { padding: 20px 16px 60px; grid-template-columns: 1fr; }
-  .fp-footer { flex-direction: column; gap: 12px; text-align: center; }
+  .fp-cta { margin: 0 16px 40px; padding: 48px 24px; border-radius: 16px; }
 }
 </style>

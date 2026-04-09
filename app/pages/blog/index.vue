@@ -37,14 +37,12 @@ useSeoMeta({
   twitterDescription: description,
 });
 
-// State
 const posts = ref<any[]>([]);
 const categories = ref<any[]>([]);
 const activeCategory = ref<string | null>(null);
 const loading = ref(true);
 const page = ref(1);
 const perPage = 12;
-const totalPosts = ref(0);
 
 const filteredPosts = computed(() => {
   if (!activeCategory.value) return posts.value;
@@ -66,11 +64,7 @@ function imageUrl(id: string, width = 800, height = 450) {
 
 function formatDate(date: string) {
   if (!date) return '';
-  return new Date(date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  return new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
 onMounted(async () => {
@@ -117,16 +111,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="blog-page">
-    <nav class="bp-nav">
-      <nuxt-link to="/" class="bp-nav-brand">
-        <LogoEarnest size="sm" />
-      </nuxt-link>
-      <div class="bp-nav-links">
-        <nuxt-link to="/" class="bp-nav-link">Home</nuxt-link>
-        <nuxt-link to="/features" class="bp-nav-link">Features</nuxt-link>
-      </div>
-    </nav>
+  <div class="bp">
+    <SiteNav />
 
     <header class="bp-hero">
       <p class="bp-kicker">Knowledge hub</p>
@@ -137,21 +123,17 @@ onMounted(async () => {
     <!-- Categories -->
     <div v-if="categories.length" class="bp-categories">
       <button
-        class="bp-cat-pill"
-        :class="{ 'bp-cat-active': !activeCategory }"
+        class="bp-pill"
+        :class="{ 'bp-pill-active': !activeCategory }"
         @click="activeCategory = null"
-      >
-        All
-      </button>
+      >All</button>
       <button
         v-for="cat in categories"
         :key="cat.slug"
-        class="bp-cat-pill"
-        :class="{ 'bp-cat-active': activeCategory === cat.slug }"
+        class="bp-pill"
+        :class="{ 'bp-pill-active': activeCategory === cat.slug }"
         @click="activeCategory = cat.slug"
-      >
-        {{ cat.name }}
-      </button>
+      >{{ cat.name }}</button>
     </div>
 
     <!-- Featured -->
@@ -164,7 +146,7 @@ onMounted(async () => {
         <img :src="imageUrl(featuredPost.featured_image, 1200, 600)" :alt="featuredPost.title" />
       </div>
       <div class="bp-featured-body">
-        <span class="bp-featured-badge">Featured</span>
+        <span class="bp-badge">Featured</span>
         <h2 class="bp-featured-title">{{ featuredPost.title }}</h2>
         <p class="bp-featured-excerpt">{{ featuredPost.excerpt }}</p>
         <div class="bp-meta">
@@ -192,9 +174,7 @@ onMounted(async () => {
               :key="c.blog_categories_id?.slug"
               class="bp-card-cat"
               :style="{ color: c.blog_categories_id?.color }"
-            >
-              {{ c.blog_categories_id?.name }}
-            </span>
+            >{{ c.blog_categories_id?.name }}</span>
           </div>
           <h3 class="bp-card-title">{{ post.title }}</h3>
           <p class="bp-card-excerpt">{{ post.excerpt?.slice(0, 120) }}</p>
@@ -208,65 +188,66 @@ onMounted(async () => {
 
     <!-- Empty state -->
     <div v-if="!loading && posts.length === 0" class="bp-empty">
-      <h2 class="bp-empty-title">Coming soon</h2>
+      <h2 class="bp-empty-title">Coming soon<span class="bp-dot">.</span></h2>
       <p class="bp-empty-text">We're working on our first articles. Check back soon.</p>
       <nuxt-link to="/" class="bp-empty-link">&larr; Back to home</nuxt-link>
     </div>
 
-    <footer class="bp-footer">
-      <p>&copy; {{ new Date().getFullYear() }} Earnest. All rights reserved.</p>
-      <div class="bp-footer-links">
-        <nuxt-link to="/privacy-policy">Privacy</nuxt-link>
-        <nuxt-link to="/terms-of-service">Terms</nuxt-link>
-      </div>
-    </footer>
+    <SiteFooter />
   </div>
 </template>
 
 <style scoped>
-.blog-page {
-  --bp-bg: #faf7f4;
-  --bp-text: #0a0a0a;
-  --bp-muted: #6b7280;
-  --bp-pop: #00bfff;
-  --bp-border: rgba(0, 0, 0, 0.06);
-  --bp-font: 'Proxima Nova W01 Regular', system-ui, sans-serif;
-  --bp-font-display: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
-
-  background: var(--bp-bg);
-  color: var(--bp-text);
-  font-family: var(--bp-font);
+.bp {
+  background: #fcfcfc;
+  color: #0a0a0a;
+  font-family: 'Proxima Nova W01 Regular', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-.bp-nav {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 32px; max-width: 1200px; margin: 0 auto;
+.bp-hero {
+  text-align: center;
+  padding: 120px 32px 40px;
+  max-width: 700px;
+  margin: 0 auto;
 }
-.bp-nav-brand { display: flex; align-items: center; }
-.bp-nav-links { display: flex; gap: 24px; }
-.bp-nav-link { font-size: 14px; color: var(--bp-muted); text-decoration: none; transition: color 0.2s; }
-.bp-nav-link:hover { color: var(--bp-text); }
+.bp-kicker {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #00bfff;
+  margin-bottom: 16px;
+}
+.bp-title {
+  font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 400;
+  line-height: 1.1;
+}
+.bp-dot { color: #00bfff; }
+.bp-sub { font-size: 17px; color: #6b7280; margin-top: 16px; line-height: 1.6; }
 
-.bp-hero { text-align: center; padding: 80px 32px 40px; max-width: 700px; margin: 0 auto; }
-.bp-kicker { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--bp-pop); margin-bottom: 16px; }
-.bp-title { font-family: var(--bp-font-display); font-size: clamp(36px, 5vw, 56px); font-weight: 400; line-height: 1.1; }
-.bp-dot { color: var(--bp-pop); }
-.bp-sub { font-size: 18px; color: var(--bp-muted); margin-top: 16px; line-height: 1.6; }
-
-/* Categories */
+/* Category pills */
 .bp-categories {
   display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
   max-width: 800px; margin: 0 auto; padding: 0 32px 40px;
 }
-.bp-cat-pill {
-  padding: 7px 16px; font-size: 13px; font-weight: 500;
-  border: 1px solid var(--bp-border); border-radius: 20px;
-  background: white; color: var(--bp-muted); cursor: pointer;
-  transition: all 0.2s;
+.bp-pill {
+  padding: 7px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.bp-cat-pill:hover { border-color: var(--bp-text); color: var(--bp-text); }
-.bp-cat-active { background: var(--bp-text); color: white; border-color: var(--bp-text); }
+.bp-pill:hover { border-color: #0a0a0a; color: #0a0a0a; }
+.bp-pill-active { background: #0a0a0a; color: white; border-color: #0a0a0a; }
 
 /* Featured */
 .bp-featured {
@@ -277,52 +258,48 @@ onMounted(async () => {
 .bp-featured-img { border-radius: 16px; overflow: hidden; }
 .bp-featured-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .bp-featured-body { display: flex; flex-direction: column; justify-content: center; }
-.bp-featured-badge {
-  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--bp-pop); margin-bottom: 12px;
+.bp-badge {
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+  color: #00bfff; margin-bottom: 12px;
 }
-.bp-featured-title { font-size: clamp(24px, 3vw, 32px); font-weight: 600; line-height: 1.2; margin-bottom: 12px; }
-.bp-featured-excerpt { font-size: 15px; color: var(--bp-muted); line-height: 1.6; }
-.bp-meta { font-size: 13px; color: var(--bp-muted); margin-top: 12px; display: flex; gap: 6px; }
+.bp-featured-title { font-size: clamp(22px, 3vw, 30px); font-weight: 600; line-height: 1.2; margin-bottom: 10px; }
+.bp-featured-excerpt { font-size: 14px; color: #6b7280; line-height: 1.6; }
+.bp-meta { font-size: 12px; color: #a1a1aa; margin-top: 12px; display: flex; gap: 6px; }
 
 /* Grid */
 .bp-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px; max-width: 1200px; margin: 0 auto; padding: 0 32px 80px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px; max-width: 1200px; margin: 0 auto; padding: 0 32px 80px;
 }
 .bp-card {
-  background: white; border: 1px solid var(--bp-border); border-radius: 16px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 16px;
   overflow: hidden; text-decoration: none; color: inherit;
-  transition: box-shadow 0.3s, transform 0.3s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.bp-card:hover { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08); transform: translateY(-2px); }
+.bp-card:hover { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); transform: translateY(-2px); }
+.bp-card:active { transform: scale(0.98); }
 .bp-card-img { aspect-ratio: 16/9; overflow: hidden; }
 .bp-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.bp-card-body { padding: 20px; }
-.bp-card-cats { display: flex; gap: 8px; margin-bottom: 8px; }
-.bp-card-cat { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
-.bp-card-title { font-size: 17px; font-weight: 600; line-height: 1.3; margin-bottom: 8px; }
-.bp-card-excerpt { font-size: 14px; color: var(--bp-muted); line-height: 1.5; }
+.bp-card-body { padding: 18px; }
+.bp-card-cats { display: flex; gap: 8px; margin-bottom: 6px; }
+.bp-card-cat { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.bp-card-title { font-size: 16px; font-weight: 600; line-height: 1.3; margin-bottom: 6px; }
+.bp-card-excerpt { font-size: 13px; color: #6b7280; line-height: 1.5; }
 
 /* Empty */
-.bp-empty { text-align: center; padding: 80px 32px; }
-.bp-empty-title { font-family: var(--bp-font-display); font-size: 32px; font-weight: 400; }
-.bp-empty-text { font-size: 16px; color: var(--bp-muted); margin-top: 12px; }
-.bp-empty-link { display: inline-block; margin-top: 20px; font-size: 14px; color: var(--bp-pop); text-decoration: none; }
-
-/* Footer */
-.bp-footer {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 32px; max-width: 1200px; margin: 0 auto;
-  font-size: 13px; color: var(--bp-muted);
-}
-.bp-footer-links { display: flex; gap: 20px; }
-.bp-footer-links a { color: var(--bp-muted); text-decoration: none; }
-.bp-footer-links a:hover { color: var(--bp-text); }
+.bp-empty { text-align: center; padding: 80px 32px 120px; }
+.bp-empty-title { font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif; font-size: 32px; font-weight: 400; }
+.bp-empty-text { font-size: 15px; color: #6b7280; margin-top: 10px; }
+.bp-empty-link { display: inline-block; margin-top: 20px; font-size: 13px; color: #00bfff; text-decoration: none; }
 
 @media (max-width: 700px) {
+  .bp-hero { padding: 80px 20px 32px; }
   .bp-featured { grid-template-columns: 1fr; }
   .bp-grid { grid-template-columns: 1fr; padding: 0 16px 60px; }
-  .bp-footer { flex-direction: column; gap: 12px; text-align: center; }
 }
 </style>

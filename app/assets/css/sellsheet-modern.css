@@ -1644,6 +1644,18 @@
 	line-height: 1.7;
 	color: var(--sm-muted);
 }
+.sm-feature-acc-link {
+	display: inline-block;
+	margin-top: 10px;
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--sm-pop);
+	text-decoration: none;
+	transition: opacity 0.2s;
+}
+.sm-feature-acc-link:hover {
+	opacity: 0.7;
+}
 
 /* ─── SHOWCASE ─── */
 .sm-showcase {

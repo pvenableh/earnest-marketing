@@ -19,11 +19,7 @@ function imageUrl(id: string, width = 1200, height = 630) {
 
 function formatDate(date: string) {
   if (!date) return '';
-  return new Date(date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  return new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
 onMounted(async () => {
@@ -85,18 +81,9 @@ watch(post, (p) => {
           description: desc,
           url: `https://earnest.guru/blog/${slug}`,
           datePublished: p.date_published,
-          author: {
-            '@type': 'Person',
-            name: authorName.value,
-          },
-          publisher: {
-            '@type': 'Organization',
-            name: 'Earnest',
-            url: 'https://earnest.guru',
-          },
-          ...(p.featured_image && {
-            image: imageUrl(p.featured_image),
-          }),
+          author: { '@type': 'Person', name: authorName.value },
+          publisher: { '@type': 'Organization', name: 'Earnest', url: 'https://earnest.guru' },
+          ...(p.featured_image && { image: imageUrl(p.featured_image) }),
         }),
       },
     ],
@@ -110,10 +97,7 @@ watch(post, (p) => {
     ogType: 'article',
     ogUrl: `https://earnest.guru/blog/${slug}`,
     ogSiteName: 'Earnest',
-    ...(p.featured_image && {
-      ogImage: imageUrl(p.featured_image),
-      twitterImage: imageUrl(p.featured_image),
-    }),
+    ...(p.featured_image && { ogImage: imageUrl(p.featured_image), twitterImage: imageUrl(p.featured_image) }),
     twitterCard: 'summary_large_image',
     twitterTitle: title,
     twitterDescription: desc,
@@ -122,30 +106,19 @@ watch(post, (p) => {
 </script>
 
 <template>
-  <div class="ba-page">
-    <nav class="ba-nav">
-      <nuxt-link to="/" class="ba-nav-brand">
-        <LogoEarnest size="sm" />
-      </nuxt-link>
-      <div class="ba-nav-links">
-        <nuxt-link to="/blog" class="ba-nav-link">Blog</nuxt-link>
-        <nuxt-link to="/features" class="ba-nav-link">Features</nuxt-link>
-      </div>
-    </nav>
+  <div class="ba">
+    <SiteNav />
 
-    <!-- Loading -->
-    <div v-if="loading" class="ba-loading">
-      <p>Loading...</p>
+    <div v-if="loading" class="ba-state">
+      <p class="ba-state-text">Loading...</p>
     </div>
 
-    <!-- Not found -->
-    <div v-else-if="notFound" class="ba-empty">
-      <h1 class="ba-empty-title">Article not found</h1>
-      <p class="ba-empty-text">This article may have been moved or removed.</p>
-      <nuxt-link to="/blog" class="ba-empty-link">&larr; Back to blog</nuxt-link>
+    <div v-else-if="notFound" class="ba-state">
+      <h1 class="ba-state-title">Article not found<span class="ba-dot">.</span></h1>
+      <p class="ba-state-text">This article may have been moved or removed.</p>
+      <nuxt-link to="/blog" class="ba-state-link">&larr; Back to blog</nuxt-link>
     </div>
 
-    <!-- Article -->
     <article v-else-if="post" class="ba-article">
       <header class="ba-header">
         <nuxt-link to="/blog" class="ba-breadcrumb">&larr; Blog</nuxt-link>
@@ -156,9 +129,7 @@ watch(post, (p) => {
             :key="c.blog_categories_id?.slug"
             class="ba-cat"
             :style="{ color: c.blog_categories_id?.color }"
-          >
-            {{ c.blog_categories_id?.name }}
-          </span>
+          >{{ c.blog_categories_id?.name }}</span>
         </div>
 
         <h1 class="ba-title">{{ post.title }}</h1>
@@ -182,102 +153,73 @@ watch(post, (p) => {
       </footer>
     </article>
 
-    <footer class="ba-footer">
-      <p>&copy; {{ new Date().getFullYear() }} Earnest. All rights reserved.</p>
-      <div class="ba-footer-links">
-        <nuxt-link to="/privacy-policy">Privacy</nuxt-link>
-        <nuxt-link to="/terms-of-service">Terms</nuxt-link>
-      </div>
-    </footer>
+    <SiteFooter />
   </div>
 </template>
 
 <style scoped>
-.ba-page {
-  --ba-bg: #faf7f4;
-  --ba-text: #0a0a0a;
-  --ba-muted: #6b7280;
-  --ba-pop: #00bfff;
-  --ba-border: rgba(0, 0, 0, 0.06);
-  --ba-font: 'Proxima Nova W01 Regular', system-ui, sans-serif;
-  --ba-font-display: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
-
-  background: var(--ba-bg);
-  color: var(--ba-text);
-  font-family: var(--ba-font);
+.ba {
+  background: #fcfcfc;
+  color: #0a0a0a;
+  font-family: 'Proxima Nova W01 Regular', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-.ba-nav {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 32px; max-width: 800px; margin: 0 auto;
-}
-.ba-nav-brand { display: flex; align-items: center; }
-.ba-nav-links { display: flex; gap: 24px; }
-.ba-nav-link { font-size: 14px; color: var(--ba-muted); text-decoration: none; transition: color 0.2s; }
-.ba-nav-link:hover { color: var(--ba-text); }
-
 .ba-article { max-width: 720px; margin: 0 auto; padding: 0 32px 60px; }
 
-.ba-header { padding: 40px 0 32px; }
-.ba-breadcrumb { font-size: 13px; color: var(--ba-muted); text-decoration: none; transition: color 0.2s; }
-.ba-breadcrumb:hover { color: var(--ba-pop); }
+.ba-header { padding: 100px 0 32px; }
+.ba-breadcrumb { font-size: 13px; color: #a1a1aa; text-decoration: none; transition: color 0.2s; }
+.ba-breadcrumb:hover { color: #00bfff; }
 .ba-cats { display: flex; gap: 10px; margin: 20px 0 12px; }
-.ba-cat { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.ba-cat { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
 .ba-title {
-  font-family: var(--ba-font-display);
+  font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
   font-size: clamp(28px, 5vw, 44px);
   font-weight: 400; line-height: 1.15; letter-spacing: -0.02em;
 }
-.ba-meta { display: flex; gap: 6px; font-size: 14px; color: var(--ba-muted); margin-top: 16px; }
-.ba-author { font-weight: 500; color: var(--ba-text); }
+.ba-dot { color: #00bfff; }
+.ba-meta { display: flex; gap: 6px; font-size: 13px; color: #a1a1aa; margin-top: 16px; }
+.ba-author { font-weight: 500; color: #0a0a0a; }
 
 .ba-hero-img { border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
 .ba-hero-img img { width: 100%; display: block; }
 
-.ba-body { font-size: 17px; line-height: 1.8; color: var(--ba-text); }
+/* Article body */
+.ba-body { font-size: 17px; line-height: 1.8; color: #0a0a0a; }
 .ba-body :deep(h2) { font-size: 24px; font-weight: 600; margin: 40px 0 16px; }
 .ba-body :deep(h3) { font-size: 20px; font-weight: 600; margin: 32px 0 12px; }
 .ba-body :deep(p) { margin-bottom: 20px; }
 .ba-body :deep(ul), .ba-body :deep(ol) { padding-left: 24px; margin-bottom: 20px; }
 .ba-body :deep(li) { margin-bottom: 8px; }
 .ba-body :deep(blockquote) {
-  border-left: 3px solid var(--ba-pop); padding-left: 20px;
-  margin: 24px 0; font-style: italic; color: var(--ba-muted);
+  border-left: 3px solid #00bfff; padding-left: 20px;
+  margin: 24px 0; font-style: italic; color: #6b7280;
 }
 .ba-body :deep(img) { max-width: 100%; border-radius: 12px; margin: 24px 0; }
-.ba-body :deep(a) { color: var(--ba-pop); text-decoration: underline; }
+.ba-body :deep(a) { color: #00bfff; text-decoration: underline; }
 
 .ba-article-footer {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 40px 0; border-top: 1px solid var(--ba-border); margin-top: 40px;
+  padding: 40px 0; border-top: 1px solid rgba(0, 0, 0, 0.06); margin-top: 40px;
 }
-.ba-back { font-size: 14px; color: var(--ba-muted); text-decoration: none; }
-.ba-back:hover { color: var(--ba-pop); }
+.ba-back { font-size: 13px; color: #a1a1aa; text-decoration: none; }
+.ba-back:hover { color: #00bfff; }
 .ba-cta-btn {
-  padding: 10px 24px; background: var(--ba-pop); color: white;
-  font-weight: 600; font-size: 14px; border-radius: 8px;
-  text-decoration: none; transition: opacity 0.2s;
+  padding: 10px 24px; background: #0a0a0a; color: white;
+  font-weight: 600; font-size: 13px; border-radius: 100px;
+  text-decoration: none; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.ba-cta-btn:hover { opacity: 0.9; }
+.ba-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); }
 
-.ba-loading, .ba-empty { text-align: center; padding: 100px 32px; }
-.ba-empty-title { font-family: var(--ba-font-display); font-size: 32px; font-weight: 400; }
-.ba-empty-text { font-size: 16px; color: var(--ba-muted); margin-top: 12px; }
-.ba-empty-link { display: inline-block; margin-top: 20px; font-size: 14px; color: var(--ba-pop); text-decoration: none; }
-
-.ba-footer {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 32px; max-width: 800px; margin: 0 auto;
-  font-size: 13px; color: var(--ba-muted);
-}
-.ba-footer-links { display: flex; gap: 20px; }
-.ba-footer-links a { color: var(--ba-muted); text-decoration: none; }
-.ba-footer-links a:hover { color: var(--ba-text); }
+/* States */
+.ba-state { text-align: center; padding: 140px 32px 80px; }
+.ba-state-title { font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif; font-size: 32px; font-weight: 400; }
+.ba-state-text { font-size: 15px; color: #6b7280; margin-top: 10px; }
+.ba-state-link { display: inline-block; margin-top: 20px; font-size: 13px; color: #00bfff; text-decoration: none; }
 
 @media (max-width: 700px) {
   .ba-article { padding: 0 20px 40px; }
+  .ba-header { padding: 72px 0 24px; }
   .ba-article-footer { flex-direction: column; gap: 16px; text-align: center; }
-  .ba-footer { flex-direction: column; gap: 12px; text-align: center; }
 }
 </style>

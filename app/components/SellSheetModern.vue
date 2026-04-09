@@ -7,7 +7,8 @@
 				<span class="sm-nav-tagline">Do good work.</span>
 			</nuxt-link>
 			<div class="sm-nav-links">
-				<a href="#features" class="sm-nav-link">Features</a>
+				<nuxt-link to="/features" class="sm-nav-link">Features</nuxt-link>
+				<nuxt-link to="/blog" class="sm-nav-link">Blog</nuxt-link>
 				<a href="#pricing" class="sm-nav-link">Pricing</a>
 			</div>
 			<a :href="appUrl + '/auth/signin'" class="sm-nav-signin">Sign In</a>
@@ -477,6 +478,7 @@
 						</div>
 						<div class="sm-feature-acc-body">
 							<p class="sm-feature-acc-desc">{{ f.desc }}</p>
+							<nuxt-link :to="`/features/${f.slug}`" class="sm-feature-acc-link" @click.stop>Learn more &rarr;</nuxt-link>
 						</div>
 					</div>
 				</div>
@@ -1485,9 +1487,18 @@ onMounted(async () => {
 			scrollTrigger: { trigger: '.sm-ai', start: 'top bottom', end: 'bottom top', scrub: true },
 		});
 
-		// Showcase
-		reveal(showcaseRef, '.sm-kicker, .sm-showcase-title', { stagger: 0.08 });
-		reveal(showcaseRef, '.sm-showcase-cell', { stagger: 0, duration: 0.4, start: 'top 95%' });
+		// Showcase — each cell reveals individually on enter, no delay
+		reveal(showcaseRef, '.sm-kicker, .sm-showcase-title', { stagger: 0.08, start: 'top 98%' });
+		if (showcaseRef.value) {
+			showcaseRef.value.querySelectorAll('.sm-showcase-cell').forEach((el) => {
+				gsap.fromTo(el,
+					{ opacity: 0, y: 16 },
+					{ opacity: 1, y: 0, duration: 0.35, ease: 'power2.out',
+						scrollTrigger: { trigger: el, start: 'top 100%', toggleActions: 'play none none none' }
+					}
+				);
+			});
+		}
 
 		// Quote
 		gsap.fromTo('.sm-quote-text', { opacity: 0, y: 24, scale: 0.98 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'power3.out', scrollTrigger: { trigger: '.sm-quote', start: 'top 88%' } });
