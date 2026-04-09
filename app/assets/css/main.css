@@ -1,0 +1,73 @@
+@import 'tailwindcss';
+
+/* ── Font Loading ── */
+@font-face {
+  font-family: 'Bauer Bodoni Pro_1 W05 Roman';
+  src:
+    url('fonts/bauer-bodoni-roman.woff2') format('woff2'),
+    url('fonts/bauer-bodoni-roman.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proxima Nova W01 Thin';
+  src:
+    url('fonts/proxima-nova-thin.woff2') format('woff2'),
+    url('fonts/proxima-nova-thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proxima Nova W01 Light';
+  src:
+    url('fonts/proxima-nova-light.woff2') format('woff2'),
+    url('fonts/proxima-nova-light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proxima Nova W01 Regular';
+  src:
+    url('fonts/proxima-nova-regular.woff2') format('woff2'),
+    url('fonts/proxima-nova-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Theme ── */
+@theme inline {
+  --font-body: 'Proxima Nova W01 Regular', system-ui, sans-serif;
+  --font-display: 'Proxima Nova W01 Light', system-ui, sans-serif;
+  --font-bauer-bodoni: 'Bauer Bodoni Pro_1 W05 Roman', 'Georgia', serif;
+
+  --color-background: #faf7f4;
+  --color-foreground: #1a1a1a;
+  --color-primary: #1a1a1a;
+  --color-muted: #6b7280;
+}
+
+:root {
+  --font-bauer-bodoni: 'Bauer Bodoni Pro_1 W05 Roman', 'Georgia', serif;
+  --primary: 0 0% 10%;
+  --sm-text: #1a1a1a;
+  --sm-muted: #6b7280;
+  --sm-pop: #00bfff;
+  --sm-surface: rgba(255,255,255,0.85);
+  --sm-warm: #faf7f4;
+}
+
+html, body {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-body);
+  color: var(--color-foreground);
+  background: var(--color-background);
+}
