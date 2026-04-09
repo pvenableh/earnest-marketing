@@ -1,0 +1,47 @@
+# Earnest
+
+> The AI-powered business operating system for creative agencies and service businesses.
+
+Earnest replaces the pile of disconnected tools — CRM, project management, invoicing, social media, email marketing, calendaring, team chat, phone, video, and AI intelligence — with one unified platform.
+
+## Key Information
+
+- Website: https://earnest.guru
+- App: https://app.earnest.guru
+- Pricing: Solo ($49/mo), Studio ($149/mo), Agency ($299/mo)
+- Every plan includes every feature. No feature gates.
+
+## Features
+
+- Productivity Engine: AI-powered command center that prioritizes your daily actions
+- CRM Intelligence: Health scores, pipeline forecasts, and growth plans from your real data
+- Health Snapshots: Instant business health scores — zero AI tokens required
+- Marketing AI Analyze: One-click marketing health assessment with campaign plans
+- AI Strategy Engine: Cross-module AI that generates campaigns and spots opportunities
+- Brand Awareness AI: Per-client brand voice and positioning across all AI features
+- Social AI Generate: Schedule to Instagram, LinkedIn, Facebook, Threads with AI content
+- Email Marketing AI: Block-based newsletter builder with AI-generated content
+- Goal Suggestions: AI-suggested strategic goals based on your business data
+- Project Management: Kanban boards, task lists, timelines, and project dashboards
+- People & Companies: Unified CRM for clients, contacts, prospects, and networking
+- Quick Tasks & AI To-Dos: Personal task lists with AI suggestions and scheduling
+- AI Token Management: Per-member AI usage budgets and monitoring
+- Client Access Control: Role-based visibility with team assignments
+- Invoicing & Billing: Stripe-powered invoices, proposals, and payment tracking
+- Team Channels: Slack-style messaging built into your workspace
+- Phone & Video: Twilio calling and Daily.co video linked to your CRM
+- Calendar & CRM Hub: Calendar-first scheduling with Google/Outlook sync and booking pages
+- CardDesk: AI-powered business card scanning with gamified networking
+- Earnest Companion: Mobile-first companion app for business on the go
+
+## Pages
+
+- Home: https://earnest.guru
+- Features: https://earnest.guru/features
+- Blog: https://earnest.guru/blog
+- Privacy Policy: https://earnest.guru/privacy-policy
+- Terms of Service: https://earnest.guru/terms-of-service
+
+## Contact
+
+For questions about Earnest, visit https://earnest.guru or sign up at https://app.earnest.guru/register

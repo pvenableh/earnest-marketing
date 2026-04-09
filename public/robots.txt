@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://earnest.guru/sitemap.xml
+LLMs: https://earnest.guru/llms.txt

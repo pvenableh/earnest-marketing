@@ -1066,6 +1066,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue';
 import '~/assets/css/sellsheet-modern.css';
+import { features } from '~/data/features';
 
 // GSAP loaded client-side only for SSR compatibility
 let gsap;
@@ -1318,28 +1319,7 @@ const toolCountWord = computed(() => {
 	return numberWords[count] || String(count);
 });
 
-const features = [
-	{ name: 'Productivity Engine', icon: 'i-lucide-zap', desc: 'Your command center. Scans tickets, projects, tasks, invoices, channels, social, deals, and goals — then surfaces prioritized actions, urgent items, and intelligent suggestions. No AI tokens needed — pure algorithmic intelligence that loads instantly every time you open Earnest.' },
-	{ name: 'CRM Intelligence', icon: 'i-lucide-scan-search', desc: 'AI reads across your entire business — contacts, clients, projects, tickets, invoices, deals, and goals — then generates health scores, pipeline forecasts, growth plans, and contact strategies tailored to your brand positioning and objectives.' },
-	{ name: 'Health Snapshots', icon: 'i-lucide-activity', desc: 'Instant CRM and marketing health scores computed from your real data — no AI tokens, no waiting. Algorithmic analysis of contacts, revenue trends, overdue items, and pipeline health gives you a live pulse on your business the moment you open the dashboard.' },
-	{ name: 'Marketing AI Analyze', icon: 'i-lucide-bar-chart-3', desc: 'AI scans your entire business — contacts, social, email, clients, revenue — and returns a marketing health score, actionable insights, and multi-channel campaign plans. Analyze for a specific client or your whole organization. One click.' },
-	{ name: 'AI Strategy Engine', icon: 'i-lucide-brain', desc: 'Your data becomes your strategist. AI connects the dots across every module to generate campaigns, spot opportunities, and surface insights no isolated tool can see.' },
-	{ name: 'Brand Awareness AI', icon: 'i-lucide-palette', desc: 'Set brand direction, goals, target audience, and location per client. Every AI feature — from CRM analysis to social posts to email campaigns — uses this context to generate suggestions aligned with your positioning. Not generic advice. Your brand, your voice, your market.' },
-	{ name: 'Social AI Generate', icon: 'i-lucide-sparkles', desc: 'Schedule to Instagram, LinkedIn, Facebook, and Threads. AI generates platform-optimized posts, hashtags, and image suggestions — all informed by your brand direction and target audience — in seconds.' },
-	{ name: 'Email Marketing AI', icon: 'i-lucide-mail', desc: 'Block-based newsletter builder with AI-powered content generation. Describe your email and get a complete template — subject line, sections, images, and copy — all tuned to your brand voice and audience.' },
-	{ name: 'Goal Suggestions', icon: 'i-lucide-target', desc: 'AI suggests strategic goals based on your actual data, brand direction, and business objectives — financial, networking, performance, marketing, or custom. Track progress with periodic snapshots and let the productivity engine factor your goals into daily priorities.' },
-	{ name: 'Project Management', icon: 'i-lucide-folder-kanban', desc: "Kanban boards, task lists, timelines, file attachments, and a command-center project dashboard with stats, document uploads, invoices, and activity feeds. Your team always knows what's next." },
-	{ name: 'People & Companies', icon: 'i-lucide-building-2', desc: 'Every person and company in one unified CRM — clients, contacts, prospects, and networking connections from CardDesk. Brand context, goals, services, and the full history of every conversation and project.' },
-	{ name: 'Quick Tasks & AI To-Dos', icon: 'i-lucide-check-square', desc: 'Personal task lists with AI-powered suggestions, day and week scheduling, motivational progress tracking, and confetti celebrations. AI generates task ideas based on your workload and brand context so nothing falls through the cracks.' },
-	{ name: 'AI Token Management', icon: 'i-lucide-coins', desc: 'Admins control AI usage per member — set monthly budgets, toggle access on and off, monitor usage across the team. Purchase token add-on packages when you need more. Full visibility into who uses what.' },
-	{ name: 'Client Access Control', icon: 'i-lucide-shield-check', desc: 'Role-based client visibility with team assignments and individual overrides. Owners and admins see everything. Managers and members see only the clients assigned to their teams — plus any individual access grants.' },
-	{ name: 'Invoicing & Billing', icon: 'i-lucide-receipt', desc: 'Stripe-powered invoices, proposals, payment tracking, and PDF generation. Get paid on time.' },
-	{ name: 'Team Channels', icon: 'i-lucide-message-square', desc: "Slack-style messaging built into your workspace. Conversations stay with the work they're about." },
-	{ name: 'Phone & Video', icon: 'i-lucide-video', desc: 'Twilio-powered calling and Daily.co video meetings linked to your CRM pipeline. Click-to-call contacts, record calls, host team video, and auto-log meetings as lead activities — all without leaving Earnest.' },
-	{ name: 'Calendar & CRM Hub', icon: 'i-lucide-calendar', desc: 'Calendar-first scheduling with meetings, follow-ups, and lead touchpoints on one view. Link meetings to your pipeline, auto-log CRM activities, and schedule directly from lead profiles. Google/Outlook sync, iCal feeds, public booking pages, and Daily.co video built in.' },
-	{ name: 'CardDesk', icon: 'i-lucide-credit-card', desc: 'Turn every business card and networking event into a CRM relationship. Scan cards with AI vision, track follow-ups, and gamify your networking with XP, levels, and badges.' },
-	{ name: 'Earnest Companion (E\u00B2)', icon: 'i-lucide-smartphone', desc: 'Your business in your pocket. Tasks, messages, contacts, and AI on the go — a mobile-first companion that keeps you connected to everything in Earnest.' },
-];
+// features imported from ~/data/features.ts
 
 const plans = [
 	{

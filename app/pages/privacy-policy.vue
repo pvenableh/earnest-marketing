@@ -8,10 +8,17 @@ definePageMeta({
 	layout: 'default',
 });
 
-useHead({ title: 'Privacy Policy | Earnest' });
+useHead({
+	title: 'Privacy Policy | Earnest',
+	link: [{ rel: 'canonical', href: 'https://earnest.guru/privacy-policy' }],
+});
 useSeoMeta({
 	title: 'Privacy Policy | Earnest',
 	description: 'Privacy policy for Earnest business management platform.',
+	ogTitle: 'Privacy Policy | Earnest',
+	ogDescription: 'Privacy policy for Earnest business management platform.',
+	ogUrl: 'https://earnest.guru/privacy-policy',
+	ogSiteName: 'Earnest',
 });
 
 const lastUpdated = 'February 6, 2026';

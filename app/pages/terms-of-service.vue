@@ -8,10 +8,17 @@ definePageMeta({
 	layout: 'default',
 });
 
-useHead({ title: 'Terms of Service | Earnest' });
+useHead({
+	title: 'Terms of Service | Earnest',
+	link: [{ rel: 'canonical', href: 'https://earnest.guru/terms-of-service' }],
+});
 useSeoMeta({
 	title: 'Terms of Service | Earnest',
 	description: 'Terms of service for Earnest business management platform.',
+	ogTitle: 'Terms of Service | Earnest',
+	ogDescription: 'Terms of service for Earnest business management platform.',
+	ogUrl: 'https://earnest.guru/terms-of-service',
+	ogSiteName: 'Earnest',
 });
 
 const lastUpdated = 'February 6, 2026';
