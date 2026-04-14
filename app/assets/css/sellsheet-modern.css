@@ -3074,3 +3074,102 @@
 .sm-cs-close {
 	margin-top: 16px;
 }
+
+/* ─── Earnest Score Widget ─── */
+.sm-mock-earnest-score {
+	text-align: center;
+}
+.sm-mock-score-ring {
+	position: relative;
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+	margin-bottom: 8px;
+}
+.sm-mock-radar {
+	width: 100%;
+	height: 100%;
+}
+.sm-mock-score-center {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.sm-mock-score-big {
+	font-size: 24px;
+	font-weight: 700;
+	color: #10b981;
+	line-height: 1;
+}
+.sm-mock-score-level {
+	font-size: 9px;
+	font-weight: 600;
+	color: var(--sm-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+.sm-mock-score-meta {
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+	font-size: 10px;
+	color: var(--sm-muted);
+}
+.sm-mock-score-streak,
+.sm-mock-score-badges {
+	background: rgba(0, 0, 0, 0.04);
+	padding: 2px 8px;
+	border-radius: 8px;
+}
+
+/* ─── AI Sidebar Widget ─── */
+.sm-mock-ai-sidebar {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-top: 4px;
+}
+.sm-mock-sidebar-msg {
+	font-size: 11px;
+	line-height: 1.5;
+	padding: 6px 10px;
+	border-radius: 8px;
+	max-width: 90%;
+}
+.sm-mock-sidebar-user {
+	background: rgba(255, 255, 255, 0.08);
+	color: rgba(255, 255, 255, 0.7);
+	align-self: flex-end;
+}
+.sm-mock-sidebar-ai {
+	background: rgba(16, 185, 129, 0.1);
+	color: rgba(255, 255, 255, 0.6);
+	align-self: flex-start;
+	display: flex;
+	gap: 6px;
+	align-items: flex-start;
+}
+.sm-mock-sidebar-prompts {
+	display: flex;
+	gap: 6px;
+	margin-top: 2px;
+}
+.sm-mock-sidebar-prompt {
+	font-size: 9px;
+	padding: 3px 8px;
+	border-radius: 6px;
+	background: rgba(255, 255, 255, 0.06);
+	color: rgba(255, 255, 255, 0.4);
+	cursor: default;
+}
+
+/* ─── CRM Pipeline Kanban ─── */
+.sm-mock-kanban-crm .sm-mock-kan-col {
+	min-width: 0;
+}
+.sm-mock-kanban-crm .sm-mock-kan-card {
+	padding: 8px 10px;
+}

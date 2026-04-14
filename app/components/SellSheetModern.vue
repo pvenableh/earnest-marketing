@@ -857,6 +857,73 @@
 							</div>
 						</div>
 					</div>
+					<!-- Earnest Score -->
+					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
+						<div class="sm-mock-widget">
+							<div class="sm-mock-header"><span class="sm-mock-title">Earnest Score</span><span class="sm-mock-pill">Today</span></div>
+							<div class="sm-mock-earnest-score">
+								<div class="sm-mock-score-ring">
+									<svg viewBox="0 0 80 80" class="sm-mock-radar">
+										<polygon points="40,8 66,24 66,56 40,72 14,56 14,24" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="0.5"/>
+										<polygon points="40,18 58,28 58,52 40,62 22,52 22,28" fill="none" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
+										<polygon points="40,12 62,22 62,58 40,68 18,58 18,22" fill="rgba(16,185,129,0.08)" stroke="#10b981" stroke-width="1.5" stroke-linejoin="round"/>
+									</svg>
+									<div class="sm-mock-score-center">
+										<span class="sm-mock-score-big">87</span>
+										<span class="sm-mock-score-level">Resolute</span>
+									</div>
+								</div>
+								<div class="sm-mock-score-meta">
+									<span class="sm-mock-score-streak">12-day streak</span>
+									<span class="sm-mock-score-badges">6 badges</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- AI Sidebar -->
+					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
+						<div class="sm-mock-widget sm-mock-widget-dark">
+							<div class="sm-mock-header">
+								<span class="sm-mock-title" style="color:white">AI Sidebar</span>
+								<span class="sm-mock-pill" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7)">Acme Corp</span>
+							</div>
+							<div class="sm-mock-ai-sidebar">
+								<div class="sm-mock-sidebar-msg sm-mock-sidebar-user">What's the status of this client?</div>
+								<div class="sm-mock-sidebar-msg sm-mock-sidebar-ai">
+									<UIcon name="i-lucide-sparkles" style="width:12px;height:12px;color:#10b981;flex-shrink:0" />
+									<span>3 open projects, $12k billed this quarter, last follow-up 2 days ago. Pipeline health: strong.</span>
+								</div>
+								<div class="sm-mock-sidebar-prompts">
+									<span class="sm-mock-sidebar-prompt">Growth plan</span>
+									<span class="sm-mock-sidebar-prompt">Contact strategy</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- CRM Pipeline Kanban -->
+					<div class="sm-showcase-cell sm-showcase-wide opacity-0" aria-hidden="true">
+						<div class="sm-mock-widget">
+							<div class="sm-mock-header"><span class="sm-mock-title">CRM Pipeline</span><span class="sm-mock-pill">$84k total</span></div>
+							<div class="sm-mock-kanban sm-mock-kanban-crm">
+								<div class="sm-mock-kan-col">
+									<div class="sm-mock-kan-head" style="border-color:#94a3b8">New <span class="sm-mock-kan-count">8</span></div>
+									<div class="sm-mock-kan-card"><div class="sm-mock-kan-title">Vertex Inc</div><div class="sm-mock-kan-meta"><span class="sm-mock-kan-tag" style="background:#e0f2fe;color:#0369a1">$6k</span></div></div>
+								</div>
+								<div class="sm-mock-kan-col">
+									<div class="sm-mock-kan-head" style="border-color:#f59e0b">Qualified <span class="sm-mock-kan-count">5</span></div>
+									<div class="sm-mock-kan-card"><div class="sm-mock-kan-title">Acme Corp</div><div class="sm-mock-kan-meta"><span class="sm-mock-kan-tag" style="background:#fef3c7;color:#92400e">$12k</span></div></div>
+								</div>
+								<div class="sm-mock-kan-col">
+									<div class="sm-mock-kan-head" style="border-color:#6366f1">Proposal <span class="sm-mock-kan-count">3</span></div>
+									<div class="sm-mock-kan-card"><div class="sm-mock-kan-title">Nova Labs</div><div class="sm-mock-kan-meta"><span class="sm-mock-kan-tag" style="background:#ede9fe;color:#5b21b6">$8k</span></div></div>
+								</div>
+								<div class="sm-mock-kan-col">
+									<div class="sm-mock-kan-head" style="border-color:#10b981">Won <span class="sm-mock-kan-count">5</span></div>
+									<div class="sm-mock-kan-card sm-mock-kan-done"><div class="sm-mock-kan-title">Bright Studio</div><div class="sm-mock-kan-meta"><span class="sm-mock-kan-tag" style="background:#d1fae5;color:#065f46">$18k</span></div></div>
+								</div>
+							</div>
+						</div>
+					</div>
 					<!-- Scheduler -->
 					<div class="sm-showcase-cell sm-showcase-wide opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget">
@@ -1179,7 +1246,9 @@ const aiChipTexts = [
 	'AI scoring CRM health...',
 	'AI building marketing plan...',
 	'AI generating email campaign...',
-	'AI forecasting pipeline...',
+	'AI reviewing pipeline health...',
+	'Context Broker assembling org snapshot...',
+	'Earnest Score: 87 — Resolute level...',
 	'AI suggesting goals...',
 	'AI reviewing project timelines...',
 	'AI composing newsletters...',
@@ -1292,14 +1361,23 @@ const replacedTools = [
 	{ name: 'Zoom', replaces: 'Video meetings', icon: 'i-lucide-video' },
 	{ name: 'Calendly', replaces: 'CRM scheduling', icon: 'i-lucide-calendar' },
 	{ name: 'HubSpot', replaces: 'Unified CRM', icon: 'i-lucide-users' },
+	{ name: 'Pipedrive', replaces: 'Sales pipeline', icon: 'i-lucide-git-branch' },
 	{ name: 'Lattice', replaces: 'Goal tracking', icon: 'i-lucide-target' },
 	{ name: 'Isolated AI', replaces: 'AI assistant', icon: 'i-lucide-sparkles' },
 ];
 
 const aiCapabilities = [
 	{
-		title: 'Connected intelligence',
-		desc: 'Every other platform analyzes its own data in isolation. EARNEST connects AI to your entire operation — people, companies, projects, revenue, conversations, campaigns, and goals — simultaneously. The result is insight no single-purpose tool can produce.',
+		title: 'Entity-scoped AI',
+		desc: 'Open a client, project, or lead — the AI sidebar already knows the context. Ask questions, get strategies, save answers as notes. Every entity gets its own persistent AI conversation.',
+	},
+	{
+		title: 'Context Broker',
+		desc: 'Every AI conversation draws from a live org snapshot: clients, deals, invoices, tickets, and brand. A 3-tier cache keeps context fresh without burning tokens. No copy-pasting context.',
+	},
+	{
+		title: 'CRM intelligence',
+		desc: 'AI reviews your pipeline health, suggests contact strategies, and flags stalled deals before you notice them. Drag-and-drop Kanban takes leads from first contact to closed-won.',
 	},
 	{
 		title: 'Brand awareness',
@@ -1528,7 +1606,7 @@ useHead({
 	meta: [
 		{
 			name: 'description',
-			content: 'Earnest is the AI-powered platform where your work actually lives. Projects, invoicing, goals, social scheduling, team channels, phone & video, CRM, and AI that sees everything.',
+			content: 'Earnest is the AI-powered platform where your work actually lives. Projects, invoicing, goals, social scheduling, team channels, phone & video, CRM pipeline, gamification, contextual AI sidebar, and intelligence that sees everything.',
 		},
 	],
 });

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const description = 'The AI-powered business operating system for creative agencies. Projects, CRM, invoicing, marketing, and AI intelligence — all in one platform.';
+const description = 'The AI-powered business operating system for creative agencies. Projects, CRM pipeline, invoicing, marketing, gamification, and contextual AI intelligence — all in one platform.';
 
 useHead({
   title: 'Earnest — Do good work.',
@@ -19,6 +19,7 @@ useHead({
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         description,
+        featureList: 'Productivity Engine, CRM Intelligence, Contextual AI Sidebar, Earnest Score & Gamification, AI Strategy Engine & Context Broker, Marketing AI, Social AI, Email Marketing, Project Management, Invoicing, Team Channels, Phone & Video, Calendar, CardDesk',
         url: 'https://earnest.guru',
         offers: {
           '@type': 'AggregateOffer',
