@@ -311,3 +311,80 @@ export function getRelatedFeatures(slug: string, count = 3): Feature[] {
   // Simple shuffle and take first N
   return others.sort(() => 0.5 - Math.random()).slice(0, count);
 }
+
+/**
+ * Slugs captured by scripts/capture-demo-screenshots.ts in the `earnest` app
+ * repo. The capture script writes each to
+ * public/screenshots/<YYYY-MM>/<shot>.png AND public/screenshots/latest/<shot>.png.
+ * The `latest/` mirror is what feature pages read from, so the site always
+ * shows the most recent capture regardless of month.
+ */
+export type DemoShot =
+  // Solo (Member role)
+  | 'command-center'
+  | 'leads-pipeline'
+  | 'contact-detail'
+  | 'client-detail'
+  | 'project-timeline'
+  | 'tickets-kanban'
+  | 'financials-overview'
+  // Agency (Admin role) — unlocked in demo v2
+  | 'marketing-overview'
+  | 'organization-overview'
+  | 'organization-teams'
+  | 'team-detail';
+
+interface DemoMapping {
+  /** Path under `https://app.earnest.guru` to deep-link the "Try this live" CTA to. */
+  path: string;
+  /** Screenshot slug used on the feature page. */
+  shot: DemoShot;
+  /**
+   * Which demo persona to sign the visitor into before redirecting. Default
+   * is `solo` (Member role). Admin-only destinations (`/organization/*`,
+   * `/teams/*`, full `/marketing`) should set this to `agency` so the
+   * redirect doesn't land on a 403.
+   */
+  persona?: 'solo' | 'agency';
+}
+
+const DEFAULT_DEMO: DemoMapping = { path: '/command-center', shot: 'command-center' };
+
+/**
+ * Per-feature demo mapping. Features without a dedicated screen fall back to
+ * the command-center overview, which is the broadest single-page view the
+ * Member-role demo user can see.
+ */
+const FEATURE_DEMO_MAP: Record<string, DemoMapping> = {
+  'productivity-engine': { path: '/command-center', shot: 'command-center' },
+  'crm-intelligence': { path: '/leads', shot: 'leads-pipeline' },
+  'health-snapshots': { path: '/command-center', shot: 'command-center' },
+  'marketing-ai-analyze': { path: '/marketing', shot: 'marketing-overview', persona: 'agency' },
+  'ai-strategy-engine': { path: '/command-center', shot: 'command-center' },
+  'brand-awareness-ai': { path: '/command-center', shot: 'command-center' },
+  'social-ai-generate': { path: '/command-center', shot: 'command-center' },
+  'email-marketing-ai': { path: '/marketing', shot: 'marketing-overview', persona: 'agency' },
+  'goal-suggestions': { path: '/command-center', shot: 'command-center' },
+  'project-management': { path: '/projects', shot: 'project-timeline' },
+  'people-and-companies': { path: '/contacts', shot: 'contact-detail' },
+  'quick-tasks-and-ai-to-dos': { path: '/command-center', shot: 'command-center' },
+  'ai-token-management': { path: '/command-center', shot: 'command-center' },
+  'client-access-control': { path: '/organization/teams', shot: 'organization-teams', persona: 'agency' },
+  'invoicing-and-billing': { path: '/financials', shot: 'financials-overview' },
+  'team-channels': { path: '/command-center', shot: 'command-center' },
+  'phone-and-video': { path: '/command-center', shot: 'command-center' },
+  'calendar-and-crm-hub': { path: '/command-center', shot: 'command-center' },
+  'carddesk': { path: '/command-center', shot: 'command-center' },
+  'contextual-ai-sidebar': { path: '/command-center', shot: 'command-center' },
+  'earnest-score': { path: '/command-center', shot: 'command-center' },
+  'earnest-companion': { path: '/command-center', shot: 'command-center' },
+};
+
+export function getFeatureDemo(slug: string): DemoMapping {
+  return FEATURE_DEMO_MAP[slug] ?? DEFAULT_DEMO;
+}
+
+/** Screenshot URL under `/public` — feature pages read from `latest/`. */
+export function getScreenshotSrc(shot: DemoShot): string {
+  return `/screenshots/latest/${shot}.png`;
+}

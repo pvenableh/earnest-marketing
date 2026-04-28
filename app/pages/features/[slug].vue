@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { features, getFeatureBySlug, getRelatedFeatures } from '~/data/features';
+import { features, getFeatureBySlug, getRelatedFeatures, getFeatureDemo, getScreenshotSrc } from '~/data/features';
 
 const route = useRoute();
 const slug = route.params.slug as string;
@@ -12,6 +12,15 @@ if (!feature) {
 const related = getRelatedFeatures(slug, 3);
 const config = useRuntimeConfig();
 const appUrl = config.public.appUrl || 'https://app.earnest.guru';
+
+const demo = getFeatureDemo(slug);
+const screenshotSrc = getScreenshotSrc(demo.shot);
+const tryLiveUrl = (() => {
+  const params = new URLSearchParams();
+  params.set('persona', demo.persona ?? 'solo');
+  params.set('redirect', demo.path);
+  return `${appUrl}/try-demo?${params.toString()}`;
+})();
 
 const title = `${feature.name} — Earnest`;
 const description = feature.desc;
@@ -83,8 +92,34 @@ useSeoMeta({
         </div>
       </section>
 
+      <section class="fd-shot">
+        <figure class="fd-shot-frame">
+          <img
+            :src="screenshotSrc"
+            :alt="`${feature.name} inside Earnest`"
+            loading="lazy"
+            decoding="async"
+            class="fd-shot-img"
+          />
+        </figure>
+        <figcaption class="fd-shot-caption">
+          Live view from the public demo — no signup needed.
+        </figcaption>
+      </section>
+
       <section v-if="feature.keywords.length" class="fd-keywords">
         <span v-for="kw in feature.keywords" :key="kw" class="fd-keyword">{{ kw }}</span>
+      </section>
+
+      <section class="fd-try-live">
+        <div class="fd-try-live-text">
+          <h2 class="fd-try-live-title">Try this live</h2>
+          <p class="fd-try-live-sub">Drops you straight into the relevant screen with sample data.</p>
+        </div>
+        <a :href="tryLiveUrl" class="fd-try-live-btn">
+          <UIcon name="i-lucide-play-circle" class="fd-try-live-ico" />
+          <span>Open the demo</span>
+        </a>
       </section>
 
       <section class="fd-cta-block">
@@ -210,6 +245,68 @@ useSeoMeta({
   margin-top: 2px;
 }
 
+/* Screenshot */
+.fd-shot { padding: 24px 0 32px; }
+.fd-shot-frame {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+}
+.fd-shot-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: top left;
+  background: #f4f4f5;
+}
+.fd-shot-caption {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #a1a1aa;
+  text-align: center;
+}
+
+/* Try this live CTA */
+.fd-try-live {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 22px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgba(0, 191, 255, 0.18);
+  border-radius: 14px;
+  margin: 20px 0 32px;
+}
+.fd-try-live-title { font-size: 16px; font-weight: 600; }
+.fd-try-live-sub { font-size: 13px; color: #6b7280; margin-top: 2px; }
+.fd-try-live-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: #00bfff;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 100px;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fd-try-live-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 191, 255, 0.3);
+}
+.fd-try-live-ico { width: 16px; height: 16px; }
+
 /* Keywords */
 .fd-keywords { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 0 40px; }
 .fd-keyword {
@@ -297,5 +394,7 @@ useSeoMeta({
   .fd-hero { padding: 72px 0 32px; }
   .fd-related-grid { grid-template-columns: 1fr; }
   .fd-cta-block { padding: 36px 24px; border-radius: 16px; }
+  .fd-try-live { flex-direction: column; align-items: stretch; text-align: center; }
+  .fd-try-live-btn { justify-content: center; }
 }
 </style>

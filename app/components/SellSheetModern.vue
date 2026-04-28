@@ -9,6 +9,38 @@
 			<div class="sm-nav-links">
 				<nuxt-link to="/features" class="sm-nav-link">Features</nuxt-link>
 				<nuxt-link to="/blog" class="sm-nav-link">Blog</nuxt-link>
+				<div ref="navDemoRef" class="sm-nav-demo">
+					<button
+						type="button"
+						class="sm-nav-link sm-nav-demo-trigger"
+						:aria-expanded="navDemoOpen"
+						aria-haspopup="menu"
+						@click.stop="navDemoOpen = !navDemoOpen"
+					>
+						See it live
+						<svg class="sm-nav-caret" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3 L5 7 L9 3" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
+					</button>
+					<div v-if="navDemoOpen" class="sm-nav-menu" role="menu">
+						<a :href="soloDemoUrl" class="sm-nav-menu-item" role="menuitem" @click="navDemoOpen = false">
+							<span class="sm-nav-menu-title">Solo demo</span>
+							<span class="sm-nav-menu-desc">One creator, live data, ~2&nbsp;min walkthrough.</span>
+						</a>
+						<a
+							v-if="AGENCY_DEMO_READY"
+							:href="agencyDemoUrl"
+							class="sm-nav-menu-item"
+							role="menuitem"
+							@click="navDemoOpen = false"
+						>
+							<span class="sm-nav-menu-title">Agency demo</span>
+							<span class="sm-nav-menu-desc">Team pipeline, marketing, billing (admin view).</span>
+						</a>
+						<span v-else class="sm-nav-menu-item sm-nav-menu-item-disabled" role="menuitem" aria-disabled="true" :title="AGENCY_DEMO_TOOLTIP">
+							<span class="sm-nav-menu-title">Agency demo <span class="sm-nav-menu-pill">Soon</span></span>
+							<span class="sm-nav-menu-desc">Team pipeline, marketing, billing (admin view).</span>
+						</span>
+					</div>
+				</div>
 				<a href="#pricing" class="sm-nav-link">Pricing</a>
 			</div>
 			<a :href="appUrl + '/auth/signin'" class="sm-nav-signin">Sign In</a>
@@ -35,6 +67,30 @@
 				<div class="sm-hero-actions opacity-0">
 					<button class="sm-btn-primary" @click="showComingSoon = true">Start for free</button>
 					<a href="#features" class="sm-btn-ghost">See how it works</a>
+				</div>
+				<div class="sm-hero-demo opacity-0">
+					<a :href="soloDemoUrl" class="sm-demo-link sm-demo-solo">
+						<UIcon name="i-lucide-play-circle" class="sm-demo-ico" />
+						<span>Try the solo demo</span>
+					</a>
+					<a
+						v-if="AGENCY_DEMO_READY"
+						:href="agencyDemoUrl"
+						class="sm-demo-link sm-demo-solo"
+					>
+						<UIcon name="i-lucide-users" class="sm-demo-ico" />
+						<span>Try the agency demo</span>
+					</a>
+					<span
+						v-else
+						class="sm-demo-link sm-demo-agency"
+						:title="AGENCY_DEMO_TOOLTIP"
+						aria-disabled="true"
+					>
+						<UIcon name="i-lucide-users" class="sm-demo-ico" />
+						<span>Try the agency demo</span>
+						<span class="sm-demo-pill">Coming soon</span>
+					</span>
 				</div>
 			</div>
 			<!-- Background Widget Cloud — 5 ambient outcome widgets -->
@@ -99,6 +155,25 @@
 					</div>
 				</div>
 			</div>
+		</section>
+
+		<!-- ─── Hero screenshot (real product shot, above-the-fold proof) ─── -->
+		<section class="sm-hero-shot opacity-0">
+			<figure class="sm-hero-shot-frame">
+				<div class="sm-hero-shot-chrome" aria-hidden="true">
+					<span></span><span></span><span></span>
+				</div>
+				<img
+					:src="heroScreenshotSrc"
+					alt="Earnest command center — the unified dashboard view"
+					loading="eager"
+					decoding="async"
+					class="sm-hero-shot-img"
+				/>
+			</figure>
+			<figcaption class="sm-hero-shot-caption">
+				Live command center. No mockup — this is the public demo.
+			</figcaption>
 		</section>
 
 		<!-- ─── Widget Carousel ─── -->
@@ -1144,6 +1219,18 @@ let ScrollTrigger;
 const config = useRuntimeConfig();
 const appUrl = config.public.appUrl || 'https://app.earnest.guru';
 
+// Demo personas — both shipped as of 2026-04-23. Flip AGENCY_DEMO_READY off
+// if the agency endpoint is taken down for maintenance; the CTA reverts to a
+// disabled "Coming soon" pill without further template changes.
+const AGENCY_DEMO_READY = true;
+const AGENCY_DEMO_TOOLTIP = 'Admin-role agency walkthrough — shipping soon.';
+const soloDemoUrl = `${appUrl}/try-demo?persona=solo`;
+const agencyDemoUrl = `${appUrl}/try-demo?persona=agency`;
+
+// Hero screenshot — captured by scripts/capture-demo-screenshots.ts in the
+// earnest app repo. Feature pages read the same `latest/` mirror.
+const heroScreenshotSrc = '/screenshots/latest/command-center.png';
+
 // ── Refs ──
 const heroRef = ref(null);
 const truthRef = ref(null);
@@ -1158,6 +1245,13 @@ const testimonialsRef = ref(null);
 
 // ── Scroll-aware nav ──
 const navScrolled = ref(false);
+const navDemoOpen = ref(false);
+const navDemoRef = ref(null);
+
+function onNavDocClick(e) {
+	if (!navDemoRef.value) return;
+	if (!navDemoRef.value.contains(e.target)) navDemoOpen.value = false;
+}
 const hoveredOrbit = ref(-1);
 const orbitAutoActive = ref(true);
 let orbitInterval = null;
@@ -1440,6 +1534,7 @@ onMounted(async () => {
 	gsap.registerPlugin(ScrollTrigger);
 
 	window.addEventListener('scroll', onScroll, { passive: true });
+	document.addEventListener('click', onNavDocClick);
 	onScroll();
 	startOrbitAutoRotate();
 
@@ -1453,6 +1548,8 @@ onMounted(async () => {
 			.fromTo('.sm-hero-tagline', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.3')
 			.fromTo('.sm-hero-sub', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.4')
 			.fromTo('.sm-hero-actions', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.4')
+			.fromTo('.sm-hero-demo', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.5')
+			.fromTo('.sm-hero-shot', { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.3')
 		// Hero background widgets — subtle entrance, gentle float
 		const hwEls = document.querySelectorAll('.sm-hw');
 		hwEls.forEach((el, i) => {
@@ -1596,6 +1693,7 @@ onMounted(async () => {
 
 onUnmounted(() => {
 	window.removeEventListener('scroll', onScroll);
+	document.removeEventListener('click', onNavDocClick);
 	if (ctx) ctx.revert();
 	if (orbitInterval) clearInterval(orbitInterval);
 	if (orbitResumeTimeout) clearTimeout(orbitResumeTimeout);
