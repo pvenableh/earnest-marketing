@@ -50,7 +50,7 @@
 		<section ref="heroRef" class="sm-hero">
 			<div class="sm-hero-mesh" aria-hidden="true"></div>
 			<div class="sm-hero-content">
-				<p class="sm-hero-kicker opacity-0">The AI-powered business operating system</p>
+				<p class="sm-hero-kicker opacity-0">The <span class="sm-brand">Earnest</span> Intelligence operating system</p>
 				<h1 class="sm-hero-wordmark opacity-0">
 					Earnest<span class="sm-hero-period">.</span>
 				</h1>
@@ -62,7 +62,7 @@
 				<p class="sm-hero-sub opacity-0">
 					Intuitive movement<span class="sm-accent-dot">.</span>
 					Actionable experiences<span class="sm-accent-dot">.</span>
-					AI that sees everything<span class="sm-accent-dot">.</span>
+					<span class="sm-brand">Earnest</span> sees everything<span class="sm-accent-dot">.</span>
 				</p>
 				<div class="sm-hero-actions opacity-0">
 					<button class="sm-btn-primary" @click="showComingSoon = true">Start for free</button>
@@ -100,7 +100,7 @@
 					<div class="sm-float-card sm-float-card-compact">
 						<div class="sm-float-ai-chip">
 							<UIcon name="i-lucide-sparkles" style="width:12px;height:12px" />
-							<span ref="aiChipTextRef">AI analyzing 142 contacts...</span>
+							<span ref="aiChipTextRef">Earnest analyzing 142 contacts...</span>
 						</div>
 					</div>
 				</div>
@@ -430,7 +430,7 @@
 					<div class="sm-truth-card opacity-0">
 						<UIcon name="i-lucide-brain" class="sm-truth-card-icon" />
 						<div>
-							<div class="sm-truth-card-title">AI sees everything</div>
+							<div class="sm-truth-card-title"><span class="sm-brand">Earnest</span> sees everything</div>
 							<div class="sm-truth-card-desc">Contacts, revenue, goals, campaigns &mdash; connected</div>
 						</div>
 					</div>
@@ -503,13 +503,13 @@
 				<div class="sm-ai-body">
 					<h2 class="sm-ai-headline opacity-0">
 						Your data talks<span class="sm-accent-dot">.</span><br />
-						<span class="sm-ai-em">AI listens<span class="sm-accent-dot">.</span></span>
+						<span class="sm-ai-em"><span class="sm-brand">Earnest</span> listens<span class="sm-accent-dot">.</span></span>
 					</h2>
 					<p class="sm-ai-lede opacity-0">
-						Most tools bolt AI onto one channel. <span class="sm-brand">Earnest</span> gives AI the full picture &mdash; people, companies, projects,
-						revenue, conversations, campaigns, financials, and goals &mdash; layered with brand direction and target
-						audience for every client. The result is CRM intelligence, marketing plans, pipeline forecasts, and goal
-						suggestions that are uniquely yours.
+						Most tools bolt AI onto one channel. <span class="sm-brand">Earnest</span> Intelligence sees the full picture
+						&mdash; people, companies, projects, revenue, conversations, campaigns, financials, and goals &mdash;
+						layered with brand direction and target audience for every client. The result is CRM intelligence,
+						marketing plans, pipeline forecasts, and goal suggestions that are uniquely yours.
 					</p>
 					<div class="sm-ai-grid">
 						<div v-for="(cap, i) in aiCapabilities" :key="i" class="sm-ai-card opacity-0">
@@ -1196,7 +1196,7 @@
 					You save <strong>${{ savings }}/mo</strong> &mdash; that&rsquo;s <strong>${{ savings * 12 }}/yr</strong> back in your pocket.
 				</div>
 				<div class="sm-calc-savings sm-calc-savings-muted" v-else>
-					And you get connected AI intelligence that {{ toolCount }} separate tools can never provide.
+					And you get connected <span class="sm-brand">Earnest</span> Intelligence that {{ toolCount }} separate tools can never provide.
 				</div>
 			</div>
 		</section>
@@ -1522,21 +1522,21 @@ function resetComingSoon() {
 }
 const aiChipTextRef = ref(null);
 const aiChipTexts = [
-	'AI analyzing 142 contacts...',
-	'AI scanning revenue trends...',
-	'AI drafting social posts...',
-	'AI scoring CRM health...',
-	'AI building marketing plan...',
-	'AI generating email campaign...',
-	'AI reviewing pipeline health...',
+	'Earnest analyzing 142 contacts...',
+	'Earnest scanning revenue trends...',
+	'Earnest drafting social posts...',
+	'Earnest scoring CRM health...',
+	'Earnest building marketing plan...',
+	'Earnest generating email campaign...',
+	'Earnest reviewing pipeline health...',
 	'Context Broker assembling org snapshot...',
 	'Earnest Score: 87 — Resolute level...',
-	'AI suggesting goals...',
-	'AI reviewing project timelines...',
-	'AI composing newsletters...',
-	'AI optimizing brand strategy...',
-	'AI drafting a proposal from lead context...',
-	'AI matching library blocks to terms...',
+	'Earnest suggesting goals...',
+	'Earnest reviewing project timelines...',
+	'Earnest composing newsletters...',
+	'Earnest optimizing brand strategy...',
+	'Earnest drafting a proposal from lead context...',
+	'Earnest matching library blocks to terms...',
 	'Contract signed — audit log captured...',
 ];
 function onScroll() {

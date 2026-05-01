@@ -977,13 +977,14 @@
 }
 
 /* ─── WIDGET CAROUSEL ─── */
+/* Full-viewport rail: slides ride off both edges and the card shadows can */
+/* spill vertically beyond the row without getting cropped. */
 .sm-widget-carousel {
-	padding: 24px 0;
-	overflow: hidden;
+	padding: 28px 0 36px;
 	position: relative;
 	border-bottom: 1px solid var(--sm-border);
-	mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-	-webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+	overflow-x: clip;
+	overflow-y: visible;
 }
 .sm-carousel-track {
 	display: flex;
