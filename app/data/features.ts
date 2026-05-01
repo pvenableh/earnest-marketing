@@ -382,6 +382,8 @@ export type DemoShot =
   | 'financials-overview'
   | 'people-dashboard'
   | 'scheduler-day'
+  | 'quick-tasks'
+  | 'time-tracker'
   | 'proposals-composer'
   | 'proposals-preview'
   | 'contracts-list'
@@ -427,7 +429,7 @@ const FEATURE_DEMO_MAP: Record<string, DemoMapping> = {
   'goal-suggestions': { path: '/command-center', shot: 'command-center' },
   'project-management': { path: '/projects', shot: 'project-timeline' },
   'people-and-companies': { path: '/people', shot: 'people-dashboard' },
-  'quick-tasks-and-ai-to-dos': { path: '/command-center', shot: 'command-center' },
+  'quick-tasks-and-ai-to-dos': { path: '/tasks', shot: 'quick-tasks' },
   'ai-token-management': { path: '/command-center', shot: 'command-center' },
   'client-access-control': { path: '/organization/teams', shot: 'organization-teams', persona: 'agency' },
   'invoicing-and-billing': { path: '/financials', shot: 'financials-overview' },
