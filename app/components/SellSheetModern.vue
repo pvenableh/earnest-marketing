@@ -1347,6 +1347,9 @@ const aiChipTexts = [
 	'AI reviewing project timelines...',
 	'AI composing newsletters...',
 	'AI optimizing brand strategy...',
+	'AI drafting a proposal from lead context...',
+	'AI matching library blocks to terms...',
+	'Contract signed — audit log captured...',
 ];
 function onScroll() {
 	navScrolled.value = window.scrollY > 80;

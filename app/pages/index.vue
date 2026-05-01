@@ -19,7 +19,7 @@ useHead({
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         description,
-        featureList: 'Productivity Engine, CRM Intelligence, Contextual AI Sidebar, Earnest Score & Gamification, AI Strategy Engine & Context Broker, Marketing AI, Social AI, Email Marketing, Project Management, Invoicing, Team Channels, Phone & Video, Calendar, CardDesk',
+        featureList: 'Productivity Engine, CRM Intelligence, Contextual AI Sidebar, Earnest Score & Gamification, AI Strategy Engine & Context Broker, Marketing AI, Social AI, Email Marketing, Project Management, Invoicing, Contracts & E-Signing, AI Proposal Drafter, Reusable Document Blocks, Whitelabel, Team Channels, Phone & Video, Calendar, CardDesk',
         url: 'https://earnest.guru',
         offers: {
           '@type': 'AggregateOffer',

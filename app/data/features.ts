@@ -208,6 +208,58 @@ export const features: Feature[] = [
     ],
   },
   {
+    name: 'Contracts & E-Signing',
+    slug: 'contracts',
+    icon: 'i-lucide-file-signature',
+    desc: 'Send branded contracts and collect typed signatures without a third-party tab. Convert any won proposal into a contract in one click, share a public sign link, and capture a signature audit log (name, email, IP, timestamp). Lives in the same document system as proposals — same blocks, same branding, same footer.',
+    keywords: ['contracts', 'e-signing', 'electronic signature', 'agreements', 'document signing'],
+    benefits: [
+      'Convert any won proposal into a contract in one click',
+      'Public sign link with typed signature — no third-party dependency',
+      'Audit log captures name, email, IP, and timestamp on every signature',
+      'Same document system as proposals — reuse blocks, branding, and footer',
+    ],
+  },
+  {
+    name: 'AI Proposal Drafter',
+    slug: 'ai-proposal-drafter',
+    icon: 'i-lucide-wand-2',
+    desc: 'Hand the AI a lead and get back a complete proposal draft. The drafter pulls the lead\'s full context — contact, prior activities, sourced attribution, brief — uses your service templates as the spine, and slots in library blocks for terms, references, and deliverables. Outputs an editable BlockComposer so you stay in control of the final cut.',
+    keywords: ['ai proposals', 'proposal generation', 'service templates', 'sales automation', 'document automation'],
+    benefits: [
+      'Drafts a full proposal from a lead\'s context in one step',
+      'Uses your service templates as the structural spine',
+      'Pulls library blocks for standard terms, deliverables, and references',
+      'Outputs an editable composer — never a black-box send',
+    ],
+  },
+  {
+    name: 'Reusable Document Blocks',
+    slug: 'document-blocks',
+    icon: 'i-lucide-layout-template',
+    desc: 'A per-org library of reusable blocks — bio, references, deliverables, terms, NDA, case studies — that compose into proposals and contracts via a drag-and-drop composer. Edit a block once and every document that references it stays in sync, or override inline for one-off changes.',
+    keywords: ['document blocks', 'content library', 'proposal blocks', 'contract templates', 'reusable content'],
+    benefits: [
+      'Per-org library of reusable content blocks',
+      'Compose proposals and contracts with drag-and-drop blocks',
+      'Edit once, propagate everywhere — or override inline per document',
+      'Library spans bio, references, terms, NDA, deliverables, and case studies',
+    ],
+  },
+  {
+    name: 'Whitelabel',
+    slug: 'whitelabel',
+    icon: 'i-lucide-eye-off',
+    desc: 'A single org-level toggle hides "Powered by Earnest." across every client-facing surface — proposals, contracts, invoices, public sign pages. Available on Studio, Agency, and Enterprise plans. Your brand, end to end.',
+    keywords: ['whitelabel', 'white label', 'branding', 'agency branding', 'remove powered by'],
+    benefits: [
+      'Single toggle hides "Powered by Earnest." everywhere',
+      'Covers proposals, contracts, invoices, and public sign pages',
+      'Plan-gated to Studio, Agency, and Enterprise',
+      'Org-wide setting — no per-document configuration needed',
+    ],
+  },
+  {
     name: 'Team Channels',
     slug: 'team-channels',
     icon: 'i-lucide-message-square',
@@ -328,10 +380,18 @@ export type DemoShot =
   | 'project-timeline'
   | 'tickets-kanban'
   | 'financials-overview'
+  | 'people-dashboard'
+  | 'scheduler-day'
+  | 'proposals-composer'
+  | 'proposals-preview'
+  | 'contracts-list'
+  | 'contracts-signed'
+  | 'ai-sidebar'
   // Agency (Admin role) — unlocked in demo v2
   | 'marketing-overview'
   | 'organization-overview'
   | 'organization-teams'
+  | 'organization-branding'
   | 'team-detail';
 
 interface DemoMapping {
@@ -358,7 +418,7 @@ const DEFAULT_DEMO: DemoMapping = { path: '/command-center', shot: 'command-cent
 const FEATURE_DEMO_MAP: Record<string, DemoMapping> = {
   'productivity-engine': { path: '/command-center', shot: 'command-center' },
   'crm-intelligence': { path: '/leads', shot: 'leads-pipeline' },
-  'health-snapshots': { path: '/command-center', shot: 'command-center' },
+  'health-snapshots': { path: '/people', shot: 'people-dashboard' },
   'marketing-ai-analyze': { path: '/marketing', shot: 'marketing-overview', persona: 'agency' },
   'ai-strategy-engine': { path: '/command-center', shot: 'command-center' },
   'brand-awareness-ai': { path: '/command-center', shot: 'command-center' },
@@ -366,16 +426,20 @@ const FEATURE_DEMO_MAP: Record<string, DemoMapping> = {
   'email-marketing-ai': { path: '/marketing', shot: 'marketing-overview', persona: 'agency' },
   'goal-suggestions': { path: '/command-center', shot: 'command-center' },
   'project-management': { path: '/projects', shot: 'project-timeline' },
-  'people-and-companies': { path: '/contacts', shot: 'contact-detail' },
+  'people-and-companies': { path: '/people', shot: 'people-dashboard' },
   'quick-tasks-and-ai-to-dos': { path: '/command-center', shot: 'command-center' },
   'ai-token-management': { path: '/command-center', shot: 'command-center' },
   'client-access-control': { path: '/organization/teams', shot: 'organization-teams', persona: 'agency' },
   'invoicing-and-billing': { path: '/financials', shot: 'financials-overview' },
+  'contracts': { path: '/contracts', shot: 'contracts-list' },
+  'ai-proposal-drafter': { path: '/proposals', shot: 'proposals-composer' },
+  'document-blocks': { path: '/proposals', shot: 'proposals-preview' },
+  'whitelabel': { path: '/organization', shot: 'organization-branding', persona: 'agency' },
   'team-channels': { path: '/command-center', shot: 'command-center' },
   'phone-and-video': { path: '/command-center', shot: 'command-center' },
-  'calendar-and-crm-hub': { path: '/command-center', shot: 'command-center' },
-  'carddesk': { path: '/command-center', shot: 'command-center' },
-  'contextual-ai-sidebar': { path: '/command-center', shot: 'command-center' },
+  'calendar-and-crm-hub': { path: '/scheduler', shot: 'scheduler-day' },
+  'carddesk': { path: '/contacts', shot: 'contact-detail' },
+  'contextual-ai-sidebar': { path: '/clients', shot: 'ai-sidebar' },
   'earnest-score': { path: '/command-center', shot: 'command-center' },
   'earnest-companion': { path: '/command-center', shot: 'command-center' },
 };
