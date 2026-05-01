@@ -93,7 +93,8 @@
 					</span>
 				</div>
 			</div>
-			<!-- Background Widget Cloud — 5 ambient outcome widgets -->
+			<!-- Background Widget Cloud — restyled to Clean-Gantt language. -->
+			<!-- Source-of-truth components for each widget are noted inline. -->
 			<div class="sm-hero-widgets" aria-hidden="true">
 				<div class="sm-hw sm-hw-ai-top">
 					<div class="sm-float-card sm-float-card-compact">
@@ -103,19 +104,22 @@
 						</div>
 					</div>
 				</div>
+				<!-- Mirrors `Financials/RevenueChart.vue` stat card + sparkline. -->
 				<div class="sm-hw sm-hw-1">
 					<div class="sm-float-card">
-						<div class="sm-float-header"><span class="sm-float-label">Revenue</span><span class="sm-float-trend sm-float-trend-up">+12%</span></div>
+						<div class="sm-float-header"><span class="sm-float-label">Revenue</span><span class="sm-status-chip sm-status-success">+12%</span></div>
 						<div class="sm-float-big">$24.8k</div>
-						<svg class="sm-float-spark" viewBox="0 0 100 24" fill="none"><path d="M0,20 L12,17 L25,19 L38,13 L50,15 L63,9 L75,6 L88,8 L100,3" stroke="var(--sm-text)" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+						<svg class="sm-float-spark" viewBox="0 0 100 24" fill="none"><path d="M0,20 L12,17 L25,19 L38,13 L50,15 L63,9 L75,6 L88,8 L100,3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" style="color:var(--sm-status-success)"/></svg>
 					</div>
 				</div>
+				<!-- Mirrors `EarnestScore/ScoreCard.vue` ring + level pill. -->
 				<div class="sm-hw sm-hw-2">
 					<div class="sm-float-card sm-float-card-compact">
 						<div class="sm-float-score">87</div>
-						<div class="sm-float-score-label">Health</div>
+						<div class="sm-float-score-label">Resolute</div>
 					</div>
 				</div>
+				<!-- Mirrors `Teams/GoalsList.vue` progress-bar treatment. -->
 				<div class="sm-hw sm-hw-3">
 					<div class="sm-float-card">
 						<div class="sm-float-header"><span class="sm-float-label">Goals</span></div>
@@ -133,9 +137,10 @@
 						</div>
 					</div>
 				</div>
+				<!-- Mirrors `Channels/MessageBubble.vue` — them/me bubble alternation. -->
 				<div class="sm-hw sm-hw-4">
 					<div class="sm-float-card">
-						<div class="sm-float-header"><span class="sm-float-label">Channels</span></div>
+						<div class="sm-float-header"><span class="sm-float-label">#design</span><span class="sm-hw-chat-status"></span></div>
 						<div class="sm-hw-chat">
 							<div class="sm-hw-chat-bubble sm-hw-chat-them"></div>
 							<div class="sm-hw-chat-bubble sm-hw-chat-me"></div>
@@ -143,13 +148,14 @@
 						</div>
 					</div>
 				</div>
+				<!-- Mirrors `Leads/LeadStats.vue` pipeline mini-bars. -->
 				<div class="sm-hw sm-hw-5">
 					<div class="sm-float-card sm-float-card-compact">
 						<div class="sm-float-header"><span class="sm-float-label">Pipeline</span></div>
 						<div class="sm-float-pipe">
 							<div class="sm-float-pipe-bar" style="width:100%"></div>
 							<div class="sm-float-pipe-bar" style="width:65%;opacity:0.6"></div>
-							<div class="sm-float-pipe-bar" style="width:35%;opacity:0.3"></div>
+							<div class="sm-float-pipe-bar" style="width:35%;opacity:0.35"></div>
 						</div>
 						<div class="sm-float-pipe-val">$84k</div>
 					</div>
@@ -177,43 +183,49 @@
 		</section>
 
 		<!-- ─── Widget Carousel ─── -->
+		<!-- Each card mirrors a real Earnest component (noted in comments) and -->
+		<!-- uses brand names from scripts/lib/demo-seed.ts (Helios, Atlas, Meridian…). -->
 		<div class="sm-widget-carousel" aria-hidden="true">
 			<div class="sm-carousel-track">
 				<!-- Duplicate set for seamless loop -->
 				<template v-for="pass in 2" :key="'pass-' + pass">
+					<!-- Source: Scheduler/DayTimeline.vue — sticky labels + 12px bars -->
 					<div class="sm-carousel-card">
 						<div class="sm-float-header"><span class="sm-float-label">Projects</span><span class="sm-float-badge">Q2</span></div>
 						<div class="sm-hw-gantt">
-							<div class="sm-hw-gantt-bar" style="width:60%;margin-left:0"></div>
-							<div class="sm-hw-gantt-bar" style="width:45%;margin-left:20%"></div>
-							<div class="sm-hw-gantt-bar sm-hw-gantt-accent" style="width:35%;margin-left:40%"></div>
-							<div class="sm-hw-gantt-bar" style="width:50%;margin-left:30%"></div>
+							<div class="sm-hw-gantt-row"><span class="sm-hw-gantt-label">Helios West</span><div class="sm-hw-gantt-track"><div class="sm-hw-gantt-bar sm-status-active" style="left:0;width:60%"></div></div></div>
+							<div class="sm-hw-gantt-row"><span class="sm-hw-gantt-label">Atlas Fintech</span><div class="sm-hw-gantt-track"><div class="sm-hw-gantt-bar sm-status-scheduled" style="left:20%;width:45%"></div></div></div>
+							<div class="sm-hw-gantt-row"><span class="sm-hw-gantt-label">Meridian Site</span><div class="sm-hw-gantt-track"><div class="sm-hw-gantt-bar sm-status-pending" style="left:40%;width:35%"></div></div></div>
+							<div class="sm-hw-gantt-row"><span class="sm-hw-gantt-label">Northwind</span><div class="sm-hw-gantt-track"><div class="sm-hw-gantt-bar sm-status-success" style="left:30%;width:50%"></div></div></div>
 						</div>
 					</div>
+					<!-- Source: Leads/LeadPipelineCard.vue — score bar + value pill -->
 					<div class="sm-carousel-card">
 						<div class="sm-float-header"><span class="sm-float-label">CRM Intelligence</span></div>
 						<div class="sm-hw-crm">
 							<div class="sm-hw-crm-contact">
-								<span class="sm-hw-contact-dot" style="background:#6366f1;margin:0"></span>
-								<div class="sm-hw-crm-info"><span class="sm-hw-crm-name">Acme Corp</span><span class="sm-hw-crm-stage">Proposal &middot; Score 92</span></div>
+								<span class="sm-hw-contact-dot" style="background:#14b8a6;margin:0"></span>
+								<div class="sm-hw-crm-info"><span class="sm-hw-crm-name">Helios Studio</span><span class="sm-hw-crm-stage">Active &middot; Score 92</span></div>
 								<span class="sm-hw-crm-val">$12k</span>
 							</div>
 							<div class="sm-hw-crm-contact">
 								<span class="sm-hw-contact-dot" style="background:#f59e0b;margin:0"></span>
-								<div class="sm-hw-crm-info"><span class="sm-hw-crm-name">Nova Labs</span><span class="sm-hw-crm-stage">Follow-up &middot; Score 67</span></div>
+								<div class="sm-hw-crm-info"><span class="sm-hw-crm-name">Atlas Fintech</span><span class="sm-hw-crm-stage">Proposal &middot; Score 67</span></div>
 								<span class="sm-hw-crm-val">$8k</span>
 							</div>
 						</div>
 					</div>
+					<!-- Source: Tickets/TicketCard.vue — priority chip + status dot -->
 					<div class="sm-carousel-card">
 						<div class="sm-float-header"><span class="sm-float-label">Tickets</span><span class="sm-float-badge">5 open</span></div>
 						<div class="sm-hw-tickets">
-							<div class="sm-hw-ticket"><span class="sm-hw-ticket-dot" style="background:#f59e0b"></span><span class="sm-hw-ticket-title">Fix checkout flow</span><span class="sm-hw-ticket-pri sm-hw-pri-high">High</span></div>
-							<div class="sm-hw-ticket"><span class="sm-hw-ticket-dot" style="background:#10b981"></span><span class="sm-hw-ticket-title">Update brand assets</span><span class="sm-hw-ticket-pri sm-hw-pri-med">Med</span></div>
+							<div class="sm-hw-ticket"><span class="sm-hw-ticket-dot" style="background:var(--sm-status-pending)"></span><span class="sm-hw-ticket-title">Helios &mdash; launch assets</span><span class="sm-status-chip sm-status-destructive">High</span></div>
+							<div class="sm-hw-ticket"><span class="sm-hw-ticket-dot" style="background:var(--sm-status-active)"></span><span class="sm-hw-ticket-title">Meridian &mdash; content audit</span><span class="sm-status-chip sm-status-active">Med</span></div>
 						</div>
 					</div>
+					<!-- Source: Marketing/EmailCampaignCard.vue — preview + stats row -->
 					<div class="sm-carousel-card">
-						<div class="sm-float-header"><span class="sm-float-label">Email Campaign</span><span class="sm-float-trend sm-float-trend-up">42% open</span></div>
+						<div class="sm-float-header"><span class="sm-float-label">Email Campaign</span><span class="sm-status-chip sm-status-success">42% open</span></div>
 						<div class="sm-hw-email">
 							<div class="sm-hw-email-preview">
 								<div class="sm-hw-email-subject"></div>
@@ -223,27 +235,31 @@
 							<div class="sm-hw-email-stats"><span class="sm-hw-email-stat">Sent: 1,240</span><span class="sm-hw-email-stat">Clicked: 318</span></div>
 						</div>
 					</div>
+					<!-- Source: Contacts/ContactCard.vue — avatar dot + role pill -->
 					<div class="sm-carousel-card">
 						<div class="sm-float-header"><span class="sm-float-label">People</span><span class="sm-float-badge">142</span></div>
 						<div class="sm-hw-people">
-							<div class="sm-hw-person"><span class="sm-hw-contact-dot" style="background:#6366f1;margin:0"></span><span class="sm-hw-person-name">Sarah Kim</span><span class="sm-hw-person-role">Client</span></div>
-							<div class="sm-hw-person"><span class="sm-hw-contact-dot" style="background:#f59e0b;margin:0"></span><span class="sm-hw-person-name">James Cole</span><span class="sm-hw-person-role">Lead</span></div>
+							<div class="sm-hw-person"><span class="sm-hw-contact-dot" style="background:#14b8a6;margin:0"></span><span class="sm-hw-person-name">Sonia Reyes</span><span class="sm-hw-person-role">Client</span></div>
+							<div class="sm-hw-person"><span class="sm-hw-contact-dot" style="background:#f59e0b;margin:0"></span><span class="sm-hw-person-name">Rae Nakamura</span><span class="sm-hw-person-role">Lead</span></div>
 						</div>
 					</div>
+					<!-- Source: Scheduler/MeetingCard.vue — Daily.co video bar -->
 					<div class="sm-carousel-card">
 						<div class="sm-float-header"><span class="sm-float-label">Meetings</span></div>
 						<div class="sm-hw-video">
 							<div class="sm-hw-video-screen"><UIcon name="i-lucide-video" style="width:14px;height:14px;color:var(--sm-pop)" /></div>
-							<div class="sm-hw-video-bar"><span class="sm-hw-video-dot" style="background:#10b981"></span><span class="sm-hw-video-text">Live &middot; 3 participants</span></div>
+							<div class="sm-hw-video-bar"><span class="sm-hw-video-dot" style="background:var(--sm-status-success)"></span><span class="sm-hw-video-text">Helios review &middot; 3 on call</span></div>
 						</div>
 					</div>
+					<!-- Source: Teams/TeamRoster.vue — presence dot + name -->
 					<div class="sm-carousel-card">
 						<div class="sm-float-header"><span class="sm-float-label">Team</span></div>
 						<div class="sm-hw-team">
-							<div class="sm-hw-team-member"><span class="sm-hw-contact-dot" style="background:#6366f1;margin:0"></span><span class="sm-hw-team-name">Sarah K.</span><span class="sm-hw-team-status" style="background:#10b981"></span></div>
-							<div class="sm-hw-team-member"><span class="sm-hw-contact-dot" style="background:#f59e0b;margin:0"></span><span class="sm-hw-team-name">Mike R.</span><span class="sm-hw-team-status" style="background:#10b981"></span></div>
+							<div class="sm-hw-team-member"><span class="sm-hw-contact-dot" style="background:#14b8a6;margin:0"></span><span class="sm-hw-team-name">Sonia R.</span><span class="sm-hw-team-status" style="background:var(--sm-status-success)"></span></div>
+							<div class="sm-hw-team-member"><span class="sm-hw-contact-dot" style="background:#f59e0b;margin:0"></span><span class="sm-hw-team-name">David P.</span><span class="sm-hw-team-status" style="background:var(--sm-status-success)"></span></div>
 						</div>
 					</div>
+					<!-- Source: Scheduler/CalendarMini.vue — week-row dots -->
 					<div class="sm-carousel-card">
 						<div class="sm-float-header"><span class="sm-float-label">Calendar</span></div>
 						<div class="sm-hw-cal">
@@ -251,24 +267,27 @@
 							<div class="sm-hw-cal-row"><span></span><span></span><span></span><span class="sm-hw-cal-event"></span><span></span></div>
 						</div>
 					</div>
+					<!-- Source: Invoices/Invoice.vue — row + status pill -->
 					<div class="sm-carousel-card">
 						<div class="sm-float-header"><span class="sm-float-label">Invoicing</span></div>
 						<div class="sm-hw-invoices">
-							<div class="sm-hw-inv-row"><span class="sm-hw-inv-name"></span><span class="sm-hw-inv-amt">$2,400</span><span class="sm-hw-inv-status sm-hw-inv-paid">Paid</span></div>
-							<div class="sm-hw-inv-row"><span class="sm-hw-inv-name"></span><span class="sm-hw-inv-amt">$1,800</span><span class="sm-hw-inv-status sm-hw-inv-pending">Due</span></div>
+							<div class="sm-hw-inv-row"><span class="sm-hw-inv-name"></span><span class="sm-hw-inv-amt">$2,400</span><span class="sm-status-chip sm-status-success">Paid</span></div>
+							<div class="sm-hw-inv-row"><span class="sm-hw-inv-name"></span><span class="sm-hw-inv-amt">$1,800</span><span class="sm-status-chip sm-status-pending">Due</span></div>
 						</div>
 					</div>
-					<!-- Hero widgets shown in carousel on lg and below -->
+					<!-- Source: Financials/RevenueChart.vue — sparkline -->
 					<div class="sm-carousel-card sm-carousel-lg-only">
-						<div class="sm-float-header"><span class="sm-float-label">Revenue</span><span class="sm-float-trend sm-float-trend-up">+12%</span></div>
+						<div class="sm-float-header"><span class="sm-float-label">Revenue</span><span class="sm-status-chip sm-status-success">+12%</span></div>
 						<div class="sm-float-big">$24.8k</div>
-						<svg class="sm-float-spark" viewBox="0 0 100 24" fill="none"><path d="M0,20 L12,17 L25,19 L38,13 L50,15 L63,9 L75,6 L88,8 L100,3" stroke="var(--sm-text)" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+						<svg class="sm-float-spark" viewBox="0 0 100 24" fill="none"><path d="M0,20 L12,17 L25,19 L38,13 L50,15 L63,9 L75,6 L88,8 L100,3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" style="color:var(--sm-status-success)"/></svg>
 					</div>
+					<!-- Source: EarnestScore/ScoreCard.vue — score + level -->
 					<div class="sm-carousel-card sm-carousel-lg-only">
-						<div class="sm-float-header"><span class="sm-float-label">Health</span></div>
+						<div class="sm-float-header"><span class="sm-float-label">Earnest Score</span></div>
 						<div class="sm-float-score">87</div>
-						<div class="sm-float-score-label">Excellent</div>
+						<div class="sm-float-score-label">Resolute</div>
 					</div>
+					<!-- Source: Teams/GoalsList.vue — progress rows -->
 					<div class="sm-carousel-card sm-carousel-lg-only">
 						<div class="sm-float-header"><span class="sm-float-label">Goals</span></div>
 						<div class="sm-hw-goals">
@@ -276,17 +295,19 @@
 							<div class="sm-hw-goal"><span class="sm-hw-goal-label">Clients</span><div class="sm-hw-goal-bar"><div class="sm-hw-goal-fill sm-hw-goal-done" style="width:100%"></div></div><span class="sm-hw-goal-pct">100%</span></div>
 						</div>
 					</div>
+					<!-- Source: Leads/LeadStats.vue — pipeline mini-bars -->
 					<div class="sm-carousel-card sm-carousel-lg-only">
 						<div class="sm-float-header"><span class="sm-float-label">Pipeline</span></div>
 						<div class="sm-float-pipe">
 							<div class="sm-float-pipe-bar" style="width:100%"></div>
 							<div class="sm-float-pipe-bar" style="width:65%;opacity:0.6"></div>
-							<div class="sm-float-pipe-bar" style="width:35%;opacity:0.3"></div>
+							<div class="sm-float-pipe-bar" style="width:35%;opacity:0.35"></div>
 						</div>
 						<div class="sm-float-pipe-val">$84k</div>
 					</div>
+					<!-- Source: Channels/MessageBubble.vue -->
 					<div class="sm-carousel-card sm-carousel-lg-only">
-						<div class="sm-float-header"><span class="sm-float-label">Channels</span></div>
+						<div class="sm-float-header"><span class="sm-float-label">#design</span></div>
 						<div class="sm-hw-chat">
 							<div class="sm-hw-chat-bubble sm-hw-chat-them"></div>
 							<div class="sm-hw-chat-bubble sm-hw-chat-me"></div>
@@ -560,13 +581,124 @@
 			</div>
 		</section>
 
-		<!-- ─── Showcase: See it in action ─── -->
-		<section ref="showcaseRef" class="sm-showcase" aria-label="Product showcase">
+		<!-- ─── Gallery: Embla slider with thumbnail strip (Session 20) ─── -->
+		<!-- Two coupled Embla carousels: a main slide for the active shot and a -->
+		<!-- thumbnail rail beneath. Shorter than a 19-tile bento on every -->
+		<!-- breakpoint and gives a clear nav model on mobile. -->
+		<section ref="galleryRef" id="gallery" class="sm-gallery" aria-label="Product screenshot gallery">
+			<div class="sm-gallery-inner">
+				<p class="sm-kicker opacity-0">Every screen, no mockups</p>
+				<h2 class="sm-gallery-title opacity-0">See it in action<span class="sm-accent-dot">.</span></h2>
+				<p class="sm-gallery-sub opacity-0">
+					Captured live from the public demo<span class="sm-accent-dot">.</span>
+					<a :href="soloDemoUrl" class="sm-gallery-demo-link">Try it yourself &rarr;</a>
+				</p>
+
+				<div class="sm-gallery-stage opacity-0">
+					<button type="button" class="sm-gallery-arrow sm-gallery-arrow-prev" aria-label="Previous screenshot" @click="galleryMainApi?.scrollPrev()">
+						<UIcon name="i-lucide-chevron-left" />
+					</button>
+					<div class="sm-gallery-main" ref="galleryMainRef">
+						<div class="sm-gallery-main-track">
+							<button
+								v-for="(shot, i) in galleryShots"
+								:key="shot.slug"
+								type="button"
+								class="sm-gallery-slide"
+								@click="openLightbox(i)"
+								aria-label="Open full-size screenshot"
+							>
+								<div class="sm-gallery-frame">
+									<div class="sm-gallery-chrome" aria-hidden="true">
+										<span></span><span></span><span></span>
+									</div>
+									<img
+										:src="`/screenshots/latest/${shot.slug}.png`"
+										:alt="`Earnest — ${shot.label}`"
+										:loading="i < 3 ? 'eager' : 'lazy'"
+										decoding="async"
+										class="sm-gallery-img"
+									/>
+								</div>
+								<span class="sm-gallery-caption">
+									<UIcon :name="shot.icon" class="sm-gallery-caption-ico" />
+									{{ shot.label }}
+								</span>
+							</button>
+						</div>
+					</div>
+					<button type="button" class="sm-gallery-arrow sm-gallery-arrow-next" aria-label="Next screenshot" @click="galleryMainApi?.scrollNext()">
+						<UIcon name="i-lucide-chevron-right" />
+					</button>
+				</div>
+
+				<div class="sm-gallery-thumbs opacity-0" ref="galleryThumbsRef">
+					<div class="sm-gallery-thumbs-track">
+						<button
+							v-for="(shot, i) in galleryShots"
+							:key="`thumb-${shot.slug}`"
+							type="button"
+							class="sm-gallery-thumb"
+							:class="{ 'sm-gallery-thumb-active': i === gallerySelected }"
+							:aria-label="`Show ${shot.label}`"
+							@click="galleryMainApi?.scrollTo(i)"
+						>
+							<img
+								:src="`/screenshots/latest/${shot.slug}.png`"
+								alt=""
+								loading="lazy"
+								decoding="async"
+								class="sm-gallery-thumb-img"
+							/>
+							<span class="sm-gallery-thumb-label">{{ shot.label }}</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ─── Lightbox dialog ─── -->
+		<Dialog :open="lightboxOpen" @update:open="closeLightbox">
+			<DialogContent class="sm-lightbox" @keydown.left="lightboxPrev" @keydown.right="lightboxNext">
+				<DialogTitle class="sr-only">{{ activeShot?.label || 'Earnest screenshot' }}</DialogTitle>
+				<DialogDescription class="sr-only">Press arrow keys to navigate.</DialogDescription>
+				<div v-if="activeShot" class="sm-lightbox-frame">
+					<div class="sm-lightbox-chrome" aria-hidden="true">
+						<span></span><span></span><span></span>
+					</div>
+					<img
+						:src="`/screenshots/latest/${activeShot.slug}.png`"
+						:alt="`Earnest — ${activeShot.label}`"
+						class="sm-lightbox-img"
+					/>
+				</div>
+				<div v-if="activeShot" class="sm-lightbox-bar">
+					<button type="button" class="sm-lightbox-nav" aria-label="Previous" @click="lightboxPrev">
+						<UIcon name="i-lucide-chevron-left" />
+					</button>
+					<div class="sm-lightbox-meta">
+						<UIcon :name="activeShot.icon" class="sm-lightbox-ico" />
+						<span class="sm-lightbox-label">{{ activeShot.label }}</span>
+						<span class="sm-lightbox-count">{{ lightboxIndex + 1 }} / {{ galleryShots.length }}</span>
+					</div>
+					<button type="button" class="sm-lightbox-nav" aria-label="Next" @click="lightboxNext">
+						<UIcon name="i-lucide-chevron-right" />
+					</button>
+				</div>
+			</DialogContent>
+		</Dialog>
+
+		<!-- ─── Showcase: Earnest-styled mock widgets ─── -->
+		<!-- Hidden 2026-05-01 per user request — keeping the markup so we can -->
+		<!-- flip `v-if` back on once the widgets are pixel-matched to real -->
+		<!-- Earnest components. Each widget already has the brand-name swaps -->
+		<!-- (Helios/Atlas/Meridian/Northwind) and the `sm-status-*` palette. -->
+		<section v-if="false" ref="showcaseRef" class="sm-showcase" aria-label="Product showcase">
 			<div class="sm-showcase-inner">
-				<p class="sm-kicker opacity-0">Your entire business, one screen</p>
-				<h2 class="sm-showcase-title opacity-0">See it in action<span class="sm-accent-dot">.</span></h2>
+				<p class="sm-kicker opacity-0">Anatomy of the platform</p>
+				<h2 class="sm-showcase-title opacity-0">A closer look<span class="sm-accent-dot">.</span></h2>
 				<div class="sm-showcase-grid">
-					<!-- Large Left: Revenue + Stats -->
+					<!-- Source: Financials/RevenueChart.vue + stat cards -->
 					<div class="sm-showcase-cell sm-showcase-large opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget">
 							<div class="sm-mock-header">
@@ -576,106 +708,102 @@
 							<svg class="sm-mock-chart" viewBox="0 0 320 100" fill="none" preserveAspectRatio="none">
 								<defs>
 									<linearGradient id="billFill" x1="0" y1="0" x2="0" y2="1">
-										<stop offset="0%" stop-color="#3b82f6" stop-opacity="0.12"/>
-										<stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+										<stop offset="0%" stop-color="var(--sm-status-scheduled)" stop-opacity="0.16"/>
+										<stop offset="100%" stop-color="var(--sm-status-scheduled)" stop-opacity="0"/>
 									</linearGradient>
 									<linearGradient id="paidFill" x1="0" y1="0" x2="0" y2="1">
-										<stop offset="0%" stop-color="#10b981" stop-opacity="0.1"/>
-										<stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+										<stop offset="0%" stop-color="var(--sm-status-success)" stop-opacity="0.14"/>
+										<stop offset="100%" stop-color="var(--sm-status-success)" stop-opacity="0"/>
 									</linearGradient>
 								</defs>
-								<!-- Grid lines -->
 								<line x1="0" y1="25" x2="320" y2="25" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
 								<line x1="0" y1="50" x2="320" y2="50" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
 								<line x1="0" y1="75" x2="320" y2="75" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
-								<!-- Billed line -->
-								<path d="M0,70 C30,65 50,55 80,50 C110,45 130,48 160,38 C190,28 220,32 250,22 C280,15 300,18 320,10" stroke="#3b82f6" stroke-width="2" fill="none" stroke-linecap="round"/>
+								<path d="M0,70 C30,65 50,55 80,50 C110,45 130,48 160,38 C190,28 220,32 250,22 C280,15 300,18 320,10" stroke="var(--sm-status-scheduled)" stroke-width="2" fill="none" stroke-linecap="round"/>
 								<path d="M0,70 C30,65 50,55 80,50 C110,45 130,48 160,38 C190,28 220,32 250,22 C280,15 300,18 320,10 L320,100 L0,100Z" fill="url(#billFill)"/>
-								<!-- Paid line -->
-								<path d="M0,78 C30,75 50,68 80,62 C110,58 130,55 160,48 C190,40 220,42 250,32 C280,26 300,28 320,20" stroke="#10b981" stroke-width="2" fill="none" stroke-linecap="round"/>
+								<path d="M0,78 C30,75 50,68 80,62 C110,58 130,55 160,48 C190,40 220,42 250,32 C280,26 300,28 320,20" stroke="var(--sm-status-success)" stroke-width="2" fill="none" stroke-linecap="round"/>
 								<path d="M0,78 C30,75 50,68 80,62 C110,58 130,55 160,48 C190,40 220,42 250,32 C280,26 300,28 320,20 L320,100 L0,100Z" fill="url(#paidFill)"/>
 							</svg>
 							<div class="sm-mock-legend">
-								<span class="sm-mock-legend-item"><span class="sm-mock-dot" style="background:#3b82f6"></span>Billed</span>
-								<span class="sm-mock-legend-item"><span class="sm-mock-dot" style="background:#10b981"></span>Paid</span>
+								<span class="sm-mock-legend-item"><span class="sm-mock-dot" style="background:var(--sm-status-scheduled)"></span>Billed</span>
+								<span class="sm-mock-legend-item"><span class="sm-mock-dot" style="background:var(--sm-status-success)"></span>Paid</span>
 							</div>
 						</div>
-						<!-- Stats Row -->
 						<div class="sm-mock-stats">
 							<div class="sm-mock-stat">
 								<span class="sm-mock-stat-label">Revenue</span>
 								<span class="sm-mock-stat-value">$24.8k</span>
-								<span class="sm-mock-stat-trend sm-float-trend-up">+12%</span>
+								<span class="sm-status-chip sm-status-success">+12%</span>
 							</div>
 							<div class="sm-mock-stat">
 								<span class="sm-mock-stat-label">Clients</span>
 								<span class="sm-mock-stat-value">142</span>
-								<span class="sm-mock-stat-trend sm-float-trend-up">+8</span>
+								<span class="sm-status-chip sm-status-success">+8</span>
 							</div>
 							<div class="sm-mock-stat">
 								<span class="sm-mock-stat-label">Tasks Done</span>
 								<span class="sm-mock-stat-value">89%</span>
-								<span class="sm-mock-stat-trend sm-float-trend-up">+5%</span>
+								<span class="sm-status-chip sm-status-success">+5%</span>
 							</div>
 							<div class="sm-mock-stat">
 								<span class="sm-mock-stat-label">AI Queries</span>
 								<span class="sm-mock-stat-value">1.2k</span>
-								<span class="sm-mock-stat-trend" style="color:var(--sm-muted)">this mo.</span>
+								<span class="sm-status-chip sm-status-muted">this mo.</span>
 							</div>
 						</div>
 					</div>
-					<!-- Large Right: Kanban Board -->
+					<!-- Source: Projects/ProjectBoard.vue — Kanban columns + cards -->
 					<div class="sm-showcase-cell sm-showcase-large opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget">
 							<div class="sm-mock-header">
 								<span class="sm-mock-title">Project Board</span>
-								<span class="sm-mock-pill">Acme Corp</span>
+								<span class="sm-mock-pill">Helios West Hotel</span>
 							</div>
 							<div class="sm-mock-kanban">
 								<div class="sm-mock-kan-col">
-									<div class="sm-mock-kan-head" style="border-color:#06b6d4">Pending <span class="sm-mock-kan-count">3</span></div>
+									<div class="sm-mock-kan-head" style="border-color:var(--sm-status-scheduled)">Pending <span class="sm-mock-kan-count">3</span></div>
 									<div class="sm-mock-kan-card">
 										<div class="sm-mock-kan-title">Brand identity refresh</div>
-										<div class="sm-mock-kan-meta"><span class="sm-mock-kan-tag" style="background:#e0f2fe;color:#0369a1">Design</span></div>
+										<div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-scheduled">Design</span></div>
 									</div>
 									<div class="sm-mock-kan-card">
 										<div class="sm-mock-kan-title">Q2 social calendar</div>
-										<div class="sm-mock-kan-meta"><span class="sm-mock-kan-tag" style="background:#fef3c7;color:#92400e">Marketing</span></div>
+										<div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-pending">Marketing</span></div>
 									</div>
 									<div class="sm-mock-kan-card">
-										<div class="sm-mock-kan-title">Analytics dashboard</div>
-										<div class="sm-mock-kan-meta"><span class="sm-mock-kan-tag" style="background:#ede9fe;color:#5b21b6">Dev</span></div>
+										<div class="sm-mock-kan-title">Booking flow audit</div>
+										<div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-active">Dev</span></div>
 									</div>
 								</div>
 								<div class="sm-mock-kan-col">
-									<div class="sm-mock-kan-head" style="border-color:#22c55e">In Progress <span class="sm-mock-kan-count">2</span></div>
+									<div class="sm-mock-kan-head" style="border-color:var(--sm-status-active)">In Progress <span class="sm-mock-kan-count">2</span></div>
 									<div class="sm-mock-kan-card sm-mock-kan-active">
-										<div class="sm-mock-kan-title">Email campaign launch</div>
+										<div class="sm-mock-kan-title">Launch email sequence</div>
 										<div class="sm-mock-kan-meta">
-											<span class="sm-mock-kan-tag" style="background:#fef3c7;color:#92400e">Marketing</span>
-											<div class="sm-mock-kan-avatars"><span class="sm-mock-avatar"></span><span class="sm-mock-avatar" style="background:#a78bfa"></span></div>
+											<span class="sm-status-chip sm-status-pending">Marketing</span>
+											<div class="sm-mock-kan-avatars"><span class="sm-mock-avatar"></span><span class="sm-mock-avatar" style="background:var(--sm-status-active)"></span></div>
 										</div>
 									</div>
 									<div class="sm-mock-kan-card">
-										<div class="sm-mock-kan-title">Client onboarding flow</div>
-										<div class="sm-mock-kan-meta"><span class="sm-mock-kan-tag" style="background:#e0f2fe;color:#0369a1">Design</span></div>
+										<div class="sm-mock-kan-title">Onboarding flow</div>
+										<div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-scheduled">Design</span></div>
 									</div>
 								</div>
 								<div class="sm-mock-kan-col">
-									<div class="sm-mock-kan-head" style="border-color:#10b981">Done <span class="sm-mock-kan-count">4</span></div>
+									<div class="sm-mock-kan-head" style="border-color:var(--sm-status-success)">Done <span class="sm-mock-kan-count">4</span></div>
 									<div class="sm-mock-kan-card sm-mock-kan-done">
-										<div class="sm-mock-kan-title">Website redesign</div>
-										<div class="sm-mock-kan-meta"><span class="sm-mock-kan-tag" style="background:#d1fae5;color:#065f46">Complete</span></div>
+										<div class="sm-mock-kan-title">Site redesign delivery</div>
+										<div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-success">Complete</span></div>
 									</div>
 									<div class="sm-mock-kan-card sm-mock-kan-done">
-										<div class="sm-mock-kan-title">Logo package delivery</div>
-										<div class="sm-mock-kan-meta"><span class="sm-mock-kan-tag" style="background:#d1fae5;color:#065f46">Complete</span></div>
+										<div class="sm-mock-kan-title">Logo package</div>
+										<div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-success">Complete</span></div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!-- Bottom Left: Productivity Meter -->
+					<!-- Source: Productivity/ProductivityMeter.vue (or wherever score is rendered) -->
 					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget">
 							<div class="sm-mock-header">
@@ -689,13 +817,13 @@
 								<span class="sm-mock-score-label">Excellent</span>
 							</div>
 							<div class="sm-mock-meter-stats">
-								<div class="sm-mock-meter-stat"><span class="sm-mock-meter-num" style="color:#10b981">12</span><span class="sm-mock-meter-lbl">Done</span></div>
-								<div class="sm-mock-meter-stat"><span class="sm-mock-meter-num" style="color:#f59e0b">2</span><span class="sm-mock-meter-lbl">Overdue</span></div>
+								<div class="sm-mock-meter-stat"><span class="sm-mock-meter-num" style="color:var(--sm-status-success)">12</span><span class="sm-mock-meter-lbl">Done</span></div>
+								<div class="sm-mock-meter-stat"><span class="sm-mock-meter-num" style="color:var(--sm-status-pending)">2</span><span class="sm-mock-meter-lbl">Overdue</span></div>
 								<div class="sm-mock-meter-stat"><span class="sm-mock-meter-num" style="color:var(--sm-muted)">5</span><span class="sm-mock-meter-lbl">Pending</span></div>
 							</div>
 						</div>
 					</div>
-					<!-- Bottom Center-Left: Social Widget -->
+					<!-- Source: Marketing/SocialQueue.vue -->
 					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget">
 							<div class="sm-mock-header">
@@ -705,31 +833,31 @@
 								<div class="sm-mock-social-post">
 									<div class="sm-mock-social-icon" style="background:#E4405F">IG</div>
 									<div class="sm-mock-social-body">
-										<div class="sm-mock-social-text">New collection launch...</div>
+										<div class="sm-mock-social-text">Helios opening — week 1</div>
 										<div class="sm-mock-social-time">Today, 2:00 PM</div>
 									</div>
-									<span class="sm-mock-social-status sm-mock-status-ready">Ready</span>
+									<span class="sm-status-chip sm-status-success">Ready</span>
 								</div>
 								<div class="sm-mock-social-post">
 									<div class="sm-mock-social-icon" style="background:#0A66C2">in</div>
 									<div class="sm-mock-social-body">
-										<div class="sm-mock-social-text">Team growth update...</div>
+										<div class="sm-mock-social-text">Atlas Fintech case study</div>
 										<div class="sm-mock-social-time">Tomorrow, 9:00 AM</div>
 									</div>
-									<span class="sm-mock-social-status sm-mock-status-scheduled">Scheduled</span>
+									<span class="sm-status-chip sm-status-scheduled">Scheduled</span>
 								</div>
 								<div class="sm-mock-social-post">
 									<div class="sm-mock-social-icon" style="background:#1DA1F2">X</div>
 									<div class="sm-mock-social-body">
-										<div class="sm-mock-social-text">Product feature deep dive...</div>
+										<div class="sm-mock-social-text">Meridian onboarding tips</div>
 										<div class="sm-mock-social-time">Wed, 11:30 AM</div>
 									</div>
-									<span class="sm-mock-social-status sm-mock-status-draft">Draft</span>
+									<span class="sm-status-chip sm-status-muted">Draft</span>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!-- Bottom Center-Right: CRM Pipeline -->
+					<!-- Source: Leads/LeadStats.vue — pipeline stages + counts -->
 					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget">
 							<div class="sm-mock-header">
@@ -753,19 +881,19 @@
 									<span class="sm-mock-pipe-count">9</span>
 								</div>
 								<div class="sm-mock-pipe-stage">
-									<div class="sm-mock-pipe-bar" style="width:20%;background:#10b981"></div>
+									<div class="sm-mock-pipe-bar" style="width:20%;background:var(--sm-status-success)"></div>
 									<span class="sm-mock-pipe-name">Won</span>
 									<span class="sm-mock-pipe-count">5</span>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!-- Bottom Right: AI Insight -->
+					<!-- Source: AINotices/NoticeCard.vue (dark variant) -->
 					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget sm-mock-widget-dark">
 							<div class="sm-mock-header">
 								<span class="sm-mock-title" style="color:white">AI Insight</span>
-								<UIcon name="i-lucide-sparkles" style="width:14px;height:14px;color:#10b981" />
+								<UIcon name="i-lucide-sparkles" style="width:14px;height:14px;color:var(--sm-status-success)" />
 							</div>
 							<div class="sm-mock-ai-insight">
 								<div class="sm-mock-ai-score">
@@ -777,7 +905,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- Full-width: Team Channels / Messages -->
+					<!-- Source: Channels/MessageList.vue — message bubbles + reactions + threads -->
 					<div class="sm-showcase-cell sm-showcase-wide opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget">
 							<div class="sm-mock-header">
@@ -786,13 +914,13 @@
 							</div>
 							<div class="sm-mock-chat">
 								<div class="sm-mock-msg">
-									<span class="sm-mock-avatar" style="background:#6366f1"></span>
+									<span class="sm-mock-avatar" style="background:var(--sm-status-active)"></span>
 									<div class="sm-mock-msg-body">
 										<div class="sm-mock-msg-head">
-											<span class="sm-mock-msg-name">Sarah K.</span>
+											<span class="sm-mock-msg-name">Sonia Reyes</span>
 											<span class="sm-mock-msg-time">10:32 AM</span>
 										</div>
-										<div class="sm-mock-msg-text">Uploaded the final brand assets for Acme. Ready for review!</div>
+										<div class="sm-mock-msg-text">Uploaded the final brand assets for Helios. Ready for review!</div>
 										<div class="sm-mock-reactions">
 											<span class="sm-mock-reaction">&#128077; 3</span>
 											<span class="sm-mock-reaction">&#128293; 1</span>
@@ -800,27 +928,27 @@
 									</div>
 								</div>
 								<div class="sm-mock-msg">
-									<span class="sm-mock-avatar" style="background:#f59e0b"></span>
+									<span class="sm-mock-avatar" style="background:var(--sm-status-pending)"></span>
 									<div class="sm-mock-msg-body">
 										<div class="sm-mock-msg-head">
-											<span class="sm-mock-msg-name">Mike R.</span>
+											<span class="sm-mock-msg-name">David Park</span>
 											<span class="sm-mock-msg-time">10:34 AM</span>
 										</div>
 										<div class="sm-mock-msg-text">Looks great. Left a comment on the logo variant &mdash; can we try a darker version?</div>
 										<div class="sm-mock-comment-thread">
 											<div class="sm-mock-comment">
-												<span class="sm-mock-comment-avatar" style="background:#6366f1"></span>
-												<span class="sm-mock-comment-text"><strong>Sarah K.</strong> On it! Will push an update by EOD.</span>
+												<span class="sm-mock-comment-avatar" style="background:var(--sm-status-active)"></span>
+												<span class="sm-mock-comment-text"><strong>Sonia R.</strong> On it! Will push an update by EOD.</span>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="sm-mock-msg">
-									<span class="sm-mock-avatar" style="background:#10b981"></span>
+									<span class="sm-mock-avatar" style="background:var(--sm-status-success)"></span>
 									<div class="sm-mock-msg-body">
 										<div class="sm-mock-msg-head">
 											<span class="sm-mock-msg-name">AI Assistant</span>
-											<span class="sm-mock-msg-ai-badge">AI</span>
+											<span class="sm-status-chip sm-status-success">AI</span>
 											<span class="sm-mock-msg-time">10:35 AM</span>
 										</div>
 										<div class="sm-mock-msg-text">Brand audit complete. Score: 94/100. All assets meet guidelines.</div>
@@ -829,7 +957,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- Full-width: Gantt Chart -->
+					<!-- Source: Scheduler/DayTimeline.vue — sticky labels + 12px bars + status palette -->
 					<div class="sm-showcase-cell sm-showcase-wide opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget">
 							<div class="sm-mock-header">
@@ -842,41 +970,42 @@
 									<span>Apr</span><span>May</span><span>Jun</span><span>Jul</span>
 								</div>
 								<div class="sm-mock-gantt-row">
-									<span class="sm-mock-gantt-label">Brand Refresh</span>
-									<div class="sm-mock-gantt-track"><div class="sm-mock-gantt-bar" style="left:0%;width:35%;background:var(--sm-text)"></div></div>
+									<span class="sm-mock-gantt-label">Helios West rebrand</span>
+									<div class="sm-mock-gantt-track"><div class="sm-mock-gantt-bar sm-status-active" style="left:0%;width:35%"></div></div>
 								</div>
 								<div class="sm-mock-gantt-row">
-									<span class="sm-mock-gantt-label">Website Redesign</span>
-									<div class="sm-mock-gantt-track"><div class="sm-mock-gantt-bar" style="left:15%;width:50%;background:#52525b"></div></div>
+									<span class="sm-mock-gantt-label">Atlas site redesign</span>
+									<div class="sm-mock-gantt-track"><div class="sm-mock-gantt-bar sm-status-scheduled" style="left:15%;width:50%"></div></div>
 								</div>
 								<div class="sm-mock-gantt-row">
-									<span class="sm-mock-gantt-label">Social Campaign</span>
-									<div class="sm-mock-gantt-track"><div class="sm-mock-gantt-bar" style="left:30%;width:30%;background:#a1a1aa"></div></div>
+									<span class="sm-mock-gantt-label">Meridian content</span>
+									<div class="sm-mock-gantt-track"><div class="sm-mock-gantt-bar sm-status-pending" style="left:30%;width:30%"></div></div>
 								</div>
 								<div class="sm-mock-gantt-row">
-									<span class="sm-mock-gantt-label">Email Sequences</span>
-									<div class="sm-mock-gantt-track"><div class="sm-mock-gantt-bar" style="left:45%;width:40%;background:#10b981"></div></div>
+									<span class="sm-mock-gantt-label">Northwind email</span>
+									<div class="sm-mock-gantt-track"><div class="sm-mock-gantt-bar sm-status-success" style="left:45%;width:40%"></div></div>
 								</div>
 								<div class="sm-mock-gantt-row">
-									<span class="sm-mock-gantt-label">Launch Event</span>
-									<div class="sm-mock-gantt-track"><div class="sm-mock-gantt-bar" style="left:75%;width:15%;background:var(--sm-text)"></div></div>
+									<span class="sm-mock-gantt-label">Helios launch</span>
+									<div class="sm-mock-gantt-track"><div class="sm-mock-gantt-bar sm-status-active" style="left:75%;width:15%"></div></div>
 								</div>
 							</div>
 						</div>
 					</div>
-				<!-- Goals + Calendar row -->
+					<!-- Source: Teams/GoalsList.vue — progress bars + done state -->
 					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget">
 							<div class="sm-mock-header">
 								<span class="sm-mock-title">Goals</span>
 							</div>
 							<div class="sm-hw-goals">
-								<div class="sm-hw-goal"><span class="sm-hw-goal-label">Revenue Target</span><div class="sm-hw-goal-bar"><div class="sm-hw-goal-fill" style="width:72%"></div></div><span class="sm-hw-goal-pct">72%</span></div>
+								<div class="sm-hw-goal"><span class="sm-hw-goal-label">Revenue</span><div class="sm-hw-goal-bar"><div class="sm-hw-goal-fill" style="width:72%"></div></div><span class="sm-hw-goal-pct">72%</span></div>
 								<div class="sm-hw-goal"><span class="sm-hw-goal-label">New Clients</span><div class="sm-hw-goal-bar"><div class="sm-hw-goal-fill sm-hw-goal-done" style="width:100%"></div></div><span class="sm-hw-goal-pct">100%</span></div>
 								<div class="sm-hw-goal"><span class="sm-hw-goal-label">Retention</span><div class="sm-hw-goal-bar"><div class="sm-hw-goal-fill" style="width:89%"></div></div><span class="sm-hw-goal-pct">89%</span></div>
 							</div>
 						</div>
 					</div>
+					<!-- Source: Invoices/Invoice.vue — row + amount + status pill -->
 					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget">
 							<div class="sm-mock-header">
@@ -884,13 +1013,13 @@
 								<span class="sm-mock-pill">3 pending</span>
 							</div>
 							<div class="sm-hw-invoices">
-								<div class="sm-hw-inv-row"><span class="sm-hw-inv-name"></span><span class="sm-hw-inv-amt">$4,200</span><span class="sm-hw-inv-status sm-hw-inv-paid">Paid</span></div>
-								<div class="sm-hw-inv-row"><span class="sm-hw-inv-name"></span><span class="sm-hw-inv-amt">$2,800</span><span class="sm-hw-inv-status sm-hw-inv-pending">Due</span></div>
-								<div class="sm-hw-inv-row"><span class="sm-hw-inv-name"></span><span class="sm-hw-inv-amt">$1,600</span><span class="sm-hw-inv-status sm-hw-inv-paid">Paid</span></div>
+								<div class="sm-hw-inv-row"><span class="sm-hw-inv-name"></span><span class="sm-hw-inv-amt">$4,200</span><span class="sm-status-chip sm-status-success">Paid</span></div>
+								<div class="sm-hw-inv-row"><span class="sm-hw-inv-name"></span><span class="sm-hw-inv-amt">$2,800</span><span class="sm-status-chip sm-status-pending">Due</span></div>
+								<div class="sm-hw-inv-row"><span class="sm-hw-inv-name"></span><span class="sm-hw-inv-amt">$1,600</span><span class="sm-status-chip sm-status-success">Paid</span></div>
 							</div>
 						</div>
 					</div>
-			<!-- Marketing Plan -->
+					<!-- Source: Marketing/CampaignPlan.vue -->
 					<div class="sm-showcase-cell sm-showcase-wide opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget">
 							<div class="sm-mock-header"><span class="sm-mock-title">Marketing Plan</span><span class="sm-mock-pill">AI Generated</span></div>
@@ -909,30 +1038,31 @@
 							</div>
 						</div>
 					</div>
-					<!-- CRM + Team row -->
+					<!-- Source: Leads/LeadPipelineCard.vue — score line + value pill -->
 					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget">
 							<div class="sm-mock-header"><span class="sm-mock-title">CRM Intelligence</span></div>
 							<div class="sm-hw-crm">
-								<div class="sm-hw-crm-contact"><span class="sm-hw-contact-dot" style="background:#6366f1;margin:0"></span><div class="sm-hw-crm-info"><span class="sm-hw-crm-name">Acme Corp</span><span class="sm-hw-crm-stage">Proposal &middot; Score 92</span></div><span class="sm-hw-crm-val">$12k</span></div>
-								<div class="sm-hw-crm-contact"><span class="sm-hw-contact-dot" style="background:#f59e0b;margin:0"></span><div class="sm-hw-crm-info"><span class="sm-hw-crm-name">Nova Labs</span><span class="sm-hw-crm-stage">Follow-up &middot; Score 67</span></div><span class="sm-hw-crm-val">$8k</span></div>
-								<div class="sm-hw-crm-contact"><span class="sm-hw-contact-dot" style="background:#10b981;margin:0"></span><div class="sm-hw-crm-info"><span class="sm-hw-crm-name">Bright Studio</span><span class="sm-hw-crm-stage">Active &middot; Score 88</span></div><span class="sm-hw-crm-val">$6k</span></div>
+								<div class="sm-hw-crm-contact"><span class="sm-hw-contact-dot" style="background:var(--sm-status-active);margin:0"></span><div class="sm-hw-crm-info"><span class="sm-hw-crm-name">Helios Studio</span><span class="sm-hw-crm-stage">Active &middot; Score 92</span></div><span class="sm-hw-crm-val">$12k</span></div>
+								<div class="sm-hw-crm-contact"><span class="sm-hw-contact-dot" style="background:var(--sm-status-pending);margin:0"></span><div class="sm-hw-crm-info"><span class="sm-hw-crm-name">Atlas Fintech</span><span class="sm-hw-crm-stage">Proposal &middot; Score 67</span></div><span class="sm-hw-crm-val">$8k</span></div>
+								<div class="sm-hw-crm-contact"><span class="sm-hw-contact-dot" style="background:var(--sm-status-success);margin:0"></span><div class="sm-hw-crm-info"><span class="sm-hw-crm-name">Meridian Law</span><span class="sm-hw-crm-stage">Active &middot; Score 88</span></div><span class="sm-hw-crm-val">$6k</span></div>
 								<div class="sm-hw-crm-health"><span class="sm-hw-crm-health-label">Pipeline Health</span><div class="sm-hw-goal-bar"><div class="sm-hw-goal-fill" style="width:82%"></div></div></div>
 							</div>
 						</div>
 					</div>
+					<!-- Source: Teams/TeamRoster.vue — presence dot + name -->
 					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget">
 							<div class="sm-mock-header"><span class="sm-mock-title">Team</span><span class="sm-mock-pill">6 members</span></div>
 							<div class="sm-hw-team">
-								<div class="sm-hw-team-member"><span class="sm-hw-contact-dot" style="background:#6366f1;margin:0"></span><span class="sm-hw-team-name">Sarah Kim</span><span class="sm-hw-team-status" style="background:#10b981"></span></div>
-								<div class="sm-hw-team-member"><span class="sm-hw-contact-dot" style="background:#f59e0b;margin:0"></span><span class="sm-hw-team-name">Mike Rodriguez</span><span class="sm-hw-team-status" style="background:#10b981"></span></div>
-								<div class="sm-hw-team-member"><span class="sm-hw-contact-dot" style="background:#ec4899;margin:0"></span><span class="sm-hw-team-name">Jess Turner</span><span class="sm-hw-team-status" style="background:#a1a1aa"></span></div>
-								<div class="sm-hw-team-member"><span class="sm-hw-contact-dot" style="background:#10b981;margin:0"></span><span class="sm-hw-team-name">Alex Chen</span><span class="sm-hw-team-status" style="background:#10b981"></span></div>
+								<div class="sm-hw-team-member"><span class="sm-hw-contact-dot" style="background:var(--sm-status-active);margin:0"></span><span class="sm-hw-team-name">Sonia Reyes</span><span class="sm-hw-team-status" style="background:var(--sm-status-success)"></span></div>
+								<div class="sm-hw-team-member"><span class="sm-hw-contact-dot" style="background:var(--sm-status-pending);margin:0"></span><span class="sm-hw-team-name">David Park</span><span class="sm-hw-team-status" style="background:var(--sm-status-success)"></span></div>
+								<div class="sm-hw-team-member"><span class="sm-hw-contact-dot" style="background:#ec4899;margin:0"></span><span class="sm-hw-team-name">Maya Iyer</span><span class="sm-hw-team-status" style="background:var(--sm-muted)"></span></div>
+								<div class="sm-hw-team-member"><span class="sm-hw-contact-dot" style="background:var(--sm-status-success);margin:0"></span><span class="sm-hw-team-name">Tom Bennett</span><span class="sm-hw-team-status" style="background:var(--sm-status-success)"></span></div>
 							</div>
 						</div>
 					</div>
-					<!-- Earnest Score -->
+					<!-- Source: EarnestScore/ScoreCard.vue — radar + level pill -->
 					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget">
 							<div class="sm-mock-header"><span class="sm-mock-title">Earnest Score</span><span class="sm-mock-pill">Today</span></div>
@@ -941,7 +1071,7 @@
 									<svg viewBox="0 0 80 80" class="sm-mock-radar">
 										<polygon points="40,8 66,24 66,56 40,72 14,56 14,24" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="0.5"/>
 										<polygon points="40,18 58,28 58,52 40,62 22,52 22,28" fill="none" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
-										<polygon points="40,12 62,22 62,58 40,68 18,58 18,22" fill="rgba(16,185,129,0.08)" stroke="#10b981" stroke-width="1.5" stroke-linejoin="round"/>
+										<polygon points="40,12 62,22 62,58 40,68 18,58 18,22" fill="rgba(20,184,166,0.10)" stroke="var(--sm-status-active)" stroke-width="1.5" stroke-linejoin="round"/>
 									</svg>
 									<div class="sm-mock-score-center">
 										<span class="sm-mock-score-big">87</span>
@@ -955,17 +1085,17 @@
 							</div>
 						</div>
 					</div>
-					<!-- AI Sidebar -->
+					<!-- Source: AISidebar/SidebarPanel.vue — entity-scoped chat + suggested prompts -->
 					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget sm-mock-widget-dark">
 							<div class="sm-mock-header">
 								<span class="sm-mock-title" style="color:white">AI Sidebar</span>
-								<span class="sm-mock-pill" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7)">Acme Corp</span>
+								<span class="sm-mock-pill" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7)">Helios Studio</span>
 							</div>
 							<div class="sm-mock-ai-sidebar">
 								<div class="sm-mock-sidebar-msg sm-mock-sidebar-user">What's the status of this client?</div>
 								<div class="sm-mock-sidebar-msg sm-mock-sidebar-ai">
-									<UIcon name="i-lucide-sparkles" style="width:12px;height:12px;color:#10b981;flex-shrink:0" />
+									<UIcon name="i-lucide-sparkles" style="width:12px;height:12px;color:var(--sm-status-success);flex-shrink:0" />
 									<span>3 open projects, $12k billed this quarter, last follow-up 2 days ago. Pipeline health: strong.</span>
 								</div>
 								<div class="sm-mock-sidebar-prompts">
@@ -975,39 +1105,39 @@
 							</div>
 						</div>
 					</div>
-					<!-- CRM Pipeline Kanban -->
+					<!-- Source: Leads/PipelineBoard.vue — Kanban with score-bar cards -->
 					<div class="sm-showcase-cell sm-showcase-wide opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget">
 							<div class="sm-mock-header"><span class="sm-mock-title">CRM Pipeline</span><span class="sm-mock-pill">$84k total</span></div>
 							<div class="sm-mock-kanban sm-mock-kanban-crm">
 								<div class="sm-mock-kan-col">
-									<div class="sm-mock-kan-head" style="border-color:#94a3b8">New <span class="sm-mock-kan-count">8</span></div>
-									<div class="sm-mock-kan-card"><div class="sm-mock-kan-title">Vertex Inc</div><div class="sm-mock-kan-meta"><span class="sm-mock-kan-tag" style="background:#e0f2fe;color:#0369a1">$6k</span></div></div>
+									<div class="sm-mock-kan-head" style="border-color:var(--sm-status-muted-fg)">New <span class="sm-mock-kan-count">8</span></div>
+									<div class="sm-mock-kan-card"><div class="sm-mock-kan-title">Driftwood Roasters</div><div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-scheduled">$6k</span></div></div>
 								</div>
 								<div class="sm-mock-kan-col">
-									<div class="sm-mock-kan-head" style="border-color:#f59e0b">Qualified <span class="sm-mock-kan-count">5</span></div>
-									<div class="sm-mock-kan-card"><div class="sm-mock-kan-title">Acme Corp</div><div class="sm-mock-kan-meta"><span class="sm-mock-kan-tag" style="background:#fef3c7;color:#92400e">$12k</span></div></div>
+									<div class="sm-mock-kan-head" style="border-color:var(--sm-status-pending)">Qualified <span class="sm-mock-kan-count">5</span></div>
+									<div class="sm-mock-kan-card"><div class="sm-mock-kan-title">Atlas Fintech</div><div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-pending">$12k</span></div></div>
 								</div>
 								<div class="sm-mock-kan-col">
-									<div class="sm-mock-kan-head" style="border-color:#6366f1">Proposal <span class="sm-mock-kan-count">3</span></div>
-									<div class="sm-mock-kan-card"><div class="sm-mock-kan-title">Nova Labs</div><div class="sm-mock-kan-meta"><span class="sm-mock-kan-tag" style="background:#ede9fe;color:#5b21b6">$8k</span></div></div>
+									<div class="sm-mock-kan-head" style="border-color:var(--sm-status-active)">Proposal <span class="sm-mock-kan-count">3</span></div>
+									<div class="sm-mock-kan-card"><div class="sm-mock-kan-title">Northwind Dev</div><div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-active">$8k</span></div></div>
 								</div>
 								<div class="sm-mock-kan-col">
-									<div class="sm-mock-kan-head" style="border-color:#10b981">Won <span class="sm-mock-kan-count">5</span></div>
-									<div class="sm-mock-kan-card sm-mock-kan-done"><div class="sm-mock-kan-title">Bright Studio</div><div class="sm-mock-kan-meta"><span class="sm-mock-kan-tag" style="background:#d1fae5;color:#065f46">$18k</span></div></div>
+									<div class="sm-mock-kan-head" style="border-color:var(--sm-status-success)">Won <span class="sm-mock-kan-count">5</span></div>
+									<div class="sm-mock-kan-card sm-mock-kan-done"><div class="sm-mock-kan-title">Meridian Law</div><div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-success">$18k</span></div></div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!-- Scheduler -->
+					<!-- Source: Scheduler/WeekView.vue — day cards + event chips -->
 					<div class="sm-showcase-cell sm-showcase-wide opacity-0" aria-hidden="true">
 						<div class="sm-mock-widget">
 							<div class="sm-mock-header"><span class="sm-mock-title">Scheduler</span><span class="sm-mock-pill">This week</span></div>
 							<div class="sm-mock-scheduler">
-								<div class="sm-mock-sched-day"><span class="sm-mock-sched-label">Mon</span><div class="sm-mock-sched-slots"><div class="sm-mock-sched-event sm-mock-sched-meeting">Team standup<span>9 AM</span></div><div class="sm-mock-sched-event sm-mock-sched-task">Client review<span>2 PM</span></div></div></div>
-								<div class="sm-mock-sched-day"><span class="sm-mock-sched-label">Tue</span><div class="sm-mock-sched-slots"><div class="sm-mock-sched-event sm-mock-sched-call">Sales call — Acme<span>10:30 AM</span></div></div></div>
+								<div class="sm-mock-sched-day"><span class="sm-mock-sched-label">Mon</span><div class="sm-mock-sched-slots"><div class="sm-mock-sched-event sm-mock-sched-meeting">Team standup<span>9 AM</span></div><div class="sm-mock-sched-event sm-mock-sched-task">Helios review<span>2 PM</span></div></div></div>
+								<div class="sm-mock-sched-day"><span class="sm-mock-sched-label">Tue</span><div class="sm-mock-sched-slots"><div class="sm-mock-sched-event sm-mock-sched-call">Atlas — sales call<span>10:30 AM</span></div></div></div>
 								<div class="sm-mock-sched-day sm-mock-sched-today"><span class="sm-mock-sched-label">Wed</span><div class="sm-mock-sched-slots"><div class="sm-mock-sched-event sm-mock-sched-meeting">Design review<span>11 AM</span></div><div class="sm-mock-sched-event sm-mock-sched-task">Send proposal<span>3 PM</span></div></div></div>
-								<div class="sm-mock-sched-day"><span class="sm-mock-sched-label">Thu</span><div class="sm-mock-sched-slots"><div class="sm-mock-sched-event sm-mock-sched-call">Onboarding — Nova<span>9 AM</span></div></div></div>
+								<div class="sm-mock-sched-day"><span class="sm-mock-sched-label">Thu</span><div class="sm-mock-sched-slots"><div class="sm-mock-sched-event sm-mock-sched-call">Northwind onboarding<span>9 AM</span></div></div></div>
 								<div class="sm-mock-sched-day"><span class="sm-mock-sched-label">Fri</span><div class="sm-mock-sched-slots"><div class="sm-mock-sched-event sm-mock-sched-meeting">Sprint retro<span>4 PM</span></div></div></div>
 							</div>
 						</div>
@@ -1209,6 +1339,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue';
+import emblaCarouselVue from 'embla-carousel-vue';
 import '~/assets/css/sellsheet-modern.css';
 import { features } from '~/data/features';
 
@@ -1240,8 +1371,65 @@ const pricingRef = ref(null);
 const replacesRef = ref(null);
 const heroCycleRef = ref(null);
 const calcRef = ref(null);
+const galleryRef = ref(null);
 const showcaseRef = ref(null);
 const testimonialsRef = ref(null);
+
+// ── Gallery: 19 captures from /public/screenshots/latest/ ──
+// Labels mirror the human-readable feature names from app/data/features.ts.
+const galleryShots = [
+	{ slug: 'command-center', label: 'Command Center', icon: 'i-lucide-zap' },
+	{ slug: 'leads-pipeline', label: 'CRM Pipeline', icon: 'i-lucide-scan-search' },
+	{ slug: 'project-timeline', label: 'Project Timeline', icon: 'i-lucide-gantt-chart' },
+	{ slug: 'tickets-kanban', label: 'Tickets & Tasks', icon: 'i-lucide-check-square' },
+	{ slug: 'financials-overview', label: 'Financials', icon: 'i-lucide-receipt' },
+	{ slug: 'people-dashboard', label: 'People Intelligence', icon: 'i-lucide-users' },
+	{ slug: 'scheduler-day', label: 'Scheduler · Day View', icon: 'i-lucide-calendar' },
+	{ slug: 'ai-sidebar', label: 'Contextual AI Sidebar', icon: 'i-lucide-sparkles' },
+	{ slug: 'proposals-composer', label: 'Proposal Composer', icon: 'i-lucide-wand-2' },
+	{ slug: 'proposals-preview', label: 'Branded Proposal Preview', icon: 'i-lucide-eye' },
+	{ slug: 'contracts-list', label: 'Contracts', icon: 'i-lucide-file-signature' },
+	{ slug: 'contracts-signed', label: 'Signed Contract', icon: 'i-lucide-check-circle' },
+	{ slug: 'contact-detail', label: 'Contact Detail', icon: 'i-lucide-user' },
+	{ slug: 'client-detail', label: 'Client Detail', icon: 'i-lucide-building-2' },
+	{ slug: 'marketing-overview', label: 'Marketing Overview', icon: 'i-lucide-bar-chart-3' },
+	{ slug: 'organization-overview', label: 'Organization', icon: 'i-lucide-briefcase' },
+	{ slug: 'organization-teams', label: 'Teams', icon: 'i-lucide-users-round' },
+	{ slug: 'organization-branding', label: 'Brand & Whitelabel', icon: 'i-lucide-palette' },
+	{ slug: 'team-detail', label: 'Team Detail', icon: 'i-lucide-folder-kanban' },
+];
+
+// ── Embla slider — main + thumbnail rail ──
+const [galleryMainRef, galleryMainApi] = emblaCarouselVue({ loop: true, align: 'center' });
+const [galleryThumbsRef, galleryThumbsApi] = emblaCarouselVue({ containScroll: 'keepSnaps', dragFree: true, align: 'start' });
+const gallerySelected = ref(0);
+
+function syncGallerySelection() {
+	const main = galleryMainApi.value;
+	const thumbs = galleryThumbsApi.value;
+	if (!main || !thumbs) return;
+	gallerySelected.value = main.selectedScrollSnap();
+	thumbs.scrollTo(main.selectedScrollSnap());
+}
+
+// ── Lightbox state ──
+const lightboxOpen = ref(false);
+const lightboxIndex = ref(0);
+const activeShot = computed(() => galleryShots[lightboxIndex.value] || null);
+
+function openLightbox(i) {
+	lightboxIndex.value = i;
+	lightboxOpen.value = true;
+}
+function closeLightbox(open) {
+	if (!open) lightboxOpen.value = false;
+}
+function lightboxPrev() {
+	lightboxIndex.value = (lightboxIndex.value - 1 + galleryShots.length) % galleryShots.length;
+}
+function lightboxNext() {
+	lightboxIndex.value = (lightboxIndex.value + 1) % galleryShots.length;
+}
 
 // ── Scroll-aware nav ──
 const navScrolled = ref(false);
@@ -1665,7 +1853,10 @@ onMounted(async () => {
 			scrollTrigger: { trigger: '.sm-ai', start: 'top bottom', end: 'bottom top', scrub: true },
 		});
 
-		// Showcase — each cell reveals individually on enter, no delay
+		// Gallery — fade in title + slider + thumbs as the section enters
+		reveal(galleryRef, '.sm-kicker, .sm-gallery-title, .sm-gallery-sub, .sm-gallery-stage, .sm-gallery-thumbs', { stagger: 0.08, start: 'top 95%' });
+
+		// Showcase — title + each cell reveals individually on enter
 		reveal(showcaseRef, '.sm-kicker, .sm-showcase-title', { stagger: 0.08, start: 'top 98%' });
 		if (showcaseRef.value) {
 			showcaseRef.value.querySelectorAll('.sm-showcase-cell').forEach((el) => {
@@ -1692,6 +1883,13 @@ onMounted(async () => {
 
 		trackPageView('sellsheet-modern');
 	});
+
+	// Embla — keep main + thumb rails in sync. Wire after mount so refs are populated.
+	if (galleryMainApi.value) {
+		galleryMainApi.value.on('select', syncGallerySelection);
+		galleryMainApi.value.on('reInit', syncGallerySelection);
+		syncGallerySelection();
+	}
 });
 
 onUnmounted(() => {
@@ -1700,6 +1898,10 @@ onUnmounted(() => {
 	if (ctx) ctx.revert();
 	if (orbitInterval) clearInterval(orbitInterval);
 	if (orbitResumeTimeout) clearTimeout(orbitResumeTimeout);
+	if (galleryMainApi.value) {
+		galleryMainApi.value.off('select', syncGallerySelection);
+		galleryMainApi.value.off('reInit', syncGallerySelection);
+	}
 });
 
 useHead({
