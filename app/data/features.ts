@@ -325,6 +325,19 @@ export const features: Feature[] = [
     ],
   },
   {
+    name: 'AI Actions',
+    slug: 'ai-actions',
+    icon: 'i-lucide-wand-sparkles',
+    desc: 'Tell Earnest what to change — it does the work. Reschedule a project and watch every event and task shift automatically. Update a status, add a task, or change a deadline — all from a single sentence in the AI sidebar. No hunting through menus. Just say it.',
+    keywords: ['ai actions', 'ai mutations', 'ai reschedule', 'natural language updates', 'ai task management'],
+    benefits: [
+      'Reschedule a project — every linked event and task shifts automatically',
+      'Update any field (status, priority, due date) with a sentence',
+      'Add tasks directly from the chat — linked to the current project or ticket',
+      'Live confirmation shows exactly what changed and how many records were updated',
+    ],
+  },
+  {
     name: 'Earnest Score',
     slug: 'earnest-score',
     icon: 'i-lucide-trophy',
@@ -348,6 +361,32 @@ export const features: Feature[] = [
       'AI features available on the go',
       'Mobile-first design for quick actions',
       'Stay connected to your entire business anywhere',
+    ],
+  },
+  {
+    name: 'Proposals & Contracts',
+    slug: 'proposals-and-contracts',
+    icon: 'i-lucide-file-signature',
+    desc: 'Build proposals and contracts from a reusable block library — bios, terms, pricing, deliverables, NDAs — and ship them as official, branded documents. Convert a winning proposal to a contract in one click, then collect a signature through a public link with a token.',
+    keywords: ['proposals', 'contracts', 'document blocks', 'e-signature', 'sales documents', 'pdf export'],
+    benefits: [
+      'Block library shared across proposals and contracts so you never rewrite terms or pricing',
+      'Branded document chrome — your logo, address, and phone — render on every page',
+      'One-click convert proposal → contract, with a public e-signature flow',
+      'PDF export and a cover-page layout for first impressions that match your brand',
+    ],
+  },
+  {
+    name: 'Document Themes',
+    slug: 'document-themes',
+    icon: 'i-lucide-palette',
+    desc: 'Pick one theme on the org settings page and every invoice, proposal, and contract you send picks it up — including the PDF export and the public payment + signing pages. Three themes ship out of the box: Classic (clean white sans-serif), Editorial (warm cream with a serif body), and Mono (minimal black-on-white with your brand accent color).',
+    keywords: ['document themes', 'branded documents', 'invoice templates', 'proposal templates', 'pdf themes', 'brand consistency'],
+    benefits: [
+      'One brand look applied across every invoice, proposal, and contract',
+      'Three themes: Classic, Editorial (serif/cream), and Mono (with accent color)',
+      'Theme carries through to PDF export and public payment + signing pages',
+      'Org-level setting — change once, every future document follows',
     ],
   },
 ];
@@ -389,6 +428,7 @@ export type DemoShot =
   | 'contracts-list'
   | 'contracts-signed'
   | 'ai-sidebar'
+  | 'ai-actions'
   // Agency (Admin role) — unlocked in demo v2
   | 'marketing-overview'
   | 'organization-overview'
@@ -442,6 +482,7 @@ const FEATURE_DEMO_MAP: Record<string, DemoMapping> = {
   'calendar-and-crm-hub': { path: '/scheduler', shot: 'scheduler-day' },
   'carddesk': { path: '/contacts', shot: 'contact-detail' },
   'contextual-ai-sidebar': { path: '/clients', shot: 'ai-sidebar' },
+  'ai-actions': { path: '/projects', shot: 'ai-actions' },
   'earnest-score': { path: '/command-center', shot: 'command-center' },
   'earnest-companion': { path: '/command-center', shot: 'command-center' },
 };
