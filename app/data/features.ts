@@ -65,6 +65,19 @@ export const features: Feature[] = [
     ],
   },
   {
+    name: 'Marketing Recommendations',
+    slug: 'marketing-recommendations',
+    icon: 'i-lucide-megaphone',
+    desc: 'Earnest watches your CRM, social, and email for signals — new leads, lapsed contacts, milestone moments — and proposes ready-to-send marketing touches as a feed of campaign cards. Push-button Do-all sends the whole sequence, with per-recipient personalization and a Gantt-style timeline of what is scheduled across email, LinkedIn, Instagram, and Twitter.',
+    keywords: ['marketing automation', 'campaign recommendations', 'marketing feed', 'marketing timeline', 'lead reengagement', 'personalization'],
+    benefits: [
+      'Campaign cards auto-detected from real signals — new leads, lapsed contacts, milestones',
+      'Push-button Do-all sends the whole multi-touch sequence in one tap',
+      'Per-recipient personalization with editable variants on every touch',
+      'Timeline view across email, LinkedIn, Instagram, and Twitter — past + scheduled in one Gantt',
+    ],
+  },
+  {
     name: 'AI Strategy Engine',
     slug: 'ai-strategy-engine',
     icon: 'i-lucide-brain',
@@ -101,6 +114,32 @@ export const features: Feature[] = [
       'AI generates platform-optimized content in seconds',
       'Hashtag and image suggestions included',
       'Brand-aware — uses your voice and audience context',
+    ],
+  },
+  {
+    name: 'Social Inbox',
+    slug: 'social-inbox',
+    icon: 'i-lucide-inbox',
+    desc: 'A unified inbox for DMs, comment replies, and mentions across Facebook, Instagram, and Threads. One queue, per-platform filter, archived/active views — reply directly from the thread without bouncing between native apps.',
+    keywords: ['social inbox', 'social DMs', 'social messaging', 'Instagram DMs', 'Facebook messenger', 'Threads', 'community management'],
+    benefits: [
+      'DMs, replies, and mentions unified in a single queue',
+      'Filter by platform (Facebook, Instagram, Threads) and active vs. archived',
+      'Reply inline from the thread view — no platform switching',
+      'Archive resolved threads to keep your queue focused',
+    ],
+  },
+  {
+    name: 'Social Analytics',
+    slug: 'social-analytics',
+    icon: 'i-lucide-trending-up',
+    desc: 'Followers, reach, impressions, and engagement-rate trends per account or rolled up across every connected platform. Filter by client, pick a 7/14/30/90-day window, and see your top-performing posts surfaced automatically.',
+    keywords: ['social analytics', 'social media analytics', 'engagement rate', 'follower growth', 'top posts', 'Instagram analytics', 'Meta analytics'],
+    benefits: [
+      'Followers, reach, impressions, and engagement-rate over time',
+      'Filter by client or roll up every connected account',
+      '7, 14, 30, or 90-day windows with daily breakdowns',
+      'Top-performing posts surfaced automatically',
     ],
   },
   {
@@ -431,6 +470,9 @@ export type DemoShot =
   | 'ai-actions'
   // Agency (Admin role) — unlocked in demo v2
   | 'marketing-overview'
+  | 'marketing-recommendations'
+  | 'social-inbox'
+  | 'social-analytics'
   | 'organization-overview'
   | 'organization-teams'
   | 'organization-branding'
@@ -462,9 +504,12 @@ const FEATURE_DEMO_MAP: Record<string, DemoMapping> = {
   'crm-intelligence': { path: '/leads', shot: 'leads-pipeline' },
   'health-snapshots': { path: '/people', shot: 'people-dashboard' },
   'marketing-ai-analyze': { path: '/marketing', shot: 'marketing-overview', persona: 'agency' },
+  'marketing-recommendations': { path: '/marketing', shot: 'marketing-recommendations', persona: 'agency' },
   'ai-strategy-engine': { path: '/command-center', shot: 'command-center' },
   'brand-awareness-ai': { path: '/command-center', shot: 'command-center' },
   'social-ai-generate': { path: '/command-center', shot: 'command-center' },
+  'social-inbox': { path: '/social/inbox', shot: 'social-inbox', persona: 'agency' },
+  'social-analytics': { path: '/social/analytics', shot: 'social-analytics', persona: 'agency' },
   'email-marketing-ai': { path: '/marketing', shot: 'marketing-overview', persona: 'agency' },
   'goal-suggestions': { path: '/command-center', shot: 'command-center' },
   'project-management': { path: '/projects', shot: 'project-timeline' },
