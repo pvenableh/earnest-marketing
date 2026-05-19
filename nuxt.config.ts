@@ -20,9 +20,17 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#141210', media: '(prefers-color-scheme: dark)' },
       ],
       link: [
+        // SVG favicon adapts to light/dark via prefers-color-scheme.
+        // PNG fallback for browsers without SVG-favicon support (older Safari, Edge legacy).
+        // favicon.ico in /public is auto-served as the final fallback.
+        { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
         { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
-        { rel: 'icon', type: 'image/png', sizes: '512x512', href: '/icon.png' },
-        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+        // iOS home-screen icons across the common sizes — iOS picks
+        // the closest match. apple-touch-icon must be a PNG (Safari
+        // ignores SVG here).
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' },
+        { rel: 'apple-touch-icon', href: '/icon-152x152.png', sizes: '152x152' },
+        { rel: 'apple-touch-icon', href: '/icon-192x192.png', sizes: '192x192' },
         { rel: 'manifest', href: '/site.webmanifest' },
         { rel: 'preload', as: 'font', type: 'font/woff2', href: '/_nuxt/assets/css/fonts/proxima-nova-regular.woff2', crossorigin: '' },
         { rel: 'preload', as: 'font', type: 'font/woff2', href: '/_nuxt/assets/css/fonts/bauer-bodoni-roman.woff2', crossorigin: '' },
