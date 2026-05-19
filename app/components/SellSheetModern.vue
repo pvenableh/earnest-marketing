@@ -1538,6 +1538,9 @@ const aiChipTexts = [
 	'Earnest drafting a proposal from lead context...',
 	'Earnest matching library blocks to terms...',
 	'Contract signed — audit log captured...',
+	'Earnest recapping meeting transcript...',
+	'Earnest matching deposit to invoice...',
+	'Earnest publishing approved social post...',
 ];
 function onScroll() {
 	navScrolled.value = window.scrollY > 80;
