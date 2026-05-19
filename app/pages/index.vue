@@ -19,7 +19,7 @@ useHead({
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         description,
-        featureList: 'Productivity Engine, CRM Intelligence, Contextual AI Sidebar, Earnest Score & Gamification, AI Strategy Engine & Context Broker, Marketing AI, Social AI, Email Marketing, Project Management, Invoicing & Billing, Contracts & E-Signing, AI Proposal Drafter, Reusable Document Blocks, Whitelabel, Team Channels, Phone & Video, Calendar, CardDesk, Client Portal, Meeting Recording & AI Recap, Branded Email, Service Offerings, Bank Sync, Accept Payments, Retainer & Content Studio',
+        featureList: 'Apps Layout, Workspaces, Productivity Engine, CRM Intelligence, Contextual AI Sidebar, Earnest Score & Gamification, AI Strategy Engine & Context Broker, Marketing AI, Social AI, Email Marketing, Project Management, Invoicing & Billing, Contracts & E-Signing, AI Proposal Drafter, Reusable Document Blocks, Whitelabel, Team Channels, Phone & Video, Calendar, CardDesk, Client Portal, Meeting Recording & AI Recap, Branded Email, Service Offerings, Bank Sync, Accept Payments, Retainer & Content Studio',
         url: 'https://earnest.guru',
         offers: {
           '@type': 'AggregateOffer',

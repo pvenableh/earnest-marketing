@@ -160,6 +160,29 @@
 						<div class="sm-float-pipe-val">$84k</div>
 					</div>
 				</div>
+				<!-- AppRail visualizer — mirrors `AppRail.vue` floating rail with
+				     palette-tinted plinth + circular gradient app chips. Each chip
+				     uses an `--sm-status-*` accent so the marketing language
+				     stays in sync with the in-app palette. -->
+				<div class="sm-hw sm-hw-rail">
+					<div class="sm-rail-plinth">
+						<div class="sm-rail-chip sm-rail-chip-work" aria-hidden="true">
+							<UIcon name="i-lucide-briefcase" />
+						</div>
+						<div class="sm-rail-chip sm-rail-chip-clients" aria-hidden="true">
+							<UIcon name="i-lucide-users" />
+						</div>
+						<div class="sm-rail-chip sm-rail-chip-money" aria-hidden="true">
+							<UIcon name="i-lucide-banknote" />
+						</div>
+						<div class="sm-rail-chip sm-rail-chip-marketing" aria-hidden="true">
+							<UIcon name="i-lucide-megaphone" />
+						</div>
+						<div class="sm-rail-chip sm-rail-chip-org" aria-hidden="true">
+							<UIcon name="i-lucide-building-2" />
+						</div>
+					</div>
+				</div>
 			</div>
 		</section>
 
@@ -688,459 +711,37 @@
 			</DialogContent>
 		</Dialog>
 
-		<!-- ─── Showcase: Earnest-styled mock widgets ─── -->
-		<!-- Hidden 2026-05-01 per user request — keeping the markup so we can -->
-		<!-- flip `v-if` back on once the widgets are pixel-matched to real -->
-		<!-- Earnest components. Each widget already has the brand-name swaps -->
-		<!-- (Helios/Atlas/Meridian/Northwind) and the `sm-status-*` palette. -->
-		<section v-if="false" ref="showcaseRef" class="sm-showcase" aria-label="Product showcase">
-			<div class="sm-showcase-inner">
-				<p class="sm-kicker opacity-0">Anatomy of the platform</p>
-				<h2 class="sm-showcase-title opacity-0">A closer look<span class="sm-accent-dot">.</span></h2>
-				<div class="sm-showcase-grid">
-					<!-- Source: Financials/RevenueChart.vue + stat cards -->
-					<div class="sm-showcase-cell sm-showcase-large opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget">
-							<div class="sm-mock-header">
-								<span class="sm-mock-title">Revenue Trend</span>
-								<span class="sm-mock-pill">Last 6 months</span>
-							</div>
-							<svg class="sm-mock-chart" viewBox="0 0 320 100" fill="none" preserveAspectRatio="none">
-								<defs>
-									<linearGradient id="billFill" x1="0" y1="0" x2="0" y2="1">
-										<stop offset="0%" stop-color="var(--sm-status-scheduled)" stop-opacity="0.16"/>
-										<stop offset="100%" stop-color="var(--sm-status-scheduled)" stop-opacity="0"/>
-									</linearGradient>
-									<linearGradient id="paidFill" x1="0" y1="0" x2="0" y2="1">
-										<stop offset="0%" stop-color="var(--sm-status-success)" stop-opacity="0.14"/>
-										<stop offset="100%" stop-color="var(--sm-status-success)" stop-opacity="0"/>
-									</linearGradient>
-								</defs>
-								<line x1="0" y1="25" x2="320" y2="25" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
-								<line x1="0" y1="50" x2="320" y2="50" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
-								<line x1="0" y1="75" x2="320" y2="75" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
-								<path d="M0,70 C30,65 50,55 80,50 C110,45 130,48 160,38 C190,28 220,32 250,22 C280,15 300,18 320,10" stroke="var(--sm-status-scheduled)" stroke-width="2" fill="none" stroke-linecap="round"/>
-								<path d="M0,70 C30,65 50,55 80,50 C110,45 130,48 160,38 C190,28 220,32 250,22 C280,15 300,18 320,10 L320,100 L0,100Z" fill="url(#billFill)"/>
-								<path d="M0,78 C30,75 50,68 80,62 C110,58 130,55 160,48 C190,40 220,42 250,32 C280,26 300,28 320,20" stroke="var(--sm-status-success)" stroke-width="2" fill="none" stroke-linecap="round"/>
-								<path d="M0,78 C30,75 50,68 80,62 C110,58 130,55 160,48 C190,40 220,42 250,32 C280,26 300,28 320,20 L320,100 L0,100Z" fill="url(#paidFill)"/>
-							</svg>
-							<div class="sm-mock-legend">
-								<span class="sm-mock-legend-item"><span class="sm-mock-dot" style="background:var(--sm-status-scheduled)"></span>Billed</span>
-								<span class="sm-mock-legend-item"><span class="sm-mock-dot" style="background:var(--sm-status-success)"></span>Paid</span>
-							</div>
-						</div>
-						<div class="sm-mock-stats">
-							<div class="sm-mock-stat">
-								<span class="sm-mock-stat-label">Revenue</span>
-								<span class="sm-mock-stat-value">$24.8k</span>
-								<span class="sm-status-chip sm-status-success">+12%</span>
-							</div>
-							<div class="sm-mock-stat">
-								<span class="sm-mock-stat-label">Clients</span>
-								<span class="sm-mock-stat-value">142</span>
-								<span class="sm-status-chip sm-status-success">+8</span>
-							</div>
-							<div class="sm-mock-stat">
-								<span class="sm-mock-stat-label">Tasks Done</span>
-								<span class="sm-mock-stat-value">89%</span>
-								<span class="sm-status-chip sm-status-success">+5%</span>
-							</div>
-							<div class="sm-mock-stat">
-								<span class="sm-mock-stat-label">AI Queries</span>
-								<span class="sm-mock-stat-value">1.2k</span>
-								<span class="sm-status-chip sm-status-muted">this mo.</span>
-							</div>
-						</div>
+		<!-- ─── CardDesk callout — companion PWA install ─── -->
+		<!-- Mirrors the in-app `CardDesk/InstallPromo.vue` (emerald gradient, -->
+		<!-- phone-chip silhouette, smartphone icon). Links to the live PWA -->
+		<!-- install affordances at carddesk.earnest.guru. -->
+		<section ref="carddeskRef" class="sm-carddesk" aria-label="Install CardDesk">
+			<div class="sm-carddesk-card opacity-0">
+				<div class="sm-carddesk-phone" aria-hidden="true"></div>
+				<div class="sm-carddesk-body">
+					<div class="sm-carddesk-icon" aria-hidden="true">
+						<UIcon name="i-lucide-smartphone" />
 					</div>
-					<!-- Source: Projects/ProjectBoard.vue — Kanban columns + cards -->
-					<div class="sm-showcase-cell sm-showcase-large opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget">
-							<div class="sm-mock-header">
-								<span class="sm-mock-title">Project Board</span>
-								<span class="sm-mock-pill">Helios West Hotel</span>
-							</div>
-							<div class="sm-mock-kanban">
-								<div class="sm-mock-kan-col">
-									<div class="sm-mock-kan-head" style="border-color:var(--sm-status-scheduled)">Pending <span class="sm-mock-kan-count">3</span></div>
-									<div class="sm-mock-kan-card">
-										<div class="sm-mock-kan-title">Brand identity refresh</div>
-										<div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-scheduled">Design</span></div>
-									</div>
-									<div class="sm-mock-kan-card">
-										<div class="sm-mock-kan-title">Q2 social calendar</div>
-										<div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-pending">Marketing</span></div>
-									</div>
-									<div class="sm-mock-kan-card">
-										<div class="sm-mock-kan-title">Booking flow audit</div>
-										<div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-active">Dev</span></div>
-									</div>
-								</div>
-								<div class="sm-mock-kan-col">
-									<div class="sm-mock-kan-head" style="border-color:var(--sm-status-active)">In Progress <span class="sm-mock-kan-count">2</span></div>
-									<div class="sm-mock-kan-card sm-mock-kan-active">
-										<div class="sm-mock-kan-title">Launch email sequence</div>
-										<div class="sm-mock-kan-meta">
-											<span class="sm-status-chip sm-status-pending">Marketing</span>
-											<div class="sm-mock-kan-avatars"><span class="sm-mock-avatar"></span><span class="sm-mock-avatar" style="background:var(--sm-status-active)"></span></div>
-										</div>
-									</div>
-									<div class="sm-mock-kan-card">
-										<div class="sm-mock-kan-title">Onboarding flow</div>
-										<div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-scheduled">Design</span></div>
-									</div>
-								</div>
-								<div class="sm-mock-kan-col">
-									<div class="sm-mock-kan-head" style="border-color:var(--sm-status-success)">Done <span class="sm-mock-kan-count">4</span></div>
-									<div class="sm-mock-kan-card sm-mock-kan-done">
-										<div class="sm-mock-kan-title">Site redesign delivery</div>
-										<div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-success">Complete</span></div>
-									</div>
-									<div class="sm-mock-kan-card sm-mock-kan-done">
-										<div class="sm-mock-kan-title">Logo package</div>
-										<div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-success">Complete</span></div>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="sm-carddesk-text">
+						<p class="sm-carddesk-eyebrow">CardDesk · companion app</p>
+						<h2 class="sm-carddesk-title">Scan business cards. Build your network.<span class="sm-accent-dot">.</span></h2>
+						<p class="sm-carddesk-sub">
+							Snap a card with your phone — AI extracts every field and lands a contact in your CRM. Earn XP, level up, and unlock badges as you grow your rolodex. Installs to your home screen as a real app.
+						</p>
 					</div>
-					<!-- Source: Productivity/ProductivityMeter.vue (or wherever score is rendered) -->
-					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget">
-							<div class="sm-mock-header">
-								<span class="sm-mock-title">Productivity</span>
-							</div>
-							<div class="sm-mock-meter">
-								<div class="sm-mock-score">87</div>
-								<div class="sm-mock-score-bar">
-									<div class="sm-mock-score-fill" style="width:87%"></div>
-								</div>
-								<span class="sm-mock-score-label">Excellent</span>
-							</div>
-							<div class="sm-mock-meter-stats">
-								<div class="sm-mock-meter-stat"><span class="sm-mock-meter-num" style="color:var(--sm-status-success)">12</span><span class="sm-mock-meter-lbl">Done</span></div>
-								<div class="sm-mock-meter-stat"><span class="sm-mock-meter-num" style="color:var(--sm-status-pending)">2</span><span class="sm-mock-meter-lbl">Overdue</span></div>
-								<div class="sm-mock-meter-stat"><span class="sm-mock-meter-num" style="color:var(--sm-muted)">5</span><span class="sm-mock-meter-lbl">Pending</span></div>
-							</div>
-						</div>
-					</div>
-					<!-- Source: Marketing/SocialQueue.vue -->
-					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget">
-							<div class="sm-mock-header">
-								<span class="sm-mock-title">Social Queue</span>
-							</div>
-							<div class="sm-mock-social">
-								<div class="sm-mock-social-post">
-									<div class="sm-mock-social-icon" style="background:#E4405F">IG</div>
-									<div class="sm-mock-social-body">
-										<div class="sm-mock-social-text">Helios opening — week 1</div>
-										<div class="sm-mock-social-time">Today, 2:00 PM</div>
-									</div>
-									<span class="sm-status-chip sm-status-success">Ready</span>
-								</div>
-								<div class="sm-mock-social-post">
-									<div class="sm-mock-social-icon" style="background:#0A66C2">in</div>
-									<div class="sm-mock-social-body">
-										<div class="sm-mock-social-text">Atlas Fintech case study</div>
-										<div class="sm-mock-social-time">Tomorrow, 9:00 AM</div>
-									</div>
-									<span class="sm-status-chip sm-status-scheduled">Scheduled</span>
-								</div>
-								<div class="sm-mock-social-post">
-									<div class="sm-mock-social-icon" style="background:#1DA1F2">X</div>
-									<div class="sm-mock-social-body">
-										<div class="sm-mock-social-text">Meridian onboarding tips</div>
-										<div class="sm-mock-social-time">Wed, 11:30 AM</div>
-									</div>
-									<span class="sm-status-chip sm-status-muted">Draft</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Source: Leads/LeadStats.vue — pipeline stages + counts -->
-					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget">
-							<div class="sm-mock-header">
-								<span class="sm-mock-title">Pipeline</span>
-								<span class="sm-mock-pill">$84k total</span>
-							</div>
-							<div class="sm-mock-pipeline">
-								<div class="sm-mock-pipe-stage">
-									<div class="sm-mock-pipe-bar" style="width:100%;background:rgba(0,0,0,0.06)"></div>
-									<span class="sm-mock-pipe-name">Lead</span>
-									<span class="sm-mock-pipe-count">24</span>
-								</div>
-								<div class="sm-mock-pipe-stage">
-									<div class="sm-mock-pipe-bar" style="width:65%;background:rgba(0,0,0,0.1)"></div>
-									<span class="sm-mock-pipe-name">Qualified</span>
-									<span class="sm-mock-pipe-count">16</span>
-								</div>
-								<div class="sm-mock-pipe-stage">
-									<div class="sm-mock-pipe-bar" style="width:40%;background:rgba(0,0,0,0.15)"></div>
-									<span class="sm-mock-pipe-name">Proposal</span>
-									<span class="sm-mock-pipe-count">9</span>
-								</div>
-								<div class="sm-mock-pipe-stage">
-									<div class="sm-mock-pipe-bar" style="width:20%;background:var(--sm-status-success)"></div>
-									<span class="sm-mock-pipe-name">Won</span>
-									<span class="sm-mock-pipe-count">5</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Source: AINotices/NoticeCard.vue (dark variant) -->
-					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget sm-mock-widget-dark">
-							<div class="sm-mock-header">
-								<span class="sm-mock-title" style="color:white">AI Insight</span>
-								<UIcon name="i-lucide-sparkles" style="width:14px;height:14px;color:var(--sm-status-success)" />
-							</div>
-							<div class="sm-mock-ai-insight">
-								<div class="sm-mock-ai-score">
-									<span class="sm-mock-ai-num">92</span>
-									<span class="sm-mock-ai-of">/100</span>
-								</div>
-								<div class="sm-mock-ai-label">CRM Health</div>
-								<div class="sm-mock-ai-rec">3 contacts need follow-up. Revenue trending +18% vs last quarter.</div>
-							</div>
-						</div>
-					</div>
-					<!-- Source: Channels/MessageList.vue — message bubbles + reactions + threads -->
-					<div class="sm-showcase-cell sm-showcase-wide opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget">
-							<div class="sm-mock-header">
-								<span class="sm-mock-title">Team Channels</span>
-								<span class="sm-mock-pill"># design-team</span>
-							</div>
-							<div class="sm-mock-chat">
-								<div class="sm-mock-msg">
-									<span class="sm-mock-avatar" style="background:var(--sm-status-active)"></span>
-									<div class="sm-mock-msg-body">
-										<div class="sm-mock-msg-head">
-											<span class="sm-mock-msg-name">Sonia Reyes</span>
-											<span class="sm-mock-msg-time">10:32 AM</span>
-										</div>
-										<div class="sm-mock-msg-text">Uploaded the final brand assets for Helios. Ready for review!</div>
-										<div class="sm-mock-reactions">
-											<span class="sm-mock-reaction">&#128077; 3</span>
-											<span class="sm-mock-reaction">&#128293; 1</span>
-										</div>
-									</div>
-								</div>
-								<div class="sm-mock-msg">
-									<span class="sm-mock-avatar" style="background:var(--sm-status-pending)"></span>
-									<div class="sm-mock-msg-body">
-										<div class="sm-mock-msg-head">
-											<span class="sm-mock-msg-name">David Park</span>
-											<span class="sm-mock-msg-time">10:34 AM</span>
-										</div>
-										<div class="sm-mock-msg-text">Looks great. Left a comment on the logo variant &mdash; can we try a darker version?</div>
-										<div class="sm-mock-comment-thread">
-											<div class="sm-mock-comment">
-												<span class="sm-mock-comment-avatar" style="background:var(--sm-status-active)"></span>
-												<span class="sm-mock-comment-text"><strong>Sonia R.</strong> On it! Will push an update by EOD.</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="sm-mock-msg">
-									<span class="sm-mock-avatar" style="background:var(--sm-status-success)"></span>
-									<div class="sm-mock-msg-body">
-										<div class="sm-mock-msg-head">
-											<span class="sm-mock-msg-name">AI Assistant</span>
-											<span class="sm-status-chip sm-status-success">AI</span>
-											<span class="sm-mock-msg-time">10:35 AM</span>
-										</div>
-										<div class="sm-mock-msg-text">Brand audit complete. Score: 94/100. All assets meet guidelines.</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Source: Scheduler/DayTimeline.vue — sticky labels + 12px bars + status palette -->
-					<div class="sm-showcase-cell sm-showcase-wide opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget">
-							<div class="sm-mock-header">
-								<span class="sm-mock-title">Project Timeline</span>
-								<span class="sm-mock-pill">Q2 2026</span>
-							</div>
-							<div class="sm-mock-gantt">
-								<div class="sm-mock-gantt-header">
-									<span></span>
-									<span>Apr</span><span>May</span><span>Jun</span><span>Jul</span>
-								</div>
-								<div class="sm-mock-gantt-row">
-									<span class="sm-mock-gantt-label">Helios West rebrand</span>
-									<div class="sm-mock-gantt-track"><div class="sm-mock-gantt-bar sm-status-active" style="left:0%;width:35%"></div></div>
-								</div>
-								<div class="sm-mock-gantt-row">
-									<span class="sm-mock-gantt-label">Atlas site redesign</span>
-									<div class="sm-mock-gantt-track"><div class="sm-mock-gantt-bar sm-status-scheduled" style="left:15%;width:50%"></div></div>
-								</div>
-								<div class="sm-mock-gantt-row">
-									<span class="sm-mock-gantt-label">Meridian content</span>
-									<div class="sm-mock-gantt-track"><div class="sm-mock-gantt-bar sm-status-pending" style="left:30%;width:30%"></div></div>
-								</div>
-								<div class="sm-mock-gantt-row">
-									<span class="sm-mock-gantt-label">Northwind email</span>
-									<div class="sm-mock-gantt-track"><div class="sm-mock-gantt-bar sm-status-success" style="left:45%;width:40%"></div></div>
-								</div>
-								<div class="sm-mock-gantt-row">
-									<span class="sm-mock-gantt-label">Helios launch</span>
-									<div class="sm-mock-gantt-track"><div class="sm-mock-gantt-bar sm-status-active" style="left:75%;width:15%"></div></div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Source: Teams/GoalsList.vue — progress bars + done state -->
-					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget">
-							<div class="sm-mock-header">
-								<span class="sm-mock-title">Goals</span>
-							</div>
-							<div class="sm-hw-goals">
-								<div class="sm-hw-goal"><span class="sm-hw-goal-label">Revenue</span><div class="sm-hw-goal-bar"><div class="sm-hw-goal-fill" style="width:72%"></div></div><span class="sm-hw-goal-pct">72%</span></div>
-								<div class="sm-hw-goal"><span class="sm-hw-goal-label">New Clients</span><div class="sm-hw-goal-bar"><div class="sm-hw-goal-fill sm-hw-goal-done" style="width:100%"></div></div><span class="sm-hw-goal-pct">100%</span></div>
-								<div class="sm-hw-goal"><span class="sm-hw-goal-label">Retention</span><div class="sm-hw-goal-bar"><div class="sm-hw-goal-fill" style="width:89%"></div></div><span class="sm-hw-goal-pct">89%</span></div>
-							</div>
-						</div>
-					</div>
-					<!-- Source: Invoices/Invoice.vue — row + amount + status pill -->
-					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget">
-							<div class="sm-mock-header">
-								<span class="sm-mock-title">Invoicing</span>
-								<span class="sm-mock-pill">3 pending</span>
-							</div>
-							<div class="sm-hw-invoices">
-								<div class="sm-hw-inv-row"><span class="sm-hw-inv-name"></span><span class="sm-hw-inv-amt">$4,200</span><span class="sm-status-chip sm-status-success">Paid</span></div>
-								<div class="sm-hw-inv-row"><span class="sm-hw-inv-name"></span><span class="sm-hw-inv-amt">$2,800</span><span class="sm-status-chip sm-status-pending">Due</span></div>
-								<div class="sm-hw-inv-row"><span class="sm-hw-inv-name"></span><span class="sm-hw-inv-amt">$1,600</span><span class="sm-status-chip sm-status-success">Paid</span></div>
-							</div>
-						</div>
-					</div>
-					<!-- Source: Marketing/CampaignPlan.vue -->
-					<div class="sm-showcase-cell sm-showcase-wide opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget">
-							<div class="sm-mock-header"><span class="sm-mock-title">Marketing Plan</span><span class="sm-mock-pill">AI Generated</span></div>
-							<div class="sm-mock-mktg">
-								<div class="sm-mock-mktg-channels">
-									<div class="sm-mock-mktg-ch"><span class="sm-mock-mktg-icon" style="background:#E4405F">IG</span><div class="sm-mock-mktg-info"><span class="sm-mock-mktg-name">Instagram</span><span class="sm-mock-mktg-cadence">3x/week</span></div></div>
-									<div class="sm-mock-mktg-ch"><span class="sm-mock-mktg-icon" style="background:#0A66C2">in</span><div class="sm-mock-mktg-info"><span class="sm-mock-mktg-name">LinkedIn</span><span class="sm-mock-mktg-cadence">2x/week</span></div></div>
-									<div class="sm-mock-mktg-ch"><span class="sm-mock-mktg-icon" style="background:var(--sm-text)">@</span><div class="sm-mock-mktg-info"><span class="sm-mock-mktg-name">Email</span><span class="sm-mock-mktg-cadence">Weekly newsletter</span></div></div>
-								</div>
-								<div class="sm-mock-mktg-timeline">
-									<div class="sm-mock-mktg-week"><span class="sm-mock-mktg-wk-label">Wk 1</span><div class="sm-mock-mktg-wk-bar" style="width:100%"></div></div>
-									<div class="sm-mock-mktg-week"><span class="sm-mock-mktg-wk-label">Wk 2</span><div class="sm-mock-mktg-wk-bar" style="width:85%"></div></div>
-									<div class="sm-mock-mktg-week"><span class="sm-mock-mktg-wk-label">Wk 3</span><div class="sm-mock-mktg-wk-bar" style="width:70%"></div></div>
-									<div class="sm-mock-mktg-week"><span class="sm-mock-mktg-wk-label">Wk 4</span><div class="sm-mock-mktg-wk-bar" style="width:60%"></div></div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Source: Leads/LeadPipelineCard.vue — score line + value pill -->
-					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget">
-							<div class="sm-mock-header"><span class="sm-mock-title">CRM Intelligence</span></div>
-							<div class="sm-hw-crm">
-								<div class="sm-hw-crm-contact"><span class="sm-hw-contact-dot" style="background:var(--sm-status-active);margin:0"></span><div class="sm-hw-crm-info"><span class="sm-hw-crm-name">Helios Studio</span><span class="sm-hw-crm-stage">Active &middot; Score 92</span></div><span class="sm-hw-crm-val">$12k</span></div>
-								<div class="sm-hw-crm-contact"><span class="sm-hw-contact-dot" style="background:var(--sm-status-pending);margin:0"></span><div class="sm-hw-crm-info"><span class="sm-hw-crm-name">Atlas Fintech</span><span class="sm-hw-crm-stage">Proposal &middot; Score 67</span></div><span class="sm-hw-crm-val">$8k</span></div>
-								<div class="sm-hw-crm-contact"><span class="sm-hw-contact-dot" style="background:var(--sm-status-success);margin:0"></span><div class="sm-hw-crm-info"><span class="sm-hw-crm-name">Meridian Law</span><span class="sm-hw-crm-stage">Active &middot; Score 88</span></div><span class="sm-hw-crm-val">$6k</span></div>
-								<div class="sm-hw-crm-health"><span class="sm-hw-crm-health-label">Pipeline Health</span><div class="sm-hw-goal-bar"><div class="sm-hw-goal-fill" style="width:82%"></div></div></div>
-							</div>
-						</div>
-					</div>
-					<!-- Source: Teams/TeamRoster.vue — presence dot + name -->
-					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget">
-							<div class="sm-mock-header"><span class="sm-mock-title">Team</span><span class="sm-mock-pill">6 members</span></div>
-							<div class="sm-hw-team">
-								<div class="sm-hw-team-member"><span class="sm-hw-contact-dot" style="background:var(--sm-status-active);margin:0"></span><span class="sm-hw-team-name">Sonia Reyes</span><span class="sm-hw-team-status" style="background:var(--sm-status-success)"></span></div>
-								<div class="sm-hw-team-member"><span class="sm-hw-contact-dot" style="background:var(--sm-status-pending);margin:0"></span><span class="sm-hw-team-name">David Park</span><span class="sm-hw-team-status" style="background:var(--sm-status-success)"></span></div>
-								<div class="sm-hw-team-member"><span class="sm-hw-contact-dot" style="background:#ec4899;margin:0"></span><span class="sm-hw-team-name">Maya Iyer</span><span class="sm-hw-team-status" style="background:var(--sm-muted)"></span></div>
-								<div class="sm-hw-team-member"><span class="sm-hw-contact-dot" style="background:var(--sm-status-success);margin:0"></span><span class="sm-hw-team-name">Tom Bennett</span><span class="sm-hw-team-status" style="background:var(--sm-status-success)"></span></div>
-							</div>
-						</div>
-					</div>
-					<!-- Source: EarnestScore/ScoreCard.vue — radar + level pill -->
-					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget">
-							<div class="sm-mock-header"><span class="sm-mock-title">Earnest Score</span><span class="sm-mock-pill">Today</span></div>
-							<div class="sm-mock-earnest-score">
-								<div class="sm-mock-score-ring">
-									<svg viewBox="0 0 80 80" class="sm-mock-radar">
-										<polygon points="40,8 66,24 66,56 40,72 14,56 14,24" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="0.5"/>
-										<polygon points="40,18 58,28 58,52 40,62 22,52 22,28" fill="none" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
-										<polygon points="40,12 62,22 62,58 40,68 18,58 18,22" fill="rgba(20,184,166,0.10)" stroke="var(--sm-status-active)" stroke-width="1.5" stroke-linejoin="round"/>
-									</svg>
-									<div class="sm-mock-score-center">
-										<span class="sm-mock-score-big">87</span>
-										<span class="sm-mock-score-level">Resolute</span>
-									</div>
-								</div>
-								<div class="sm-mock-score-meta">
-									<span class="sm-mock-score-streak">12-day streak</span>
-									<span class="sm-mock-score-badges">6 badges</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Source: AISidebar/SidebarPanel.vue — entity-scoped chat + suggested prompts -->
-					<div class="sm-showcase-cell sm-showcase-small opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget sm-mock-widget-dark">
-							<div class="sm-mock-header">
-								<span class="sm-mock-title" style="color:white">AI Sidebar</span>
-								<span class="sm-mock-pill" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7)">Helios Studio</span>
-							</div>
-							<div class="sm-mock-ai-sidebar">
-								<div class="sm-mock-sidebar-msg sm-mock-sidebar-user">What's the status of this client?</div>
-								<div class="sm-mock-sidebar-msg sm-mock-sidebar-ai">
-									<UIcon name="i-lucide-sparkles" style="width:12px;height:12px;color:var(--sm-status-success);flex-shrink:0" />
-									<span>3 open projects, $12k billed this quarter, last follow-up 2 days ago. Pipeline health: strong.</span>
-								</div>
-								<div class="sm-mock-sidebar-prompts">
-									<span class="sm-mock-sidebar-prompt">Growth plan</span>
-									<span class="sm-mock-sidebar-prompt">Contact strategy</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Source: Leads/PipelineBoard.vue — Kanban with score-bar cards -->
-					<div class="sm-showcase-cell sm-showcase-wide opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget">
-							<div class="sm-mock-header"><span class="sm-mock-title">CRM Pipeline</span><span class="sm-mock-pill">$84k total</span></div>
-							<div class="sm-mock-kanban sm-mock-kanban-crm">
-								<div class="sm-mock-kan-col">
-									<div class="sm-mock-kan-head" style="border-color:var(--sm-status-muted-fg)">New <span class="sm-mock-kan-count">8</span></div>
-									<div class="sm-mock-kan-card"><div class="sm-mock-kan-title">Driftwood Roasters</div><div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-scheduled">$6k</span></div></div>
-								</div>
-								<div class="sm-mock-kan-col">
-									<div class="sm-mock-kan-head" style="border-color:var(--sm-status-pending)">Qualified <span class="sm-mock-kan-count">5</span></div>
-									<div class="sm-mock-kan-card"><div class="sm-mock-kan-title">Atlas Fintech</div><div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-pending">$12k</span></div></div>
-								</div>
-								<div class="sm-mock-kan-col">
-									<div class="sm-mock-kan-head" style="border-color:var(--sm-status-active)">Proposal <span class="sm-mock-kan-count">3</span></div>
-									<div class="sm-mock-kan-card"><div class="sm-mock-kan-title">Northwind Dev</div><div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-active">$8k</span></div></div>
-								</div>
-								<div class="sm-mock-kan-col">
-									<div class="sm-mock-kan-head" style="border-color:var(--sm-status-success)">Won <span class="sm-mock-kan-count">5</span></div>
-									<div class="sm-mock-kan-card sm-mock-kan-done"><div class="sm-mock-kan-title">Meridian Law</div><div class="sm-mock-kan-meta"><span class="sm-status-chip sm-status-success">$18k</span></div></div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Source: Scheduler/WeekView.vue — day cards + event chips -->
-					<div class="sm-showcase-cell sm-showcase-wide opacity-0" aria-hidden="true">
-						<div class="sm-mock-widget">
-							<div class="sm-mock-header"><span class="sm-mock-title">Scheduler</span><span class="sm-mock-pill">This week</span></div>
-							<div class="sm-mock-scheduler">
-								<div class="sm-mock-sched-day"><span class="sm-mock-sched-label">Mon</span><div class="sm-mock-sched-slots"><div class="sm-mock-sched-event sm-mock-sched-meeting">Team standup<span>9 AM</span></div><div class="sm-mock-sched-event sm-mock-sched-task">Helios review<span>2 PM</span></div></div></div>
-								<div class="sm-mock-sched-day"><span class="sm-mock-sched-label">Tue</span><div class="sm-mock-sched-slots"><div class="sm-mock-sched-event sm-mock-sched-call">Atlas — sales call<span>10:30 AM</span></div></div></div>
-								<div class="sm-mock-sched-day sm-mock-sched-today"><span class="sm-mock-sched-label">Wed</span><div class="sm-mock-sched-slots"><div class="sm-mock-sched-event sm-mock-sched-meeting">Design review<span>11 AM</span></div><div class="sm-mock-sched-event sm-mock-sched-task">Send proposal<span>3 PM</span></div></div></div>
-								<div class="sm-mock-sched-day"><span class="sm-mock-sched-label">Thu</span><div class="sm-mock-sched-slots"><div class="sm-mock-sched-event sm-mock-sched-call">Northwind onboarding<span>9 AM</span></div></div></div>
-								<div class="sm-mock-sched-day"><span class="sm-mock-sched-label">Fri</span><div class="sm-mock-sched-slots"><div class="sm-mock-sched-event sm-mock-sched-meeting">Sprint retro<span>4 PM</span></div></div></div>
-							</div>
-						</div>
+					<div class="sm-carddesk-actions">
+						<a
+							href="https://carddesk.earnest.guru/"
+							target="_blank"
+							rel="noopener"
+							class="sm-carddesk-cta"
+						>
+							<UIcon name="i-lucide-download" class="sm-carddesk-cta-ico" />
+							<span>Install CardDesk</span>
+						</a>
+						<nuxt-link to="/features/carddesk" class="sm-carddesk-learn">
+							Learn more &rarr;
+						</nuxt-link>
 					</div>
 				</div>
 			</div>
@@ -1360,7 +961,9 @@ const agencyDemoUrl = `${appUrl}/try-demo?persona=agency`;
 
 // Hero screenshot — captured by scripts/capture-demo-screenshots.ts in the
 // earnest app repo. Feature pages read the same `latest/` mirror.
-const heroScreenshotSrc = '/screenshots/latest/command-center.png';
+// Lead with the new Apps Layout shell — the unified rail + chrome + floor-strip is
+// the most recognizable "this is the new Earnest" visual proof above the fold.
+const heroScreenshotSrc = '/screenshots/latest/apps-rail.png';
 
 // ── Refs ──
 const heroRef = ref(null);
@@ -1372,12 +975,17 @@ const replacesRef = ref(null);
 const heroCycleRef = ref(null);
 const calcRef = ref(null);
 const galleryRef = ref(null);
-const showcaseRef = ref(null);
+const carddeskRef = ref(null);
 const testimonialsRef = ref(null);
 
 // ── Gallery: 19 captures from /public/screenshots/latest/ ──
 // Labels mirror the human-readable feature names from app/data/features.ts.
 const galleryShots = [
+	// Apps Layout — lead the carousel with the new shell
+	{ slug: 'apps-rail', label: 'Apps Layout · Work', icon: 'i-lucide-layout-grid' },
+	{ slug: 'client-workspace', label: 'Client Workspace', icon: 'i-lucide-app-window' },
+	{ slug: 'project-workspace', label: 'Project Workspace', icon: 'i-lucide-folder-kanban' },
+	{ slug: 'project-documents', label: 'Project · Documents', icon: 'i-lucide-files' },
 	{ slug: 'command-center', label: 'Command Center', icon: 'i-lucide-zap' },
 	{ slug: 'leads-pipeline', label: 'CRM Pipeline', icon: 'i-lucide-scan-search' },
 	{ slug: 'project-timeline', label: 'Project Timeline', icon: 'i-lucide-gantt-chart' },
@@ -1385,6 +993,8 @@ const galleryShots = [
 	{ slug: 'financials-overview', label: 'Financials', icon: 'i-lucide-receipt' },
 	{ slug: 'people-dashboard', label: 'People Intelligence', icon: 'i-lucide-users' },
 	{ slug: 'scheduler-day', label: 'Scheduler · Day View', icon: 'i-lucide-calendar' },
+	{ slug: 'time-tracker', label: 'Time Tracker', icon: 'i-lucide-timer' },
+	{ slug: 'carddesk', label: 'CardDesk', icon: 'i-lucide-credit-card' },
 	{ slug: 'ai-sidebar', label: 'Contextual AI Sidebar', icon: 'i-lucide-sparkles' },
 	{ slug: 'proposals-composer', label: 'Proposal Composer', icon: 'i-lucide-wand-2' },
 	{ slug: 'proposals-preview', label: 'Branded Proposal Preview', icon: 'i-lucide-eye' },
@@ -1393,6 +1003,7 @@ const galleryShots = [
 	{ slug: 'contact-detail', label: 'Contact Detail', icon: 'i-lucide-user' },
 	{ slug: 'client-detail', label: 'Client Detail', icon: 'i-lucide-building-2' },
 	{ slug: 'marketing-overview', label: 'Marketing Overview', icon: 'i-lucide-bar-chart-3' },
+	{ slug: 'documents-library', label: 'Documents Library', icon: 'i-lucide-library' },
 	{ slug: 'organization-overview', label: 'Organization', icon: 'i-lucide-briefcase' },
 	{ slug: 'organization-teams', label: 'Teams', icon: 'i-lucide-users-round' },
 	{ slug: 'organization-branding', label: 'Brand & Whitelabel', icon: 'i-lucide-palette' },
@@ -1859,18 +1470,8 @@ onMounted(async () => {
 		// Gallery — fade in title + slider + thumbs as the section enters
 		reveal(galleryRef, '.sm-kicker, .sm-gallery-title, .sm-gallery-sub, .sm-gallery-stage, .sm-gallery-thumbs', { stagger: 0.08, start: 'top 95%' });
 
-		// Showcase — title + each cell reveals individually on enter
-		reveal(showcaseRef, '.sm-kicker, .sm-showcase-title', { stagger: 0.08, start: 'top 98%' });
-		if (showcaseRef.value) {
-			showcaseRef.value.querySelectorAll('.sm-showcase-cell').forEach((el) => {
-				gsap.fromTo(el,
-					{ opacity: 0, y: 16 },
-					{ opacity: 1, y: 0, duration: 0.35, ease: 'power2.out',
-						scrollTrigger: { trigger: el, start: 'top 100%', toggleActions: 'play none none none' }
-					}
-				);
-			});
-		}
+		// CardDesk callout — single card fades + lifts in
+		reveal(carddeskRef, '.sm-carddesk-card', { stagger: 0, start: 'top 90%', from: { y: 24 } });
 
 		// Quote
 		gsap.fromTo('.sm-quote-text', { opacity: 0, y: 24, scale: 0.98 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'power3.out', scrollTrigger: { trigger: '.sm-quote', start: 'top 88%' } });

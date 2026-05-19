@@ -13,6 +13,32 @@ function slugify(name: string): string {
 
 export const features: Feature[] = [
   {
+    name: 'Apps Layout',
+    slug: 'apps-layout',
+    icon: 'i-lucide-layout-grid',
+    desc: 'A unified shell — circular gradient app chips on a floating rail, a glass top chrome, and pill-segmented floor strips inside each app. Move between Work, Clients, Money, Marketing, and Organization without losing context. The palette tints the rail plinth so every app has its own visual home.',
+    keywords: ['app layout', 'app rail', 'navigation', 'palette tint', 'unified shell', 'app chips'],
+    benefits: [
+      'Circular gradient app chips with palette-driven accents per app',
+      'Glass top chrome with universal search, notifications, and AI launcher',
+      'Pill-segmented floor strips for in-app navigation (Projects, Tasks, Tickets, etc.)',
+      'Rail position is configurable — left, right, top, bottom, or floating',
+    ],
+  },
+  {
+    name: 'Workspaces',
+    slug: 'workspaces',
+    icon: 'i-lucide-app-window',
+    desc: 'Every client and project gets a full workspace with parity tabs — Activity, Tasks, Tickets, Channels, Meetings, Invoices, Documents, Files. Slide-over panels stack push/pop with iOS-style spring animations, so you can drill from a list to a client to a contact without losing your place.',
+    keywords: ['workspaces', 'client workspace', 'project workspace', 'slide-over', 'panel stack', 'iOS animation'],
+    benefits: [
+      '8-tab parity for clients and projects — same structure, predictable everywhere',
+      'Push/pop slide-over panels with Framework7-style spring animations',
+      'Cross-panel navigation — Client → Contact → Project keeps the trail',
+      'URL-bound stack — every slide-over is shareable and deep-linkable',
+    ],
+  },
+  {
     name: 'Productivity Engine',
     slug: 'productivity-engine',
     icon: 'i-lucide-zap',
@@ -559,6 +585,12 @@ export type DemoShot =
   | 'contracts-signed'
   | 'ai-sidebar'
   | 'ai-actions'
+  // Apps Layout — new unified shell (post 2026-05-15)
+  | 'apps-rail'
+  | 'client-workspace'
+  | 'project-workspace'
+  | 'project-documents'
+  | 'carddesk'
   // Agency (Admin role) — unlocked in demo v2
   | 'marketing-overview'
   | 'marketing-recommendations'
@@ -567,7 +599,8 @@ export type DemoShot =
   | 'organization-overview'
   | 'organization-teams'
   | 'organization-branding'
-  | 'team-detail';
+  | 'team-detail'
+  | 'documents-library';
 
 interface DemoMapping {
   /** Path under `https://app.earnest.guru` to deep-link the "Try this live" CTA to. */
@@ -603,7 +636,7 @@ const FEATURE_DEMO_MAP: Record<string, DemoMapping> = {
   'social-analytics': { path: '/social/analytics', shot: 'social-analytics', persona: 'agency' },
   'email-marketing-ai': { path: '/marketing', shot: 'marketing-overview', persona: 'agency' },
   'goal-suggestions': { path: '/command-center', shot: 'command-center' },
-  'project-management': { path: '/projects', shot: 'project-timeline' },
+  'project-management': { path: '/apps/work', shot: 'project-workspace' },
   'people-and-companies': { path: '/people', shot: 'people-dashboard' },
   'quick-tasks-and-ai-to-dos': { path: '/tasks', shot: 'quick-tasks' },
   'ai-token-management': { path: '/command-center', shot: 'command-center' },
@@ -611,12 +644,12 @@ const FEATURE_DEMO_MAP: Record<string, DemoMapping> = {
   'invoicing-and-billing': { path: '/financials', shot: 'financials-overview' },
   'contracts': { path: '/contracts', shot: 'contracts-list' },
   'ai-proposal-drafter': { path: '/proposals', shot: 'proposals-composer' },
-  'document-blocks': { path: '/proposals', shot: 'proposals-preview' },
+  'document-blocks': { path: '/organization/documents-library', shot: 'documents-library', persona: 'agency' },
   'whitelabel': { path: '/organization', shot: 'organization-branding', persona: 'agency' },
   'team-channels': { path: '/command-center', shot: 'command-center' },
   'phone-and-video': { path: '/command-center', shot: 'command-center' },
   'calendar-and-crm-hub': { path: '/scheduler', shot: 'scheduler-day' },
-  'carddesk': { path: '/contacts', shot: 'contact-detail' },
+  'carddesk': { path: '/carddesk', shot: 'carddesk' },
   'contextual-ai-sidebar': { path: '/clients', shot: 'ai-sidebar' },
   'ai-actions': { path: '/projects', shot: 'ai-actions' },
   'earnest-score': { path: '/command-center', shot: 'command-center' },
@@ -626,10 +659,14 @@ const FEATURE_DEMO_MAP: Record<string, DemoMapping> = {
   'client-portal': { path: '/portal', shot: 'command-center' },
   'meeting-ai-recap': { path: '/meetings', shot: 'scheduler-day' },
   'branded-email': { path: '/organization', shot: 'organization-branding', persona: 'agency' },
-  'service-offerings': { path: '/organization', shot: 'organization-overview', persona: 'agency' },
+  'service-offerings': { path: '/organization/documents-library?tab=offerings', shot: 'documents-library', persona: 'agency' },
   'bank-sync': { path: '/financials', shot: 'financials-overview' },
   'accept-payments': { path: '/financials', shot: 'financials-overview' },
-  'retainer-content-studio': { path: '/marketing', shot: 'marketing-overview', persona: 'agency' },
+  'retainer-content-studio': { path: '/apps/work?floor=time', shot: 'time-tracker' },
+  // New entries for Apps Layout features:
+  'apps-layout': { path: '/apps/work', shot: 'apps-rail' },
+  'workspaces': { path: '/apps/clients', shot: 'client-workspace' },
+  'project-workspace': { path: '/apps/work', shot: 'project-workspace' },
 };
 
 export function getFeatureDemo(slug: string): DemoMapping {
