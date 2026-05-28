@@ -477,6 +477,151 @@
 			</div>
 		</section>
 
+		<!-- ─── Native iOS feel ─── -->
+		<!-- Three vignettes that mirror the 2026-05 UX sweep in the app:        -->
+		<!-- (1) iOS slide-over stack — push/pop panel pair with a Framework7   -->
+		<!--     spring curve.                                                  -->
+		<!-- (2) Liquid glass tiers — three frosted cards layered over a hue    -->
+		<!--     blob (mirrors .glass-thin / .glass / .glass-ultra in theme.css).-->
+		<!-- (3) River timeline — day strip + hour beds + accent-hued leaves +  -->
+		<!--     temperature curve + glowing "now" indicator (mirrors           -->
+		<!--     RiverChart.vue).                                               -->
+		<section ref="nativeRef" class="sm-native" aria-label="Native iOS design language">
+			<div class="sm-native-inner">
+				<div class="sm-native-sidebar">
+					<div class="sm-section-label sm-section-label-light opacity-0">The feel</div>
+				</div>
+				<div class="sm-native-body">
+					<h2 class="sm-native-headline opacity-0">
+						Native iOS, end to end<span class="sm-accent-dot">.</span><br />
+						<span class="sm-native-em">A real app, not a dashboard<span class="sm-accent-dot">.</span></span>
+					</h2>
+					<p class="sm-native-lede opacity-0">
+						<span class="sm-brand">Earnest</span> moves like a native iOS app. One spring curve carries every push and pop.
+						Every chrome surface — sheets, dropdowns, tooltips, dialogs — is layered glass.
+						Time-based work lives on a <em>river</em> that you can read at a glance and reschedule by dragging.
+					</p>
+
+					<div class="sm-native-grid">
+						<!-- Vignette 1 — iOS slide-over stack -->
+						<article class="sm-native-card sm-native-stack opacity-0">
+							<div class="sm-native-vis sm-native-vis-stack" aria-hidden="true">
+								<div class="sm-stack-list">
+									<div class="sm-stack-list-row sm-stack-list-row-active">
+										<span class="sm-stack-dot" style="background:#14b8a6"></span>
+										<span class="sm-stack-row-name"></span>
+									</div>
+									<div class="sm-stack-list-row">
+										<span class="sm-stack-dot" style="background:#f59e0b"></span>
+										<span class="sm-stack-row-name"></span>
+									</div>
+									<div class="sm-stack-list-row">
+										<span class="sm-stack-dot" style="background:#0ea5e9"></span>
+										<span class="sm-stack-row-name"></span>
+									</div>
+									<div class="sm-stack-list-row">
+										<span class="sm-stack-dot" style="background:#a78bfa"></span>
+										<span class="sm-stack-row-name"></span>
+									</div>
+								</div>
+								<div class="sm-stack-panel sm-stack-panel-back">
+									<div class="sm-stack-panel-bar"></div>
+								</div>
+								<div class="sm-stack-panel sm-stack-panel-front">
+									<div class="sm-stack-panel-header">
+										<span class="sm-stack-panel-chip"></span>
+										<span class="sm-stack-panel-title"></span>
+									</div>
+									<div class="sm-stack-panel-row"></div>
+									<div class="sm-stack-panel-row sm-stack-panel-row-short"></div>
+									<div class="sm-stack-panel-row"></div>
+								</div>
+							</div>
+							<div class="sm-native-meta">
+								<span class="sm-native-tag">Motion</span>
+								<h3 class="sm-native-card-title">iOS slide-over stack</h3>
+								<p class="sm-native-card-desc">
+									Detail surfaces push from the right; the list stays visible, the previous panel scales back and fades. One Framework7 spring curve, every layer URL-bound.
+								</p>
+							</div>
+						</article>
+
+						<!-- Vignette 2 — Liquid glass tiers -->
+						<article class="sm-native-card sm-native-glass opacity-0">
+							<div class="sm-native-vis sm-native-vis-glass" aria-hidden="true">
+								<div class="sm-glass-blob sm-glass-blob-a"></div>
+								<div class="sm-glass-blob sm-glass-blob-b"></div>
+								<div class="sm-glass-blob sm-glass-blob-c"></div>
+								<div class="sm-glass-tier sm-glass-tier-thin">
+									<span class="sm-glass-label">.glass-thin</span>
+								</div>
+								<div class="sm-glass-tier sm-glass-tier-std">
+									<span class="sm-glass-label">.glass</span>
+								</div>
+								<div class="sm-glass-tier sm-glass-tier-ultra">
+									<span class="sm-glass-label">.glass-ultra</span>
+									<div class="sm-glass-tier-body">
+										<span class="sm-glass-pill"></span>
+										<span class="sm-glass-pill sm-glass-pill-sm"></span>
+									</div>
+								</div>
+							</div>
+							<div class="sm-native-meta">
+								<span class="sm-native-tag">Material</span>
+								<h3 class="sm-native-card-title">Liquid glass system</h3>
+								<p class="sm-native-card-desc">
+									Three tiers — thin, standard, ultra — applied universally to chrome. A hue-driven glass surface picks up each app's accent so Work, Money, and Marketing read differently while staying coherent.
+								</p>
+							</div>
+						</article>
+
+						<!-- Vignette 3 — River timeline -->
+						<article class="sm-native-card sm-native-river opacity-0">
+							<div class="sm-native-vis sm-native-vis-river" aria-hidden="true">
+								<!-- Day labels strip -->
+								<div class="sm-river-days">
+									<span v-for="(d, i) in riverDays" :key="`d-${i}`" class="sm-river-day" :class="{ 'sm-river-day-today': d.today }">{{ d.label }}</span>
+								</div>
+								<!-- Hour bed + leaves -->
+								<div class="sm-river-bed">
+									<!-- Horizontal hour rails -->
+									<div class="sm-river-rail" style="top:25%"></div>
+									<div class="sm-river-rail" style="top:50%"></div>
+									<div class="sm-river-rail" style="top:75%"></div>
+									<!-- Today marker -->
+									<div class="sm-river-now"></div>
+									<!-- Leaves — positioned by % across (day) + % down (hour) -->
+									<span
+										v-for="(leaf, i) in riverLeaves"
+										:key="`l-${i}`"
+										class="sm-river-leaf"
+										:class="{ 'sm-river-leaf-past': leaf.past }"
+										:style="{
+											left: leaf.x + '%',
+											top: leaf.y + '%',
+											'--leaf-h': leaf.h,
+										}"
+									></span>
+								</div>
+								<!-- Temperature curve -->
+								<svg class="sm-river-curve" viewBox="0 0 280 40" fill="none" preserveAspectRatio="none">
+									<path d="M0,32 C20,24 40,30 60,18 C80,10 100,12 120,6 C140,3 160,8 180,14 C200,20 220,16 240,22 C260,28 270,30 280,28" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" />
+									<path d="M0,32 C20,24 40,30 60,18 C80,10 100,12 120,6 C140,3 160,8 180,14 C200,20 220,16 240,22 C260,28 270,30 280,28 L280,40 L0,40 Z" fill="currentColor" opacity="0.08" />
+								</svg>
+							</div>
+							<div class="sm-native-meta">
+								<span class="sm-native-tag">Time</span>
+								<h3 class="sm-native-card-title">River timeline</h3>
+								<p class="sm-native-card-desc">
+									A day strip with hour beds, accent-hued leaves for each item, and a flowing temperature curve underneath. Drives the Social Studio, payments, tasks, and campaign scheduling — drag a leaf to reschedule.
+								</p>
+							</div>
+						</article>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<!-- ─── AI Capabilities ─── -->
 		<section ref="aiRef" class="sm-ai">
 			<!-- Parallax background chart -->
@@ -977,6 +1122,36 @@ const calcRef = ref(null);
 const galleryRef = ref(null);
 const carddeskRef = ref(null);
 const testimonialsRef = ref(null);
+const nativeRef = ref(null);
+
+// ── River vignette data — mirrors RiverChart.vue's day strip + hue leaves.
+// Static positions chosen to read as "a week of social posts + tasks";
+// labels match a Mon-anchored week so the today marker lands midweek.
+const riverDays = [
+	{ label: 'Mon' },
+	{ label: 'Tue' },
+	{ label: 'Wed' },
+	{ label: 'Today', today: true },
+	{ label: 'Fri' },
+	{ label: 'Sat' },
+	{ label: 'Sun' },
+];
+// h = HSL hue (0-360) matching RiverChart's channel-tinted leaves;
+// past=true softens leaves left of the now marker (~50% of width).
+const riverLeaves = [
+	{ x: 6,  y: 28, h: 170, past: true },
+	{ x: 12, y: 60, h: 200, past: true },
+	{ x: 22, y: 18, h: 220, past: true },
+	{ x: 28, y: 72, h: 280, past: true },
+	{ x: 38, y: 42, h: 30,  past: true },
+	{ x: 46, y: 22, h: 200, past: true },
+	{ x: 58, y: 50, h: 340 },
+	{ x: 64, y: 70, h: 160 },
+	{ x: 72, y: 30, h: 30 },
+	{ x: 80, y: 56, h: 220 },
+	{ x: 86, y: 18, h: 280 },
+	{ x: 92, y: 64, h: 200 },
+];
 
 // ── Gallery: 19 captures from /public/screenshots/latest/ ──
 // Labels mirror the human-readable feature names from app/data/features.ts.
@@ -1443,6 +1618,7 @@ onMounted(async () => {
 		reveal(truthRef, '.sm-section-label, .sm-truth-title, .sm-truth-text, .sm-truth-visual');
 		// Insight cards (inside truth body)
 		reveal(truthRef, '.sm-truth-card', { stagger: 0.08 });
+		reveal(nativeRef, '.sm-section-label, .sm-native-headline, .sm-native-lede, .sm-native-card', { start: 'top 92%', stagger: 0.1 });
 		reveal(aiRef, '.sm-ai-headline, .sm-ai-lede, .sm-ai-card', { from: { scale: 0.97 }, to: { scale: 1 } });
 		// Header elements — staggered as a group
 		reveal(featuresRef, '.sm-section-label, .sm-features-big, .sm-features-title, .sm-features-sub, .sm-features-count', { start: 'top 95%', stagger: 0.08 });

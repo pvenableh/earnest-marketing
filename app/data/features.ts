@@ -26,6 +26,45 @@ export const features: Feature[] = [
     ],
   },
   {
+    name: 'Native iOS Navigation',
+    slug: 'native-ios-navigation',
+    icon: 'i-lucide-layers',
+    desc: 'Earnest moves like a native iOS app. Detail surfaces open as slide-over panels that stack push/pop with a Framework7-style spring curve — list context stays visible behind, the prior panel softens with a scale-back-and-fade, and the URL travels with you so every layer is shareable. Bottom sheets with drag-to-dismiss handles cover new and edit flows. Segmented pill controls, route transitions, haptic taps, and an iOS-style activity spinner round out the feel. One spring curve, one motion language, every surface.',
+    keywords: ['ios navigation', 'slide-over', 'panel stack', 'bottom sheet', 'spring animation', 'haptic', 'segmented control', 'native feel'],
+    benefits: [
+      'Slide-over panels push/pop with a single Framework7 spring curve (cubic-bezier(0.36, 0.66, 0.04, 1) @ 400ms)',
+      'AppBottomSheet with drag-to-dismiss handle for create + edit on mobile and desktop',
+      'iOS segmented controls with sliding floor pill + haptic feedback on switch',
+      'URL-bound slide-over stack — every panel is deep-linkable and shareable',
+    ],
+  },
+  {
+    name: 'Liquid Glass System',
+    slug: 'liquid-glass-system',
+    icon: 'i-lucide-square-stack',
+    desc: 'Every surface is on a tier of frosted glass. Three system tiers — thin, standard, ultra — layer over an accent-tinted plinth so toolbars, sheets, dropdowns, tooltips, dialogs, and toasts all read as the same material. The hue-driven `glass-surface` primitive picks up the active app accent, so glass in Work feels different from glass in Marketing while staying coherent. A liquid-glass focus ring on inputs and a glass overlay on dialogs complete the iOS-26-style look.',
+    keywords: ['glass', 'frosted glass', 'liquid glass', 'backdrop blur', 'ios material', 'tinted glass', 'design system'],
+    benefits: [
+      'Three glass tiers: .glass-thin, .glass, .glass-ultra — applied universally to chrome',
+      'Hue-driven .glass-surface picks up each app\'s accent — Work, Clients, Money, Marketing all read different',
+      'Glass dialog overlay + iOS-style accent focus ring + glass dropdowns, sheets, and toasts',
+      'Graceful fallback to flat tinted card under prefers-reduced-transparency',
+    ],
+  },
+  {
+    name: 'River Timeline',
+    slug: 'river-timeline',
+    icon: 'i-lucide-waves',
+    desc: 'A new visual language for time-on-a-river — a horizontally-scrolling day strip with 24-hour beds, channel-tinted breathing leaves for each item, a temperature curve revealing rhythm gaps, and a glowing "now" indicator. Drives the social calendar, payments timeline, tasks workload, and campaign scheduling. On the Social Content Studio you can drag leaves to reschedule; on read-only surfaces it shows the flow at a glance.',
+    keywords: ['river', 'timeline', 'calendar', 'workload', 'rhythm', 'social calendar', 'payments timeline', 'visualization'],
+    benefits: [
+      'Day strip + 24-hour beds with channel-tinted, accent-hued leaves',
+      'Live temperature curve exposes rhythm gaps — empty days are visible',
+      'Drag-to-reschedule on Social Content Studio; read-only on payments + tasks + campaigns',
+      'Glowing "now" indicator anchors past-vs-future at a glance',
+    ],
+  },
+  {
     name: 'Workspaces',
     slug: 'workspaces',
     icon: 'i-lucide-app-window',
@@ -667,6 +706,10 @@ const FEATURE_DEMO_MAP: Record<string, DemoMapping> = {
   'apps-layout': { path: '/apps/work', shot: 'apps-rail' },
   'workspaces': { path: '/apps/clients', shot: 'client-workspace' },
   'project-workspace': { path: '/apps/work', shot: 'project-workspace' },
+  // Design-language features (2026-05 UX sweep — iOS native + glass + river)
+  'native-ios-navigation': { path: '/apps/clients', shot: 'client-workspace' },
+  'liquid-glass-system': { path: '/apps/work', shot: 'apps-rail' },
+  'river-timeline': { path: '/apps/work?floor=tasks', shot: 'project-workspace' },
 };
 
 export function getFeatureDemo(slug: string): DemoMapping {
