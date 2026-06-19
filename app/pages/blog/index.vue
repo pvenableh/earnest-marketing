@@ -220,7 +220,7 @@ onMounted(async () => {
   margin-bottom: 16px;
 }
 .bp-title {
-  font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
+  font-family: 'Proxima Nova W01 Regular', system-ui, sans-serif;
   font-size: clamp(36px, 5vw, 56px);
   font-weight: 400;
   line-height: 1.1;
@@ -293,7 +293,7 @@ onMounted(async () => {
 
 /* Empty */
 .bp-empty { text-align: center; padding: 80px 32px 120px; }
-.bp-empty-title { font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif; font-size: 32px; font-weight: 400; }
+.bp-empty-title { font-family: 'Proxima Nova W01 Regular', system-ui, sans-serif; font-size: 32px; font-weight: 400; }
 .bp-empty-text { font-size: 15px; color: #6b7280; margin-top: 10px; }
 .bp-empty-link { display: inline-block; margin-top: 20px; font-size: 13px; color: #00bfff; text-decoration: none; }
 

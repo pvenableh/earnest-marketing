@@ -150,7 +150,7 @@ onUnmounted(() => {
 }
 
 .site-nav-name {
-  font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
+  font-family: 'Proxima Nova W01 Regular', system-ui, sans-serif;
   font-size: 20px;
   font-weight: 400;
   color: #0a0a0a;

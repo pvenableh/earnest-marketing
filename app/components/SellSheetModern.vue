@@ -857,9 +857,9 @@
 		</Dialog>
 
 		<!-- ─── CardDesk callout — companion PWA install ─── -->
-		<!-- Mirrors the in-app `CardDesk/InstallPromo.vue` (emerald gradient, -->
-		<!-- phone-chip silhouette, smartphone icon). Links to the live PWA -->
-		<!-- install affordances at carddesk.earnest.guru. -->
+		<!-- Mirrors the in-app `CardDesk/InstallPromo.vue` and CardDesk's own -->
+		<!-- brand: neon mint (#00ff87) → blue (#4da6ff) gradient, perfect-circle -->
+		<!-- icon badge + orb. Links to the live PWA install at carddesk.earnest.guru. -->
 		<section ref="carddeskRef" class="sm-carddesk" aria-label="Install CardDesk">
 			<div class="sm-carddesk-card opacity-0">
 				<div class="sm-carddesk-phone" aria-hidden="true"></div>

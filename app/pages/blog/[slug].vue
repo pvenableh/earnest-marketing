@@ -173,7 +173,7 @@ watch(post, (p) => {
 .ba-cats { display: flex; gap: 10px; margin: 20px 0 12px; }
 .ba-cat { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
 .ba-title {
-  font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
+  font-family: 'Proxima Nova W01 Regular', system-ui, sans-serif;
   font-size: clamp(28px, 5vw, 44px);
   font-weight: 400; line-height: 1.15; letter-spacing: -0.02em;
 }
@@ -213,7 +213,7 @@ watch(post, (p) => {
 
 /* States */
 .ba-state { text-align: center; padding: 140px 32px 80px; }
-.ba-state-title { font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif; font-size: 32px; font-weight: 400; }
+.ba-state-title { font-family: 'Proxima Nova W01 Regular', system-ui, sans-serif; font-size: 32px; font-weight: 400; }
 .ba-state-text { font-size: 15px; color: #6b7280; margin-top: 10px; }
 .ba-state-link { display: inline-block; margin-top: 20px; font-size: 13px; color: #00bfff; text-decoration: none; }
 

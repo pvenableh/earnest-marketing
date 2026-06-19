@@ -53,7 +53,10 @@
 @theme inline {
   --font-body: 'Proxima Nova W01 Regular', system-ui, sans-serif;
   --font-display: 'Proxima Nova W01 Light', system-ui, sans-serif;
-  --font-bauer-bodoni: 'Bauer Bodoni Pro_1 W05 Roman', 'Georgia', serif;
+  /* Display/heading + wordmark font switched from the Bauer Bodoni serif to
+   * the brand sans (Proxima Nova) — marketing is now all sans-serif. The
+   * legacy var name is kept so existing references resolve to the new sans. */
+  --font-bauer-bodoni: 'Proxima Nova W01 Regular', system-ui, sans-serif;
 
   --color-background: #faf7f4;
   --color-foreground: #1a1a1a;
@@ -62,7 +65,10 @@
 }
 
 :root {
-  --font-bauer-bodoni: 'Bauer Bodoni Pro_1 W05 Roman', 'Georgia', serif;
+  /* Display/heading + wordmark font switched from the Bauer Bodoni serif to
+   * the brand sans (Proxima Nova) — marketing is now all sans-serif. The
+   * legacy var name is kept so existing references resolve to the new sans. */
+  --font-bauer-bodoni: 'Proxima Nova W01 Regular', system-ui, sans-serif;
   --primary: 0 0% 10%;
   --sm-text: #1a1a1a;
   --sm-muted: #6b7280;

@@ -108,7 +108,7 @@ const appUrl = config.public.appUrl || 'https://app.earnest.guru';
   margin-bottom: 16px;
 }
 .fp-title {
-  font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
+  font-family: 'Proxima Nova W01 Regular', system-ui, sans-serif;
   font-size: clamp(36px, 6vw, 64px);
   font-weight: 400;
   line-height: 1.1;
@@ -199,7 +199,7 @@ const appUrl = config.public.appUrl || 'https://app.earnest.guru';
   margin-right: auto;
 }
 .fp-cta-title {
-  font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
+  font-family: 'Proxima Nova W01 Regular', system-ui, sans-serif;
   font-size: clamp(28px, 4vw, 44px);
   font-weight: 400;
 }

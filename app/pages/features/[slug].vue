@@ -190,7 +190,7 @@ useSeoMeta({
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 .fd-title {
-  font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
+  font-family: 'Proxima Nova W01 Regular', system-ui, sans-serif;
   font-size: clamp(32px, 5vw, 48px);
   font-weight: 400;
   line-height: 1.1;
@@ -328,7 +328,7 @@ useSeoMeta({
   margin: 20px 0 48px;
 }
 .fd-cta-title {
-  font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
+  font-family: 'Proxima Nova W01 Regular', system-ui, sans-serif;
   font-size: clamp(24px, 3vw, 32px);
   font-weight: 400;
 }

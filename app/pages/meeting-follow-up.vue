@@ -214,7 +214,7 @@ const sellPoints = [
   margin-bottom: 20px;
 }
 .mfu-title {
-  font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
+  font-family: 'Proxima Nova W01 Regular', system-ui, sans-serif;
   font-size: clamp(36px, 5.5vw, 60px);
   font-weight: 400;
   line-height: 1.08;
@@ -305,7 +305,7 @@ const sellPoints = [
   margin: 32px 0;
 }
 .mfu-pull-text {
-  font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
+  font-family: 'Proxima Nova W01 Regular', system-ui, sans-serif;
   font-size: clamp(22px, 3vw, 32px);
   font-weight: 400;
   line-height: 1.3;
@@ -423,7 +423,7 @@ const sellPoints = [
   margin-bottom: 14px;
 }
 .mfu-cta-title {
-  font-family: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, serif;
+  font-family: 'Proxima Nova W01 Regular', system-ui, sans-serif;
   font-size: clamp(32px, 4.5vw, 48px);
   font-weight: 400;
   letter-spacing: -0.02em;
