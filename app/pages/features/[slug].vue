@@ -101,10 +101,10 @@ useSeoMeta({
             decoding="async"
             class="fd-shot-img"
           />
+          <figcaption class="fd-shot-caption">
+            Live view from the public demo — no signup needed.
+          </figcaption>
         </figure>
-        <figcaption class="fd-shot-caption">
-          Live view from the public demo — no signup needed.
-        </figcaption>
       </section>
 
       <section v-if="feature.keywords.length" class="fd-keywords">
