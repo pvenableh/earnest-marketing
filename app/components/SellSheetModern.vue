@@ -37,15 +37,15 @@
 
 		<!-- ─── Hero ─── -->
 		<header class="e-hero">
-			<span class="e-hero-eyebrow opacity-0"><span class="e-spark"></span> The AI operating system for creative agencies</span>
+			<span class="e-hero-eyebrow opacity-0"><span class="e-spark"></span> The AI operating system for small &amp; mid-size agencies and businesses</span>
 			<h1 class="e-hero-wordmark opacity-0">Earnest<span class="e-hero-period">.</span></h1>
 			<p class="e-hero-tagline opacity-0">Do good work<span class="e-dot">.</span></p>
 			<p class="e-hero-sub opacity-0">
 				Seven apps in one calm, intuitive shell — <strong>People, Work, Money, Marketing</strong> and more.
-				Every page is a surface you work from, not a report you read. And <span class="e-brand">Earnest</span> sees all of it.
+				Every page is a surface you work from, not a report you read. And <span class="e-brand">Earnest</span> knows each client's brand and goals — so everything it drafts sounds like you.
 			</p>
 			<div class="e-hero-actions opacity-0">
-				<button class="e-btn e-btn-primary" @click="showComingSoon = true">Start for free</button>
+				<button class="e-btn e-btn-primary" @click="openEarlyAccess()">Start for free</button>
 				<a href="#apps" class="e-btn e-btn-ghost">See how it works</a>
 			</div>
 			<div class="e-hero-demos opacity-0">
@@ -54,12 +54,25 @@
 				<span v-else class="e-hero-demo e-hero-demo-soon" :title="AGENCY_DEMO_TOOLTIP"><UIcon name="i-lucide-users" /> Agency demo <span class="e-hero-demo-pill">Soon</span></span>
 			</div>
 
-			<!-- Floating app-chip rail — the signature Earnest motif -->
-			<div class="e-hero-rail opacity-0" aria-hidden="true">
-				<div v-for="c in heroChips" :key="c.label" class="e-hero-rail-item">
-					<span class="e-chip" :class="c.cls"><UIcon :name="c.icon" /></span>
-					<span class="e-hero-rail-label">{{ c.label }}</span>
-				</div>
+			<!-- Floating dock — the signature Earnest motif, with macOS-style
+			     cursor magnification + hover tooltips (names hidden until hover) -->
+			<div
+				ref="dockRef"
+				class="e-dock opacity-0"
+				@mousemove="onDockMove"
+				@mouseleave="onDockLeave"
+			>
+				<button
+					v-for="c in heroChips"
+					:key="c.label"
+					type="button"
+					class="e-dock-item"
+					:aria-label="`Jump to the ${c.label} app`"
+					@click="selectSurface(c.key)"
+				>
+					<span class="e-dock-tip">{{ c.label }}</span>
+					<span class="e-chip e-dock-chip" :style="{ '--chip-tint': c.tint }"><UIcon :name="c.icon" /></span>
+				</button>
 			</div>
 
 			<!-- Real product shot in a clean light frame + floating glass pills -->
@@ -84,6 +97,15 @@
 			</div>
 		</div>
 
+		<!-- ─── Quote — conceptual rationale, full-width callout near the top ─── -->
+		<div class="e-quote">
+			<div class="e-quote-inner">
+				<p class="e-quote-text opacity-0">&ldquo;Design is so simple. That&rsquo;s why it is so <em>complicated.</em>&rdquo;</p>
+				<p class="e-quote-attr opacity-0">&mdash; Paul Rand</p>
+				<p class="e-quote-note opacity-0"><span class="e-brand">Earnest</span> holds your business to the same standard.</p>
+			</div>
+		</div>
+
 		<!-- ─── App Pillar Tour ─── -->
 		<section id="apps" class="e-section">
 			<div class="e-section-head">
@@ -93,10 +115,51 @@
 					A floating rail moves you between seven apps without ever losing context — and each one opens on what matters, with its goals already in view.
 				</p>
 			</div>
-			<div class="e-pillars-grid">
-				<article v-for="p in tourPillars" :key="p.key" class="e-pillar opacity-0">
+			<!-- Variant A — interactive app-rail + detail panel -->
+			<div v-if="surfacesVariant === 'rail'" class="e-surf opacity-0">
+				<div class="e-surf-rail-outer">
+					<div ref="surfRailRef" class="e-dock e-surf-dock" @mousemove="onSurfRailMove" @mouseleave="onSurfRailLeave">
+						<button
+							v-for="p in tourPillars"
+							:key="p.key"
+							type="button"
+							class="e-dock-item"
+							:class="{ 'e-dock-item--active': activeSurface === p.key }"
+							@click="setActiveSurface(p.key)"
+						>
+							<span class="e-dock-tip">{{ p.label }}</span>
+							<span class="e-chip e-dock-chip" :style="{ '--chip-tint': surfaceTint(p.key) }"><UIcon :name="p.icon" /></span>
+						</button>
+					</div>
+				</div>
+				<div class="e-surf-detail">
+					<div class="e-surf-detail-grid" :key="activeSurface" :class="'e-surf-in-' + swapDir">
+						<div class="e-surf-detail-copy">
+							<span class="e-surf-detail-eyebrow">
+								<span class="e-chip e-dock-chip e-surf-detail-chip" :style="{ '--chip-tint': surfaceTint(activePillar.key) }"><UIcon :name="activePillar.icon" /></span>
+								{{ activePillar.label }}
+							</span>
+							<h3 class="e-surf-detail-title">{{ activePillar.title }}<span class="e-dot">.</span></h3>
+							<p class="e-surf-detail-tag">{{ activePillar.tagline }}</p>
+							<div class="e-pillar-tabs">
+								<span v-for="t in activePillar.tabs" :key="t" class="e-pillar-tab">{{ t }}</span>
+							</div>
+						</div>
+						<div class="e-surf-detail-media">
+							<div class="e-frame">
+								<div class="e-frame-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+								<img :src="`/screenshots/latest/${activePillar.shot}.png`" :alt="`Earnest — ${activePillar.title}`" loading="eager" decoding="async" class="e-frame-img" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Variant B — asymmetric bento mosaic (rows of 2 / 3 / 2) -->
+			<div v-else class="e-bento opacity-0">
+				<article v-for="(p, i) in tourPillars" :key="p.key" class="e-bento-card" :class="`e-bento-${i}`">
 					<div class="e-pillar-top">
-						<span class="e-chip" :class="chipClass(p.key)"><UIcon :name="p.icon" /></span>
+						<span class="e-chip e-dock-chip" :style="{ '--chip-tint': surfaceTint(p.key) }"><UIcon :name="p.icon" /></span>
 						<span class="e-pillar-eyebrow">{{ p.label }}</span>
 					</div>
 					<h3 class="e-pillar-name">{{ p.title }}</h3>
@@ -131,6 +194,104 @@
 			</div>
 		</section>
 
+		<!-- ─── Context: brand & goal awareness ─── -->
+		<!-- Show, don't tell: one client's brand profile producing real, on-brand  -->
+		<!-- artifacts. Toggling clients re-renders the SAME surfaces in each        -->
+		<!-- brand's voice — the killer demo of context. Sets up the AI section.    -->
+		<section class="e-section e-context">
+			<div class="e-section-head">
+				<p class="e-eyebrow opacity-0">Context-aware by default</p>
+				<h2 class="e-h2 opacity-0">One profile<span class="e-dot">.</span> <span class="e-grad-text">Every surface, on brand</span><span class="e-dot">.</span></h2>
+				<p class="e-section-sub opacity-0">
+					Set each client's brand voice, goals, audience, and positioning once. <span class="e-brand">Earnest</span> carries that context into everything it drafts — so the output always sounds like <em>that</em> client, <strong>not a generic template.</strong>
+				</p>
+			</div>
+
+			<!-- Toggle between two real demo clients to watch the same surfaces
+			     re-render in each brand's voice -->
+			<div class="e-bp-toggle opacity-0" role="tablist" aria-label="Choose a demo client">
+				<button
+					v-for="c in contextClients"
+					:key="c.key"
+					type="button"
+					role="tab"
+					class="e-bp-toggle-btn"
+					:class="{ 'e-bp-toggle-btn--on': activeClientKey === c.key }"
+					:aria-selected="activeClientKey === c.key"
+					@click="activeClientKey = c.key"
+				>
+					<span class="e-bp-toggle-mono" :style="{ '--mono-tint': c.tint }">{{ c.monogram }}</span>
+					{{ c.name }}
+				</button>
+			</div>
+
+			<!-- Keyed remount on client change replays a spring slide-in (NOT
+			     <Transition>, which leaves stacked ghost nodes in this codebase) -->
+			<div class="e-bp opacity-0">
+				<div class="e-bp-grid" :key="activeClientKey">
+					<!-- Brand profile card -->
+					<aside class="e-bp-profile e-glass">
+						<div class="e-bp-profile-head">
+							<span class="e-bp-mono" :style="{ '--mono-tint': activeClient.tint }">{{ activeClient.monogram }}</span>
+							<div class="e-bp-profile-id">
+								<span class="e-bp-profile-label">Brand profile</span>
+								<h3 class="e-bp-profile-name">{{ activeClient.name }}</h3>
+							</div>
+						</div>
+						<dl class="e-bp-fields">
+							<div class="e-bp-field">
+								<dt><UIcon name="i-lucide-megaphone" /> Brand voice</dt>
+								<dd>{{ activeClient.voice }}</dd>
+							</div>
+							<div class="e-bp-field">
+								<dt><UIcon name="i-lucide-target" /> Goal</dt>
+								<dd>{{ activeClient.goal }}</dd>
+							</div>
+							<div class="e-bp-field">
+								<dt><UIcon name="i-lucide-users" /> Audience</dt>
+								<dd>{{ activeClient.audience }}</dd>
+							</div>
+							<div class="e-bp-field">
+								<dt><UIcon name="i-lucide-compass" /> Positioning</dt>
+								<dd>{{ activeClient.positioning }}</dd>
+							</div>
+						</dl>
+					</aside>
+
+					<!-- The on-brand artifacts Earnest generates from that profile -->
+					<div class="e-bp-artifacts">
+						<article class="e-bp-art">
+							<header class="e-bp-art-head">
+								<span class="e-bp-art-type"><UIcon name="i-lucide-mail" /> Email</span>
+								<span class="e-bp-art-gen"><UIcon name="i-lucide-sparkles" /> Generated from this context</span>
+							</header>
+							<p class="e-bp-art-subject">{{ activeClient.artifacts.email.subject }}</p>
+							<p class="e-bp-art-text">{{ activeClient.artifacts.email.body }}</p>
+						</article>
+
+						<article class="e-bp-art">
+							<header class="e-bp-art-head">
+								<span class="e-bp-art-type"><UIcon name="i-lucide-sparkles" /> Social post</span>
+								<span class="e-bp-art-gen"><UIcon name="i-lucide-sparkles" /> Generated from this context</span>
+							</header>
+							<p class="e-bp-art-text">{{ activeClient.artifacts.social.caption }}</p>
+							<div class="e-bp-tags">
+								<span v-for="t in activeClient.artifacts.social.tags" :key="t">{{ t }}</span>
+							</div>
+						</article>
+
+						<article class="e-bp-art">
+							<header class="e-bp-art-head">
+								<span class="e-bp-art-type"><UIcon name="i-lucide-file-signature" /> Proposal intro</span>
+								<span class="e-bp-art-gen"><UIcon name="i-lucide-sparkles" /> Generated from this context</span>
+							</header>
+							<p class="e-bp-art-text">{{ activeClient.artifacts.proposal }}</p>
+						</article>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<!-- ─── AI ─── -->
 		<section class="e-section e-ai">
 			<div class="e-ai-grid">
@@ -138,7 +299,7 @@
 					<p class="e-eyebrow opacity-0">Earnest AI</p>
 					<h2 class="e-h2 opacity-0">It already knows your <span class="e-grad-text">next move</span><span class="e-dot">.</span></h2>
 					<p class="e-section-sub opacity-0" style="text-align:left">
-						Most tools bolt AI onto one channel. <span class="e-brand">Earnest</span> reads your whole business — people, projects, revenue, conversations, campaigns — and acts. Ask in plain language, or switch to <strong>Director</strong> when you want it to plan and execute.
+						Most tools bolt AI onto one channel. <span class="e-brand">Earnest</span> reads your whole business — people, projects, revenue, conversations, campaigns — layered with each client's brand, goals, and audience, and acts. Ask in plain language, or switch to <strong>Director</strong> when you want it to plan and execute.
 					</p>
 					<div class="e-ai-cards" style="margin-top:28px">
 						<div v-for="(cap, i) in aiCapabilities" :key="i" class="e-ai-card opacity-0">
@@ -250,38 +411,32 @@
 			</div>
 		</section>
 
-		<!-- ─── CardDesk companion ─── -->
+		<!-- ─── CardDesk companion (full-bleed dark accent) ─── -->
 		<section class="e-carddesk">
 			<div class="e-carddesk-card opacity-0">
-				<div class="e-carddesk-copy">
-					<p class="e-carddesk-eyebrow">CardDesk · companion app</p>
-					<h2 class="e-carddesk-title">Networking, but make it <span class="e-grad-mint">a game</span><span class="e-dot">.</span></h2>
-					<p class="e-carddesk-sub">Snap a business card — AI extracts every field and lands a contact in your CRM. Earn XP, build streaks, and watch your whole network orbit you. Installs to your home screen as a real app.</p>
-					<div class="e-carddesk-actions">
-						<a href="https://carddesk.earnest.guru/" target="_blank" rel="noopener" class="e-carddesk-cta"><UIcon name="i-lucide-download" /> Install CardDesk</a>
-						<nuxt-link to="/features/carddesk" class="e-carddesk-learn">Learn more &rarr;</nuxt-link>
+				<div class="e-carddesk-inner">
+					<div class="e-carddesk-copy">
+						<p class="e-carddesk-eyebrow">CardDesk · companion app</p>
+						<h2 class="e-carddesk-title">Networking, but make it <span class="e-grad-mint">a game</span><span class="e-dot">.</span></h2>
+						<p class="e-carddesk-sub">Snap a business card and AI pulls every detail — name, title, company, socials — straight into your CRM, enriched and deduped. Then networking becomes a game: earn XP, keep your streak alive, and watch your whole network orbit you.</p>
+						<div class="e-carddesk-actions">
+							<a href="https://carddesk.earnest.guru/" target="_blank" rel="noopener" class="e-carddesk-cta"><UIcon name="i-lucide-arrow-up-right" /> Explore CardDesk</a>
+						</div>
+						<p class="e-carddesk-hand">your first 25 tokens are on us ✨</p>
 					</div>
-					<p class="e-carddesk-hand">your first 25 tokens are on us ✨</p>
-				</div>
-				<div class="e-cd-mock" aria-hidden="true">
-					<div class="e-cd-mock-top">
-						<span class="e-cd-avatar">SJ</span>
-						<div><div class="e-cd-name">Sarah Johnson</div><div class="e-cd-role">Founder · Northwind</div></div>
-						<span class="e-cd-lv">LV 7</span>
+					<div class="e-cd-mock" aria-hidden="true">
+						<div class="e-cd-mock-top">
+							<span class="e-cd-avatar">SJ</span>
+							<div><div class="e-cd-name">Sarah Johnson</div><div class="e-cd-role">Founder · Northwind</div></div>
+							<span class="e-cd-lv">LV 7</span>
+						</div>
+						<div class="e-cd-xp-label"><span>XP</span><span>820 / 1000</span></div>
+						<div class="e-cd-xp-track"><div class="e-cd-xp-fill"></div></div>
+						<div class="e-cd-pills"><span class="e-cd-pill">🔥 7-day streak</span><span class="e-cd-pill">+50 XP</span><span class="e-cd-pill">+1 to Orbit</span></div>
 					</div>
-					<div class="e-cd-xp-label"><span>XP</span><span>820 / 1000</span></div>
-					<div class="e-cd-xp-track"><div class="e-cd-xp-fill"></div></div>
-					<div class="e-cd-pills"><span class="e-cd-pill">🔥 7-day streak</span><span class="e-cd-pill">+50 XP</span><span class="e-cd-pill">+1 to Orbit</span></div>
 				</div>
 			</div>
 		</section>
-
-		<!-- ─── Quote ─── -->
-		<div class="e-quote">
-			<p class="e-quote-text opacity-0">&ldquo;Design is so simple. That&rsquo;s why it is so <em>complicated.</em>&rdquo;</p>
-			<p class="e-quote-attr opacity-0">&mdash; Paul Rand</p>
-			<p class="e-quote-note opacity-0"><span class="e-brand">Earnest</span> holds your business to the same standard.</p>
-		</div>
 
 		<!-- ─── Calculator ─── -->
 		<section class="e-calc">
@@ -323,7 +478,7 @@
 					<ul class="e-plan-feats">
 						<li v-for="(feat, fi) in plan.features" :key="fi"><UIcon name="i-lucide-check" class="e-plan-check" /> {{ feat }}</li>
 					</ul>
-					<button class="e-btn e-plan-btn" :class="plan.featured ? 'e-btn-primary' : 'e-btn-ghost'" @click="showComingSoon = true">{{ plan.cta.label }}</button>
+					<button class="e-btn e-plan-btn" :class="plan.featured ? 'e-btn-primary' : 'e-btn-ghost'" @click="openEarlyAccess()">{{ plan.cta.label }}</button>
 				</div>
 			</div>
 		</section>
@@ -335,7 +490,7 @@
 				<p class="e-cta-hand">Do good work.</p>
 				<p class="e-cta-sub">Everything your business needs, in one place. Start free — every feature included.</p>
 				<div class="e-hero-actions" style="justify-content:center">
-					<button class="e-btn e-btn-primary" @click="showComingSoon = true">Start for free</button>
+					<button class="e-btn e-btn-primary" @click="openEarlyAccess()">Start for free</button>
 					<a :href="soloDemoUrl" class="e-btn e-btn-ghost">See the demo</a>
 				</div>
 			</div>
@@ -353,27 +508,116 @@
 			</div>
 		</footer>
 
-		<!-- ─── Coming Soon Dialog ─── -->
-		<Dialog :open="showComingSoon" @update:open="(v) => { showComingSoon = v; if (!v) resetComingSoon(); }">
-			<DialogContent class="e-cs-dialog">
-				<template v-if="!comingSoonSuccess">
+		<!-- ─── Early Access Dialog (intercepts sign-up) ─── -->
+		<Dialog :open="showEarlyAccess" @update:open="(v) => { showEarlyAccess = v; if (!v) resetEarlyAccess(); }">
+			<DialogContent class="e-ea-dialog">
+				<!-- Steps 1–3 -->
+				<template v-if="!eaSuccess">
 					<DialogHeader>
-						<DialogTitle class="e-cs-title">Coming soon<span class="e-dot">.</span></DialogTitle>
-						<DialogDescription class="e-cs-desc">We're preparing to launch. Join the list to stay updated. <UIcon name="i-lucide-rocket" class="e-cs-rocket" /></DialogDescription>
+						<span class="e-ea-eyebrow"><span class="e-spark"></span> Early access</span>
+						<DialogTitle class="e-ea-title">{{ eaStepMeta.title }}<span class="e-dot">.</span></DialogTitle>
+						<DialogDescription class="e-ea-desc">{{ eaStepMeta.desc }}</DialogDescription>
 					</DialogHeader>
-					<form class="e-cs-form" @submit.prevent="submitComingSoon">
-						<input v-model="comingSoonName" type="text" placeholder="Your name" class="e-cs-input" autocomplete="name" />
-						<input v-model="comingSoonEmail" type="email" placeholder="Email address" class="e-cs-input" autocomplete="email" />
-						<p v-if="comingSoonError" class="e-cs-error">{{ comingSoonError }}</p>
-						<button type="submit" class="e-btn e-btn-primary" :disabled="comingSoonSubmitting">{{ comingSoonSubmitting ? 'Joining...' : 'Stay updated' }}</button>
+
+					<!-- progress -->
+					<div class="e-ea-progress" aria-hidden="true">
+						<span v-for="n in 3" :key="n" class="e-ea-progress-seg" :class="{ on: n <= eaStep }"></span>
+					</div>
+
+					<form class="e-ea-form" @submit.prevent="eaStep < 3 ? eaNext() : submitEarlyAccess()">
+						<!-- honeypot (hidden from humans) -->
+						<input v-model="eaHoneypot" type="text" tabindex="-1" autocomplete="off" class="e-ea-hp" aria-hidden="true" />
+
+						<!-- Step 1 — You -->
+						<div v-if="eaStep === 1" class="e-ea-fields">
+							<label class="e-ea-field">
+								<span class="e-ea-label">Your name<span class="e-ea-req">*</span></span>
+								<input v-model="eaForm.name" type="text" placeholder="Jane Rivera" class="e-ea-input" autocomplete="name" />
+							</label>
+							<label class="e-ea-field">
+								<span class="e-ea-label">Work email<span class="e-ea-req">*</span></span>
+								<input v-model="eaForm.email" type="email" placeholder="jane@studio.com" class="e-ea-input" autocomplete="email" />
+							</label>
+							<div class="e-ea-row">
+								<label class="e-ea-field">
+									<span class="e-ea-label">Your role</span>
+									<input v-model="eaForm.role" type="text" placeholder="Founder, Ops lead…" class="e-ea-input" autocomplete="organization-title" />
+								</label>
+								<label class="e-ea-field">
+									<span class="e-ea-label">Phone <span class="e-ea-opt">(optional)</span></span>
+									<input v-model="eaForm.phone" type="tel" placeholder="(555) 123-4567" class="e-ea-input" autocomplete="tel" />
+								</label>
+							</div>
+						</div>
+
+						<!-- Step 2 — Business -->
+						<div v-else-if="eaStep === 2" class="e-ea-fields">
+							<div class="e-ea-row">
+								<label class="e-ea-field">
+									<span class="e-ea-label">Company</span>
+									<input v-model="eaForm.company" type="text" placeholder="Studio name" class="e-ea-input" autocomplete="organization" />
+								</label>
+								<label class="e-ea-field">
+									<span class="e-ea-label">Website <span class="e-ea-opt">(optional)</span></span>
+									<input v-model="eaForm.website" type="text" placeholder="studio.com" class="e-ea-input" autocomplete="url" />
+								</label>
+							</div>
+							<div class="e-ea-field">
+								<span class="e-ea-label">What kind of business?</span>
+								<div class="e-ea-chips">
+									<button v-for="b in eaBusinessTypes" :key="b.value" type="button" class="e-ea-chip" :class="{ on: eaForm.business_type === b.value }" @click="eaForm.business_type = b.value">{{ b.label }}</button>
+								</div>
+							</div>
+							<div class="e-ea-field">
+								<span class="e-ea-label">Team size</span>
+								<div class="e-ea-chips">
+									<button v-for="t in eaTeamSizes" :key="t.value" type="button" class="e-ea-chip" :class="{ on: eaForm.team_size === t.value }" @click="eaForm.team_size = t.value">{{ t.label }}</button>
+								</div>
+							</div>
+						</div>
+
+						<!-- Step 3 — Goals & interest -->
+						<div v-else class="e-ea-fields">
+							<div class="e-ea-field">
+								<span class="e-ea-label">Which features are you most interested in?</span>
+								<div class="e-ea-chips">
+									<button v-for="f in eaFeatureOptions" :key="f" type="button" class="e-ea-chip" :class="{ on: eaForm.features_interested.includes(f) }" @click="eaToggleFeature(f)">{{ f }}</button>
+								</div>
+							</div>
+							<label class="e-ea-field">
+								<span class="e-ea-label">What are you hoping Earnest helps you do?</span>
+								<textarea v-model="eaForm.goals" rows="3" placeholder="e.g. Replace 5 tools, get AI follow-ups out the door, finally see cash flow clearly…" class="e-ea-input e-ea-textarea"></textarea>
+							</label>
+							<div class="e-ea-field">
+								<span class="e-ea-label">Timeline</span>
+								<div class="e-ea-chips">
+									<button v-for="t in eaTimelines" :key="t.value" type="button" class="e-ea-chip" :class="{ on: eaForm.timeline === t.value }" @click="eaForm.timeline = t.value">{{ t.label }}</button>
+								</div>
+							</div>
+						</div>
+
+						<p v-if="eaError" class="e-ea-error">{{ eaError }}</p>
+
+						<div class="e-ea-actions">
+							<button v-if="eaStep > 1" type="button" class="e-btn e-btn-ghost e-ea-back" @click="eaBack"><UIcon name="i-lucide-arrow-left" /> Back</button>
+							<span class="e-ea-step-count">Step {{ eaStep }} of 3</span>
+							<button v-if="eaStep < 3" type="submit" class="e-btn e-btn-primary e-ea-next">Continue <UIcon name="i-lucide-arrow-right" /></button>
+							<button v-else type="submit" class="e-btn e-btn-primary e-ea-next" :disabled="eaSubmitting">{{ eaSubmitting ? 'Sending…' : 'Request early access' }}</button>
+						</div>
 					</form>
 				</template>
+
+				<!-- Success -->
 				<template v-else>
-					<div class="e-cs-success">
-						<UIcon name="i-lucide-check-circle" class="e-cs-success-icon" />
-						<h3 class="e-cs-title">You're on the list<span class="e-dot">.</span></h3>
-						<p class="e-cs-desc">We'll let you know when <span class="e-brand">Earnest</span> is ready.</p>
-						<button class="e-btn e-btn-ghost e-cs-close" @click="showComingSoon = false; resetComingSoon()">Close</button>
+					<div class="e-ea-success">
+						<span class="e-ea-success-icon"><UIcon name="i-lucide-check" /></span>
+						<DialogTitle class="e-ea-title">You're on the list<span class="e-dot">.</span></DialogTitle>
+						<DialogDescription class="e-ea-desc">Thanks{{ eaForm.name ? ', ' + eaForm.name.split(' ')[0] : '' }} — we're onboarding early users as we finalize production. We'll reach out at <strong>{{ eaForm.email }}</strong> with your access.</DialogDescription>
+						<div class="e-ea-success-demos">
+							<p class="e-ea-success-hint">Want a look right now?</p>
+							<a :href="soloDemoUrl" class="e-btn e-btn-ghost"><UIcon name="i-lucide-play-circle" /> Explore the live demo</a>
+						</div>
+						<button class="e-ea-close-link" @click="showEarlyAccess = false; resetEarlyAccess()">Close</button>
 					</div>
 				</template>
 			</DialogContent>
@@ -382,7 +626,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, reactive, onMounted, onUnmounted, computed } from 'vue';
 import emblaCarouselVue from 'embla-carousel-vue';
 import '~/assets/css/sellsheet-modern.css';
 import { features, pillars, pillarOrder, pillarMeta, getFeaturesByPillar } from '~/data/features';
@@ -410,6 +654,24 @@ const heroScreenshotSrc = '/screenshots/latest/apps-rail.png';
 
 // ── Pillars / features ──
 const tourPillars = pillars.filter((p) => p.nav);
+
+// Seven-surfaces section — two layouts to compare: 'rail' (interactive
+// app-rail + detail panel) and 'bento' (asymmetric mosaic). Flip via
+// ?surfaces=bento or at runtime for review.
+const surfacesVariant = ref('rail');
+const activeSurface = ref('home');
+const activePillar = computed(
+	() => tourPillars.find((p) => p.key === activeSurface.value) || tourPillars[0],
+);
+// Per-app Sky-Aqua → Yale-Blue ramp tint (matches the hero dock).
+const SURFACE_TINTS = {
+	home: '#00cfff', people: '#09b0dd', work: '#0da0cc', money: '#1681aa',
+	marketing: '#1a7299', org: '#235377', design: '#274366',
+};
+const surfaceTint = (k) => SURFACE_TINTS[k] || '#1681aa';
+if (import.meta.client && new URLSearchParams(location.search).get('surfaces') === 'bento') {
+	surfacesVariant.value = 'bento';
+}
 const featureGroups = pillarOrder
 	.map((key) => ({ key, meta: pillarMeta[key], items: getFeaturesByPillar(key) }))
 	.filter((g) => g.items.length > 0);
@@ -418,14 +680,17 @@ const expandedFeatureSlug = ref('');
 const chipClass = (k) => 'e-chip-' + (k === 'design' ? 'me' : k);
 
 // ── Hero app chips (the seven rail apps) ──
+// App-rail chips rendered as the real Neutral default: frosted-glass discs
+// with icons along the Sky-Aqua → Yale-Blue ramp (NEUTRAL_SOURCE in the app's
+// useAppAccent.ts). Matches the default toolbar users actually see.
 const heroChips = [
-	{ label: 'Home', icon: 'i-lucide-layout-dashboard', cls: 'e-chip-home' },
-	{ label: 'People', icon: 'i-lucide-users', cls: 'e-chip-people' },
-	{ label: 'Work', icon: 'i-lucide-square-kanban', cls: 'e-chip-work' },
-	{ label: 'Money', icon: 'i-lucide-trending-up', cls: 'e-chip-money' },
-	{ label: 'Mktg', icon: 'i-lucide-megaphone', cls: 'e-chip-marketing' },
-	{ label: 'Org', icon: 'i-lucide-building-2', cls: 'e-chip-org' },
-	{ label: 'Me', icon: 'i-lucide-circle-user', cls: 'e-chip-me' },
+	{ key: 'home', label: 'Home', icon: 'i-lucide-layout-dashboard', tint: '#00cfff' },
+	{ key: 'people', label: 'People', icon: 'i-lucide-users', tint: '#09b0dd' },
+	{ key: 'work', label: 'Work', icon: 'i-lucide-square-kanban', tint: '#0da0cc' },
+	{ key: 'money', label: 'Money', icon: 'i-lucide-trending-up', tint: '#1681aa' },
+	{ key: 'marketing', label: 'Mktg', icon: 'i-lucide-megaphone', tint: '#1a7299' },
+	{ key: 'org', label: 'Org', icon: 'i-lucide-building-2', tint: '#235377' },
+	{ key: 'design', label: 'Me', icon: 'i-lucide-circle-user', tint: '#274366' },
 ];
 
 // ── Showcase rows (alternating) ──
@@ -445,12 +710,66 @@ const showcase = [
 	{
 		key: 'marketing', eyebrow: 'Marketing', icon: 'i-lucide-megaphone', cls: 'e-chip-marketing', shot: 'marketing-overview',
 		title: 'Marketing that ', titleAccent: 'runs itself',
-		body: 'A marketing pulse scores your reach and surfaces AI recommendations from real signals — new leads, lapsed contacts, milestones. Plan campaigns, draft and schedule content, and publish across every channel from one studio.',
+		body: 'A marketing pulse scores your reach and surfaces AI recommendations from real signals — new leads, lapsed contacts, milestones. Plan campaigns and create on-brand content in the Creator Studio — connecting your social accounts to publish straight from Earnest is coming soon.',
 		hand: 'one tap, whole campaign ✨',
 	},
 ];
 
+// Context section — two real demo clients with opposite brand voices. Toggling
+// between them re-renders the SAME email/social/proposal surfaces in each
+// brand's voice, making "context-aware" tangible. Copy is written to read
+// unmistakably as each brand.
+const contextClients = [
+	{
+		key: 'meridian',
+		name: 'Meridian Law Group',
+		monogram: 'ML',
+		tint: '#274366', // deep slate-navy — formal, trustworthy
+		voice: 'Formal, precise, reassuring',
+		goal: 'Book 12 estate-planning consultations this quarter',
+		audience: 'High-net-worth families & business owners',
+		positioning: "White-glove counsel that protects what you've built",
+		artifacts: {
+			email: {
+				subject: 'A measured review of your estate plan',
+				body: 'Circumstances change, and a plan should change with them. We invite you to a confidential 45-minute consultation to ensure every provision still reflects your wishes precisely.',
+			},
+			social: {
+				caption: 'An estate plan is not a document — it is a promise to the people you love that they will be cared for, exactly as you intend.',
+				tags: ['#EstatePlanning', '#WealthPreservation', '#LegacyCounsel'],
+			},
+			proposal: 'Meridian Law Group respectfully proposes a comprehensive review of your estate, structured to preserve your assets and provide your family with lasting certainty.',
+		},
+	},
+	{
+		key: 'driftwood',
+		name: 'Driftwood Roasters',
+		monogram: 'DR',
+		tint: '#c2762a', // warm amber — craft, playful
+		voice: 'Warm, playful, craft-obsessed',
+		goal: 'Sell 500 bags of the new summer roast',
+		audience: 'Weekend brewers & cafe regulars',
+		positioning: "Small-batch coffee roasted by people who'd geek out with you",
+		artifacts: {
+			email: {
+				subject: 'Your new favorite cup just landed ☕',
+				body: "We roasted something special this week — a bright, berry-forward summer blend that practically high-fives your morning. First 50 bags ship with a free pour-over guide.",
+			},
+			social: {
+				caption: 'Sunshine in a bag ☀️ Our Summer Drift roast is here — juicy, a little wild, and best enjoyed barefoot on the porch.',
+				tags: ['#SmallBatchCoffee', '#SummerDrift', '#RoastedWithLove'],
+			},
+			proposal: "Hey friend — here's our plan to get Driftwood's Summer Drift roast into more happy hands (and more cozy mornings) this season.",
+		},
+	},
+];
+const activeClientKey = ref('meridian');
+const activeClient = computed(
+	() => contextClients.find((c) => c.key === activeClientKey.value) || contextClients[0],
+);
+
 const aiCapabilities = [
+	{ title: 'Brand & goal awareness', desc: "Set each client's brand voice, goals, audience, and positioning once. Every draft — emails, posts, proposals, plans — is grounded in it, so the output sounds like your business, not a generic template." },
 	{ title: 'Earnest, in context', desc: 'Open any client, project, invoice, or lead and the assistant already knows the context — past conversations, open tasks, billing. Save any answer as a note.' },
 	{ title: 'Director mode', desc: 'Switch from assistant to operator. Director reasons across projects, clients, and revenue, proposes a plan, and executes multi-step changes on your say-so.' },
 	{ title: 'AI Actions', desc: 'Tell Earnest what to change and it does the work — reschedule a project, update a status, add a task — from one sentence, with a live confirmation of what changed.' },
@@ -521,6 +840,86 @@ function closeLightbox(open) { if (!open) lightboxOpen.value = false; }
 function lightboxPrev() { lightboxIndex.value = (lightboxIndex.value - 1 + galleryShots.length) % galleryShots.length; }
 function lightboxNext() { lightboxIndex.value = (lightboxIndex.value + 1) % galleryShots.length; }
 
+// ── Floating dock magnification ──
+// macOS-style: each chip scales by its distance from the cursor (a cosine bell),
+// and the item box widens with it so neighbours fan apart. The name tooltip
+// shows only for the chip directly under the cursor. rAF-throttled; pointer-only
+// (touch never fires mousemove, so the dock stays at rest on mobile).
+const dockRef = ref(null);
+const surfRailRef = ref(null);
+const DOCK_BASE = 52; // base chip px — matches .e-dock .e-chip width
+const DOCK_MAX = 1.75; // peak scale directly under the cursor
+const DOCK_RANGE = 200; // px radius of influence either side of the cursor
+
+// Shared dock magnification — runs on any rail of .e-dock-item chips: scale
+// each by cursor distance (cosine bell), widen its box so neighbours fan
+// apart, and reveal the hovered chip's tooltip. Used by the hero dock AND the
+// seven-surfaces rail. rAF-throttled; pointer-only (touch never fires
+// mousemove, so rails stay at rest on mobile).
+function magnifyRail(el, cursorX) {
+	el?.querySelectorAll('.e-dock-item').forEach((item) => {
+		const r = item.getBoundingClientRect();
+		const dist = Math.abs(cursorX - (r.left + r.width / 2));
+		const f = dist < DOCK_RANGE ? (Math.cos((dist / DOCK_RANGE) * Math.PI) + 1) / 2 : 0;
+		const scale = 1 + (DOCK_MAX - 1) * f;
+		item.style.width = `${DOCK_BASE * scale}px`;
+		const chip = item.querySelector('.e-chip');
+		const tip = item.querySelector('.e-dock-tip');
+		if (chip) chip.style.transform = `scale(${scale})`;
+		if (tip) tip.style.opacity = dist < DOCK_BASE / 2 ? '1' : '0';
+	});
+}
+function resetRail(el) {
+	el?.querySelectorAll('.e-dock-item').forEach((item) => {
+		item.style.width = '';
+		const chip = item.querySelector('.e-chip');
+		const tip = item.querySelector('.e-dock-tip');
+		if (chip) chip.style.transform = '';
+		if (tip) tip.style.opacity = '';
+	});
+}
+let dockRaf = 0;
+function onDockMove(e) {
+	if (!dockRef.value || dockRaf) return;
+	const x = e.clientX;
+	dockRaf = requestAnimationFrame(() => { dockRaf = 0; magnifyRail(dockRef.value, x); });
+}
+function onDockLeave() {
+	if (dockRaf) { cancelAnimationFrame(dockRaf); dockRaf = 0; }
+	resetRail(dockRef.value);
+}
+let surfRaf = 0;
+function onSurfRailMove(e) {
+	if (!surfRailRef.value || surfRaf) return;
+	const x = e.clientX;
+	surfRaf = requestAnimationFrame(() => { surfRaf = 0; magnifyRail(surfRailRef.value, x); });
+}
+function onSurfRailLeave() {
+	if (surfRaf) { cancelAnimationFrame(surfRaf); surfRaf = 0; }
+	resetRail(surfRailRef.value);
+}
+
+// Activate an app in the seven-surfaces rail. The detail panel slides in from
+// the side that matches the app's position relative to the current one — tap an
+// app to the right of the active one and the panel enters from the right.
+const swapDir = ref('right');
+function setActiveSurface(key) {
+	const oldIdx = tourPillars.findIndex((p) => p.key === activeSurface.value);
+	const newIdx = tourPillars.findIndex((p) => p.key === key);
+	swapDir.value = newIdx < oldIdx ? 'left' : 'right';
+	activeSurface.value = key;
+}
+
+// Hero dock → seven-surfaces: activate the tapped app in the rail section and
+// smooth-scroll down to it. Forces the rail variant so the selection is visible.
+function selectSurface(key) {
+	setActiveSurface(key);
+	surfacesVariant.value = 'rail';
+	if (import.meta.client) {
+		document.getElementById('apps')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	}
+}
+
 // ── Nav ──
 const navScrolled = ref(false);
 const navDemoOpen = ref(false);
@@ -528,33 +927,135 @@ const navDemoRef = ref(null);
 function onNavDocClick(e) { if (navDemoRef.value && !navDemoRef.value.contains(e.target)) navDemoOpen.value = false; }
 function onScroll() { navScrolled.value = window.scrollY > 40; }
 
-// ── Coming Soon ──
-const showComingSoon = ref(false);
-const comingSoonName = ref('');
-const comingSoonEmail = ref('');
-const comingSoonSubmitting = ref(false);
-const comingSoonSuccess = ref(false);
-const comingSoonError = ref('');
-async function submitComingSoon() {
-	comingSoonError.value = '';
-	if (!comingSoonName.value.trim() || !comingSoonEmail.value.trim()) { comingSoonError.value = 'Please fill in both fields.'; return; }
-	if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(comingSoonEmail.value)) { comingSoonError.value = 'Please enter a valid email address.'; return; }
-	comingSoonSubmitting.value = true;
+// ── Early Access ──
+// We're intercepting open sign-up while finalizing production: every "Start for
+// free" / plan CTA opens this guided early-access capture instead of creating an
+// account. Submissions POST to a public Directus webhook flow ("Early Access
+// Signup", id below) that validates (honeypot + name + email) and writes a row
+// to the `early_access` collection. No public table-write permission needed.
+const EARLY_ACCESS_FLOW_ID = '08912f2e-d3a7-4ea6-b21e-9bdb79feee64';
+const earlyAccessUrl = `${config.public.directusUrl || 'https://admin.earnest.guru'}/flows/trigger/${EARLY_ACCESS_FLOW_ID}`;
+
+// Feature/app interest chips — mirror the seven apps + companions.
+const eaFeatureOptions = [
+	'People & CRM',
+	'Projects & Tasks',
+	'Invoicing & Money',
+	'Marketing & Content',
+	'Proposals & Contracts',
+	'Earnest AI & Director',
+	'Scheduling & Meetings',
+	'Client Portal',
+	'CardDesk',
+];
+const eaBusinessTypes = [
+	{ label: 'Agency', value: 'agency' },
+	{ label: 'Freelancer / Solo', value: 'solo' },
+	{ label: 'Small business', value: 'small_business' },
+	{ label: 'Startup', value: 'startup' },
+	{ label: 'Other', value: 'other' },
+];
+const eaTeamSizes = [
+	{ label: 'Just me', value: '1' },
+	{ label: '2–5', value: '2-5' },
+	{ label: '6–15', value: '6-15' },
+	{ label: '16–50', value: '16-50' },
+	{ label: '50+', value: '50+' },
+];
+const eaTimelines = [
+	{ label: 'Just exploring', value: 'exploring' },
+	{ label: 'Within a month', value: 'month' },
+	{ label: 'Switching now', value: 'now' },
+];
+
+const showEarlyAccess = ref(false);
+const eaStep = ref(1);
+const EA_STEPS = 3;
+const eaSubmitting = ref(false);
+const eaSuccess = ref(false);
+const eaError = ref('');
+const eaHoneypot = ref(''); // bots fill this; humans never see it
+function blankEaForm() {
+	return {
+		name: '', email: '', role: '', phone: '',
+		company: '', business_type: '', team_size: '', website: '',
+		goals: '', features_interested: [], timeline: '',
+	};
+}
+const eaForm = reactive(blankEaForm());
+
+const eaEmailValid = computed(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(eaForm.email.trim()));
+const eaStep1Valid = computed(() => eaForm.name.trim().length > 1 && eaEmailValid.value);
+const eaStepMeta = computed(() => ([
+	{ title: 'Let’s get you in', desc: 'We’re inviting early users while we finalize production. Start with the basics.' },
+	{ title: 'Tell us about your business', desc: 'This tailors your workspace and the demo data we set up for you.' },
+	{ title: 'What matters most to you', desc: 'Help us prioritize — and we’ll point you at the right places first.' },
+][eaStep.value - 1] || { title: '', desc: '' }));
+
+function openEarlyAccess() {
+	resetEarlyAccess();
+	showEarlyAccess.value = true;
+	trackPageView('early-access-open');
+}
+function resetEarlyAccess() {
+	Object.assign(eaForm, blankEaForm());
+	eaStep.value = 1;
+	eaSuccess.value = false;
+	eaError.value = '';
+	eaSubmitting.value = false;
+	eaHoneypot.value = '';
+}
+function eaToggleFeature(f) {
+	const i = eaForm.features_interested.indexOf(f);
+	if (i === -1) eaForm.features_interested.push(f);
+	else eaForm.features_interested.splice(i, 1);
+}
+function eaNext() {
+	eaError.value = '';
+	if (eaStep.value === 1 && !eaStep1Valid.value) {
+		eaError.value = 'Please enter your name and a valid email.';
+		return;
+	}
+	if (eaStep.value < EA_STEPS) eaStep.value += 1;
+}
+function eaBack() { eaError.value = ''; if (eaStep.value > 1) eaStep.value -= 1; }
+
+async function submitEarlyAccess() {
+	eaError.value = '';
+	if (!eaStep1Valid.value) { eaStep.value = 1; eaError.value = 'Please enter your name and a valid email.'; return; }
+	// Honeypot tripped — pretend success, never hit the server.
+	if (eaHoneypot.value) { eaSuccess.value = true; return; }
+	eaSubmitting.value = true;
 	try {
-		const contacts = useDirectusItems('contacts');
-		const contact = await contacts.create({ first_name: comingSoonName.value.trim(), email: comingSoonEmail.value.trim(), source: 'sellsheet-coming-soon', email_subscribed: true, status: 'published' });
-		if (contact?.id) {
-			const listContacts = useDirectusItems('mailing_list_contacts');
-			await listContacts.create({ list_id: 1, contact_id: contact.id, subscribed: true });
-		}
-		comingSoonSuccess.value = true;
+		const referrer = [import.meta.client ? document.referrer : '', import.meta.client ? location.pathname + location.search : '']
+			.filter(Boolean).join(' ').trim();
+		await $fetch(earlyAccessUrl, {
+			method: 'POST',
+			body: {
+				name: eaForm.name.trim(),
+				email: eaForm.email.trim(),
+				role: eaForm.role.trim(),
+				phone: eaForm.phone.trim(),
+				company: eaForm.company.trim(),
+				business_type: eaForm.business_type,
+				team_size: eaForm.team_size,
+				website: eaForm.website.trim(),
+				goals: eaForm.goals.trim(),
+				features_interested: eaForm.features_interested,
+				timeline: eaForm.timeline,
+				source: 'early-access-form',
+				referrer,
+				hp: eaHoneypot.value,
+			},
+		});
+		eaSuccess.value = true;
+		trackPageView('early-access-submit');
 	} catch (e) {
-		comingSoonError.value = 'Something went wrong. Please try again.';
+		eaError.value = 'Something went wrong. Please try again, or email hello@earnest.guru.';
 	} finally {
-		comingSoonSubmitting.value = false;
+		eaSubmitting.value = false;
 	}
 }
-function resetComingSoon() { comingSoonName.value = ''; comingSoonEmail.value = ''; comingSoonSuccess.value = false; comingSoonError.value = ''; }
 
 // ── A/B + calculator ──
 const { trackPageView } = useABTest();
@@ -597,8 +1098,8 @@ onMounted(async () => {
 			.fromTo('.e-hero-sub', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.35')
 			.fromTo('.e-hero-actions', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4')
 			.fromTo('.e-hero-demos', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, '-=0.4')
-			.fromTo('.e-hero-rail .e-hero-rail-item', { opacity: 0, y: 16, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'back.out(1.6)', stagger: 0.06 }, '-=0.2')
-			.fromTo('.e-hero-rail', { opacity: 0 }, { opacity: 1, duration: 0.01 }, '<')
+			.fromTo('.e-dock .e-dock-item', { opacity: 0, y: 16, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'back.out(1.6)', stagger: 0.06 }, '-=0.2')
+			.fromTo('.e-dock', { opacity: 0 }, { opacity: 1, duration: 0.01 }, '<')
 			.fromTo('.e-hero-shot', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.3');
 
 		// Generic scroll reveal for everything else
@@ -633,7 +1134,7 @@ onUnmounted(() => {
 useHead({
 	title: 'Earnest. Do good work. | The Business Operating System',
 	meta: [
-		{ name: 'description', content: 'Earnest is the AI-powered business operating system for agencies — seven apps in one calm shell: Home, People, Work, Money, Marketing, Org, and Me. CRM, projects, invoicing, bookkeeping, marketing, contracts, and an AI operator that sees everything.' },
+		{ name: 'description', content: 'Earnest is the AI-powered business operating system for small & mid-size agencies and businesses — seven apps in one calm shell: Home, People, Work, Money, Marketing, Org, and Me. CRM, projects, invoicing, bookkeeping, marketing, contracts, and an AI operator that sees everything.' },
 	],
 });
 </script>
