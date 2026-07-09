@@ -1,0 +1,282 @@
+/* ════════════════════════════════════════════════════════════
+   Earnest marketing — Liquid-Glass / Neutral-palette system.
+   Shared by the /director (gamified) and /automation variants.
+   Layers on top of sellsheet-modern.css (base .e-* chrome).
+
+   Design language mirrors the live Earnest app:
+   · NEUTRAL app palette — Sky-Aqua (#00cfff) → Yale-Blue (#274366) ramp
+   · Palette-tint UX — surfaces + backdrop washed in a 4-step gradient
+   · Liquid glass — thin / standard / ultra frosted tiers on a tinted plinth
+   · iOS motion — one spring curve, press-scale, push/pop, drag sheets
+   · Gamification — score rings, XP bars, streaks, badges (Earnest/CardDesk)
+   Import AFTER sellsheet-modern.css so .g-page wins on the background.
+   ════════════════════════════════════════════════════════════ */
+
+.g-page {
+	/* Neutral ramp — the app's default accent source (useAppAccent NEUTRAL). */
+	--n-sky: #00cfff;
+	--n-1: #09b0dd;
+	--n-2: #0da0cc;
+	--n-3: #1681aa;
+	--n-4: #1a7299;
+	--n-5: #235377;
+	--n-yale: #274366;
+
+	/* Working accents drawn from the ramp. */
+	--g-accent: #0da0cc;
+	--g-accent-2: #1681aa;
+	--g-accent-ink: #135e7d;
+	--g-accent-soft: rgba(13, 160, 204, 0.12);
+	--g-accent-line: rgba(13, 160, 204, 0.28);
+	--g-glow: rgba(0, 207, 255, 0.45);
+
+	/* Gamification hues (Earnest Score / CardDesk). */
+	--g-xp: #f59e0b;
+	--g-streak: #fb7185;
+	--g-win: #10b981;
+
+	--g-ink: #0f2233;
+	--g-ink-2: #47606f;
+	--g-ink-3: #7f96a4;
+	--g-line: rgba(15, 34, 51, 0.09);
+
+	--spring: cubic-bezier(0.16, 1, 0.3, 1);
+	--spring-soft: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+	color: var(--g-ink);
+	/* Palette-tint backdrop — a four-step wash sampled from the ramp. */
+	background:
+		radial-gradient(72% 46% at 2% 0%, rgba(0, 207, 255, 0.13), transparent 60%),
+		radial-gradient(64% 44% at 100% 8%, rgba(22, 129, 170, 0.12), transparent 62%),
+		radial-gradient(60% 50% at 50% 108%, rgba(39, 67, 102, 0.10), transparent 70%),
+		linear-gradient(180deg, #f5fafc 0%, #eaf2f7 55%, #e6eef4 100%);
+}
+
+/* Drifting aurora blobs — subtle continuous movement behind the glass. */
+.g-page.e-page::before {
+	content: '';
+	position: fixed;
+	inset: -10%;
+	z-index: 0;
+	pointer-events: none;
+	background:
+		radial-gradient(38% 40% at 20% 25%, rgba(0, 207, 255, 0.16), transparent 60%),
+		radial-gradient(34% 38% at 82% 30%, rgba(22, 129, 170, 0.14), transparent 60%),
+		radial-gradient(40% 42% at 60% 82%, rgba(39, 67, 102, 0.10), transparent 62%);
+	filter: blur(20px);
+	animation: g-aurora 22s ease-in-out infinite alternate;
+}
+@keyframes g-aurora {
+	0%   { transform: translate3d(0, 0, 0) scale(1); }
+	50%  { transform: translate3d(2%, -1.5%, 0) scale(1.06); }
+	100% { transform: translate3d(-1.5%, 1.5%, 0) scale(1.02); }
+}
+@media (prefers-reduced-motion: reduce) {
+	.g-page.e-page::before { animation: none; }
+}
+
+/* ── Liquid glass tiers ── */
+.g-glass {
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.5));
+	backdrop-filter: blur(22px) saturate(185%);
+	-webkit-backdrop-filter: blur(22px) saturate(185%);
+	border: 1px solid rgba(255, 255, 255, 0.75);
+	border-radius: 22px;
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.8),
+		inset 0 -1px 0 rgba(15, 34, 51, 0.03),
+		0 18px 44px rgba(20, 55, 85, 0.10);
+}
+.g-glass-thin {
+	background: rgba(255, 255, 255, 0.5);
+	backdrop-filter: blur(14px) saturate(160%);
+	-webkit-backdrop-filter: blur(14px) saturate(160%);
+	border: 1px solid rgba(255, 255, 255, 0.6);
+	border-radius: 16px;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 8px 22px rgba(20, 55, 85, 0.07);
+}
+.g-glass-ultra {
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.72));
+	backdrop-filter: blur(34px) saturate(200%);
+	-webkit-backdrop-filter: blur(34px) saturate(200%);
+	border: 1px solid rgba(255, 255, 255, 0.85);
+	border-radius: 26px;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 30px 70px rgba(20, 55, 85, 0.16);
+}
+/* Accent-tinted plinth — glass washed with the active ramp accent. */
+.g-glass-tint {
+	background:
+		linear-gradient(180deg, var(--g-accent-soft), rgba(255, 255, 255, 0.5) 55%),
+		rgba(255, 255, 255, 0.4);
+	backdrop-filter: blur(22px) saturate(185%);
+	-webkit-backdrop-filter: blur(22px) saturate(185%);
+	border: 1px solid rgba(255, 255, 255, 0.7);
+	border-radius: 22px;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 18px 44px rgba(13, 160, 204, 0.12);
+}
+
+/* ── Neutral-ramp chips ── */
+.g-chip {
+	display: inline-flex; align-items: center; justify-content: center;
+	border-radius: 32%;
+	color: #fff;
+	box-shadow: 0 8px 18px rgba(20, 55, 85, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+.g-chip svg, .g-chip [class*='iconify'] { width: 52%; height: 52%; }
+.g-chip.round { border-radius: 50%; }
+/* Per-app ramp stops — the palette-tint "which app you're in" cue. */
+.g-chip-home { background: linear-gradient(145deg, #35ddff, #00b8e6); }
+.g-chip-people { background: linear-gradient(145deg, #22cdf0, #09a6cf); }
+.g-chip-work { background: linear-gradient(145deg, #18b6e0, #0d8fbb); }
+.g-chip-money { background: linear-gradient(145deg, #1f9ec8, #16819e); }
+.g-chip-marketing { background: linear-gradient(145deg, #2b86ad, #1a6f93); }
+.g-chip-org { background: linear-gradient(145deg, #2f6690, #235377); }
+.g-chip-ai { background: linear-gradient(145deg, #00cfff, #235377); }
+
+/* ── Eyebrow (mono, ramp-tinted) ── */
+.g-eyebrow {
+	display: inline-flex; align-items: center; gap: 9px;
+	font-family: var(--font-body);
+	font-size: 12px; font-weight: 700;
+	letter-spacing: 0.16em; text-transform: uppercase;
+	color: var(--g-accent-ink);
+}
+.g-eyebrow .g-eyebrow-dot {
+	width: 8px; height: 8px; border-radius: 50%;
+	background: var(--g-accent);
+	box-shadow: 0 0 0 4px var(--g-accent-soft), 0 0 12px var(--g-glow);
+	animation: g-pulse 2.6s ease-in-out infinite;
+}
+@keyframes g-pulse {
+	0%, 100% { box-shadow: 0 0 0 4px var(--g-accent-soft), 0 0 10px var(--g-glow); }
+	50% { box-shadow: 0 0 0 6px transparent, 0 0 18px var(--g-glow); }
+}
+.g-accent-text {
+	background: linear-gradient(100deg, var(--n-sky), var(--n-3) 55%, var(--n-5));
+	-webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* ── Nav badge ── */
+.g-page .e-nav-badge {
+	font-family: var(--font-body);
+	font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+	color: #fff; background: linear-gradient(145deg, var(--n-sky), var(--n-4));
+	border-radius: 999px; padding: 3px 9px; margin-left: 10px; white-space: nowrap;
+	box-shadow: 0 4px 12px rgba(13, 160, 204, 0.35);
+}
+.g-page .e-nav.e-nav-scrolled {
+	background: rgba(245, 250, 252, 0.7) !important;
+	backdrop-filter: blur(22px) saturate(180%);
+	-webkit-backdrop-filter: blur(22px) saturate(180%);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* ── iOS micro-interactions ── */
+.g-lift { transition: transform 0.4s var(--spring), box-shadow 0.4s var(--spring); will-change: transform; }
+.g-lift:hover { transform: translateY(-5px); box-shadow: 0 26px 60px rgba(20, 55, 85, 0.16); }
+.g-press { transition: transform 0.18s var(--spring); }
+.g-press:active { transform: scale(0.97); }
+
+/* Segmented control — sliding pill (iOS). Index-driven: set --seg-n
+   (button count) and --seg-i (active index) inline; the indicator is
+   one slot wide and translates by whole slots. */
+.g-seg {
+	position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+	background: rgba(15, 34, 51, 0.06); border-radius: 999px; padding: 4px;
+	--seg-n: 2; --seg-i: 0;
+	backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.g-seg-btn {
+	position: relative; z-index: 1;
+	font-family: var(--font-body); font-size: 13.5px; font-weight: 600;
+	color: var(--g-ink-2); background: transparent; border: none;
+	border-radius: 999px; padding: 9px 14px; cursor: pointer;
+	transition: color 0.3s var(--spring);
+	display: inline-flex; align-items: center; justify-content: center; gap: 7px; white-space: nowrap;
+}
+.g-seg-btn svg, .g-seg-btn [class*='iconify'] { width: 15px; height: 15px; }
+.g-seg-btn--on { color: var(--g-accent-ink); }
+.g-seg-ind {
+	position: absolute; top: 4px; left: 4px; z-index: 0;
+	height: calc(100% - 8px); width: calc((100% - 8px) / var(--seg-n));
+	border-radius: 999px;
+	background: linear-gradient(180deg, #fff, rgba(255, 255, 255, 0.85));
+	box-shadow: 0 4px 12px rgba(20, 55, 85, 0.16), inset 0 1px 0 #fff;
+	transform: translateX(calc(var(--seg-i) * 100%));
+	transition: transform 0.46s var(--spring);
+}
+@media (max-width: 560px) { .g-seg-btn { padding: 9px 8px; font-size: 12px; } }
+
+/* ── Gamification ── */
+/* Score ring (SVG-driven; JS animates --g-ring-val 0→1). */
+.g-ring { position: relative; width: 92px; height: 92px; flex: none; }
+.g-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.g-ring-track { stroke: rgba(15, 34, 51, 0.08); }
+.g-ring-fill { stroke: url(#gRingGrad); stroke-linecap: round; transition: stroke-dashoffset 1.1s var(--spring); }
+.g-ring-num {
+	position: absolute; inset: 0; display: grid; place-items: center;
+	font-weight: 800; font-size: 26px; color: var(--g-ink); letter-spacing: -0.02em;
+	font-variant-numeric: tabular-nums;
+}
+
+/* XP bar with sheen. */
+.g-xp-wrap { display: grid; gap: 6px; }
+.g-xp-head { display: flex; justify-content: space-between; font-size: 12px; color: var(--g-ink-3); font-weight: 600; }
+.g-xp-head b { color: var(--g-ink); }
+.g-xp-track { height: 9px; border-radius: 999px; background: rgba(15, 34, 51, 0.07); overflow: hidden; }
+.g-xp-fill {
+	height: 100%; border-radius: 999px; width: 0;
+	background: linear-gradient(90deg, var(--n-sky), var(--g-accent) 60%, var(--n-4));
+	position: relative; transition: width 1.2s var(--spring);
+}
+.g-xp-fill::after {
+	content: ''; position: absolute; inset: 0;
+	background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+	transform: translateX(-100%); animation: g-sheen 2.6s ease-in-out infinite;
+}
+@keyframes g-sheen { 0% { transform: translateX(-100%); } 60%, 100% { transform: translateX(200%); } }
+
+.g-streak {
+	display: inline-flex; align-items: center; gap: 6px;
+	font-size: 12.5px; font-weight: 700; color: #b4472f;
+	background: rgba(251, 113, 133, 0.14); border: 1px solid rgba(251, 113, 133, 0.3);
+	border-radius: 999px; padding: 5px 11px;
+}
+.g-badge {
+	display: inline-flex; align-items: center; gap: 6px;
+	font-size: 12px; font-weight: 700; color: var(--g-accent-ink);
+	background: var(--g-accent-soft); border: 1px solid var(--g-accent-line);
+	border-radius: 999px; padding: 5px 11px;
+	transition: transform 0.4s var(--spring-soft);
+}
+.g-badge:hover { transform: translateY(-2px) scale(1.04); }
+
+/* Confidence / accuracy meter (automation variant). */
+.g-meter { display: grid; gap: 5px; }
+.g-meter-head { display: flex; justify-content: space-between; font-size: 12px; color: var(--g-ink-3); }
+.g-meter-head b { color: var(--g-ink); font-variant-numeric: tabular-nums; }
+.g-meter-track { height: 7px; border-radius: 999px; background: rgba(15, 34, 51, 0.07); overflow: hidden; }
+.g-meter-fill { height: 100%; border-radius: 999px; width: 0; transition: width 1.1s var(--spring); }
+.g-meter-fill.hi { background: linear-gradient(90deg, #34d399, var(--g-win)); }
+.g-meter-fill.mid { background: linear-gradient(90deg, #fbbf24, var(--g-xp)); }
+.g-meter-fill.lo { background: linear-gradient(90deg, #fb9d8f, #fb7185); }
+
+/* ── Section scaffolding shared by the glass variants ── */
+.g-sec-head { max-width: 760px; margin: 0 auto 34px; text-align: center; }
+.g-sec-head .e-h2 { color: var(--g-ink); }
+.g-kicker-pill {
+	display: inline-flex; align-items: center; gap: 8px;
+	font-family: var(--font-body); font-size: 11.5px; font-weight: 700;
+	letter-spacing: 0.12em; text-transform: uppercase; color: var(--g-accent-ink);
+	background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(255, 255, 255, 0.75);
+	backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+	border-radius: 999px; padding: 7px 14px; margin-bottom: 16px;
+	box-shadow: 0 6px 16px rgba(20, 55, 85, 0.08);
+}
+
+/* Reveal base — GSAP clears these; keeps flash-free before JS. */
+[data-anim] { opacity: 0; }
+[data-stagger] > * { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+	[data-anim], [data-stagger] > * { opacity: 1 !important; transform: none !important; }
+}

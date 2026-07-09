@@ -77,7 +77,7 @@ export default defineNuxtConfig({
 
   nitro: {
     prerender: {
-      routes: ['/privacy-policy', '/terms-of-service', '/features', '/blog', ...featureRoutes],
+      routes: ['/privacy-policy', '/terms-of-service', '/features', '/blog', '/next', '/director', '/automation', ...featureRoutes],
     },
   },
 });
