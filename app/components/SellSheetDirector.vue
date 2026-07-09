@@ -11,7 +11,7 @@
 				<a href="#decide" class="e-nav-link">How it decides</a>
 				<a href="#context" class="e-nav-link">Context</a>
 				<a href="#pricing" class="e-nav-link">Pricing</a>
-				<nuxt-link to="/" class="e-nav-link">Classic site</nuxt-link>
+				<nuxt-link to="/classic" class="e-nav-link">Classic site</nuxt-link>
 			</div>
 			<button type="button" class="e-nav-link e-nav-cta" @click="openEarlyAccess()">Start for free</button>
 		</nav>
@@ -30,7 +30,7 @@
 			</div>
 			<div class="e-hero-demos opacity-0">
 				<a :href="soloDemoUrl" class="e-hero-demo"><UIcon name="i-lucide-play-circle" /> Try the live demo</a>
-				<nuxt-link to="/" class="e-hero-demo"><UIcon name="i-lucide-arrow-left" /> Back to the classic site</nuxt-link>
+				<nuxt-link to="/classic" class="e-hero-demo"><UIcon name="i-lucide-arrow-left" /> Back to the classic site</nuxt-link>
 			</div>
 
 			<!-- Real product shot + floating "decision" glass pills -->

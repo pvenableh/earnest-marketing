@@ -1,5 +1,8 @@
 <script setup lang="ts">
-const description = 'The AI-powered business operating system for creative agencies. Projects, CRM pipeline, invoicing, marketing, gamification, and contextual AI intelligence — all in one platform.';
+// Landing page (for now): the Director glass experience (SellSheetGlass).
+// The previous homepage is preserved at /classic. SellSheetGlass no longer sets
+// its own head, so this page fully controls the landing SEO.
+const description = 'Earnest is your context-aware decision machine — it reads your entire organization, walks you through the day’s decisions already drafted in your voice, and automates only what it’s sure of. The Director’s Office, People, Work, Money and Marketing in one calm, liquid-glass shell.';
 
 useHead({
   title: 'Earnest — Do good work.',
@@ -19,7 +22,7 @@ useHead({
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         description,
-        featureList: 'Apps Layout, Workspaces, Productivity Engine, CRM Intelligence, Contextual AI Sidebar, Earnest Score & Gamification, AI Strategy Engine & Context Broker, Marketing AI, Social AI, Email Marketing, Project Management, Invoicing & Billing, Contracts & E-Signing, AI Proposal Drafter, Reusable Document Blocks, Whitelabel, Team Channels, Phone & Video, Calendar, CardDesk, Client Portal, Meeting Recording & AI Recap, Branded Email, Service Offerings, Bank Sync, Accept Payments, Retainer & Content Studio',
+        featureList: "The Director's Office, Context-aware AI, AI Actions, People CRM, Projects & Tasks, Cash Flow & Invoicing, Proposals & Contracts, Marketing, Earnest Score & Gamification, CardDesk",
         url: 'https://earnest.guru',
         offers: {
           '@type': 'AggregateOffer',
@@ -41,6 +44,7 @@ useSeoMeta({
   ogType: 'website',
   ogUrl: 'https://earnest.guru',
   ogSiteName: 'Earnest',
+  robots: 'index, follow',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Earnest — Do good work.',
   twitterDescription: description,
@@ -48,5 +52,5 @@ useSeoMeta({
 </script>
 
 <template>
-  <SellSheetModern />
+  <SellSheetGlass />
 </template>

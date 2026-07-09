@@ -2,7 +2,7 @@
 	<div class="e-page g-page">
 		<!-- ─── Nav ─── -->
 		<nav class="e-nav" :class="{ 'e-nav-scrolled': navScrolled }">
-			<nuxt-link to="/director" class="e-nav-brand">
+			<nuxt-link to="/" class="e-nav-brand">
 				<LogoEarnest size="md" />
 				<span class="e-nav-badge">Director</span>
 			</nuxt-link>
@@ -11,18 +11,17 @@
 				<a href="#momentum" class="e-nav-link">Momentum</a>
 				<a href="#context" class="e-nav-link">Context</a>
 				<a href="#pricing" class="e-nav-link">Pricing</a>
-				<nuxt-link to="/" class="e-nav-link">Classic</nuxt-link>
 			</div>
 			<button type="button" class="e-nav-link e-nav-cta g-press" @click="openEarlyAccess()">Start for free</button>
 		</nav>
 
 		<!-- ─── Hero ─── -->
 		<header class="e-hero">
-			<span class="g-eyebrow opacity-0"><span class="g-eyebrow-dot"></span> The Director’s Office · liquid glass</span>
+			<span class="g-eyebrow opacity-0"><span class="g-eyebrow-dot"></span> Context-aware automation · the Director’s Office</span>
 			<h1 class="e-hero-wordmark opacity-0">Earnest<span class="e-hero-period">.</span></h1>
-			<p class="e-hero-tagline opacity-0">Your decision machine<span class="e-dot">.</span></p>
+			<p class="e-hero-tagline opacity-0">Context in<span class="e-dot">.</span> Accuracy out<span class="e-dot">.</span></p>
 			<p class="e-hero-sub opacity-0">
-				Earnest reads your <strong>entire organization</strong>, walks you through it like a morning briefing, and hands you the day’s decisions already drafted. You just say&nbsp;yes — and watch your momentum climb.
+				The decision machine that <strong>automates on context</strong>. Earnest reads your entire organization — your goals, brand, audience and live data — drafts the day’s decisions <strong>in your voice</strong>, and automates only what it’s sure of. You just say&nbsp;yes — and watch your momentum climb.
 			</p>
 			<div class="e-hero-actions opacity-0">
 				<button class="e-btn e-btn-primary g-press" @click="openEarlyAccess()">Start for free</button>
@@ -30,7 +29,6 @@
 			</div>
 			<div class="e-hero-demos opacity-0">
 				<a :href="soloDemoUrl" class="e-hero-demo"><UIcon name="i-lucide-play-circle" /> Try the live demo</a>
-				<nuxt-link to="/automation" class="e-hero-demo"><UIcon name="i-lucide-workflow" /> See the automation version</nuxt-link>
 			</div>
 
 			<!-- App dock — neutral ramp chips, macOS magnification -->
@@ -73,7 +71,7 @@
 			<div class="g-sec-head">
 				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> The Director’s Office</span>
 				<h2 class="e-h2" data-anim="rise">Your whole organization, <span class="g-accent-text">presented to you</span><span class="e-dot">.</span></h2>
-				<p class="e-section-sub" data-anim="rise">A live briefing across every app, slide by slide — a read on the situation and the actions to resolve it, one tap away.</p>
+				<p class="e-section-sub" data-anim="rise">A live briefing across every app, grounded in your goals, brand and data — a read on the situation and the next move, drafted in your voice and ready to automate, one tap away.</p>
 			</div>
 
 			<div class="g-deck" data-anim="scale">
@@ -100,6 +98,7 @@
 							<span class="g-stage-kicker">{{ current.kicker }}</span>
 							<p class="g-stage-stat">{{ current.stat }}<span v-if="current.unit" class="g-stage-unit">{{ current.unit }}</span></p>
 							<p class="g-stage-read" v-html="current.read"></p>
+							<div class="g-slide-ground"><UIcon name="i-lucide-target" /> <b>{{ currentGround.conf }}% confident</b> · {{ currentGround.ground }}</div>
 							<div class="g-stage-actions">
 								<span class="g-stage-actions-label">Do it now</span>
 								<button v-for="(a, ai) in current.actions" :key="ai" type="button" class="g-prompt g-press g-lift" :class="{ 'g-prompt--soft': ai > 0 }" @click="openEarlyAccess()">
@@ -129,7 +128,7 @@
 			<div class="g-sec-head">
 				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Momentum</span>
 				<h2 class="e-h2" data-anim="rise">Good decisions, <span class="g-accent-text">made visible</span><span class="e-dot">.</span></h2>
-				<p class="e-section-sub" data-anim="rise">Every follow-through earns points. Earnest turns running the business into a streak worth keeping — the same engine behind the Earnest Score and CardDesk.</p>
+				<p class="e-section-sub" data-anim="rise">Every decision you approve — and every automation that lands cleanly — earns points. Earnest turns running the business into a streak worth keeping, the same engine behind the Earnest Score and CardDesk.</p>
 			</div>
 
 			<div class="g-momentum" data-anim="scale">
@@ -191,8 +190,9 @@
 			</div>
 
 			<div class="g-sec-head" style="margin-top:56px">
-				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Powerful, never surprising</span>
-				<h2 class="e-h2" data-anim="rise">What Earnest may do on its own<span class="e-dot">.</span></h2>
+				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Accurate over eager</span>
+				<h2 class="e-h2" data-anim="rise">It doesn’t <span class="g-accent-text">oversell</span><span class="e-dot">.</span></h2>
+				<p class="e-section-sub" data-anim="rise">Most AI acts confident about everything. Earnest is calibrated — it acts when it’s sure, proposes when it matters, and holds back when it doesn’t have enough to be right.</p>
 			</div>
 			<div class="g-lights" data-stagger>
 				<div v-for="l in lights" :key="l.k" class="g-light g-glass g-lift" :class="l.k">
@@ -209,7 +209,7 @@
 			<div class="g-sec-head">
 				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Context-aware by default</span>
 				<h2 class="e-h2" data-anim="rise">It knows <span class="g-accent-text">where you are</span><span class="e-dot">.</span></h2>
-				<p class="e-section-sub" data-anim="rise">Open Earnest anywhere and it already sees the thing in front of you. Its suggestions change to match — pick a spot:</p>
+				<p class="e-section-sub" data-anim="rise">Open Earnest anywhere and it already sees the thing in front of you — the invoice, the project, the whole org. Its suggestions, and what it’s willing to automate, change to match. Pick a spot:</p>
 			</div>
 
 			<div class="g-ctx" data-anim="scale">
@@ -303,12 +303,44 @@
 			</div>
 		</section>
 
+		<!-- ─── CardDesk companion ─── -->
+		<section class="e-section">
+			<div class="g-carddesk g-glass-ultra" data-anim="scale">
+				<div class="g-cd-copy">
+					<span class="g-eyebrow"><span class="g-eyebrow-dot"></span> CardDesk · companion app</span>
+					<h2 class="e-h2">Networking, but make it <span class="g-accent-text">a game</span><span class="e-dot">.</span></h2>
+					<p class="g-cd-sub">Snap a business card and Earnest pulls every detail — name, title, company, socials — <strong>straight into your CRM</strong>, enriched and deduped. Then networking becomes a game: earn XP, keep your streak alive, and watch your whole network orbit you.</p>
+					<div class="g-cd-actions">
+						<a href="https://carddesk.earnest.guru/" target="_blank" rel="noopener" class="e-btn e-btn-primary g-press"><UIcon name="i-lucide-scan-line" /> Explore CardDesk</a>
+						<span class="g-cd-hand">first 25 scans on us ✨</span>
+					</div>
+				</div>
+				<div class="g-cd-mock g-glass">
+					<div class="g-cd-top">
+						<span class="g-cd-avatar">SJ</span>
+						<div class="g-cd-id"><span class="g-cd-name">Sarah Johnson</span><span class="g-cd-role">Founder · Northwind</span></div>
+						<span class="g-cd-lv">LV 7</span>
+					</div>
+					<span class="g-cd-scan"><UIcon name="i-lucide-scan-line" /> Scanned in 1.2s · added to People</span>
+					<div class="g-xp-wrap">
+						<div class="g-xp-head"><span>XP to Level 8</span><b>820 / 1000</b></div>
+						<div class="g-xp-track"><div class="g-xp-fill" data-fill="82"></div></div>
+					</div>
+					<div class="g-cd-badges">
+						<span class="g-streak">🔥 7-day streak</span>
+						<span class="g-badge">+50 XP</span>
+						<span class="g-badge">+1 to Orbit</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<!-- ─── Final CTA ─── -->
 		<section class="e-cta">
-			<div class="e-cta-card g-glass-ultra" data-anim="scale">
+			<div class="e-cta-card" data-anim="scale">
 				<p class="e-cta-word"><span class="e-brand">Earnest</span><span class="e-dot">.</span></p>
 				<p class="e-cta-hand">Do good work.</p>
-				<p class="e-cta-sub">Stop running the software. Sit at the desk, keep your streak, and let Earnest bring you the decisions.</p>
+				<p class="e-cta-sub">Stop running the software. Sit at the desk, keep your streak, and let Earnest bring you the decisions — and automate the ones it’s sure of.</p>
 				<div class="e-hero-actions" style="justify-content:center">
 					<button class="e-btn e-btn-primary g-press" @click="openEarlyAccess()">Start for free</button>
 					<a :href="soloDemoUrl" class="e-btn e-btn-ghost g-press">See the demo</a>
@@ -320,7 +352,7 @@
 			<div class="e-footer-inner">
 				<span class="e-footer-copy">&copy; {{ new Date().getFullYear() }} <span class="e-brand">Earnest</span> — Do good work.</span>
 				<nav class="e-footer-links">
-					<nuxt-link to="/">Classic</nuxt-link>
+					<nuxt-link to="/classic">Classic</nuxt-link>
 					<nuxt-link to="/automation">Automation</nuxt-link>
 					<nuxt-link to="/features">Features</nuxt-link>
 					<nuxt-link to="/privacy-policy">Privacy</nuxt-link>
@@ -361,17 +393,18 @@ const heroChips = [
 const marqueeItems = [
 	{ label: 'Organizational overview', icon: 'i-lucide-building-2' },
 	{ label: 'The morning briefing', icon: 'i-lucide-presentation' },
-	{ label: 'Actionable prompts', icon: 'i-lucide-gavel' },
+	{ label: 'Grounded, not generic', icon: 'i-lucide-shield-check' },
+	{ label: 'Confidence-scored', icon: 'i-lucide-gauge' },
 	{ label: 'Earnest Score & streaks', icon: 'i-lucide-trophy' },
-	{ label: 'Context-aware AI', icon: 'i-lucide-sparkles' },
-	{ label: 'People & CRM', icon: 'i-lucide-users' },
+	{ label: 'Context-aware automation', icon: 'i-lucide-sparkles' },
+	{ label: 'Acts when sure, holds when unsure', icon: 'i-lucide-hand' },
 	{ label: 'Cash flow & AR aging', icon: 'i-lucide-trending-up' },
 	{ label: 'Liquid glass UI', icon: 'i-lucide-square-stack' },
 	{ label: 'One approval, whole change', icon: 'i-lucide-check-check' },
 ];
 
 const officeSlides = [
-	{ key: 'overview', tab: 'Overview', meta: '3 decisions', chip: 'org', icon: 'i-lucide-building-2', shot: 'organization-overview', kicker: 'The whole org, today', stat: '3', unit: 'decisions need you', read: 'Across every app, Earnest found <strong>three things worth your attention</strong> — nothing else needs you right now. Here they are, ranked, each already drafted.', actions: [ { icon: 'i-lucide-presentation', title: 'Walk me through today', sub: 'A 90-second guided briefing' }, { icon: 'i-lucide-share-2', title: 'Present to the team', sub: 'Share the brief as a deck' } ] },
+	{ key: 'overview', tab: 'Overview', meta: '3 decisions', chip: 'org', icon: 'i-lucide-building-2', shot: 'director-presentation', kicker: 'The whole org, today', stat: '3', unit: 'decisions need you', read: 'Across every app, Earnest found <strong>three things worth your attention</strong> — nothing else needs you right now. Here they are, ranked, each already drafted.', actions: [ { icon: 'i-lucide-presentation', title: 'Walk me through today', sub: 'A 90-second guided briefing' }, { icon: 'i-lucide-share-2', title: 'Present to the team', sub: 'Share the brief as a deck' } ] },
 	{ key: 'money', tab: 'Money', meta: '$12.4k overdue', chip: 'money', icon: 'i-lucide-trending-up', shot: 'financials-overview', kicker: 'Cash flow', stat: '$12.4k', unit: 'overdue across 4 invoices', read: 'Four invoices are past due, the oldest by <strong>21 days</strong>. Two finished projects are billable but not yet invoiced. Earnest drafted a tailored reminder for each.', actions: [ { icon: 'i-lucide-send', title: 'Chase all 4 overdue', sub: 'Review the batch, then approve' }, { icon: 'i-lucide-receipt', title: 'Bill 2 finished projects', sub: 'Seeded from the contracts' } ] },
 	{ key: 'people', tab: 'People', meta: '4 leads cooling', chip: 'people', icon: 'i-lucide-users', shot: 'people-dashboard', kicker: 'Pipeline', stat: '4', unit: 'leads going cold', read: 'Four qualified leads haven’t been touched in <strong>10+ days</strong> — together worth ~$48k. Each note is drafted in that client’s brand voice.', actions: [ { icon: 'i-lucide-mail', title: 'Draft 4 re-engagement notes', sub: 'On-brand, one per lead' }, { icon: 'i-lucide-user-plus', title: 'Reassign coverage', sub: 'Balance across the team' } ] },
 	{ key: 'work', tab: 'Work', meta: '2 projects slipping', chip: 'work', icon: 'i-lucide-square-kanban', shot: 'project-workspace', kicker: 'Delivery', stat: '2', unit: 'projects at risk', read: 'The <strong>Helios launch</strong> is ~4 days behind on a design sign-off blocker. Earnest can reflow the timeline — cascading every linked task and meeting — on your say-so.', actions: [ { icon: 'i-lucide-calendar-clock', title: 'Rebalance the timeline', sub: 'Preview the cascade first' }, { icon: 'i-lucide-flag', title: 'Flag owners', sub: 'Notify the two project leads' } ] },
@@ -379,6 +412,17 @@ const officeSlides = [
 ];
 const activeSlide = ref(0);
 const current = computed(() => officeSlides[activeSlide.value]);
+// Each briefing carries a confidence + what it's grounded in — the contextual-
+// automation cue woven into the deck. The low-confidence marketing slide holds
+// for review rather than overselling.
+const slideGround = {
+	overview: { conf: 96, ground: 'grounded across every app' },
+	money: { conf: 94, ground: 'read from your ledger' },
+	people: { conf: 88, ground: 'in each client’s voice' },
+	work: { conf: 92, ground: 'from the live timeline' },
+	marketing: { conf: 74, ground: 'tone-checked — held for your review' },
+};
+const currentGround = computed(() => slideGround[current.value.key]);
 function nextSlide() { activeSlide.value = (activeSlide.value + 1) % officeSlides.length; }
 function prevSlide() { activeSlide.value = (activeSlide.value - 1 + officeSlides.length) % officeSlides.length; }
 
@@ -388,14 +432,16 @@ const scoreDims = [
 const badges = ['🏆 First $10k month', '⚡ 12-day streak', '🎯 Zero overdue', '🚀 Fast responder', '📈 Pipeline pro'];
 
 const flowSteps = [
-	{ title: 'Earnest reads everything', body: 'Across People, Work, Money and Marketing, it assembles a live picture of the whole organization — <b>no dashboards to go dig through.</b>' },
-	{ title: 'It forms an opinion', body: 'It ranks what actually needs a decision today and <b>drafts the work to resolve each one</b>, filled in from your real records.' },
-	{ title: 'You just say yes', body: 'Review in place and approve. Earnest executes the multi-step change across every app — and <b>never sends or moves money without your tap.</b>' },
+	{ title: 'It reads your context', body: 'Across People, Work, Money and Marketing, Earnest assembles a live picture — your <b>goals, brand, audience and real data</b>, not a dashboard to go dig through.' },
+	{ title: 'It drafts, and scores itself', body: 'It ranks what needs a decision today, <b>drafts the work in your voice</b>, and tells you how confident it is in each one.' },
+	{ title: 'It acts only when it’s sure', body: 'You approve in place and Earnest runs the multi-step change across every app — holding back when it isn’t sure, and <b>never sending or moving money without your tap.</b>' },
 ];
+// The guardrail widget, re-cast in the automation language: Earnest doesn't
+// oversell — it acts when sure, proposes when it matters, holds when unsure.
 const lights = [
-	{ k: 'go', badge: 'Green · just do it', title: 'Help & safe copies', desc: 'Nothing real changes, or it’s instantly undoable.', items: ['Summarize, explain, answer questions', 'Pre-fill a draft for you to react to', 'Copy a signed contract into a draft invoice'] },
-	{ k: 'wait', badge: 'Yellow · propose, you approve', title: 'Anything that creates real work', desc: 'Earnest drafts it and puts it in front of you. Nothing happens until you say yes.', items: ['Create a project, tasks, or a set of posts', 'Draft a proposal, contract, or invoice', 'Write an email — held as a draft'] },
-	{ k: 'stop', badge: 'Red · never automatic', title: 'A person always decides', desc: 'These reach a client or move money, so a human makes the final tap.', items: ['Send anything to a client', 'Charge a card or mark money paid', 'Change roles, billing, or org settings'] },
+	{ k: 'go', badge: 'Acts · high confidence', title: 'When it’s sure, it just does it', desc: 'Grounded, reversible, low-stakes work runs on its own — with a full audit trail and one-tap undo.', items: ['Reconcile a payment to its invoice', 'Summarize a meeting into notes', 'Enrich a scanned contact'] },
+	{ k: 'wait', badge: 'Proposes · your call', title: 'When it matters, it waits for you', desc: 'Client-facing or money-moving work is drafted accurately in your voice, then held for your yes.', items: ['Draft an invoice reminder', 'Write an on-brand campaign', 'Prepare a proposal from a lead'] },
+	{ k: 'stop', badge: 'Holds · needs context', title: 'When it’s unsure, it asks', desc: 'Thin on brand, goals or audience? Earnest asks for what it’s missing instead of guessing — no generic filler.', items: ['A new client with no brand set', 'A tone it hasn’t seen before', 'Ambiguous or conflicting goals'] },
 ];
 
 const ctxSurfaces = [
@@ -417,14 +463,14 @@ const wins = [
 ];
 
 const proofShots = [
-	{ slug: 'organization-overview', label: 'The Director’s Office', icon: 'i-lucide-building-2' },
+	{ slug: 'director-presentation', label: 'The Director’s Office', icon: 'i-lucide-building-2' },
+	{ slug: 'director-slides', label: 'The presentation deck', icon: 'i-lucide-presentation' },
 	{ slug: 'command-center', label: 'Command Center', icon: 'i-lucide-zap' },
 	{ slug: 'ai-sidebar', label: 'Context-aware Earnest', icon: 'i-lucide-sparkles' },
 	{ slug: 'financials-overview', label: 'Money · Cash Flow', icon: 'i-lucide-trending-up' },
 	{ slug: 'people-dashboard', label: 'People & CRM', icon: 'i-lucide-users' },
 	{ slug: 'project-workspace', label: 'Project Workspace', icon: 'i-lucide-folder-kanban' },
 	{ slug: 'marketing-overview', label: 'Marketing Pulse', icon: 'i-lucide-radar' },
-	{ slug: 'ai-actions', label: 'AI Actions', icon: 'i-lucide-wand-sparkles' },
 ];
 const lightboxOpen = ref(false);
 const lightboxIndex = ref(0);
@@ -457,9 +503,6 @@ onMounted(() => {
 	initMotion();
 });
 onUnmounted(() => { window.removeEventListener('scroll', onScroll); revertMotion(); });
-
-useHead({
-	title: 'Earnest — Your decision machine | Liquid glass',
-	meta: [ { name: 'description', content: 'Earnest reads your entire organization, presents it as a morning briefing, and hands you the day’s decisions already drafted. A context-aware AI in a liquid-glass interface — with streaks, scores, and momentum that make good decisions visible.' } ],
-});
+// Head/SEO is set by the host page (index.vue at `/`, director.vue at `/director`)
+// so the same component can be both the indexable landing and the noindex alias.
 </script>

@@ -11,7 +11,7 @@
 				<a href="#honest" class="e-nav-link">Honesty</a>
 				<a href="#autos" class="e-nav-link">Automations</a>
 				<a href="#pricing" class="e-nav-link">Pricing</a>
-				<nuxt-link to="/" class="e-nav-link">Classic</nuxt-link>
+				<nuxt-link to="/classic" class="e-nav-link">Classic</nuxt-link>
 			</div>
 			<button type="button" class="e-nav-link e-nav-cta g-press" @click="openEarlyAccess()">Start for free</button>
 		</nav>
@@ -230,9 +230,41 @@
 			</div>
 		</section>
 
+		<!-- ─── CardDesk companion ─── -->
+		<section class="e-section">
+			<div class="g-carddesk g-glass-ultra" data-anim="scale">
+				<div class="g-cd-copy">
+					<span class="g-eyebrow"><span class="g-eyebrow-dot"></span> CardDesk · companion app</span>
+					<h2 class="e-h2">Networking, but make it <span class="g-accent-text">a game</span><span class="e-dot">.</span></h2>
+					<p class="g-cd-sub">Snap a business card and Earnest pulls every detail — name, title, company, socials — <strong>straight into your CRM</strong>, enriched and deduped. Then networking becomes a game: earn XP, keep your streak alive, and watch your whole network orbit you.</p>
+					<div class="g-cd-actions">
+						<a href="https://carddesk.earnest.guru/" target="_blank" rel="noopener" class="e-btn e-btn-primary g-press"><UIcon name="i-lucide-scan-line" /> Explore CardDesk</a>
+						<span class="g-cd-hand">first 25 scans on us ✨</span>
+					</div>
+				</div>
+				<div class="g-cd-mock g-glass">
+					<div class="g-cd-top">
+						<span class="g-cd-avatar">SJ</span>
+						<div class="g-cd-id"><span class="g-cd-name">Sarah Johnson</span><span class="g-cd-role">Founder · Northwind</span></div>
+						<span class="g-cd-lv">LV 7</span>
+					</div>
+					<span class="g-cd-scan"><UIcon name="i-lucide-scan-line" /> Scanned in 1.2s · added to People</span>
+					<div class="g-xp-wrap">
+						<div class="g-xp-head"><span>XP to Level 8</span><b>820 / 1000</b></div>
+						<div class="g-xp-track"><div class="g-xp-fill" data-fill="82"></div></div>
+					</div>
+					<div class="g-cd-badges">
+						<span class="g-streak">🔥 7-day streak</span>
+						<span class="g-badge">+50 XP</span>
+						<span class="g-badge">+1 to Orbit</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<!-- ─── Final CTA ─── -->
 		<section class="e-cta">
-			<div class="e-cta-card g-glass-ultra" data-anim="scale">
+			<div class="e-cta-card" data-anim="scale">
 				<p class="e-cta-word"><span class="e-brand">Earnest</span><span class="e-dot">.</span></p>
 				<p class="e-cta-hand">Do good work.</p>
 				<p class="e-cta-sub">Automation that reads your context, acts when it’s right, and tells you the truth when it isn’t. Give it your goals — watch what it can safely do.</p>
@@ -247,7 +279,7 @@
 			<div class="e-footer-inner">
 				<span class="e-footer-copy">&copy; {{ new Date().getFullYear() }} <span class="e-brand">Earnest</span> — Do good work.</span>
 				<nav class="e-footer-links">
-					<nuxt-link to="/">Classic</nuxt-link>
+					<nuxt-link to="/classic">Classic</nuxt-link>
 					<nuxt-link to="/director">Director</nuxt-link>
 					<nuxt-link to="/features">Features</nuxt-link>
 					<nuxt-link to="/privacy-policy">Privacy</nuxt-link>
@@ -345,7 +377,7 @@ const completeness = [
 
 const proofShots = [
 	{ slug: 'ai-sidebar', label: 'Context-aware Earnest', icon: 'i-lucide-sparkles' },
-	{ slug: 'ai-actions', label: 'AI Actions', icon: 'i-lucide-wand-sparkles' },
+	{ slug: 'project-workspace', label: 'Projects & Tasks', icon: 'i-lucide-folder-kanban' },
 	{ slug: 'marketing-recommendations', label: 'Marketing Recs', icon: 'i-lucide-megaphone' },
 	{ slug: 'organization-branding', label: 'Brand Context', icon: 'i-lucide-palette' },
 	{ slug: 'leads-pipeline', label: 'CRM Pipeline', icon: 'i-lucide-scan-search' },
