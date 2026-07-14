@@ -294,3 +294,45 @@
 .g-complete-hint { font-size: 13px; line-height: 1.5; color: var(--g-ink-2); display: flex; gap: 8px; align-items: flex-start; margin: 0; }
 .g-complete-hint svg, .g-complete-hint [class*='iconify'] { width: 16px; height: 16px; flex: none; margin-top: 2px; color: var(--g-accent); }
 .g-complete-hint b { color: var(--g-ink); font-weight: 650; }
+
+/* ─── FAQ + ask a question ─────────────────────────────────── */
+.g-faq { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.g-faq-item { border-radius: 18px; transition: box-shadow 0.3s var(--spring); }
+.g-faq-q { margin: 0; }
+.g-faq-trigger {
+	width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+	padding: 20px 24px; background: none; border: none; cursor: pointer; text-align: left;
+	font-family: var(--font-body); font-size: 17px; font-weight: 600; color: var(--g-ink); letter-spacing: -0.01em;
+}
+.g-faq-icon { flex: none; display: inline-flex; align-items: center; justify-content: center; color: var(--g-accent); }
+.g-faq-icon svg, .g-faq-icon [class*='iconify'] { width: 20px; height: 20px; }
+.g-faq-item--on .g-faq-icon { color: var(--g-accent-ink); }
+.g-faq-a { padding: 0 24px 22px; }
+.g-faq-a p { margin: 0; font-size: 15.5px; line-height: 1.65; color: var(--g-ink-2); }
+.g-faq-a strong { color: var(--g-ink); font-weight: 650; }
+.g-faq-a a { color: var(--g-accent-ink); text-decoration: underline; text-underline-offset: 2px; }
+
+.g-ask { max-width: 760px; margin: 40px auto 0; padding: 32px; display: grid; grid-template-columns: 1fr 1.15fr; gap: 28px; align-items: center; }
+.g-ask-title { font-family: var(--font-serif); font-size: 26px; color: var(--g-ink); margin: 12px 0 0; letter-spacing: -0.02em; }
+.g-ask-sub { font-size: 15px; line-height: 1.6; color: var(--g-ink-2); margin: 10px 0 0; }
+.g-ask-form { display: flex; flex-direction: column; gap: 12px; position: relative; }
+.g-ask-fields { display: flex; flex-direction: column; gap: 10px; }
+.g-ask-input {
+	font-family: var(--font-body); font-size: 15px; padding: 12px 14px; border-radius: 12px;
+	border: 1px solid var(--g-line); background: rgba(255, 255, 255, 0.6); outline: none;
+	transition: border-color 0.2s, box-shadow 0.2s; width: 100%; color: var(--g-ink);
+}
+.g-ask-input::placeholder { color: var(--g-ink-3); }
+.g-ask-input:focus { border-color: var(--g-accent); box-shadow: 0 0 0 3px var(--g-accent-soft); }
+.g-ask-textarea { resize: vertical; min-height: 84px; }
+.g-ask-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.g-ask-error { font-size: 13px; color: #ef4444; margin: 0; }
+.g-ask-form .e-btn { align-self: flex-start; }
+.g-ask-done { grid-column: 1 / -1; text-align: center; padding: 8px 0; }
+.g-ask-done-ic { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: var(--g-accent-soft); color: var(--g-accent-ink); margin-bottom: 6px; }
+.g-ask-done-ic svg, .g-ask-done-ic [class*='iconify'] { width: 24px; height: 24px; }
+
+@media (max-width: 680px) {
+	.g-ask { grid-template-columns: 1fr; padding: 24px; }
+	.g-ask-form .e-btn { align-self: stretch; text-align: center; justify-content: center; }
+}
