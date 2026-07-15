@@ -544,7 +544,7 @@ const faqs = [
 	{ q: 'What happens when Earnest isn’t sure?', a: 'It stops and asks. If it’s thin on your brand, your goals, or a client’s voice, Earnest tells you what it’s missing instead of guessing or filling in generic text. You get accuracy over eagerness — by design.' },
 	{ q: 'Do I have to replace all my tools at once?', a: 'No. Earnest brings People, Work, Money and Marketing into one place, but you can start where it hurts most — chasing invoices, running a project, re-engaging leads — and let it earn the rest. Everything’s included, so there’s nothing extra to buy as you expand.' },
 	{ q: 'Can I try it before committing?', a: 'Yes. Explore the <strong>live demo</strong> right now with real sample data, or request early access to get your own workspace set up while we finalize production.' },
-	{ q: 'Who can see my data?', a: 'Your workspace data is yours — it’s what grounds Earnest’s suggestions, and it isn’t shared across organizations. See our <a href="/privacy-policy">privacy policy</a> for how we handle and protect it.' },
+	{ q: 'Who can see my data?', a: 'Your workspace is private to your organization — only members you invite can see it, and we never sell your data or share one customer’s data with another. Earnest’s AI reads your data only to generate your own results: context goes to third-party AI providers under terms that bar them from training on it, and we don’t train our own models on it either. Full detail is in our <a href="/privacy-policy">privacy policy</a>.' },
 ];
 const openFaq = ref(0);
 function toggleFaq(i) { openFaq.value = openFaq.value === i ? -1 : i; }
