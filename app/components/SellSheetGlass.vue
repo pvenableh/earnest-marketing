@@ -11,6 +11,7 @@
 				<a href="#momentum" class="e-nav-link">Momentum</a>
 				<a href="#context" class="e-nav-link">Context</a>
 				<a href="#pricing" class="e-nav-link">Pricing</a>
+				<a href="#faq" class="e-nav-link">FAQ</a>
 			</div>
 			<button type="button" class="e-nav-link e-nav-cta g-press" @click="openEarlyAccess()">Start for free</button>
 		</nav>
@@ -303,6 +304,54 @@
 			</div>
 		</section>
 
+		<!-- ─── FAQ + ask a question ─── -->
+		<section id="faq" class="e-section">
+			<div class="g-sec-head">
+				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Questions</span>
+				<h2 class="e-h2" data-anim="rise">Good questions, <span class="g-accent-text">straight answers</span><span class="e-dot">.</span></h2>
+				<p class="e-section-sub" data-anim="rise">The things people ask before they start. Don’t see yours? Ask below — a real person reads every one.</p>
+			</div>
+
+			<div class="g-faq" data-anim="scale">
+				<div v-for="(f, i) in faqs" :key="i" class="g-faq-item g-glass" :class="{ 'g-faq-item--on': openFaq === i }">
+					<h3 class="g-faq-q">
+						<button type="button" class="g-faq-trigger g-press" :aria-expanded="openFaq === i" :aria-controls="`faq-panel-${i}`" @click="toggleFaq(i)">
+							<span>{{ f.q }}</span>
+							<span class="g-faq-icon" aria-hidden="true"><UIcon :name="openFaq === i ? 'i-lucide-minus' : 'i-lucide-plus'" /></span>
+						</button>
+					</h3>
+					<div v-show="openFaq === i" :id="`faq-panel-${i}`" class="g-faq-a" role="region">
+						<p v-html="f.a"></p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Still have a question? — stores in Directus + emails us -->
+			<div class="g-ask g-glass-ultra" data-anim="scale">
+				<template v-if="!askSuccess">
+					<div class="g-ask-copy">
+						<span class="g-eyebrow"><span class="g-eyebrow-dot"></span> Still have a question?</span>
+						<h3 class="g-ask-title">Ask us anything<span class="e-dot">.</span></h3>
+						<p class="g-ask-sub">Drop your question and email — a real person replies, usually the same day.</p>
+					</div>
+					<form class="g-ask-form" @submit.prevent="submitQuestion">
+						<input v-model="askHp" type="text" tabindex="-1" autocomplete="off" class="g-ask-hp" aria-hidden="true" />
+						<div class="g-ask-fields">
+							<input v-model="askForm.email" type="email" placeholder="you@studio.com" class="g-ask-input" autocomplete="email" aria-label="Your email" />
+							<textarea v-model="askForm.question" rows="3" placeholder="What would you like to know?" class="g-ask-input g-ask-textarea" aria-label="Your question"></textarea>
+						</div>
+						<p v-if="askError" class="g-ask-error">{{ askError }}</p>
+						<button type="submit" class="e-btn e-btn-primary g-press" :disabled="askSubmitting">{{ askSubmitting ? 'Sending…' : 'Send question' }}</button>
+					</form>
+				</template>
+				<div v-else class="g-ask-done">
+					<span class="g-ask-done-ic"><UIcon name="i-lucide-check" /></span>
+					<h3 class="g-ask-title">Got it — thank you<span class="e-dot">.</span></h3>
+					<p class="g-ask-sub">We’ll reply to <strong>{{ sentEmail }}</strong> shortly.</p>
+				</div>
+			</div>
+		</section>
+
 		<!-- ─── CardDesk companion ─── -->
 		<section class="e-section">
 			<div class="g-carddesk g-glass-ultra" data-anim="scale">
@@ -365,7 +414,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, reactive, onMounted, onUnmounted, computed } from 'vue';
 import '~/assets/css/sellsheet-modern.css';
 import '~/assets/css/sellsheet-glass.css';
 import '~/assets/css/sellsheet-glass-sections.css';
@@ -485,6 +534,54 @@ const plans = [
 	{ name: 'Studio', price: '149', desc: 'For the team that means business.', featured: true, features: ['8 team seats', 'Everything in Solo', 'Team channels & video', 'Director mode & token management', 'Whitelabel & branded email', '15 client portal seats', '400K AI tokens/month', '$408/yr if billed annually'], cta: { label: 'Start free trial' } },
 	{ name: 'Agency', price: '299', desc: 'For the business that has grown into something real.', featured: false, features: ['15 team seats', 'Everything in Studio', 'Unlimited client portal seats', 'Bank sync & expenses', 'Priority support + onboarding', '1M AI tokens/month', '$2,491/yr if billed annually'], cta: { label: 'Talk to us' } },
 ];
+
+// FAQ — grounded in the site's own copy (guardrails, pricing, context-awareness).
+const faqs = [
+	{ q: 'How is Earnest different from ChatGPT or generic AI assistants?', a: 'Generic AI starts from a blank prompt and sounds confident about everything. Earnest reads your actual organization — your goals, brand, clients and live data across every app — drafts the day’s decisions <strong>in your voice</strong>, and tells you how confident it is. It acts when it’s sure, proposes when it matters, and holds back when it isn’t.' },
+	{ q: 'Will Earnest send emails or move money on its own?', a: 'No. Low-stakes, reversible work — reconciling a payment, summarizing a meeting, enriching a contact — can run automatically with a full audit trail. But <strong>nothing reaches a client or moves money without your tap</strong>. Client-facing and financial actions are always drafted for your approval first.' },
+	{ q: 'What does it cost?', a: 'Three plans: <strong>Solo $49/mo</strong>, <strong>Studio $149/mo</strong>, and <strong>Agency $299/mo</strong> — priced per workspace, not per action. The Director’s Office and all seven apps are included on every plan, so there are no usage surprises.' },
+	{ q: 'Is Earnest for solo operators or bigger agencies?', a: 'Both. Solo is built for the one-person shop doing serious work; Studio and Agency add seats, team channels and director tooling as you grow. The same daily rhythm scales from one person to a full team.' },
+	{ q: 'What happens when Earnest isn’t sure?', a: 'It stops and asks. If it’s thin on your brand, your goals, or a client’s voice, Earnest tells you what it’s missing instead of guessing or filling in generic text. You get accuracy over eagerness — by design.' },
+	{ q: 'Do I have to replace all my tools at once?', a: 'No. Earnest brings People, Work, Money and Marketing into one place, but you can start where it hurts most — chasing invoices, running a project, re-engaging leads — and let it earn the rest. Everything’s included, so there’s nothing extra to buy as you expand.' },
+	{ q: 'Can I try it before committing?', a: 'Yes. Explore the <strong>live demo</strong> right now with real sample data, or request early access to get your own workspace set up while we finalize production.' },
+	{ q: 'Who can see my data?', a: 'Your workspace data is yours — it’s what grounds Earnest’s suggestions, and it isn’t shared across organizations. See our <a href="/privacy-policy">privacy policy</a> for how we handle and protect it.' },
+];
+const openFaq = ref(0);
+function toggleFaq(i) { openFaq.value = openFaq.value === i ? -1 : i; }
+
+// Ask a question — stores in Directus (visitor_questions) + emails us, via the
+// same flow-trigger pattern as early access. CORS allows the prod domain only.
+const QUESTIONS_FLOW_ID = '817664b8-0984-4ab8-8db5-e3edc440cb2b';
+const questionsUrl = `${config.public.directusUrl || 'https://admin.earnest.guru'}/flows/trigger/${QUESTIONS_FLOW_ID}`;
+const askForm = reactive({ email: '', question: '' });
+const askHp = ref('');
+const askSubmitting = ref(false);
+const askSuccess = ref(false);
+const askError = ref('');
+const sentEmail = ref('');
+const askEmailValid = computed(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(askForm.email.trim()));
+async function submitQuestion() {
+	askError.value = '';
+	if (!askEmailValid.value) { askError.value = 'Please enter a valid email so we can reply.'; return; }
+	if (askForm.question.trim().length < 5) { askError.value = 'Add a little more detail to your question.'; return; }
+	askSubmitting.value = true;
+	try {
+		await $fetch(questionsUrl, {
+			method: 'POST',
+			body: {
+				email: askForm.email.trim(),
+				question: askForm.question.trim(),
+				source: 'faq-question-form',
+				referrer: typeof window !== 'undefined' ? window.location.href : '',
+				hp: askHp.value,
+			},
+		});
+		sentEmail.value = askForm.email.trim();
+		askSuccess.value = true;
+	} catch {
+		askError.value = 'Something went wrong sending that — please try again in a moment.';
+	} finally { askSubmitting.value = false; }
+}
 
 // Nav
 const navScrolled = ref(false);
