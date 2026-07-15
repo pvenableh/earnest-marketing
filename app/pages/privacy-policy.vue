@@ -82,8 +82,8 @@ const websiteUrl = 'https://huestudios.com';
 					</li>
 					<li>
 						<strong>Financial Data:</strong>
-						Invoices, expenses, payments, and billing records you manage in Earnest, and, if you enable a bank or
-						accounting integration, transaction data retrieved through that integration.
+						Invoices, expenses, payments, and billing records you manage in Earnest, and, if you enable bank sync,
+						transaction data retrieved through our payment processor (Stripe).
 					</li>
 					<li>
 						<strong>Content &amp; Communications:</strong>
@@ -163,10 +163,10 @@ const websiteUrl = 'https://huestudios.com';
 						results for, or expose it to, another customer.
 					</li>
 					<li>
-						<strong>Third-party AI providers:</strong>
-						To produce AI output, we send the relevant context to third-party large language model providers (such as
-						Anthropic and OpenAI). We use these providers under business terms that prohibit them from using your data
-						to train their models, and under which your data is retained only transiently to process each request.
+						<strong>Third-party AI provider:</strong>
+						To produce AI output, we send the relevant context to our third-party large language model provider
+						(Anthropic). We use Anthropic under business terms that prohibit it from using your data to train its models,
+						and under which your data is retained only transiently to process each request.
 					</li>
 					<li>
 						<strong>No model training on your data:</strong>
@@ -219,11 +219,11 @@ const websiteUrl = 'https://huestudios.com';
 					as:
 				</p>
 				<ul class="list-disc pl-6 space-y-2">
-					<li><strong>Cloud hosting and infrastructure</strong> — to run the platform and store your data (United States).</li>
-					<li><strong>AI / large language model providers</strong> (such as Anthropic and OpenAI) — to generate AI output, under no-training business terms.</li>
-					<li><strong>Payment processing</strong> (such as Stripe) — to process subscription and other payments. We do not store full card numbers.</li>
-					<li><strong>Email delivery</strong> — to send transactional and notification emails.</li>
-					<li><strong>Social, calendar, and financial integrations</strong> you choose to connect (such as Instagram/Meta, TikTok, Google) — to power those specific features.</li>
+					<li><strong>Cloud hosting and infrastructure</strong> (Vercel and DigitalOcean) — to run the platform and store your data (United States).</li>
+					<li><strong>AI / large language model provider</strong> (Anthropic) — to generate AI output, under no-training business terms.</li>
+					<li><strong>Payment processing and bank sync</strong> (Stripe) — to process subscription and other payments and, if you enable it, retrieve bank transaction data. We do not store full card numbers.</li>
+					<li><strong>Email delivery</strong> (SendGrid) — to send transactional and notification emails.</li>
+					<li><strong>Social and calendar integrations</strong> you choose to connect (such as Instagram/Meta, TikTok, Google) — to power those specific features.</li>
 				</ul>
 				<p class="mt-4">
 					We only request the minimum access necessary to provide a feature, and you can disconnect an integration at
