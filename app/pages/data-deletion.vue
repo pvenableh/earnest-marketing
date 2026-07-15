@@ -14,14 +14,14 @@ useHead({
 });
 useSeoMeta({
 	title: 'Data Deletion Instructions | Earnest',
-	description: 'How to request deletion of your data and disconnect social media accounts from Earnest.',
+	description: 'How to delete your Earnest account, disconnect integrations, and request removal of your data.',
 	ogTitle: 'Data Deletion Instructions | Earnest',
-	ogDescription: 'How to request deletion of your data and disconnect social media accounts from Earnest.',
+	ogDescription: 'How to delete your Earnest account, disconnect integrations, and request removal of your data.',
 	ogUrl: 'https://earnest.guru/data-deletion',
 	ogSiteName: 'Earnest',
 });
 
-const lastUpdated = 'May 2, 2026';
+const lastUpdated = 'July 15, 2026';
 const contactEmail = 'contact@huestudios.com';
 const businessName = 'Hue Studios LLC';
 const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
@@ -40,24 +40,66 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 			<!-- Introduction -->
 			<section class="mb-10">
 				<p>
-					{{ businessName }} ("we," "our," or "us") operates Earnest, a social media management platform that connects
-					to third-party services including Instagram (Meta) and TikTok. This page explains how to disconnect your
-					accounts, delete your data, and request permanent removal of any information we hold about you.
+					{{ businessName }} ("we," "our," or "us") operates Earnest, a business management platform for managing
+					customers, projects, invoicing, and marketing, with an AI assistant that works across your workspace. This
+					page explains how to delete your account, disconnect integrations, and request permanent removal of the
+					information we hold about you.
 				</p>
 				<p>
-					You can revoke our access at any time. The instructions below cover both self-service options inside Earnest
-					and direct deletion requests.
+					You can delete your data at any time. The instructions below cover self-service options inside Earnest and
+					direct deletion requests by email.
 				</p>
 			</section>
 
-			<!-- Option 1: Disconnect in App -->
+			<!-- Option 1: Delete Account -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
-					1. Disconnect a Social Media Account
-				</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">1. Delete Your Earnest Account</h2>
+				<p>To permanently delete your Earnest account and its associated workspace data:</p>
+				<ol class="list-decimal pl-6 space-y-2">
+					<li>Sign in to your Earnest account.</li>
+					<li>
+						Go to
+						<strong>Settings &rarr; Account &rarr; Delete Account</strong>
+						.
+					</li>
+					<li>Read the deletion notice, then confirm by entering your password.</li>
+					<li>
+						Click
+						<strong>Permanently Delete Account</strong>
+						.
+					</li>
+				</ol>
+				<p class="mt-4">When you delete your account, we will:</p>
+				<ul class="list-disc pl-6 space-y-2">
+					<li>Delete your profile, account information, and stored credentials.</li>
+					<li>Delete your workspace data — contacts, projects, invoices, proposals, messages, notes, and uploaded files.</li>
+					<li>Revoke and remove authentication tokens for any connected integrations.</li>
+					<li>Delete or anonymize activity logs within 30 days, except where retention is required by law.</li>
+				</ul>
+				<p class="mt-4">
+					If you are a member of an organization you do not own, deleting your personal account removes you from that
+					organization; the organization's shared data remains with its owner. If you own an organization with other
+					members, you may need to transfer or remove them before deletion.
+				</p>
+			</section>
+
+			<!-- Option 2: Delete Specific Data -->
+			<section class="mb-10">
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">2. Delete Specific Records</h2>
 				<p>
-					Disconnecting an account immediately revokes Earnest's access tokens and stops any further data collection
-					from that platform.
+					You do not have to delete your whole account to remove data. Inside Earnest you can delete individual records
+					— such as a contact, client, project, invoice, or file — from the relevant section of the app. Deleted
+					records are removed from your active workspace; residual copies in backups are purged on our standard backup
+					cycle.
+				</p>
+			</section>
+
+			<!-- Option 3: Disconnect Integrations -->
+			<section class="mb-10">
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">3. Disconnect an Integration</h2>
+				<p>
+					Disconnecting an integration immediately revokes Earnest's access and stops any further data collection from
+					that service.
 				</p>
 				<ol class="list-decimal pl-6 space-y-2">
 					<li>Sign in to your Earnest account.</li>
@@ -66,43 +108,34 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 						<strong>Settings &rarr; Connected Accounts</strong>
 						.
 					</li>
-					<li>Locate the social media account you want to disconnect (Instagram or TikTok).</li>
+					<li>Locate the integration you want to remove (for example, Instagram, TikTok, a calendar, or a bank/payment connection).</li>
 					<li>
 						Click
 						<strong>Disconnect</strong>
-						next to the account.
+						and confirm when prompted.
 					</li>
-					<li>Confirm the action when prompted.</li>
 				</ol>
 				<p class="mt-4">
-					Once disconnected, the OAuth tokens for that account are revoked and removed from our systems within 24
-					hours. Analytics snapshots tied to that account are deleted according to your selection on the confirmation
-					screen.
+					Once disconnected, the tokens for that account are revoked and removed from our systems within 24 hours, and
+					data synced from that account is deleted according to your selection on the confirmation screen.
 				</p>
 			</section>
 
-			<!-- Option 2: Revoke from Platform -->
+			<!-- Option 4: Revoke from Platform -->
 			<section class="mb-10">
 				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
-					2. Revoke Access Directly from the Social Platform
+					4. Revoke Access Directly From a Connected Platform
 				</h2>
 				<p>
-					You can also revoke Earnest's access directly through Instagram or TikTok. This is useful if you no longer
-					have access to your Earnest account.
+					You can also revoke Earnest's access from the connected service itself. This is useful if you no longer have
+					access to your Earnest account.
 				</p>
 
-				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">2.1 Instagram / Meta</h3>
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">4.1 Instagram / Meta</h3>
 				<ol class="list-decimal pl-6 space-y-2">
 					<li>
 						Go to your
-						<a
-							href="https://accountscenter.instagram.com/apps_websites/"
-							target="_blank"
-							rel="noopener"
-							class="text-primary hover:underline"
-						>
-							Instagram Apps and Websites settings
-						</a>
+						<a href="https://accountscenter.instagram.com/apps_websites/" target="_blank" rel="noopener" class="text-primary hover:underline">Instagram Apps and Websites settings</a>
 						(or open Instagram &rarr; Settings &rarr; Apps and Websites).
 					</li>
 					<li>
@@ -117,7 +150,7 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 					</li>
 				</ol>
 
-				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">2.2 TikTok</h3>
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">4.2 TikTok</h3>
 				<ol class="list-decimal pl-6 space-y-2">
 					<li>Open the TikTok app and go to your profile.</li>
 					<li>
@@ -137,46 +170,14 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 					</li>
 				</ol>
 				<p class="mt-4">
-					Revoking access through the platform invalidates our tokens immediately. Any cached data on our side will be
-					purged within 30 days as part of our standard retention process.
+					Revoking access through the platform invalidates our tokens immediately. Any cached data on our side is purged
+					within 30 days as part of our standard retention process.
 				</p>
 			</section>
 
-			<!-- Option 3: Delete Account -->
+			<!-- Option 5: Email Request -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">3. Delete Your Earnest Account</h2>
-				<p>To permanently delete your Earnest account and all associated data:</p>
-				<ol class="list-decimal pl-6 space-y-2">
-					<li>Sign in to your Earnest account.</li>
-					<li>
-						Go to
-						<strong>Settings &rarr; Account &rarr; Delete Account</strong>
-						.
-					</li>
-					<li>Read the deletion notice, then confirm by entering your password.</li>
-					<li>
-						Click
-						<strong>Permanently Delete Account</strong>
-						.
-					</li>
-				</ol>
-				<p class="mt-4">When you delete your account, we will:</p>
-				<ul class="list-disc pl-6 space-y-2">
-					<li>Revoke all OAuth tokens for connected social media accounts.</li>
-					<li>Delete your profile, account information, and stored credentials.</li>
-					<li>Delete content, drafts, and scheduled posts that have not yet been published.</li>
-					<li>Delete analytics snapshots and engagement history tied to your account.</li>
-					<li>Anonymize or delete activity logs within 30 days, except where retention is required by law.</li>
-				</ul>
-				<p class="mt-4">
-					Content you have already published to Instagram or TikTok remains on those platforms. To remove it there, use
-					the platform's own deletion tools.
-				</p>
-			</section>
-
-			<!-- Option 4: Email Request -->
-			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">4. Request Deletion by Email</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">5. Request Deletion by Email</h2>
 				<p>
 					If you cannot access your account or prefer to request deletion manually, email us and we will process the
 					request on your behalf.
@@ -184,21 +185,13 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 				<ol class="list-decimal pl-6 space-y-2">
 					<li>
 						Send an email to
-						<a :href="`mailto:${contactEmail}?subject=Data Deletion Request`" class="text-primary hover:underline">
-							{{ contactEmail }}
-						</a>
+						<a :href="`mailto:${contactEmail}?subject=Data Deletion Request`" class="text-primary hover:underline">{{ contactEmail }}</a>
 						with the subject line
 						<strong>"Data Deletion Request"</strong>
 						.
 					</li>
-					<li>
-						Include the email address associated with your Earnest account and, if known, the username of the connected
-						Instagram or TikTok account.
-					</li>
-					<li>
-						Specify whether you want to delete your entire account or only data tied to a specific connected social
-						media account.
-					</li>
+					<li>Include the email address associated with your Earnest account.</li>
+					<li>Specify whether you want to delete your entire account or only specific data (for example, a single connected integration).</li>
 				</ol>
 				<p class="mt-4">
 					We will verify your identity, process the request, and confirm completion by email within 30 days. There is no
@@ -208,61 +201,55 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 
 			<!-- What Gets Deleted -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">5. What Data Is Deleted</h2>
-				<p>A successful deletion request removes the following from our systems:</p>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">6. What Data Is Deleted</h2>
+				<p>A successful account-deletion request removes the following from our systems:</p>
 				<ul class="list-disc pl-6 space-y-2">
 					<li>
-						<strong>OAuth Tokens:</strong>
-						Encrypted access and refresh tokens for connected accounts.
+						<strong>Profile &amp; Credentials:</strong>
+						Your Earnest profile, preferences, settings, and stored credentials.
 					</li>
 					<li>
-						<strong>Profile Information:</strong>
-						Username, display name, profile picture, and account identifiers from connected platforms.
+						<strong>Workspace Data:</strong>
+						Contacts, clients, leads, projects, tasks, invoices, expenses, proposals, contracts, notes, messages, and
+						uploaded files.
 					</li>
 					<li>
-						<strong>Analytics Data:</strong>
-						Follower counts, reach, impressions, engagement metrics, and historical snapshots.
-					</li>
-					<li>
-						<strong>Content:</strong>
-						Drafts, scheduled posts, and uploaded media that have not yet been published.
-					</li>
-					<li>
-						<strong>Comments and Engagement:</strong>
-						Comments retrieved from your posts for management within Earnest.
+						<strong>Integration Tokens &amp; Synced Data:</strong>
+						Encrypted access and refresh tokens for connected accounts, and data synced from them (such as social
+						analytics or financial transactions).
 					</li>
 					<li>
 						<strong>Account Metadata:</strong>
-						Your Earnest profile, preferences, and settings.
+						Organization membership and related account records.
 					</li>
 				</ul>
 				<p class="mt-4">
-					Data that has already been published to a third-party social media platform is controlled by that platform
-					and must be deleted there directly.
+					Data that has already been published or sent to a third party (for example, a post published to a social
+					platform, or an invoice emailed to a client) is controlled by that platform or recipient and must be handled
+					there directly.
 				</p>
 			</section>
 
 			<!-- Retention Exceptions -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">6. Retention Exceptions</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">7. Retention Exceptions</h2>
 				<p>
 					In limited circumstances, we may retain certain information after a deletion request to comply with legal
-					obligations, resolve disputes, prevent fraud, or enforce our Terms of Service. Any such retained information
-					is access-restricted and held only for as long as the legal or operational requirement applies.
+					obligations (such as tax and accounting requirements for financial records), resolve disputes, prevent fraud,
+					or enforce our Terms of Service. Any such retained information is access-restricted and held only for as long
+					as the legal or operational requirement applies.
 				</p>
 			</section>
 
 			<!-- Contact Us -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">7. Contact Us</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">8. Contact Us</h2>
 				<p>If you have questions about deleting your data or need help with a request, contact us:</p>
 				<div class="mt-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
 					<p class="font-medium text-gray-900 dark:text-white">{{ businessName }}</p>
 					<p class="text-gray-600 dark:text-gray-400">{{ businessAddress }}</p>
 					<p class="mt-2">
-						<a :href="`mailto:${contactEmail}`" class="text-primary hover:underline">
-							{{ contactEmail }}
-						</a>
+						<a :href="`mailto:${contactEmail}`" class="text-primary hover:underline">{{ contactEmail }}</a>
 					</p>
 				</div>
 			</section>
