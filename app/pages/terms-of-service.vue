@@ -38,9 +38,10 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 			<!-- Introduction -->
 			<section class="mb-10">
 				<p>
-					Welcome to the {{ businessName }} social media management platform. These Terms of Service ("Terms") govern
-					your access to and use of our platform, including any associated services, features, and content
-					(collectively, the "Service").
+					Welcome to Earnest, the business management platform operated by {{ businessName }} — bringing your clients,
+					projects, invoicing, marketing, and AI assistance together in one place. These Terms of Service ("Terms")
+					govern your access to and use of Earnest and our companion app CardDesk, including any associated services,
+					features, and content (collectively, the "Service").
 				</p>
 				<p>
 					By accessing or using the Service, you agree to be bound by these Terms. If you do not agree to these Terms,
@@ -56,7 +57,10 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 					<li>Be at least 18 years old</li>
 					<li>Have the legal capacity to enter into a binding agreement</li>
 					<li>Not be prohibited from using the Service under applicable law</li>
-					<li>Have valid accounts on the third-party platforms (Instagram, TikTok) you wish to connect</li>
+					<li>
+						If you choose to connect a third-party account (see Section 3), hold a valid account on that platform and
+						have the authority to connect it
+					</li>
 				</ul>
 				<p class="mt-4">
 					By using the Service, you represent and warrant that you meet these eligibility requirements.
@@ -86,11 +90,16 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 			<!-- Third-Party Platform Connections -->
 			<section class="mb-10">
 				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">3. Third-Party Platform Connections</h2>
-				<p>Our Service allows you to connect your Instagram and TikTok accounts. By connecting these accounts, you:</p>
+				<p>
+					The Service can optionally connect to third-party accounts on your behalf — social platforms (such as
+					Instagram, Facebook, LinkedIn, TikTok, and Threads) and payment processing (Stripe), among others.
+					Connecting any of them is entirely optional, and the Service works without them. By connecting an account,
+					you:
+				</p>
 				<ul class="list-disc pl-6 space-y-2">
 					<li>
-						Authorize us to access your accounts using OAuth tokens to perform actions on your behalf, including
-						publishing content and retrieving analytics
+						Authorize us to access that account using OAuth tokens to perform actions on your behalf — for example
+						publishing content you schedule, or retrieving analytics
 					</li>
 					<li>
 						Represent that you have the authority to grant such access and that doing so does not violate any agreement
@@ -106,8 +115,8 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 					</li>
 				</ul>
 				<p class="mt-4">
-					You may disconnect your third-party accounts at any time through our platform settings or directly through the
-					respective social media platform.
+					You may disconnect your third-party accounts at any time through the Service's integration settings or
+					directly through the respective platform.
 				</p>
 			</section>
 
