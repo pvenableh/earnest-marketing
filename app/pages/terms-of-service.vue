@@ -22,7 +22,7 @@ useSeoMeta({
 });
 
 const lastUpdated = 'February 6, 2026';
-const contactEmail = 'contact@huestudios.com';
+const contactEmail = 'hello@earnest.guru';
 const businessName = 'Hue Studios LLC';
 const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 </script>
@@ -168,9 +168,37 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 					<li>Authorize us to charge your payment method for recurring subscriptions</li>
 				</ul>
 				<p class="mt-4">
-					Fees are non-refundable except as required by law or as expressly stated in these Terms. We reserve the right
-					to change our pricing with reasonable notice.
+					Except as described under “Refunds and cancellations” below, or as required by law, fees are non-refundable.
+					We reserve the right to change our pricing with reasonable notice.
 				</p>
+
+				<!--
+					DRAFT — pending legal review. This section documents the refund behavior
+					actually implemented in the product (subscription cancel-at-period-end,
+					immediate add-on removal, admin-initiated token refunds with balance
+					reversal floored at zero). Keep it in sync with that behavior.
+				-->
+				<h3 class="text-lg font-semibold text-gray-900 dark:text-white mt-8 mb-3">Refunds and cancellations</h3>
+
+				<p class="mt-4"><strong>Subscriptions.</strong> You can cancel your plan at any time from Organization → Billing.
+					Cancellation takes effect at the end of your current billing period: you keep access until then, and we do not
+					prorate or refund the remainder of a period you have already paid for.</p>
+
+				<p class="mt-4"><strong>Add-ons.</strong> Removing an add-on takes effect immediately and stops any future billing
+					for it. Add-ons are billed monthly and we do not prorate or refund the current month.</p>
+
+				<p class="mt-4"><strong>AI tokens.</strong> Token top-ups are prepaid. If you need a refund, an organization owner
+					or admin can request one from Organization → AI &amp; Tokens. When we refund a token purchase, the tokens from
+					that purchase are removed from your organization’s balance; if you have already spent some of them, your balance
+					is reduced to zero rather than going negative. Refunds are returned to the original payment method and typically
+					post within 5–10 business days, depending on your bank.</p>
+
+				<p class="mt-4"><strong>Payments you collect from your own clients.</strong> Invoices you issue to your clients
+					through Earnest are agreements between you and that client. You issue any refunds for them from your own
+					connected Stripe account, under your own refund terms — Earnest is not a party to those transactions.</p>
+
+				<p class="mt-4"><strong>Your legal rights.</strong> Nothing in this section limits any refund or cancellation rights
+					you may have under applicable law.</p>
 			</section>
 
 			<!-- Disclaimers -->
