@@ -201,14 +201,21 @@
 .g-win-txt span { font-size: 13.5px; line-height: 1.45; color: var(--g-ink-2); }
 
 /* ══ Proof ══ */
-.g-proof { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-@media (max-width: 900px) { .g-proof { grid-template-columns: repeat(2, 1fr); } }
+/* Six curated shots → rows of three on large screens (bigger cells than the
+   old 4-up). Falls back to 2-up, then 1-up. */
+.g-proof { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+@media (max-width: 860px) { .g-proof { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
 @media (max-width: 520px) { .g-proof { grid-template-columns: 1fr; } }
 .g-proof-item { display: flex; flex-direction: column; gap: 10px; background: transparent; border: none; padding: 0; cursor: pointer; text-align: center; }
 .g-proof-item .e-frame { box-shadow: 0 14px 34px rgba(20, 55, 85, 0.12); }
-/* Uniform thumbnail aspect — crop to the top so a tall capture (e.g. the org
-   Settings/branding shot) doesn't make its cell taller than the others. */
-.g-proof-item .e-frame-img { aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
+/* Slimmer browser chrome on the bigger tiles so the frame doesn't dwarf the
+   screenshot — smaller title bar, dots, and corner radius. */
+.g-proof-item .e-frame-chrome { padding: 7px 11px; gap: 5px; }
+.g-proof-item .e-frame-chrome span { width: 8px; height: 8px; }
+/* Uniform thumbnail aspect. Most captures are 16:9 (1280×720 @2x); match that so
+   they fill the cell without cropping, and keep object-fit: cover so the handful
+   of 16:10 shots crop a hair off top/bottom rather than distorting. */
+.g-proof-item .e-frame-img { aspect-ratio: 16 / 9; object-fit: cover; object-position: center; display: block; width: 100%; height: auto; }
 .g-proof-item .e-gallery-cap { justify-content: center; color: var(--g-ink-2); }
 
 /* ══ Automation-specific (see SellSheetAutomation) ══ */

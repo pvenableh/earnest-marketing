@@ -4,25 +4,34 @@
 		<nav class="e-nav" :class="{ 'e-nav-scrolled': navScrolled }">
 			<nuxt-link to="/" class="e-nav-brand">
 				<LogoEarnest size="md" />
-				<span class="e-nav-badge">Director</span>
+				<span class="e-nav-badge-wrap">
+					<Transition name="e-badge" mode="out-in">
+						<span :key="navBadgeIdx" class="e-nav-badge">{{ navBadges[navBadgeIdx] }}</span>
+					</Transition>
+				</span>
 			</nuxt-link>
 			<div class="e-nav-links">
+				<a href="#focus" class="e-nav-link">Focus</a>
+				<a href="#learns" class="e-nav-link">Learns you</a>
 				<a href="#office" class="e-nav-link">The Office</a>
-				<a href="#momentum" class="e-nav-link">Momentum</a>
-				<a href="#context" class="e-nav-link">Context</a>
 				<a href="#pricing" class="e-nav-link">Pricing</a>
 				<a href="#faq" class="e-nav-link">FAQ</a>
 			</div>
-			<button type="button" class="e-nav-link e-nav-cta g-press" @click="openEarlyAccess()">Start for free</button>
+			<div class="e-nav-right">
+				<button type="button" class="e-theme-toggle g-press" :aria-label="isDark ? 'Switch to light theme' : 'Switch to dark theme'" @click="toggleTheme">
+					<ClientOnly><UIcon :name="isDark ? 'i-lucide-sun' : 'i-lucide-moon'" /><template #fallback><UIcon name="i-lucide-moon" /></template></ClientOnly>
+				</button>
+				<button type="button" class="e-nav-link e-nav-cta g-press" @click="openEarlyAccess()">Start for free</button>
+			</div>
 		</nav>
 
 		<!-- ─── Hero ─── -->
 		<header class="e-hero">
-			<span class="g-eyebrow opacity-0"><span class="g-eyebrow-dot"></span> Context-aware automation · the Director’s Office</span>
+			<span class="g-eyebrow opacity-0"><span class="g-eyebrow-dot"></span> The AI that knows your business, your clients, and you</span>
 			<h1 class="e-hero-wordmark opacity-0">Earnest<span class="e-hero-period">.</span></h1>
-			<p class="e-hero-tagline opacity-0">Context in<span class="e-dot">.</span> Accuracy out<span class="e-dot">.</span></p>
+			<p class="e-hero-tagline opacity-0">Do good work<span class="e-dot">.</span></p>
 			<p class="e-hero-sub opacity-0">
-				The decision machine that <strong>automates on context</strong>. Earnest reads your entire organization — your goals, brand, audience and live data — drafts the day’s decisions <strong>in your voice</strong>, and automates only what it’s sure of. You just say&nbsp;yes — and watch your momentum climb.
+				Earnest understands your business, your clients, and how you work — directing the day <strong>in your voice</strong> and learning as it goes. Real context, not generic prompts, clearing the busywork so you can do the work that matters.
 			</p>
 			<div class="e-hero-actions opacity-0">
 				<button class="e-btn e-btn-primary g-press" @click="openEarlyAccess()">Start for free</button>
@@ -66,6 +75,61 @@
 				</span>
 			</div>
 		</div>
+
+		<!-- ─── Focus — the calm, full-screen space ─── -->
+		<section id="focus" class="e-section">
+			<div class="g-sec-head">
+				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Focus</span>
+				<h2 class="e-h2" data-anim="rise">When it’s a lot, <span class="g-accent-text">there’s Focus</span><span class="e-dot">.</span></h2>
+				<p class="e-section-sub" data-anim="rise">Some days carry more than a dashboard should. Step into Focus and Earnest sits with you — a calm, full-screen space to take it one thing at a time. No noise, no rush.</p>
+			</div>
+
+			<div class="g-focus" data-anim="scale">
+				<div class="g-focus-aura" aria-hidden="true"><span></span><span></span></div>
+				<div class="g-focus-inner">
+					<span class="g-focus-mark">E<span class="g-focus-dot">.</span></span>
+					<p class="g-focus-greet">I’m here. No rush.<br>What’s the honest version of how things are&nbsp;right&nbsp;now?</p>
+					<div class="g-focus-chips">
+						<span v-for="c in focusChips" :key="c" class="g-focus-chip g-press">{{ c }}</span>
+					</div>
+					<div class="g-focus-composer">
+						<span class="g-focus-ph">Tell Earnest what’s on your mind…</span>
+						<span class="g-focus-send"><UIcon name="i-lucide-arrow-up" /></span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ─── It learns how you work — earned trust ─── -->
+		<section id="learns" class="e-section">
+			<div class="g-sec-head">
+				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> It learns how you work</span>
+				<h2 class="e-h2" data-anim="rise">The more it’s right, <span class="g-accent-text">the more it carries</span><span class="e-dot">.</span></h2>
+				<p class="e-section-sub" data-anim="rise">Earnest pays attention. It learns your voice, your rhythm, the calls you always make and the ones you never would — and as it proves itself, you can hand it more. Trust you can dial, earned by being right.</p>
+			</div>
+
+			<div class="g-learn" data-anim="scale">
+				<!-- What it's learned -->
+				<div class="g-learn-card g-glass g-lift">
+					<span class="g-learn-label"><UIcon name="i-lucide-sparkles" class="g-learn-ic" /> What Earnest has learned about you</span>
+					<ul class="g-learn-list" data-stagger>
+						<li v-for="(p, i) in learned" :key="i"><UIcon name="i-lucide-check" class="g-learn-ic" /> <span v-html="p"></span></li>
+					</ul>
+				</div>
+
+				<!-- Earned trust dial -->
+				<div class="g-learn-card g-glass g-lift">
+					<span class="g-learn-label"><UIcon name="i-lucide-shield-check" class="g-learn-ic" /> Earned trust</span>
+					<div class="g-trust-tiers" data-stagger>
+						<div v-for="(t, i) in trustTiers" :key="t.name" class="g-trust-tier" :class="{ 'g-trust-tier--on': i <= trustLevel }">
+							<span class="g-trust-dot"></span>
+							<div class="g-trust-body"><b>{{ t.name }}</b><span>{{ t.desc }}</span></div>
+						</div>
+					</div>
+					<p class="g-trust-floor"><UIcon name="i-lucide-lock" class="g-learn-ic" /> <span>A hard floor it will never cross — money and client-facing sends always wait for your tap.</span></p>
+				</div>
+			</div>
+		</section>
 
 		<!-- ─── The Director's Office — glass briefing deck ─── -->
 		<section id="office" class="e-section">
@@ -191,9 +255,9 @@
 			</div>
 
 			<div class="g-sec-head" style="margin-top:56px">
-				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Accurate over eager</span>
-				<h2 class="e-h2" data-anim="rise">It doesn’t <span class="g-accent-text">oversell</span><span class="e-dot">.</span></h2>
-				<p class="e-section-sub" data-anim="rise">Most AI acts confident about everything. Earnest is calibrated — it acts when it’s sure, proposes when it matters, and holds back when it doesn’t have enough to be right.</p>
+				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Grounded in your context</span>
+				<h2 class="e-h2" data-anim="rise">It <span class="g-accent-text">understands</span> before it acts<span class="e-dot">.</span></h2>
+				<p class="e-section-sub" data-anim="rise">Most AI sounds confident about everything. Earnest works from what it actually knows — your business, your clients, your brand — so it acts when it truly understands, proposes when it matters, and asks when it’s missing something instead of guessing.</p>
 			</div>
 			<div class="g-lights" data-stagger>
 				<div v-for="l in lights" :key="l.k" class="g-light g-glass g-lift" :class="l.k">
@@ -289,7 +353,7 @@
 		<!-- ─── Pricing ─── -->
 		<section id="pricing" class="e-section">
 			<div class="g-sec-head">
-				<h2 class="e-h2" data-anim="rise"><em>Honest</em> pricing<span class="e-dot">.</span> No surprises<span class="e-dot">.</span></h2>
+				<h2 class="e-h2" data-anim="rise"><em>Simple</em> pricing<span class="e-dot">.</span> No surprises<span class="e-dot">.</span></h2>
 				<p class="e-section-sub" data-anim="rise">One price. Your whole team. The Director’s Office is included on every plan.</p>
 			</div>
 			<div class="e-plans" data-stagger>
@@ -433,22 +497,46 @@ const heroChips = [
 	{ label: 'Home', icon: 'i-lucide-layout-dashboard', tint: '#00cfff' },
 	{ label: 'People', icon: 'i-lucide-users', tint: '#09b0dd' },
 	{ label: 'Work', icon: 'i-lucide-square-kanban', tint: '#0da0cc' },
+	{ label: 'Chat', icon: 'i-lucide-messages-square', tint: '#1191bb' },
 	{ label: 'Money', icon: 'i-lucide-trending-up', tint: '#1681aa' },
 	{ label: 'Mktg', icon: 'i-lucide-megaphone', tint: '#1a7299' },
 	{ label: 'Org', icon: 'i-lucide-building-2', tint: '#235377' },
 	{ label: 'Me', icon: 'i-lucide-circle-user', tint: '#274366' },
 ];
 
+// Focus — the four opener chips mirror the real in-app Focus screen.
+const focusChips = [
+	'I’m stretched thin — where do I start?',
+	'Help me plan my next hour',
+	'What can wait?',
+	'What did I do well today?',
+];
+
+// Learns / earned trust — what Earnest picks up, and the autonomy you can dial.
+const learned = [
+	'You send invoice reminders <b>firm but warm</b> — so it drafts them that way.',
+	'You review marketing before it ships — so it <b>proposes, never posts</b>.',
+	'You clear the Helios account first thing — so it’s <b>waiting at the top</b> each morning.',
+	'You reconcile payments the same way every time — so it just <b>does that one</b>.',
+];
+const trustTiers = [
+	{ name: 'Suggests', desc: 'Earnest drafts; you decide everything.' },
+	{ name: 'Assists', desc: 'It handles the small, reversible chores on its own.' },
+	{ name: 'Runs ahead', desc: 'It takes the routine work end-to-end, with a full trail.' },
+];
+// Two tiers lit — "you're comfortable letting it assist, not yet run ahead".
+const trustLevel = 1;
+
 const marqueeItems = [
 	{ label: 'Organizational overview', icon: 'i-lucide-building-2' },
 	{ label: 'The morning briefing', icon: 'i-lucide-presentation' },
 	{ label: 'Grounded, not generic', icon: 'i-lucide-shield-check' },
-	{ label: 'Confidence-scored', icon: 'i-lucide-gauge' },
+	{ label: 'Knows your context', icon: 'i-lucide-eye' },
 	{ label: 'Earnest Score & streaks', icon: 'i-lucide-trophy' },
-	{ label: 'Context-aware automation', icon: 'i-lucide-sparkles' },
+	{ label: 'Learns how you work', icon: 'i-lucide-sparkles' },
 	{ label: 'Acts when sure, holds when unsure', icon: 'i-lucide-hand' },
 	{ label: 'Cash flow & AR aging', icon: 'i-lucide-trending-up' },
-	{ label: 'Liquid glass UI', icon: 'i-lucide-square-stack' },
+	{ label: 'Focus — one thing at a time', icon: 'i-lucide-target' },
 	{ label: 'One approval, whole change', icon: 'i-lucide-check-check' },
 ];
 
@@ -482,7 +570,7 @@ const badges = ['🏆 First $10k month', '⚡ 12-day streak', '🎯 Zero overdue
 
 const flowSteps = [
 	{ title: 'It reads your context', body: 'Across People, Work, Money and Marketing, Earnest assembles a live picture — your <b>goals, brand, audience and real data</b>, not a dashboard to go dig through.' },
-	{ title: 'It drafts, and scores itself', body: 'It ranks what needs a decision today, <b>drafts the work in your voice</b>, and tells you how confident it is in each one.' },
+	{ title: 'It drafts in your voice', body: 'It ranks what needs a decision today and <b>drafts each one in your voice</b> — shaped by your brand, your clients, and how you work, ready to run or refine.' },
 	{ title: 'It acts only when it’s sure', body: 'You approve in place and Earnest runs the multi-step change across every app — holding back when it isn’t sure, and <b>never sending or moving money without your tap.</b>' },
 ];
 // The guardrail widget, re-cast in the automation language: Earnest doesn't
@@ -513,12 +601,10 @@ const wins = [
 
 const proofShots = [
 	{ slug: 'director-presentation', label: 'The Director’s Office', icon: 'i-lucide-building-2' },
-	{ slug: 'director-slides', label: 'The presentation deck', icon: 'i-lucide-presentation' },
 	{ slug: 'command-center', label: 'Command Center', icon: 'i-lucide-zap' },
 	{ slug: 'ai-sidebar', label: 'Context-aware Earnest', icon: 'i-lucide-sparkles' },
 	{ slug: 'financials-overview', label: 'Money · Cash Flow', icon: 'i-lucide-trending-up' },
 	{ slug: 'people-dashboard', label: 'People & CRM', icon: 'i-lucide-users' },
-	{ slug: 'project-workspace', label: 'Project Workspace', icon: 'i-lucide-folder-kanban' },
 	{ slug: 'marketing-overview', label: 'Marketing Pulse', icon: 'i-lucide-radar' },
 ];
 const lightboxOpen = ref(false);
@@ -537,11 +623,13 @@ const plans = [
 
 // FAQ — grounded in the site's own copy (guardrails, pricing, context-awareness).
 const faqs = [
-	{ q: 'How is Earnest different from ChatGPT or generic AI assistants?', a: 'Generic AI starts from a blank prompt and sounds confident about everything. Earnest reads your actual organization — your goals, brand, clients and live data across every app — drafts the day’s decisions <strong>in your voice</strong>, and tells you how confident it is. It acts when it’s sure, proposes when it matters, and holds back when it isn’t.' },
+	{ q: 'How is Earnest different from ChatGPT or generic AI assistants?', a: 'Generic AI starts from a blank prompt and knows nothing about your world. Earnest <strong>knows your actual organization</strong> — your goals, brand, clients and live data across every app — and drafts the day’s decisions in your voice. Because it works from real context, it acts on what it understands, proposes when it matters, and asks when it’s missing something instead of guessing.' },
+	{ q: 'What is Focus mode?', a: 'Focus is a calm, full-screen space where Earnest sits with you — one honest read on where things stand, and room to take the day <strong>one thing at a time</strong> instead of scanning a dashboard. Step in when it’s a lot; it’s the same Earnest, just quieter and one-on-one.' },
+	{ q: 'Does Earnest really learn how I work?', a: 'Yes. It learns your voice, your rhythm, the calls you always make and the ones you never would — so its drafts sound like you and its priorities match yours. As it proves itself accurate you can <strong>dial up how much it handles</strong> on its own, from suggesting to assisting to running routine work end to end. There’s a hard floor it never crosses: money and client-facing sends always wait for your tap.' },
 	{ q: 'Will Earnest send emails or move money on its own?', a: 'No. Low-stakes, reversible work — reconciling a payment, summarizing a meeting, enriching a contact — can run automatically with a full audit trail. But <strong>nothing reaches a client or moves money without your tap</strong>. Client-facing and financial actions are always drafted for your approval first.' },
 	{ q: 'What does it cost?', a: 'Three plans: <strong>Solo $49/mo</strong>, <strong>Studio $149/mo</strong>, and <strong>Agency $299/mo</strong> — priced per workspace, not per action. The Director’s Office and all seven apps are included on every plan, so there are no usage surprises.' },
 	{ q: 'Is Earnest for solo operators or bigger agencies?', a: 'Both. Solo is built for the one-person shop doing serious work; Studio and Agency add seats, team channels and director tooling as you grow. The same daily rhythm scales from one person to a full team.' },
-	{ q: 'What happens when Earnest isn’t sure?', a: 'It stops and asks. If it’s thin on your brand, your goals, or a client’s voice, Earnest tells you what it’s missing instead of guessing or filling in generic text. You get accuracy over eagerness — by design.' },
+	{ q: 'What happens when Earnest doesn’t have enough context?', a: 'It stops and asks. If it’s thin on your brand, your goals, or a client’s voice, Earnest tells you what it’s missing instead of guessing or filling in generic text. It only acts on what it actually understands — real context over generic confidence.' },
 	{ q: 'Do I have to replace all my tools at once?', a: 'No. Earnest brings People, Work, Money and Marketing into one place, but you can start where it hurts most — chasing invoices, running a project, re-engaging leads — and let it earn the rest. Everything’s included, so there’s nothing extra to buy as you expand.' },
 	{ q: 'Can I try it before committing?', a: 'Yes. Explore the <strong>live demo</strong> right now with real sample data, or request early access to get your own workspace set up while we finalize production.' },
 	{ q: 'Who can see my data?', a: 'Your workspace is private to your organization — only members you invite can see it, and we never sell your data or share one customer’s data with another. Earnest’s AI reads your data only to generate your own results: context goes to a third-party AI provider under terms that bar it from training on it, and we don’t train our own models on it either. Full detail is in our <a href="/privacy-policy">privacy policy</a>.' },
@@ -587,6 +675,18 @@ async function submitQuestion() {
 const navScrolled = ref(false);
 function onScroll() { navScrolled.value = window.scrollY > 40; }
 
+// Nav badge — a subtle loop between Earnest's two flagship experiences, pausing
+// on each. Respects prefers-reduced-motion (holds on the first, "Director").
+const navBadges = ['Director', 'Automation'];
+const navBadgeIdx = ref(0);
+let navBadgeTimer = null;
+
+// Theme — DARK by default (matches the app's dark-default identity + the aura),
+// with a toggle into light. Persists to localStorage; writes `.dark` on <html>.
+const colorMode = useColorMode({ initialValue: 'dark', storageKey: 'earnest-mkt-theme' });
+const isDark = computed(() => colorMode.value === 'dark');
+function toggleTheme() { colorMode.value = isDark.value ? 'light' : 'dark'; }
+
 // Early access (delegated to shared child component)
 const eaRef = ref(null);
 function openEarlyAccess() { eaRef.value?.open(); }
@@ -598,8 +698,133 @@ onMounted(() => {
 	window.addEventListener('scroll', onScroll, { passive: true });
 	onScroll();
 	initMotion();
+	// Loop the nav badge (Director ⇄ Automation) with a pause on each, unless
+	// the visitor prefers reduced motion.
+	const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+	if (!reduceMotion) {
+		navBadgeTimer = window.setInterval(() => {
+			navBadgeIdx.value = (navBadgeIdx.value + 1) % navBadges.length;
+		}, 3200);
+	}
 });
-onUnmounted(() => { window.removeEventListener('scroll', onScroll); revertMotion(); });
+onUnmounted(() => {
+	window.removeEventListener('scroll', onScroll);
+	revertMotion();
+	if (navBadgeTimer) clearInterval(navBadgeTimer);
+});
 // Head/SEO is set by the host page (index.vue at `/`, director.vue at `/director`)
 // so the same component can be both the indexable landing and the noindex alias.
 </script>
+
+<style scoped>
+/* Gaegu's curly apostrophe carries heavy side-bearing, so "that’s" rendered as
+   "that’ s". Pull the following letter back to close the gap. */
+.e-tagline-tight { margin-right: -0.14em; }
+
+/* Theme toggle in the nav */
+.e-nav-right { display: flex; align-items: center; gap: 14px; }
+.e-theme-toggle {
+	width: 34px; height: 34px; border-radius: 50%; border: 0; flex: none;
+	display: grid; place-items: center; cursor: pointer;
+	color: var(--g-ink-2); background: var(--g-accent-soft);
+	transition: background 0.2s, color 0.2s, transform 0.15s var(--spring);
+}
+.e-theme-toggle:hover { color: var(--g-accent-ink); background: var(--g-accent-line); }
+.e-theme-toggle:active { transform: scale(0.92); }
+.e-theme-toggle :deep(svg), .e-theme-toggle :deep([class*='iconify']) { width: 17px; height: 17px; }
+
+/* Fixed-size slot so the Director ⇄ Automation swap never reflows the nav —
+   min-width holds the WIDER word's footprint, the pill centers inside it, and
+   the reserved height survives the out-in gap when no badge is mounted. */
+.e-nav-badge-wrap {
+	display: inline-flex; align-items: center; justify-content: center;
+	min-width: 104px; height: 19px; margin-left: 10px; line-height: 1;
+}
+/* Nav badge crossfade — a soft vertical slip as it loops Director ⇄ Automation. */
+.e-badge-enter-active,
+.e-badge-leave-active { transition: opacity 0.4s ease, transform 0.4s var(--spring); }
+.e-badge-enter-from { opacity: 0; transform: translateY(-5px); }
+.e-badge-leave-to { opacity: 0; transform: translateY(5px); }
+
+/* ─── Focus — a dark, calm stage embedded in the light page. Mirrors the real
+   in-app Focus surface (near-black ground + soft aura) so it reads as the
+   product, and its darkness gives the scroll a moment of quiet. ─── */
+.g-focus {
+	position: relative;
+	max-width: 860px;
+	margin: 0 auto;
+	border-radius: 28px;
+	overflow: hidden;
+	padding: clamp(38px, 6vw, 76px) clamp(20px, 5vw, 56px);
+	background: radial-gradient(130% 120% at 50% 0%, #14203a 0%, #0a1120 55%, #060a13 100%);
+	box-shadow: 0 34px 90px -34px rgba(10, 20, 45, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+	text-align: center;
+}
+.g-focus-aura { position: absolute; inset: 0; pointer-events: none; }
+.g-focus-aura span {
+	position: absolute; width: 48%; aspect-ratio: 1; border-radius: 50%;
+	filter: blur(64px); opacity: 0.5;
+}
+.g-focus-aura span:nth-child(1) { left: -8%; top: 4%; background: radial-gradient(circle, rgba(86, 91, 168, 0.7), transparent 66%); }
+.g-focus-aura span:nth-child(2) { right: -8%; top: 34%; background: radial-gradient(circle, rgba(47, 138, 132, 0.6), transparent 66%); }
+.g-focus-inner { position: relative; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.g-focus-mark { font-family: Georgia, 'Times New Roman', serif; font-size: 30px; color: #eef2f8; }
+.g-focus-dot { color: var(--g-accent); }
+.g-focus-greet {
+	font-family: Georgia, 'Times New Roman', serif;
+	font-size: clamp(20px, 3.1vw, 30px); line-height: 1.42;
+	color: rgba(238, 242, 248, 0.94); max-width: 24ch; margin: 0; text-wrap: balance;
+}
+.g-focus-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; max-width: 560px; }
+.g-focus-chip {
+	font-size: 13px; color: rgba(238, 242, 248, 0.82);
+	background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 999px; padding: 9px 15px; cursor: default;
+	transition: background 0.2s, transform 0.18s var(--spring);
+}
+.g-focus-chip:hover { background: rgba(255, 255, 255, 0.12); }
+.g-focus-chip:active { transform: scale(0.96); }
+.g-focus-composer {
+	display: flex; align-items: center; justify-content: space-between; gap: 12px;
+	width: min(560px, 100%); margin-top: 4px;
+	background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14);
+	border-radius: 999px; padding: 11px 11px 11px 20px;
+}
+.g-focus-ph { color: rgba(238, 242, 248, 0.45); font-size: 14.5px; }
+.g-focus-send {
+	width: 34px; height: 34px; border-radius: 50%; flex: none; display: grid; place-items: center;
+	background: linear-gradient(150deg, var(--g-accent), var(--g-accent-2)); color: #fff;
+}
+
+/* ─── Learns / earned trust — light glass cards ─── */
+.g-learn { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; max-width: 980px; margin: 0 auto; align-items: start; }
+.g-learn-card { padding: 24px 26px; border-radius: 22px; }
+.g-learn-label {
+	display: inline-flex; align-items: center; gap: 8px;
+	font-size: 12px; font-weight: 700; color: var(--g-accent-ink);
+	text-transform: uppercase; letter-spacing: 0.05em;
+}
+.g-learn-ic { color: var(--g-accent); flex: none; }
+.g-learn-list { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 14px; }
+.g-learn-list li { display: flex; gap: 10px; font-size: 14.5px; line-height: 1.5; color: var(--g-ink-2); }
+.g-learn-list li .g-learn-ic { margin-top: 3px; }
+.g-learn-list li :deep(b) { color: var(--g-ink); font-weight: 700; }
+.g-trust-tiers { display: grid; gap: 13px; margin-top: 18px; }
+.g-trust-tier { display: flex; gap: 12px; align-items: flex-start; opacity: 0.45; transition: opacity 0.35s var(--spring); }
+.g-trust-tier--on { opacity: 1; }
+.g-trust-dot { width: 12px; height: 12px; border-radius: 50%; margin-top: 4px; flex: none; border: 2px solid var(--g-accent-line); background: transparent; transition: background 0.35s, box-shadow 0.35s; }
+.g-trust-tier--on .g-trust-dot { background: var(--g-accent); border-color: var(--g-accent); box-shadow: 0 0 0 4px var(--g-accent-soft); }
+.g-trust-body { display: flex; flex-direction: column; gap: 1px; }
+.g-trust-body b { font-size: 15px; color: var(--g-ink); font-weight: 700; }
+.g-trust-body span { font-size: 13.5px; color: var(--g-ink-3); }
+.g-trust-floor {
+	display: flex; gap: 8px; align-items: flex-start;
+	margin: 20px 0 0; padding-top: 16px; border-top: 1px solid var(--g-line);
+	font-size: 13px; line-height: 1.5; color: var(--g-ink-3);
+}
+.g-trust-floor .g-learn-ic { margin-top: 2px; }
+
+@media (max-width: 760px) {
+	.g-learn { grid-template-columns: 1fr; }
+}
+</style>

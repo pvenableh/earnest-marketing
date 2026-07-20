@@ -75,33 +75,70 @@
 	.g-page.e-page::before { animation: none; }
 }
 
+/* ── Liquid-glass EDGE STANDARD (ported from the Earnest app) ──
+   The edge is never a 1px solid border. It's a rim that brightens at the top
+   and fades to nothing at the bottom (--glass-rim-*), plus a soft outer lift —
+   all box-shadow, so it composes and works on replaced elements. Light + dark
+   token sets so every glass surface reads correctly in both themes. */
+:root {
+	--glass-rim-top: 0 0% 100% / 0.75;
+	--glass-rim-mid: 0 0% 100% / 0.30;
+	--glass-rim-bottom: 0 0% 100% / 0.04;
+	--glass-shade: 220 25% 40% / 0.14;
+	--glass-shadow-h: 220;
+	--glass-shadow-s: 30%;
+	--glass-shadow-l: 25%;
+	--glass-shadow-near: 0.10;
+	--glass-shadow-far: 0.20;
+	--glass-rim-shadow:
+		inset 0 1px 0 0 hsl(var(--glass-rim-top)),
+		inset 0 0 0 1px hsl(var(--glass-rim-mid)),
+		inset 0 -1px 0 0 hsl(var(--glass-rim-bottom)),
+		inset 0 0 0 1px hsl(var(--glass-shade));
+	--glass-lift-shadow:
+		0 1px 2px -1px hsl(var(--glass-shadow-h) var(--glass-shadow-s) var(--glass-shadow-l) / var(--glass-shadow-near)),
+		0 12px 32px -16px hsl(var(--glass-shadow-h) var(--glass-shadow-s) var(--glass-shadow-l) / var(--glass-shadow-far));
+	--glass-edge-shadow: var(--glass-rim-shadow), var(--glass-lift-shadow);
+}
+.dark {
+	/* Dramatic top highlight; the shade ring disappears (nothing darker than the
+	   aura ground to shade against), lift comes from a deep drop shadow. */
+	--glass-rim-top: 0 0% 100% / 0.28;
+	--glass-rim-mid: 0 0% 100% / 0.10;
+	--glass-rim-bottom: 0 0% 100% / 0.02;
+	--glass-shade: 0 0% 0% / 0;
+	--glass-shadow-h: 218;
+	--glass-shadow-s: 40%;
+	--glass-shadow-l: 3%;
+	--glass-shadow-near: 0.40;
+	--glass-shadow-far: 0.60;
+}
+.glass-edge { border: 0; box-shadow: var(--glass-edge-shadow); }
+
 /* ── Liquid glass tiers ── */
 .g-glass {
 	background: linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.5));
 	backdrop-filter: blur(22px) saturate(185%);
 	-webkit-backdrop-filter: blur(22px) saturate(185%);
-	border: 1px solid rgba(255, 255, 255, 0.75);
+	border: 0;
 	border-radius: 22px;
-	box-shadow:
-		inset 0 1px 0 rgba(255, 255, 255, 0.8),
-		inset 0 -1px 0 rgba(15, 34, 51, 0.03),
-		0 18px 44px rgba(20, 55, 85, 0.10);
+	box-shadow: var(--glass-edge-shadow);
 }
 .g-glass-thin {
 	background: rgba(255, 255, 255, 0.5);
 	backdrop-filter: blur(14px) saturate(160%);
 	-webkit-backdrop-filter: blur(14px) saturate(160%);
-	border: 1px solid rgba(255, 255, 255, 0.6);
+	border: 0;
 	border-radius: 16px;
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 8px 22px rgba(20, 55, 85, 0.07);
+	box-shadow: var(--glass-rim-shadow), 0 8px 22px -14px hsl(var(--glass-shadow-h) var(--glass-shadow-s) var(--glass-shadow-l) / var(--glass-shadow-far));
 }
 .g-glass-ultra {
 	background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.72));
 	backdrop-filter: blur(34px) saturate(200%);
 	-webkit-backdrop-filter: blur(34px) saturate(200%);
-	border: 1px solid rgba(255, 255, 255, 0.85);
+	border: 0;
 	border-radius: 26px;
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 30px 70px rgba(20, 55, 85, 0.16);
+	box-shadow: var(--glass-rim-shadow), 0 30px 70px -28px hsl(var(--glass-shadow-h) var(--glass-shadow-s) var(--glass-shadow-l) / calc(var(--glass-shadow-far) + 0.1));
 }
 /* Accent-tinted plinth — glass washed with the active ramp accent. */
 .g-glass-tint {
@@ -110,15 +147,17 @@
 		rgba(255, 255, 255, 0.4);
 	backdrop-filter: blur(22px) saturate(185%);
 	-webkit-backdrop-filter: blur(22px) saturate(185%);
-	border: 1px solid rgba(255, 255, 255, 0.7);
+	border: 0;
 	border-radius: 22px;
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 18px 44px rgba(13, 160, 204, 0.12);
+	box-shadow: var(--glass-edge-shadow);
 }
 
 /* ── Neutral-ramp chips ── */
 .g-chip {
 	display: inline-flex; align-items: center; justify-content: center;
-	border-radius: 32%;
+	/* Perfect circle — the real Earnest app icons are round discs, not
+	   squircles. `.round` is now redundant but kept for any explicit callers. */
+	border-radius: 50%;
 	color: #fff;
 	box-shadow: 0 8px 18px rgba(20, 55, 85, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
@@ -161,7 +200,7 @@
 	font-family: var(--font-body);
 	font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
 	color: #fff; background: linear-gradient(145deg, var(--n-sky), var(--n-4));
-	border-radius: 999px; padding: 3px 9px; margin-left: 10px; white-space: nowrap;
+	border-radius: 999px; padding: 3px 9px; white-space: nowrap;
 	box-shadow: 0 4px 12px rgba(13, 160, 204, 0.35);
 }
 .g-page .e-nav.e-nav-scrolled {
@@ -279,4 +318,91 @@
 [data-stagger] > * { opacity: 0; }
 @media (prefers-reduced-motion: reduce) {
 	[data-anim], [data-stagger] > * { opacity: 1 !important; transform: none !important; }
+}
+
+/* ═══ DARK THEME — light is default; the nav toggle flips <html> to `.dark`. ══
+   The page carries TWO token sets (modern `--ink*` on .e-page + glass `--g-*` on
+   .g-page); flip BOTH so text, lines and accents cascade everywhere. The page
+   gets the app's aura ground, glass fills go dark-translucent (their rim + lift
+   come from the `.dark { --glass-rim-* }` tokens above), and the chrome that
+   hardcodes an ink wash gets lightened. */
+.dark .g-page.e-page {
+	/* modern palette (sellsheet-modern.css) */
+	--ink: #eaf1f7;
+	--ink-2: #9fb4c4;
+	--ink-3: #6f889b;
+	/* glass palette (this file) */
+	--g-ink: #eaf1f7;
+	--g-ink-2: #9fb4c4;
+	--g-ink-3: #6f889b;
+	--g-line: rgba(255, 255, 255, 0.10);
+	--g-accent: #2bb8e6;
+	--g-accent-2: #1f9ec8;
+	--g-accent-ink: #8fd8f2;
+	--g-accent-soft: rgba(43, 184, 230, 0.14);
+	--g-accent-line: rgba(43, 184, 230, 0.32);
+	color: var(--g-ink);
+	background:
+		radial-gradient(70% 46% at 6% 0%, rgba(86, 91, 168, 0.22), transparent 60%),
+		radial-gradient(58% 42% at 100% 6%, rgba(47, 138, 132, 0.18), transparent 62%),
+		radial-gradient(64% 52% at 50% 112%, rgba(53, 98, 153, 0.18), transparent 70%),
+		linear-gradient(180deg, #0b1322 0%, #080d18 55%, #060a13 100%);
+}
+/* The aura blobs behind the glass — a touch more present in the dark theme. */
+.dark .g-page.e-page::before { opacity: 0.55; }
+
+/* Glass fills go dark-translucent; rim + lift already flip via the dark tokens. */
+.dark .g-glass { background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)); }
+.dark .g-glass-thin { background: rgba(255, 255, 255, 0.05); }
+.dark .g-glass-ultra { background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.035)); }
+.dark .g-glass-tint { background: linear-gradient(180deg, var(--g-accent-soft), rgba(255, 255, 255, 0.03) 55%), rgba(255, 255, 255, 0.03); }
+
+/* Nav + hero dock chrome */
+.dark .g-page .e-nav.e-nav-scrolled { background: rgba(10, 17, 30, 0.72) !important; border-bottom-color: rgba(255, 255, 255, 0.08); }
+.dark .e-dock { background: linear-gradient(160deg, rgba(43, 184, 230, 0.10), rgba(255, 255, 255, 0.04)); border-color: rgba(255, 255, 255, 0.12); }
+
+/* Screenshot window frame — the browser chrome + title bar are markup (not part
+   of the screenshot), so give them dark chrome in dark mode; a white frame with
+   a cream title bar glared hard against the dark page. Traffic-light dots stay. */
+.dark .e-frame { background: #0e1420; border-color: rgba(255, 255, 255, 0.08); }
+.dark .e-frame-chrome { background: #161d2b; border-bottom-color: rgba(255, 255, 255, 0.07); }
+
+/* Marquee ticker pills — the hardcoded light-white fill (60% white) washed out
+   against the dark page, with light-on-light text. Dark-translucent pill,
+   brighter text, accent-cyan icons for legible contrast. */
+.dark .e-marquee-item {
+	background: rgba(255, 255, 255, 0.05);
+	border-color: rgba(255, 255, 255, 0.11);
+	color: rgba(234, 241, 247, 0.85);
+}
+.dark .e-marquee-item .iconify,
+.dark .e-marquee-item svg { color: var(--g-accent); }
+
+/* Ink-wash + LIGHT-GLASS pills that hardcode a bright fill — flip them so they
+   don't read as light-on-light in the dark theme. Covers the "them" bubble,
+   chips/badges, the callout kicker tags, the deck action prompts, and the
+   active tab pills (segmented-control indicator + active agenda row). */
+.dark .g-ctx-bubble.them { background: rgba(255, 255, 255, 0.06); }
+.dark .g-ctx-sug,
+.dark .g-badge,
+.dark .g-focus-chip { background: rgba(255, 255, 255, 0.06); }
+
+/* Callout tags — the kicker pills throughout the page (bg was 0.6 white). */
+.dark .g-kicker-pill { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.12); box-shadow: none; }
+
+/* Deck action prompts ("Walk me through today", …) — bg was 0.55 white. */
+.dark .g-prompt { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.10); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06); }
+.dark .g-prompt--soft .g-prompt-ic { background: rgba(255, 255, 255, 0.08); }
+
+/* Active tab pills. The context segmented-control indicator was a solid white
+   gradient (light-on-light with its light accent text); make it a subtle
+   light-on-dark pill. Same for the active agenda row (clearer than a 0.06 wash,
+   and its light border needs darkening). Active text is already light. */
+.dark .g-seg { background: rgba(255, 255, 255, 0.05); }
+.dark .g-seg-ind { background: rgba(255, 255, 255, 0.14); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12); }
+.dark .g-agenda-item:hover { background: rgba(255, 255, 255, 0.05); }
+.dark .g-agenda-item.g-agenda-item--on {
+	background: rgba(255, 255, 255, 0.10);
+	border-color: rgba(255, 255, 255, 0.12);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
 }

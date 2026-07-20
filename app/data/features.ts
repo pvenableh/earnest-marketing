@@ -650,17 +650,31 @@ export const features: Feature[] = [
     ],
   },
   {
+    name: 'Channels',
+    slug: 'channels',
+    icon: 'i-lucide-messages-square',
+    pillar: 'org',
+    desc: 'A comms hub built for the work — a top-level app on the Earnest rail. Channels is a two-pane messenger: a roster of channels on one side, the conversation on the other, with unread read-state that keeps up as your team talks. Every channel attaches to the projects and clients it’s about, so context lives with the work instead of someone else’s inbox.',
+    keywords: ['channels', 'team chat', 'messaging', 'comms', 'slack alternative'],
+    benefits: [
+      'Two-pane comms — a channel roster beside the conversation',
+      'Real-time unread read-state across the whole roster',
+      'Channels linked to the projects and clients they’re about',
+      'A top-level app on the rail, always one tap away',
+    ],
+  },
+  {
     name: 'Teams & Members',
     slug: 'team-channels',
     icon: 'i-lucide-users-2',
     pillar: 'org',
-    desc: 'Invite members, build teams, and assign clients per team. Slack-style channels keep conversations attached to the work they are about, so context never lives in someone else’s inbox.',
-    keywords: ['team chat', 'messaging', 'teams', 'members', 'channels'],
+    desc: 'Invite members, build teams, and assign clients per team so access is scoped to the people who should see it. Teams organize who works on what; the Channels app keeps their conversations attached to that work.',
+    keywords: ['teams', 'members', 'roles', 'access', 'permissions'],
     benefits: [
       'Invite members and organize them into teams',
       'Assign clients to teams for scoped access',
-      'Slack-style channels linked to projects and clients',
-      'Real-time messaging for your whole team',
+      'Roles and permissions per member',
+      'Pairs with Channels for team conversations',
     ],
   },
   {
@@ -722,17 +736,17 @@ export const features: Feature[] = [
     ],
   },
   {
-    name: 'Director Mode',
+    name: 'The Director’s Office',
     slug: 'director-mode',
-    icon: 'i-lucide-compass',
+    icon: 'i-lucide-presentation',
     pillar: 'ai',
-    desc: 'Switch Earnest from assistant to operator. Director mode is your ops partner across projects, clients, and revenue — it reasons over your whole business, proposes a plan of action, and can execute multi-step changes on your say-so. The strategic counterpart to the quick contextual chat.',
-    keywords: ['director mode', 'ai operator', 'ai agent', 'business operations ai'],
+    desc: 'Earnest’s operator surface — a full boardroom, not a chat mode. Convene the board and Earnest presents your whole business as a live briefing deck: a read across People, Work, Money and Marketing, each slide ending in a decision already drafted in your voice. Bring your team in live to walk it together, and every session is saved to meeting minutes you can reopen.',
+    keywords: ['director’s office', 'ai operator', 'ai boardroom', 'business briefing', 'ai agent'],
     benefits: [
-      'A dedicated Director mode alongside the Earnest chat',
-      'Reasons across projects, clients, and revenue together',
-      'Proposes a plan of action, then executes on approval',
-      'Suggested prompts tuned to running the business',
+      'A live, presented briefing across every app',
+      'Every slide ends in a decision, drafted and ready',
+      'Convene the board with your team — live and multiplayer',
+      'Saved to meeting minutes you can reopen anytime',
     ],
   },
   {
@@ -943,7 +957,11 @@ export type DemoShot =
   // New screens in the 2026-06 revamp (re-capture to populate)
   | 'account-appearance'
   | 'marketing-pulse'
-  | 'money-cashflow';
+  | 'money-cashflow'
+  // Director's Office + Channels (2026-07)
+  | 'director-presentation'
+  | 'director-slides'
+  | 'channels-home';
 
 interface DemoMapping {
   /** Path under `https://app.earnest.guru` to deep-link the "Try this live" CTA to. */
@@ -1005,13 +1023,14 @@ const FEATURE_DEMO_MAP: Record<string, DemoMapping> = {
   'brand-awareness-ai': { path: '/apps/organization', shot: 'organization-branding', persona: 'agency' },
   // ORG
   'brand-strategy': { path: '/apps/organization', shot: 'organization-overview', persona: 'agency' },
+  channels: { path: '/apps/channels', shot: 'channels-home', persona: 'agency' },
   'team-channels': { path: '/apps/organization?tab=teams', shot: 'organization-teams', persona: 'agency' },
   'whitelabel': { path: '/apps/organization', shot: 'organization-branding', persona: 'agency' },
   'branded-email': { path: '/apps/organization', shot: 'organization-branding', persona: 'agency' },
   'ai-token-management': { path: '/apps/organization', shot: 'organization-overview', persona: 'agency' },
   // AI
   'contextual-ai-sidebar': { path: '/apps/clients', shot: 'ai-sidebar' },
-  'director-mode': { path: '/', shot: 'ai-sidebar' },
+  'director-mode': { path: '/director', shot: 'director-presentation' },
   'ai-actions': { path: '/apps/work', shot: 'ai-actions' },
   'ai-strategy-engine': { path: '/', shot: 'ai-sidebar' },
   'ai-proposal-drafter': { path: '/apps/money?floor=documents', shot: 'proposals-composer' },
