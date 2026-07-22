@@ -22,7 +22,7 @@
 			<h1 class="e-hero-wordmark opacity-0">Earnest<span class="e-hero-period">.</span></h1>
 			<p class="e-hero-tagline opacity-0">Your decision machine<span class="e-dot">.</span></p>
 			<p class="e-hero-sub opacity-0">
-				Earnest reads your <strong>entire organization</strong>, walks you through it like a morning briefing, and hands you the day’s decisions already drafted — across People, Work, Money and Marketing. You just say&nbsp;yes.
+				A real language model reads your <strong>entire organization</strong>, walks you through it like a morning briefing, and hands you the day’s decisions already drafted — across People, Work, Money and Marketing. You just say&nbsp;yes.
 			</p>
 			<div class="e-hero-actions opacity-0">
 				<button class="e-btn e-btn-primary" @click="openEarlyAccess()">Start for free</button>

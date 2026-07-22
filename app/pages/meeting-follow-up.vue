@@ -55,13 +55,13 @@ const autoActions = [
 const sellPoints = [
   {
     icon: 'i-lucide-sparkles',
-    name: 'Contextual AI, everywhere.',
-    desc: 'Every client, project, invoice, and lead has its own AI assistant. It already knows what you\'re looking at — no copy-paste, no re-explaining, no "let me give you the background."',
+    name: 'One Earnest, on every screen.',
+    desc: 'There\'s a single Earnest, a tap away from anywhere — and it already knows what you\'re looking at: the client, the project, the invoice. No copy-paste, no re-explaining, no "let me give you the background."',
   },
   {
     icon: 'i-lucide-brain-circuit',
     name: 'A live map of the business.',
-    desc: 'The Context Broker assembles a real-time snapshot of every project, client, deal, and brand decision — then feeds it to every AI call. The AI doesn\'t guess. It works there.',
+    desc: 'The Context Broker assembles a real-time snapshot of every project, client, deal, and brand decision — then feeds it to a real language model — Anthropic\'s Claude, on no-training terms — on every call. The AI doesn\'t guess. It works from your actual business.',
   },
   {
     icon: 'i-lucide-blocks',
@@ -70,8 +70,8 @@ const sellPoints = [
   },
   {
     icon: 'i-lucide-zap',
-    name: 'Algorithmic, not just AI.',
-    desc: 'A productivity engine scans tickets, projects, invoices, social, and goals — then surfaces what matters next. No tokens. No spinners. Just the right thing on top, every morning.',
+    name: 'Instant where it counts.',
+    desc: 'A productivity engine scans tickets, projects, invoices, social, and goals and surfaces what matters next — computed in an instant, no tokens, no spinners. The language model steps in when you actually need words: a draft, a plan, a recap.',
   },
   {
     icon: 'i-lucide-link-2',

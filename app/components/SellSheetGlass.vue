@@ -31,7 +31,7 @@
 			<h1 class="e-hero-wordmark opacity-0">Earnest<span class="e-hero-period">.</span></h1>
 			<p class="e-hero-tagline opacity-0">Do good work<span class="e-dot">.</span></p>
 			<p class="e-hero-sub opacity-0">
-				Earnest understands your business, your clients, and how you work — directing the day <strong>in your voice</strong> and learning as it goes. Real context, not generic prompts, clearing the busywork so you can do the work that matters.
+				Earnest pairs a real language model with everything it knows about your business, your clients, and how you work — directing the day <strong>in your voice</strong> and learning as it goes. Real context, not generic prompts, clearing the busywork so you can do the work that matters.
 			</p>
 			<div class="e-hero-actions opacity-0">
 				<button class="e-btn e-btn-primary g-press" @click="openEarlyAccess()">Start for free</button>
@@ -623,7 +623,7 @@ const plans = [
 
 // FAQ — grounded in the site's own copy (guardrails, pricing, context-awareness).
 const faqs = [
-	{ q: 'How is Earnest different from ChatGPT or generic AI assistants?', a: 'Generic AI starts from a blank prompt and knows nothing about your world. Earnest <strong>knows your actual organization</strong> — your goals, brand, clients and live data across every app — and drafts the day’s decisions in your voice. Because it works from real context, it acts on what it understands, proposes when it matters, and asks when it’s missing something instead of guessing.' },
+	{ q: 'How is Earnest different from ChatGPT or generic AI assistants?', a: 'Earnest runs on a <strong>real large language model</strong> — Anthropic’s Claude, on no-training terms, the same class of AI as ChatGPT — but instead of starting from a blank prompt, it works from your <strong>actual organization</strong>: your goals, brand, clients and live data across every app, and drafts the day’s decisions in your voice. Because it works from real context, it acts on what it understands, proposes when it matters, and asks when it’s missing something instead of guessing.' },
 	{ q: 'What is Focus mode?', a: 'Focus is a calm, full-screen space where Earnest sits with you — one honest read on where things stand, and room to take the day <strong>one thing at a time</strong> instead of scanning a dashboard. Step in when it’s a lot; it’s the same Earnest, just quieter and one-on-one.' },
 	{ q: 'Does Earnest really learn how I work?', a: 'Yes. It learns your voice, your rhythm, the calls you always make and the ones you never would — so its drafts sound like you and its priorities match yours. As it proves itself accurate you can <strong>dial up how much it handles</strong> on its own, from suggesting to assisting to running routine work end to end. There’s a hard floor it never crosses: money and client-facing sends always wait for your tap.' },
 	{ q: 'Will Earnest send emails or move money on its own?', a: 'No. Low-stakes, reversible work — reconciling a payment, summarizing a meeting, enriching a contact — can run automatically with a full audit trail. But <strong>nothing reaches a client or moves money without your tap</strong>. Client-facing and financial actions are always drafted for your approval first.' },
@@ -632,7 +632,7 @@ const faqs = [
 	{ q: 'What happens when Earnest doesn’t have enough context?', a: 'It stops and asks. If it’s thin on your brand, your goals, or a client’s voice, Earnest tells you what it’s missing instead of guessing or filling in generic text. It only acts on what it actually understands — real context over generic confidence.' },
 	{ q: 'Do I have to replace all my tools at once?', a: 'No. Earnest brings People, Work, Money and Marketing into one place, but you can start where it hurts most — chasing invoices, running a project, re-engaging leads — and let it earn the rest. Everything’s included, so there’s nothing extra to buy as you expand.' },
 	{ q: 'Can I try it before committing?', a: 'Yes. Explore the <strong>live demo</strong> right now with real sample data, or request early access to get your own workspace set up while we finalize production.' },
-	{ q: 'Who can see my data?', a: 'Your workspace is private to your organization — only members you invite can see it, and we never sell your data or share one customer’s data with another. Earnest’s AI reads your data only to generate your own results: context goes to a third-party AI provider under terms that bar it from training on it, and we don’t train our own models on it either. Full detail is in our <a href="/privacy-policy">privacy policy</a>.' },
+	{ q: 'Who can see my data?', a: 'Your workspace is private to your organization — only members you invite can see it, and we never sell your data or share one customer’s data with another. Earnest’s AI reads your data only to generate your own results: context goes to Anthropic’s Claude under no-training terms that bar it from training on it, and we don’t train our own models on it either. Full detail is in our <a href="/privacy-policy">privacy policy</a>.' },
 ];
 const openFaq = ref(0);
 function toggleFaq(i) { openFaq.value = openFaq.value === i ? -1 : i; }

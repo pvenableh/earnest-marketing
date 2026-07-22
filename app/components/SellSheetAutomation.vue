@@ -22,7 +22,7 @@
 			<h1 class="e-hero-wordmark opacity-0">Earnest<span class="e-hero-period">.</span></h1>
 			<p class="e-hero-tagline opacity-0">Context in<span class="e-dot">.</span> Accuracy out<span class="e-dot">.</span></p>
 			<p class="e-hero-sub opacity-0">
-				Earnest doesn’t oversell. It reads your <strong>goals, brand, audience and live data</strong>, then acts only when it’s genuinely right — drafting work that sounds like you, and holding back when it isn’t sure. Automation you can actually trust.
+				Earnest doesn’t oversell. It points a real language model at your <strong>goals, brand, audience and live data</strong>, then acts only when it’s genuinely right — drafting work that sounds like you, and holding back when it isn’t sure. Automation you can actually trust.
 			</p>
 			<div class="e-hero-actions opacity-0">
 				<button class="e-btn e-btn-primary g-press" @click="openEarlyAccess()">Start for free</button>
