@@ -299,7 +299,7 @@
 					<p class="e-eyebrow opacity-0">Earnest AI</p>
 					<h2 class="e-h2 opacity-0">It already knows your <span class="e-grad-text">next move</span><span class="e-dot">.</span></h2>
 					<p class="e-section-sub opacity-0" style="text-align:left">
-						Most tools bolt AI onto one channel. <span class="e-brand">Earnest</span> reads your whole business — people, projects, revenue, conversations, campaigns — layered with each client's brand, goals, and audience, and acts. Ask in plain language, or switch to <strong>Director</strong> when you want it to plan and execute.
+						Most tools bolt AI onto one channel. <span class="e-brand">Earnest</span> points a real language model at your whole business — people, projects, revenue, conversations, campaigns — layered with each client's brand, goals, and audience, and acts. Ask in plain language, or open the <strong>Director's Office</strong> when you want the same Earnest to plan and execute across the whole business.
 					</p>
 					<div class="e-ai-cards" style="margin-top:28px">
 						<div v-for="(cap, i) in aiCapabilities" :key="i" class="e-ai-card opacity-0">
@@ -770,10 +770,10 @@ const activeClient = computed(
 
 const aiCapabilities = [
 	{ title: 'Brand & goal awareness', desc: "Set each client's brand voice, goals, audience, and positioning once. Every draft — emails, posts, proposals, plans — is grounded in it, so the output sounds like your business, not a generic template." },
-	{ title: 'Earnest, in context', desc: 'Open any client, project, invoice, or lead and the assistant already knows the context — past conversations, open tasks, billing. Save any answer as a note.' },
-	{ title: 'Director mode', desc: 'Switch from assistant to operator. Director reasons across projects, clients, and revenue, proposes a plan, and executes multi-step changes on your say-so.' },
+	{ title: 'Earnest, in context', desc: 'Open any client, project, invoice, or lead and the same Earnest already knows the context — past conversations, open tasks, billing. Save any answer as a note.' },
+	{ title: 'The Director’s Office', desc: 'The same Earnest, sized up to an operator. It reasons across projects, clients, and revenue, proposes a plan, and executes multi-step changes on your say-so.' },
 	{ title: 'AI Actions', desc: 'Tell Earnest what to change and it does the work — reschedule a project, update a status, add a task — from one sentence, with a live confirmation of what changed.' },
-	{ title: 'Context Broker', desc: 'A live org snapshot feeds every AI call, kept fresh by a 3-tier cache. Token costs are shown up front, so there are never any surprises.' },
+	{ title: 'Context Broker', desc: 'A live org snapshot feeds a real language model on every call, kept fresh by a 3-tier cache. Token costs are shown up front, so there are never any surprises.' },
 ];
 
 const marqueeItems = [
@@ -811,7 +811,7 @@ const galleryShots = [
 	{ slug: 'proposals-composer', label: 'Proposal Composer', icon: 'i-lucide-wand-2' },
 	{ slug: 'contracts-list', label: 'Contracts', icon: 'i-lucide-file-signature' },
 	{ slug: 'carddesk', label: 'CardDesk', icon: 'i-lucide-credit-card' },
-	{ slug: 'ai-sidebar', label: 'Earnest AI', icon: 'i-lucide-sparkles' },
+	{ slug: 'ai-sidebar', label: 'Context-aware Earnest', icon: 'i-lucide-sparkles' },
 	{ slug: 'ai-actions', label: 'AI Actions', icon: 'i-lucide-wand-sparkles' },
 	{ slug: 'marketing-overview', label: 'Marketing Pulse', icon: 'i-lucide-radar' },
 	{ slug: 'social-inbox', label: 'Social Inbox', icon: 'i-lucide-inbox' },
