@@ -308,6 +308,115 @@
 			</div>
 		</section>
 
+		<!-- ─── Financial clarity — the certainty ladder ─── -->
+		<section id="clarity" class="e-section">
+			<div class="g-sec-head">
+				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Financial clarity</span>
+				<h2 class="e-h2" data-anim="rise">Every dollar, <span class="g-accent-text">sorted by how sure it is</span><span class="e-dot">.</span></h2>
+				<p class="e-section-sub" data-anim="rise">Not one “revenue” number that hides the truth. Earnest lays your money out along a ladder of certainty — banked, owed, in play, gone cold — so the honest cash never blurs into the hoped-for pipeline. Hover a tier to see it.</p>
+			</div>
+
+			<div class="g-clarity g-glass-tint" data-anim="scale">
+				<div class="g-cert-top">
+					<span class="g-cert-caption"><UIcon name="i-lucide-move-right" class="g-cert-caplic" /> Most certain → most speculative</span>
+					<span class="g-cert-inview"><span class="g-cert-inview-lbl">In view</span> <b>$236k</b></span>
+				</div>
+
+				<!-- Certainty bar — hovering a legend row lights its segment -->
+				<div class="g-cert-bar">
+					<div
+						v-for="t in certaintyTiers" :key="t.key"
+						class="g-cert-seg" :class="[t.cls, { 'g-cert-seg--dim': hoverTier && hoverTier !== t.key, 'g-cert-seg--lit': hoverTier === t.key }]"
+						:style="{ flexBasis: t.pct + '%' }"
+						:title="`${t.label}: ${t.amount}`"
+					/>
+				</div>
+
+				<div class="g-cert-legend" role="list">
+					<div
+						v-for="t in certaintyTiers" :key="`lg-${t.key}`" role="listitem"
+						class="g-cert-row g-press" :class="{ 'g-cert-row--on': hoverTier === t.key }"
+						@mouseenter="hoverTier = t.key" @mouseleave="hoverTier = ''"
+						@focusin="hoverTier = t.key" @focusout="hoverTier = ''" tabindex="0"
+					>
+						<span class="g-cert-dot" :class="t.cls"></span>
+						<span class="g-cert-row-body">
+							<span class="g-cert-row-top"><b>{{ t.label }}</b><span class="g-cert-row-amt">{{ t.amount }}</span></span>
+							<span class="g-cert-row-hint">{{ t.hint }}</span>
+						</span>
+					</div>
+				</div>
+
+				<div class="g-cert-rollup">
+					<div v-for="r in certaintyRollup" :key="r.k" class="g-cert-roll" :class="`g-cert-roll--${r.tone}`">
+						<span class="g-cert-roll-v">{{ r.v }}</span>
+						<span class="g-cert-roll-k">{{ r.k }}</span>
+						<span class="g-cert-roll-sub">{{ r.sub }}</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ─── The Hunt — pursuit tracking + Earnest re-approach ─── -->
+		<section id="hunt" class="e-section">
+			<div class="g-sec-head">
+				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> The Hunt</span>
+				<h2 class="e-h2" data-anim="rise">The money you <span class="g-accent-text">haven’t caught yet</span><span class="e-dot">.</span></h2>
+				<p class="e-section-sub" data-anim="rise">Every proposal has a whole life — even the ones that went cold or got a no. Earnest keeps the record, then reads the history and drafts the way back in. Pick a stalled deal:</p>
+			</div>
+
+			<div class="g-hunt" data-anim="scale">
+				<div class="g-hunt-aura" aria-hidden="true"><span></span><span></span></div>
+
+				<!-- Pipeline stages cascade in -->
+				<div class="g-hunt-stages" data-stagger>
+					<div v-for="s in huntStages" :key="s.key" class="g-hunt-stage" :class="{ 'g-hunt-stage--cold': s.key === 'cold', 'g-hunt-stage--won': s.key === 'won' }">
+						<span class="g-hunt-stage-ic"><UIcon :name="s.icon" /></span>
+						<span class="g-hunt-stage-n">{{ s.count }}</span>
+						<span class="g-hunt-stage-l">{{ s.label }}</span>
+					</div>
+				</div>
+
+				<div class="g-hunt-grid">
+					<!-- Cold deals — pick one -->
+					<div class="g-hunt-deals" role="tablist" aria-label="Cold deals worth reviving">
+						<button
+							v-for="(d, i) in coldDeals" :key="d.name" type="button" role="tab"
+							class="g-hunt-deal g-press" :class="{ 'g-hunt-deal--on': activeCold === i }"
+							:aria-selected="activeCold === i" @click="activeCold = i" @mouseenter="activeCold = i"
+						>
+							<span class="g-hunt-deal-top">
+								<span class="g-hunt-deal-name">{{ d.name }}</span>
+								<span class="g-hunt-deal-val">{{ d.value }}</span>
+							</span>
+							<span class="g-hunt-deal-sub"><span v-html="d.co"></span> · <span class="g-hunt-deal-quiet"><UIcon name="i-lucide-snowflake" /> {{ d.quiet }}</span></span>
+						</button>
+					</div>
+
+					<!-- Earnest re-approach -->
+					<div class="g-hunt-draft g-glass-ultra">
+						<div class="g-hunt-draft-head">
+							<span class="g-chip g-chip-ai round"><UIcon name="i-lucide-sparkles" /></span>
+							<span class="g-hunt-draft-title">Earnest · re-approach</span>
+							<span class="g-hunt-draft-scope">{{ coldDeals[activeCold].name }}</span>
+						</div>
+						<div class="g-hunt-draft-body" :key="activeCold">
+							<p class="g-hunt-draft-read"><UIcon name="i-lucide-history" /> <span>{{ coldDeals[activeCold].read }}</span></p>
+							<p class="g-hunt-draft-move"><UIcon name="i-lucide-compass" /> <span>{{ coldDeals[activeCold].move }}</span></p>
+							<div class="g-hunt-draft-note">
+								<span class="g-hunt-draft-note-lbl">Drafted in your voice</span>
+								<p>{{ coldDeals[activeCold].draft }}</p>
+							</div>
+							<div class="g-hunt-draft-actions">
+								<button type="button" class="e-btn e-btn-primary g-press" @click="openEarlyAccess()"><UIcon name="i-lucide-send" /> Send the re-approach</button>
+								<button type="button" class="g-hunt-draft-touch g-press" @click="openEarlyAccess()"><UIcon name="i-lucide-plus" /> Log as touchpoint</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<!-- ─── Tap-count wins ─── -->
 		<section class="e-section">
 			<div class="g-sec-head">
@@ -599,6 +708,50 @@ const wins = [
 	{ from: 4, to: 1, title: 'Client signs / pays', desc: 'Their details pre-filled; the action lives on the page they’re reading.' },
 ];
 
+// ─── Financial clarity — the certainty ladder. Every dollar sorted by how sure
+// it is: banked → owed → in play → cold. Hovering a tier lights its segment,
+// so the honest money never blurs into the hoped-for pipeline. Percentages sum
+// to 100; the ordering runs most-certain → most-speculative left to right.
+const certaintyTiers = [
+	{ key: 'banked', label: 'Banked', amount: '$84k', pct: 36, hint: 'Paid — already in the account.', cls: 'g-cs-banked' },
+	{ key: 'overdue', label: 'Overdue', amount: '$12k', pct: 5, hint: 'Invoiced and past due — chase these first.', cls: 'g-cs-overdue' },
+	{ key: 'outstanding', label: 'Outstanding', amount: '$38k', pct: 16, hint: 'Invoiced, not yet due.', cls: 'g-cs-outstanding' },
+	{ key: 'inplay', label: 'In play', amount: '$54k', pct: 23, hint: 'Live proposals still open.', cls: 'g-cs-inplay' },
+	{ key: 'cold', label: 'Cold', amount: '$48k', pct: 20, hint: 'Went quiet — worth reviving.', cls: 'g-cs-cold' },
+];
+const hoverTier = ref('');
+const certaintyRollup = [
+	{ k: 'Banked', v: '$84k', sub: 'money in', tone: 'good' },
+	{ k: 'To collect', v: '$50k', sub: 'owed to you', tone: 'warn' },
+	{ k: 'In pursuit', v: '$102k', sub: 'still out there', tone: 'accent' },
+];
+
+// ─── The Hunt — pursuit tracking. Every proposal has a life, even the cold and
+// rejected ones. Click a stalled deal and Earnest reads the history and drafts
+// the re-approach. Names mirror the real seeded demo leads.
+const huntStages = [
+	{ key: 'draft', label: 'Draft', count: 2, icon: 'i-lucide-file-pen' },
+	{ key: 'sent', label: 'Sent', count: 5, icon: 'i-lucide-send' },
+	{ key: 'viewed', label: 'Viewed', count: 3, icon: 'i-lucide-eye' },
+	{ key: 'cold', label: 'Cold', count: 4, icon: 'i-lucide-snowflake' },
+	{ key: 'won', label: 'Won', count: 6, icon: 'i-lucide-trophy' },
+];
+const coldDeals = [
+	{ name: 'Maya Chen', co: 'Northwind Studio', value: '$48k', quiet: '18 days quiet',
+		read: 'Loved the brand direction, went quiet right after seeing pricing.',
+		move: 'Reopen with the case study she asked for — hold the number, offer a phased start.',
+		draft: 'Hi Maya — circling back with that Northwind case study you wanted. No pressure on the numbers; happy to start with a smaller first phase if that’s easier to green-light.' },
+	{ name: 'Daniel Ortiz', co: 'Cedar &amp; Co', value: '$22k', quiet: '26 days quiet',
+		read: 'Budget froze at quarter-end — and that quarter is now over.',
+		move: 'A warm, no-agenda check-in that references their Q3 launch fits the moment.',
+		draft: 'Hey Daniel — saw the Q3 launch go live, congrats. Now that the new quarter’s open I’d love to pick our conversation back up whenever the timing’s right for you.' },
+	{ name: 'Priya Nair', co: 'Lumen Health', value: '$15k', quiet: '12 days quiet',
+		read: 'Your champion changed roles; the thread went cold with her.',
+		move: 'Re-introduce to the new lead with the one-pager, framed around patient onboarding time.',
+		draft: 'Hi Priya — congrats on the new role. Passing along the one-pager on cutting patient onboarding time; happy to walk your team through it whenever’s useful.' },
+];
+const activeCold = ref(0);
+
 const proofShots = [
 	{ slug: 'director-presentation', label: 'The Director’s Office', icon: 'i-lucide-building-2' },
 	{ slug: 'command-center', label: 'Command Center', icon: 'i-lucide-zap' },
@@ -631,6 +784,9 @@ const faqs = [
 	{ q: 'Is Earnest for solo operators or bigger agencies?', a: 'Both. Solo is built for the one-person shop doing serious work; Studio and Agency add seats, team channels and director tooling as you grow. The same daily rhythm scales from one person to a full team.' },
 	{ q: 'What happens when Earnest doesn’t have enough context?', a: 'It stops and asks. If it’s thin on your brand, your goals, or a client’s voice, Earnest tells you what it’s missing instead of guessing or filling in generic text. It only acts on what it actually understands — real context over generic confidence.' },
 	{ q: 'Do I have to replace all my tools at once?', a: 'No. Earnest brings People, Work, Money and Marketing into one place, but you can start where it hurts most — chasing invoices, running a project, re-engaging leads — and let it earn the rest. Everything’s included, so there’s nothing extra to buy as you expand.' },
+	{ q: 'Can I track proposals that go cold or get rejected?', a: 'Yes — that’s the point. Earnest keeps the <strong>whole life of every proposal</strong>, including the ones that went quiet or got a no, attached to the lead or client and its contact. Cold and lost deals stay on the record so you can see your real win rate, learn why work slips, and pick a deal back up later instead of losing the history.' },
+	{ q: 'What’s the difference between money I’m owed and money that’s still out there?', a: 'Earnest sorts every dollar by <strong>how certain it is</strong>: <em>banked</em> (paid), <em>owed</em> (invoiced — overdue or not yet due), <em>in play</em> (live proposals still open), and <em>cold</em> (deals that went quiet). Owed money is billed and collectible; money still out there is pipeline you haven’t won yet. Keeping them on separate rungs means the honest cash never blurs into the hopeful pipeline.' },
+	{ q: 'What happens to a deal that goes quiet?', a: 'It doesn’t just disappear. Earnest flags it as <strong>cold</strong>, keeps it in view as money worth reviving, and — because it remembers the full history — reads what happened and <strong>drafts the re-approach in your voice</strong>, ready for your tap. You decide whether to send it or log it as a touchpoint; nothing goes out on its own.' },
 	{ q: 'Can I try it before committing?', a: 'Yes. Explore the <strong>live demo</strong> right now with real sample data, or request early access to get your own workspace set up while we finalize production.' },
 	{ q: 'Who can see my data?', a: 'Your workspace is private to your organization — only members you invite can see it, and we never sell your data or share one customer’s data with another. Earnest’s AI reads your data only to generate your own results: context goes to Anthropic’s Claude under no-training terms that bar it from training on it, and we don’t train our own models on it either. Full detail is in our <a href="/privacy-policy">privacy policy</a>.' },
 ];
@@ -794,6 +950,112 @@ onUnmounted(() => {
 .g-focus-send {
 	width: 34px; height: 34px; border-radius: 50%; flex: none; display: grid; place-items: center;
 	background: linear-gradient(150deg, var(--g-accent), var(--g-accent-2)); color: #fff;
+}
+
+/* ─── Financial clarity — a light certainty ladder. Distinct from the dark/glass
+   sections around it: a warm tinted plinth with a single segmented certainty bar
+   whose tiers light up on hover, linking the legend to the bar. ─── */
+.g-clarity { max-width: 940px; margin: 0 auto; padding: clamp(22px, 4vw, 38px); border-radius: 26px; }
+.g-cert-top { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.g-cert-caption { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--g-ink-3); text-transform: uppercase; letter-spacing: 0.05em; }
+.g-cert-caplic { color: var(--g-accent); }
+.g-cert-inview { font-size: 13px; color: var(--g-ink-3); }
+.g-cert-inview b { font-size: clamp(20px, 3vw, 26px); font-weight: 800; color: var(--g-ink); margin-left: 4px; }
+.g-cert-inview-lbl { text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; }
+
+.g-cert-bar { display: flex; gap: 3px; height: 22px; border-radius: 999px; overflow: hidden; background: var(--g-accent-soft); padding: 0; }
+.g-cert-seg { height: 100%; flex-grow: 0; flex-shrink: 1; border-radius: 4px; transition: filter 0.3s var(--spring), transform 0.3s var(--spring), box-shadow 0.3s; transform-origin: center; }
+.g-cert-seg:first-child { border-radius: 999px 4px 4px 999px; }
+.g-cert-seg:last-child { border-radius: 4px 999px 999px 4px; }
+.g-cert-seg--dim { filter: saturate(0.35) opacity(0.4); }
+.g-cert-seg--lit { transform: scaleY(1.28); box-shadow: 0 6px 18px -6px rgba(20, 55, 85, 0.5); z-index: 1; }
+.g-cs-banked { background: linear-gradient(135deg, #34c77b, #1f9d5a); }
+.g-cs-overdue { background: linear-gradient(135deg, #f0575c, #d43a40); }
+.g-cs-outstanding { background: linear-gradient(135deg, #f5b638, #e39510); }
+.g-cs-inplay { background: linear-gradient(135deg, var(--g-accent), var(--g-accent-2, #235377)); }
+.g-cs-cold { background: #8aa0b4; background-image: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.42) 0 4px, transparent 4px 9px); }
+span.g-cert-dot { width: 12px; height: 12px; border-radius: 4px; flex: none; }
+
+.g-cert-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); gap: 6px; margin-top: 18px; }
+.g-cert-row { display: flex; align-items: flex-start; gap: 10px; padding: 11px 13px; border-radius: 15px; cursor: default; outline: none; transition: background 0.2s, transform 0.2s var(--spring), box-shadow 0.2s; }
+.g-cert-row:hover, .g-cert-row--on { background: var(--g-accent-soft); transform: translateY(-2px); box-shadow: 0 10px 24px -14px rgba(20, 55, 85, 0.4); }
+.g-cert-row .g-cert-dot { margin-top: 3px; }
+.g-cert-row-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.g-cert-row-top { display: flex; align-items: baseline; gap: 8px; }
+.g-cert-row-top b { font-size: 14px; font-weight: 700; color: var(--g-ink); }
+.g-cert-row-amt { font-size: 13px; font-weight: 700; color: var(--g-accent-ink); font-variant-numeric: tabular-nums; }
+.g-cert-row-hint { font-size: 12px; line-height: 1.4; color: var(--g-ink-3); }
+
+.g-cert-rollup { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--g-line); text-align: center; }
+.g-cert-roll { display: flex; flex-direction: column; gap: 1px; }
+.g-cert-roll-v { font-size: clamp(20px, 3vw, 26px); font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.g-cert-roll-k { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--g-ink-2); margin-top: 3px; }
+.g-cert-roll-sub { font-size: 11.5px; color: var(--g-ink-3); }
+.g-cert-roll--good .g-cert-roll-v { color: #1f9d5a; }
+.g-cert-roll--warn .g-cert-roll-v { color: #e39510; }
+.g-cert-roll--accent .g-cert-roll-v { color: var(--g-accent-ink); }
+
+/* ─── The Hunt — a dark stage (mirrors Focus) so the pursuit story reads as its
+   own beat. Pipeline stages cascade in; picking a cold deal swaps Earnest's
+   re-approach draft with a soft rise. ─── */
+.g-hunt {
+	position: relative; max-width: 1000px; margin: 0 auto; border-radius: 28px; overflow: hidden;
+	padding: clamp(26px, 4.5vw, 50px) clamp(20px, 4vw, 48px);
+	background: radial-gradient(120% 130% at 18% 0%, #14303a 0%, #0b1a24 52%, #060e14 100%);
+	box-shadow: 0 34px 90px -34px rgba(8, 24, 34, 0.62), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.g-hunt-aura { position: absolute; inset: 0; pointer-events: none; }
+.g-hunt-aura span { position: absolute; width: 46%; aspect-ratio: 1; border-radius: 50%; filter: blur(66px); opacity: 0.5; }
+.g-hunt-aura span:nth-child(1) { left: -6%; top: -6%; background: radial-gradient(circle, rgba(47, 138, 132, 0.62), transparent 66%); }
+.g-hunt-aura span:nth-child(2) { right: -8%; bottom: -10%; background: radial-gradient(circle, rgba(0, 143, 200, 0.5), transparent 66%); }
+
+.g-hunt-stages { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 26px; }
+.g-hunt-stage { display: flex; align-items: center; gap: 9px; padding: 9px 15px; border-radius: 999px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: rgba(238, 244, 250, 0.9); }
+.g-hunt-stage-ic { display: grid; place-items: center; color: rgba(238, 244, 250, 0.62); }
+.g-hunt-stage-n { font-size: 16px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.g-hunt-stage-l { font-size: 12px; color: rgba(238, 244, 250, 0.66); text-transform: uppercase; letter-spacing: 0.05em; }
+.g-hunt-stage--cold { background: rgba(138, 160, 180, 0.14); border-color: rgba(160, 185, 205, 0.34); }
+.g-hunt-stage--cold .g-hunt-stage-ic { color: #a9c3d6; }
+.g-hunt-stage--won { background: rgba(52, 199, 123, 0.16); border-color: rgba(52, 199, 123, 0.4); }
+.g-hunt-stage--won .g-hunt-stage-ic { color: #46d68b; }
+
+.g-hunt-grid { position: relative; display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 16px; align-items: start; }
+.g-hunt-deals { display: grid; gap: 8px; }
+.g-hunt-deal {
+	display: flex; flex-direction: column; gap: 5px; text-align: left; cursor: pointer;
+	padding: 14px 16px; border-radius: 17px; color: #eef4fa;
+	background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.09);
+	transition: background 0.22s, border-color 0.22s, transform 0.2s var(--spring);
+}
+.g-hunt-deal:hover { background: rgba(255, 255, 255, 0.07); }
+.g-hunt-deal--on { background: rgba(0, 143, 200, 0.16); border-color: rgba(0, 176, 221, 0.5); transform: translateX(3px); }
+.g-hunt-deal-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.g-hunt-deal-name { font-size: 15px; font-weight: 700; }
+.g-hunt-deal-val { font-size: 14px; font-weight: 800; color: #46d68b; font-variant-numeric: tabular-nums; }
+.g-hunt-deal-sub { font-size: 12.5px; color: rgba(238, 244, 250, 0.6); }
+.g-hunt-deal-quiet { display: inline-flex; align-items: center; gap: 4px; color: #a9c3d6; }
+
+.g-hunt-draft { padding: 20px 22px; border-radius: 22px; }
+.g-hunt-draft-head { display: flex; align-items: center; gap: 9px; }
+.g-hunt-draft-title { font-size: 13px; font-weight: 700; color: #eef4fa; }
+.g-hunt-draft-scope { margin-left: auto; font-size: 11px; font-weight: 600; color: rgba(238, 244, 250, 0.55); text-transform: uppercase; letter-spacing: 0.05em; }
+.g-hunt-draft-body { display: grid; gap: 12px; margin-top: 16px; animation: g-hunt-rise 0.42s var(--spring); }
+@keyframes g-hunt-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.g-hunt-draft-read, .g-hunt-draft-move { display: flex; gap: 9px; font-size: 13.5px; line-height: 1.5; color: rgba(238, 244, 250, 0.86); margin: 0; }
+.g-hunt-draft-read :deep(svg), .g-hunt-draft-move :deep(svg) { flex: none; margin-top: 2px; color: var(--g-accent); }
+.g-hunt-draft-note { padding: 13px 15px; border-radius: 15px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.09); }
+.g-hunt-draft-note-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--g-accent); }
+.g-hunt-draft-note p { margin: 6px 0 0; font-size: 13.5px; line-height: 1.52; color: rgba(238, 244, 250, 0.9); }
+.g-hunt-draft-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 2px; }
+.g-hunt-draft-touch { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; color: #eef4fa; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); transition: background 0.2s; }
+.g-hunt-draft-touch:hover { background: rgba(255, 255, 255, 0.12); }
+
+@media (max-width: 720px) {
+	.g-hunt-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.g-hunt-draft-body { animation: none; }
+	.g-cert-seg--lit { transform: none; }
 }
 
 /* ─── Learns / earned trust — light glass cards ─── */
