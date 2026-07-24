@@ -246,11 +246,26 @@
 				<h2 class="e-h2" data-anim="rise">Earnest does the work<span class="e-dot">.</span> <span class="g-accent-text">You say yes</span><span class="e-dot">.</span></h2>
 				<p class="e-section-sub" data-anim="rise">One rhythm everywhere. Nothing reaches a client or moves money without your tap.</p>
 			</div>
-			<div class="g-flow" data-stagger>
-				<div v-for="(step, i) in flowSteps" :key="i" class="g-flow-step g-glass g-lift">
-					<div class="g-flow-n">{{ i + 1 }}</div>
-					<h4>{{ step.title }}</h4>
-					<p v-html="step.body"></p>
+			<div class="g-decflow" data-anim="scale" :style="{ '--flow-n': flowSteps.length, '--flow-i': activeFlow }">
+				<!-- Connected rail: the fill line grows to the active node -->
+				<div class="g-decflow-rail" role="tablist" aria-label="How a decision flows">
+					<span class="g-decflow-track" aria-hidden="true"><span class="g-decflow-fill"></span></span>
+					<button
+						v-for="(step, i) in flowSteps" :key="i" type="button" role="tab"
+						class="g-decflow-node g-press"
+						:class="{ 'g-decflow-node--on': activeFlow === i, 'g-decflow-node--done': i < activeFlow }"
+						:aria-selected="activeFlow === i"
+						@click="selectFlow(i)" @mouseenter="selectFlow(i)" @focusin="selectFlow(i)"
+					>
+						<span class="g-decflow-dot"><UIcon :name="activeFlow === i ? step.icon : (i < activeFlow ? 'i-lucide-check' : step.icon)" /></span>
+						<span class="g-decflow-tag">{{ step.tag }}</span>
+					</button>
+				</div>
+				<!-- Active step detail — swaps with a soft rise -->
+				<div class="g-decflow-panel g-glass" :key="activeFlow">
+					<span class="g-decflow-step">Step {{ activeFlow + 1 }} <span>of {{ flowSteps.length }}</span></span>
+					<h4>{{ flowSteps[activeFlow].title }}</h4>
+					<p v-html="flowSteps[activeFlow].body"></p>
 				</div>
 			</div>
 
@@ -678,10 +693,16 @@ const scoreDims = [
 const badges = ['🏆 First $10k month', '⚡ 12-day streak', '🎯 Zero overdue', '🚀 Fast responder', '📈 Pipeline pro'];
 
 const flowSteps = [
-	{ title: 'It reads your context', body: 'Across People, Work, Money and Marketing, Earnest assembles a live picture — your <b>goals, brand, audience and real data</b>, not a dashboard to go dig through.' },
-	{ title: 'It drafts in your voice', body: 'It ranks what needs a decision today and <b>drafts each one in your voice</b> — shaped by your brand, your clients, and how you work, ready to run or refine.' },
-	{ title: 'It acts only when it’s sure', body: 'You approve in place and Earnest runs the multi-step change across every app — holding back when it isn’t sure, and <b>never sending or moving money without your tap.</b>' },
+	{ tag: 'Reads', icon: 'i-lucide-scan-eye', title: 'It reads your context', body: 'Across People, Work, Money and Marketing, Earnest assembles a live picture — your <b>goals, brand, audience and real data</b>, not a dashboard to go dig through.' },
+	{ tag: 'Drafts', icon: 'i-lucide-pen-line', title: 'It drafts in your voice', body: 'It ranks what needs a decision today and <b>drafts each one in your voice</b> — shaped by your brand, your clients, and how you work, ready to run or refine.' },
+	{ tag: 'You say yes', icon: 'i-lucide-check-check', title: 'It acts only when it’s sure', body: 'You approve in place and Earnest runs the multi-step change across every app — holding back when it isn’t sure, and <b>never sending or moving money without your tap.</b>' },
 ];
+// The decision-flow stepper auto-advances so the section reads as motion (a
+// decision *flowing*), and stops the moment the visitor takes over.
+const activeFlow = ref(0);
+let flowTimer = null;
+function stopFlowCycle() { if (flowTimer) { clearInterval(flowTimer); flowTimer = null; } }
+function selectFlow(i) { activeFlow.value = i; stopFlowCycle(); }
 // The guardrail widget, re-cast in the automation language: Earnest doesn't
 // oversell — it acts when sure, proposes when it matters, holds when unsure.
 const lights = [
@@ -861,12 +882,17 @@ onMounted(() => {
 		navBadgeTimer = window.setInterval(() => {
 			navBadgeIdx.value = (navBadgeIdx.value + 1) % navBadges.length;
 		}, 3200);
+		// Cycle the decision-flow stepper until the visitor interacts with it.
+		flowTimer = window.setInterval(() => {
+			activeFlow.value = (activeFlow.value + 1) % flowSteps.length;
+		}, 3600);
 	}
 });
 onUnmounted(() => {
 	window.removeEventListener('scroll', onScroll);
 	revertMotion();
 	if (navBadgeTimer) clearInterval(navBadgeTimer);
+	stopFlowCycle();
 });
 // Head/SEO is set by the host page (index.vue at `/`, director.vue at `/director`)
 // so the same component can be both the indexable landing and the noindex alias.
