@@ -131,6 +131,115 @@
 			</div>
 		</section>
 
+		<!-- ─── Financial clarity — the certainty ladder ─── -->
+		<section id="clarity" class="e-section">
+			<div class="g-sec-head">
+				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Financial clarity</span>
+				<h2 class="e-h2" data-anim="rise">Every dollar, <span class="g-accent-text">sorted by how sure it is</span><span class="e-dot">.</span></h2>
+				<p class="e-section-sub" data-anim="rise">Not one “revenue” number that hides the truth. Earnest lays your money out along a ladder of certainty — banked, owed, in play, gone cold — so the honest cash never blurs into the hoped-for pipeline. Hover a tier to see it.</p>
+			</div>
+
+			<div class="g-clarity g-glass-tint" data-anim="scale">
+				<div class="g-cert-top">
+					<span class="g-cert-caption"><UIcon name="i-lucide-move-right" class="g-cert-caplic" /> Most certain → most speculative</span>
+					<span class="g-cert-inview"><span class="g-cert-inview-lbl">In view</span> <b>$236k</b></span>
+				</div>
+
+				<!-- Certainty bar — hovering a legend row lights its segment -->
+				<div class="g-cert-bar">
+					<div
+						v-for="t in certaintyTiers" :key="t.key"
+						class="g-cert-seg" :class="[t.cls, { 'g-cert-seg--dim': hoverTier && hoverTier !== t.key, 'g-cert-seg--lit': hoverTier === t.key }]"
+						:style="{ flexBasis: t.pct + '%' }"
+						:title="`${t.label}: ${t.amount}`"
+					/>
+				</div>
+
+				<div class="g-cert-legend" role="list">
+					<div
+						v-for="t in certaintyTiers" :key="`lg-${t.key}`" role="listitem"
+						class="g-cert-row g-press" :class="{ 'g-cert-row--on': hoverTier === t.key }"
+						@mouseenter="hoverTier = t.key" @mouseleave="hoverTier = ''"
+						@focusin="hoverTier = t.key" @focusout="hoverTier = ''" tabindex="0"
+					>
+						<span class="g-cert-dot" :class="t.cls"></span>
+						<span class="g-cert-row-body">
+							<span class="g-cert-row-top"><b>{{ t.label }}</b><span class="g-cert-row-amt">{{ t.amount }}</span></span>
+							<span class="g-cert-row-hint">{{ t.hint }}</span>
+						</span>
+					</div>
+				</div>
+
+				<div class="g-cert-rollup">
+					<div v-for="r in certaintyRollup" :key="r.k" class="g-cert-roll" :class="`g-cert-roll--${r.tone}`">
+						<span class="g-cert-roll-v">{{ r.v }}</span>
+						<span class="g-cert-roll-k">{{ r.k }}</span>
+						<span class="g-cert-roll-sub">{{ r.sub }}</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ─── The Hunt — pursuit tracking + Earnest re-approach ─── -->
+		<section id="hunt" class="e-section">
+			<div class="g-sec-head">
+				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> The Hunt</span>
+				<h2 class="e-h2" data-anim="rise">The money you <span class="g-accent-text">haven’t caught yet</span><span class="e-dot">.</span></h2>
+				<p class="e-section-sub" data-anim="rise">Every proposal has a whole life — even the ones that went cold or got a no. Earnest keeps the record, then reads the history and drafts the way back in. Pick a stalled deal:</p>
+			</div>
+
+			<div class="g-hunt" data-anim="scale">
+				<div class="g-hunt-aura" aria-hidden="true"><span></span><span></span></div>
+
+				<!-- Pipeline stages cascade in -->
+				<div class="g-hunt-stages" data-stagger>
+					<div v-for="s in huntStages" :key="s.key" class="g-hunt-stage" :class="{ 'g-hunt-stage--cold': s.key === 'cold', 'g-hunt-stage--won': s.key === 'won' }">
+						<span class="g-hunt-stage-ic"><UIcon :name="s.icon" /></span>
+						<span class="g-hunt-stage-n">{{ s.count }}</span>
+						<span class="g-hunt-stage-l">{{ s.label }}</span>
+					</div>
+				</div>
+
+				<div class="g-hunt-grid">
+					<!-- Cold deals — pick one -->
+					<div class="g-hunt-deals" role="tablist" aria-label="Cold deals worth reviving">
+						<button
+							v-for="(d, i) in coldDeals" :key="d.name" type="button" role="tab"
+							class="g-hunt-deal g-press" :class="{ 'g-hunt-deal--on': activeCold === i }"
+							:aria-selected="activeCold === i" @click="activeCold = i" @mouseenter="activeCold = i"
+						>
+							<span class="g-hunt-deal-top">
+								<span class="g-hunt-deal-name">{{ d.name }}</span>
+								<span class="g-hunt-deal-val">{{ d.value }}</span>
+							</span>
+							<span class="g-hunt-deal-sub"><span v-html="d.co"></span> · <span class="g-hunt-deal-quiet"><UIcon name="i-lucide-snowflake" /> {{ d.quiet }}</span></span>
+						</button>
+					</div>
+
+					<!-- Earnest re-approach -->
+					<div class="g-hunt-draft g-glass-ultra">
+						<div class="g-hunt-draft-head">
+							<span class="g-chip g-chip-ai round"><UIcon name="i-lucide-sparkles" /></span>
+							<span class="g-hunt-draft-title">Earnest · re-approach</span>
+							<span class="g-hunt-draft-scope">{{ coldDeals[activeCold].name }}</span>
+						</div>
+						<div class="g-hunt-draft-body" :key="activeCold">
+							<p class="g-hunt-draft-read"><UIcon name="i-lucide-history" /> <span>{{ coldDeals[activeCold].read }}</span></p>
+							<p class="g-hunt-draft-move"><UIcon name="i-lucide-compass" /> <span>{{ coldDeals[activeCold].move }}</span></p>
+							<div class="g-hunt-draft-note">
+								<span class="g-hunt-draft-note-lbl">Drafted in your voice</span>
+								<p>{{ coldDeals[activeCold].draft }}</p>
+							</div>
+							<div class="g-hunt-draft-actions">
+								<button type="button" class="e-btn e-btn-primary g-press" @click="openEarlyAccess()"><UIcon name="i-lucide-send" /> Send the re-approach</button>
+								<button type="button" class="g-hunt-draft-touch g-press" @click="openEarlyAccess()"><UIcon name="i-lucide-plus" /> Log as touchpoint</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<!-- ─── The Director's Office — glass briefing deck ─── -->
 		<section id="office" class="e-section">
 			<div class="g-sec-head">
@@ -317,115 +426,6 @@
 							<div class="g-ctx-bubble me" v-html="ctx.reply"></div>
 							<span class="g-ctx-suglabel">Suggested here</span>
 							<div class="g-ctx-sugs"><span v-for="(s, si) in ctx.sugs" :key="si" class="g-ctx-sug g-press">{{ s }}</span></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- ─── Financial clarity — the certainty ladder ─── -->
-		<section id="clarity" class="e-section">
-			<div class="g-sec-head">
-				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Financial clarity</span>
-				<h2 class="e-h2" data-anim="rise">Every dollar, <span class="g-accent-text">sorted by how sure it is</span><span class="e-dot">.</span></h2>
-				<p class="e-section-sub" data-anim="rise">Not one “revenue” number that hides the truth. Earnest lays your money out along a ladder of certainty — banked, owed, in play, gone cold — so the honest cash never blurs into the hoped-for pipeline. Hover a tier to see it.</p>
-			</div>
-
-			<div class="g-clarity g-glass-tint" data-anim="scale">
-				<div class="g-cert-top">
-					<span class="g-cert-caption"><UIcon name="i-lucide-move-right" class="g-cert-caplic" /> Most certain → most speculative</span>
-					<span class="g-cert-inview"><span class="g-cert-inview-lbl">In view</span> <b>$236k</b></span>
-				</div>
-
-				<!-- Certainty bar — hovering a legend row lights its segment -->
-				<div class="g-cert-bar">
-					<div
-						v-for="t in certaintyTiers" :key="t.key"
-						class="g-cert-seg" :class="[t.cls, { 'g-cert-seg--dim': hoverTier && hoverTier !== t.key, 'g-cert-seg--lit': hoverTier === t.key }]"
-						:style="{ flexBasis: t.pct + '%' }"
-						:title="`${t.label}: ${t.amount}`"
-					/>
-				</div>
-
-				<div class="g-cert-legend" role="list">
-					<div
-						v-for="t in certaintyTiers" :key="`lg-${t.key}`" role="listitem"
-						class="g-cert-row g-press" :class="{ 'g-cert-row--on': hoverTier === t.key }"
-						@mouseenter="hoverTier = t.key" @mouseleave="hoverTier = ''"
-						@focusin="hoverTier = t.key" @focusout="hoverTier = ''" tabindex="0"
-					>
-						<span class="g-cert-dot" :class="t.cls"></span>
-						<span class="g-cert-row-body">
-							<span class="g-cert-row-top"><b>{{ t.label }}</b><span class="g-cert-row-amt">{{ t.amount }}</span></span>
-							<span class="g-cert-row-hint">{{ t.hint }}</span>
-						</span>
-					</div>
-				</div>
-
-				<div class="g-cert-rollup">
-					<div v-for="r in certaintyRollup" :key="r.k" class="g-cert-roll" :class="`g-cert-roll--${r.tone}`">
-						<span class="g-cert-roll-v">{{ r.v }}</span>
-						<span class="g-cert-roll-k">{{ r.k }}</span>
-						<span class="g-cert-roll-sub">{{ r.sub }}</span>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- ─── The Hunt — pursuit tracking + Earnest re-approach ─── -->
-		<section id="hunt" class="e-section">
-			<div class="g-sec-head">
-				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> The Hunt</span>
-				<h2 class="e-h2" data-anim="rise">The money you <span class="g-accent-text">haven’t caught yet</span><span class="e-dot">.</span></h2>
-				<p class="e-section-sub" data-anim="rise">Every proposal has a whole life — even the ones that went cold or got a no. Earnest keeps the record, then reads the history and drafts the way back in. Pick a stalled deal:</p>
-			</div>
-
-			<div class="g-hunt" data-anim="scale">
-				<div class="g-hunt-aura" aria-hidden="true"><span></span><span></span></div>
-
-				<!-- Pipeline stages cascade in -->
-				<div class="g-hunt-stages" data-stagger>
-					<div v-for="s in huntStages" :key="s.key" class="g-hunt-stage" :class="{ 'g-hunt-stage--cold': s.key === 'cold', 'g-hunt-stage--won': s.key === 'won' }">
-						<span class="g-hunt-stage-ic"><UIcon :name="s.icon" /></span>
-						<span class="g-hunt-stage-n">{{ s.count }}</span>
-						<span class="g-hunt-stage-l">{{ s.label }}</span>
-					</div>
-				</div>
-
-				<div class="g-hunt-grid">
-					<!-- Cold deals — pick one -->
-					<div class="g-hunt-deals" role="tablist" aria-label="Cold deals worth reviving">
-						<button
-							v-for="(d, i) in coldDeals" :key="d.name" type="button" role="tab"
-							class="g-hunt-deal g-press" :class="{ 'g-hunt-deal--on': activeCold === i }"
-							:aria-selected="activeCold === i" @click="activeCold = i" @mouseenter="activeCold = i"
-						>
-							<span class="g-hunt-deal-top">
-								<span class="g-hunt-deal-name">{{ d.name }}</span>
-								<span class="g-hunt-deal-val">{{ d.value }}</span>
-							</span>
-							<span class="g-hunt-deal-sub"><span v-html="d.co"></span> · <span class="g-hunt-deal-quiet"><UIcon name="i-lucide-snowflake" /> {{ d.quiet }}</span></span>
-						</button>
-					</div>
-
-					<!-- Earnest re-approach -->
-					<div class="g-hunt-draft g-glass-ultra">
-						<div class="g-hunt-draft-head">
-							<span class="g-chip g-chip-ai round"><UIcon name="i-lucide-sparkles" /></span>
-							<span class="g-hunt-draft-title">Earnest · re-approach</span>
-							<span class="g-hunt-draft-scope">{{ coldDeals[activeCold].name }}</span>
-						</div>
-						<div class="g-hunt-draft-body" :key="activeCold">
-							<p class="g-hunt-draft-read"><UIcon name="i-lucide-history" /> <span>{{ coldDeals[activeCold].read }}</span></p>
-							<p class="g-hunt-draft-move"><UIcon name="i-lucide-compass" /> <span>{{ coldDeals[activeCold].move }}</span></p>
-							<div class="g-hunt-draft-note">
-								<span class="g-hunt-draft-note-lbl">Drafted in your voice</span>
-								<p>{{ coldDeals[activeCold].draft }}</p>
-							</div>
-							<div class="g-hunt-draft-actions">
-								<button type="button" class="e-btn e-btn-primary g-press" @click="openEarlyAccess()"><UIcon name="i-lucide-send" /> Send the re-approach</button>
-								<button type="button" class="g-hunt-draft-touch g-press" @click="openEarlyAccess()"><UIcon name="i-lucide-plus" /> Log as touchpoint</button>
-							</div>
 						</div>
 					</div>
 				</div>

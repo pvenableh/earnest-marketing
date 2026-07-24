@@ -129,15 +129,21 @@
    swapping detail panel, so the section reads as a decision *flowing*. Kept
    visually distinct from the guardrail-lights card grid just below it. ══ */
 .g-decflow { max-width: 880px; margin: 0 auto; display: grid; gap: 20px; }
-.g-decflow-rail { position: relative; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; padding: 4px 0; }
-.g-decflow-track { position: absolute; top: 23px; left: 23px; right: 23px; height: 3px; border-radius: 999px; background: var(--g-accent-soft); overflow: hidden; }
+/* gap:0 so each node's dot centers at exactly (2i+1)/(2N) of the rail width —
+   the track then spans dot-center → dot-center precisely. */
+.g-decflow-rail { position: relative; display: flex; align-items: flex-start; gap: 0; padding: 4px 0; }
+/* Inset by half a cell so the line starts on the first dot and ends on the last. */
+.g-decflow-track { position: absolute; top: 23px; left: calc(100% / (2 * var(--flow-n))); right: calc(100% / (2 * var(--flow-n))); height: 3px; border-radius: 999px; background: var(--g-accent-soft); overflow: hidden; }
 .g-decflow-fill { display: block; height: 100%; border-radius: 999px; width: calc(var(--flow-i) / (var(--flow-n) - 1) * 100%); background: linear-gradient(90deg, var(--n-sky), var(--g-accent)); transition: width 0.55s var(--spring); }
-.g-decflow-node { position: relative; z-index: 1; flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 9px; background: none; border: 0; cursor: pointer; padding: 0; text-align: center; }
+.g-decflow-node { position: relative; z-index: 1; flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 9px; background: none; border: 0; cursor: pointer; padding: 0 4px; text-align: center; }
 .g-decflow-dot {
 	width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center;
-	background: var(--g-accent-soft); color: var(--g-ink-3); box-shadow: var(--glass-edge-shadow);
+	/* OPAQUE base (so the connector line can't show through) + accent tint on top. */
+	background-color: #eef6fb; background-image: linear-gradient(var(--g-accent-soft), var(--g-accent-soft));
+	color: var(--g-ink-3); box-shadow: var(--glass-edge-shadow);
 	transition: transform 0.4s var(--spring), background 0.35s, color 0.35s, box-shadow 0.35s;
 }
+.dark .g-decflow-dot { background-color: #14212e; }
 .g-decflow-dot :deep(svg), .g-decflow-dot :deep([class*='iconify']) { width: 20px; height: 20px; }
 .g-decflow-node--done .g-decflow-dot { color: var(--g-accent-ink); }
 .g-decflow-node--on .g-decflow-dot { background: linear-gradient(150deg, var(--n-sky), var(--g-accent-2, #235377)); color: #fff; transform: scale(1.14); box-shadow: 0 12px 26px -8px var(--g-glow, rgba(13, 160, 204, 0.5)); }
@@ -153,7 +159,7 @@
 @media (prefers-reduced-motion: reduce) { .g-decflow-panel { animation: none; } .g-decflow-fill, .g-decflow-dot { transition: none; } }
 @media (max-width: 560px) {
 	.g-decflow-dot { width: 42px; height: 42px; }
-	.g-decflow-track { top: 21px; left: 21px; right: 21px; }
+	.g-decflow-track { top: 21px; }
 	.g-decflow-tag { font-size: 11px; }
 }
 
