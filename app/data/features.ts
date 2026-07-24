@@ -1005,7 +1005,11 @@ export type DemoShot =
   // Director's Office + Channels (2026-07)
   | 'director-presentation'
   | 'director-slides'
-  | 'channels-home';
+  | 'channels-home'
+  // Money Pipeline + Pursuit tracking (2026-07)
+  | 'revenue-certainty'
+  | 'proposal-pipeline'
+  | 'pursuit-lead';
 
 interface DemoMapping {
   /** Path under `https://app.earnest.guru` to deep-link the "Try this live" CTA to. */
@@ -1055,6 +1059,9 @@ const FEATURE_DEMO_MAP: Record<string, DemoMapping> = {
   'accept-payments': { path: '/apps/money?floor=payments', shot: 'financials-overview' },
   'bank-sync': { path: '/apps/money?floor=expenses', shot: 'financials-overview' },
   'proposals-and-contracts': { path: '/apps/money?floor=documents', shot: 'proposals-preview' },
+  'money-pipeline': { path: '/apps/money?floor=insights', shot: 'revenue-certainty', persona: 'agency' },
+  'pursuit-pipeline': { path: '/apps/money?floor=pipeline', shot: 'proposal-pipeline', persona: 'agency' },
+  'ai-pursuit-strategist': { path: '/leads', shot: 'pursuit-lead', persona: 'agency' },
   'document-blocks': { path: '/apps/organization', shot: 'documents-library', persona: 'agency' },
   'document-themes': { path: '/apps/organization', shot: 'organization-branding', persona: 'agency' },
   // MARKETING
