@@ -53,7 +53,7 @@
 			<figure class="e-hero-shot opacity-0">
 				<div class="e-frame g-hero-frame">
 					<div class="e-frame-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
-					<img :src="heroScreenshotSrc" alt="Earnest — the Director's Office" loading="eager" decoding="async" class="e-frame-img" />
+					<img :src="heroScreenshotSrc" alt="Earnest — the Command Center, your daily greeting and the one thing that needs you" loading="eager" decoding="async" class="e-frame-img" />
 				</div>
 				<div class="g-float g-float-score g-glass" data-parallax="0.14" aria-hidden="true">
 					<span class="g-float-ring">
@@ -63,7 +63,7 @@
 				</div>
 				<div class="g-float g-float-streak g-glass" data-parallax="0.22" aria-hidden="true"><span class="g-streak">🔥 12-day streak</span></div>
 				<div class="g-float g-float-dec g-glass" data-parallax="0.3" aria-hidden="true"><UIcon name="i-lucide-gavel" style="color:var(--g-accent)" /> 3 decisions ready</div>
-				<figcaption class="e-hero-shot-caption">The live app — a real organizational overview, not a mockup.</figcaption>
+				<figcaption class="e-hero-shot-caption">The live app — your real Command Center, not a mockup.</figcaption>
 			</figure>
 		</header>
 
@@ -446,8 +446,8 @@
 			</div>
 		</section>
 
-		<!-- ─── Proof ─── -->
-		<section class="e-section e-gallery">
+		<!-- ─── Proof ─── (hidden for now — didn't feel compelling) -->
+		<section v-if="false" class="e-section e-gallery">
 			<div class="g-sec-head">
 				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> No mockups</span>
 				<h2 class="e-h2" data-anim="rise">Every screen is the real app<span class="e-dot">.</span></h2>
@@ -615,7 +615,7 @@ import { useGlassMotion } from '~/composables/useGlassMotion';
 const config = useRuntimeConfig();
 const appUrl = config.public.appUrl || 'https://app.earnest.guru';
 const soloDemoUrl = `${appUrl}/try-demo?persona=solo`;
-const heroScreenshotSrc = '/screenshots/latest/organization-overview.png';
+const heroScreenshotSrc = '/screenshots/latest/command-center.png';
 
 const heroChips = [
 	{ label: 'Home', icon: 'i-lucide-layout-dashboard', tint: '#00cfff' },

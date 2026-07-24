@@ -1,4 +1,7 @@
 @import 'tailwindcss';
+/* Enter/leave animations for dialogs (animate-in / fade / zoom / slide utilities
+   used by the Reka UI Dialog wrappers — e.g. the early-access modal). */
+@import 'tw-animate-css';
 
 /* ── Font Loading ── */
 @font-face {

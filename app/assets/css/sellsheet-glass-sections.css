@@ -360,6 +360,10 @@
 }
 .g-ask-input::placeholder { color: var(--g-ink-3); }
 .g-ask-input:focus { border-color: var(--g-accent); box-shadow: 0 0 0 3px var(--g-accent-soft); }
+/* Dark mode: the light default uses a near-white fill, which hides the light ink
+   text on dark. Use a translucent glass fill so the field reads on the dark aura. */
+.dark .g-ask-input { background: rgba(255, 255, 255, 0.05); border-color: var(--g-line); }
+.dark .g-ask-input:focus { background: rgba(255, 255, 255, 0.08); border-color: var(--g-accent); }
 .g-ask-textarea { resize: vertical; min-height: 84px; }
 .g-ask-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .g-ask-error { font-size: 13px; color: #ef4444; margin: 0; }
