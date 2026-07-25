@@ -295,14 +295,16 @@ export const features: Feature[] = [
     name: 'Client Portal',
     slug: 'client-portal',
     icon: 'i-lucide-users-round',
+    shot: 'client-portal',
     pillar: 'people',
-    desc: 'Give every client their own login to see exactly what you choose — projects, tickets, invoices, proposals, contracts, social content, and marketing — under their own brand-matched experience. Multi-root accounts handle parent/subsidiary structures with inherited access, and clients can comment, approve, and react inline.',
-    keywords: ['client portal', 'client login', 'project visibility', 'invoice approval', 'inherited permissions'],
+    desc: 'Give every client their own login to see exactly what you choose — projects, tickets, invoices, proposals, contracts, social content, and marketing — under their own brand-matched experience. Multi-root accounts handle parent/subsidiary structures with inherited access, and clients can comment, approve, and react inline. Preview any client’s portal read-only, right from their record, to see it exactly as they do.',
+    keywords: ['client portal', 'client login', 'project visibility', 'invoice approval', 'inherited permissions', 'preview as client'],
     benefits: [
       'Per-client login surfaces projects, tickets, invoices, proposals, and content',
       'Multi-root accounts with inherited access for parent/subsidiary structures',
       'Inline comments, reactions, and content approval keep feedback in-app',
       'Brand-matched chrome and a Submit-a-Ticket CTA make it feel like yours',
+      'Preview any client’s portal read-only to see exactly what they see',
     ],
   },
   {
