@@ -361,6 +361,17 @@
 .dark .g-page .e-nav.e-nav-scrolled { background: rgba(10, 17, 30, 0.72) !important; border-bottom-color: rgba(255, 255, 255, 0.08); }
 .dark .e-dock { background: linear-gradient(160deg, rgba(43, 184, 230, 0.10), rgba(255, 255, 255, 0.04)); border-color: rgba(255, 255, 255, 0.12); }
 
+/* Dock tooltip — the base chip is `background: var(--ink); color:#fff`, but in
+   dark mode --ink flips light, leaving near-white text on a near-white chip
+   (invisible). Keep the light chip, flip the label + arrow to dark ink. */
+.dark .e-dock-tip { color: #0e1726; }
+
+/* Breadth-carousel nav arrows (SellSheetLive) — the light-glass base washes out
+   on the dark page; give them a clear translucent-white glass with an accent
+   chevron so they read against the dark backdrop. */
+.dark .g-page .l-carousel-btn { background: rgba(255, 255, 255, 0.10); border-color: rgba(255, 255, 255, 0.22); color: var(--g-accent-ink); box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.6); }
+.dark .g-page .l-carousel-btn:hover { background: rgba(255, 255, 255, 0.17); }
+
 /* Screenshot window frame — the browser chrome + title bar are markup (not part
    of the screenshot), so give them dark chrome in dark mode; a white frame with
    a cream title bar glared hard against the dark page. Traffic-light dots stay. */
