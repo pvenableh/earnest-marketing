@@ -160,6 +160,32 @@
 					<a :href="plan.href" class="e-btn e-plan-btn g-press" :class="plan.featured ? 'e-btn-primary' : 'e-btn-ghost'">{{ plan.cta }}</a>
 				</div>
 			</div>
+
+			<!-- Capacity ladder — every feature is on every plan; the tiers differ
+			     only by scale. Scrolls horizontally on narrow screens. -->
+			<div class="l-compare" data-anim="scale">
+				<p class="l-compare-lead"><UIcon name="i-lucide-check-check" class="l-compare-lead-ic" /> Every feature — all apps, the Boardroom, and context-aware AI — is included on <strong>every</strong> plan. What changes is scale.</p>
+				<div class="l-compare-scroll">
+					<table class="l-compare-table">
+						<thead>
+							<tr>
+								<th class="l-compare-rowhead" scope="col"><span class="l-compare-sr">Feature</span></th>
+								<th scope="col">Solo</th>
+								<th scope="col" class="l-compare-col--feat">Studio</th>
+								<th scope="col">Agency</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="row in compareRows" :key="row.label">
+								<th class="l-compare-rowhead" scope="row">{{ row.label }}</th>
+								<td>{{ row.solo }}</td>
+								<td class="l-compare-col--feat">{{ row.studio }}</td>
+								<td>{{ row.agency }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</section>
 
 		<!-- ─── FAQ ─── -->
@@ -246,7 +272,7 @@ let appPaused = false;
 function advanceApps() { appDir.value = 1; activeApp.value = (activeApp.value + 1) % apps.length; }
 function startApps() {
 	if (appTimer) return;
-	appTimer = window.setInterval(() => { if (!appPaused) advanceApps(); }, 3200);
+	appTimer = window.setInterval(() => { if (!appPaused) advanceApps(); }, 5600);
 }
 function setApp(i) {
 	if (i === activeApp.value) return;
@@ -337,6 +363,17 @@ function scrollCarousel(dir) {
 	el.scrollBy({ left: dir * Math.min(680, el.clientWidth * 0.8), behavior: 'smooth' });
 }
 
+// ─── Tier comparison — every feature ships on every plan; you're choosing
+// scale. Numbers mirror the app's EARNEST_PLANS (seats · tokens · scans ·
+// portal seats · white-label). Kept as a capacity ladder, not a feature grid. ──
+const compareRows = [
+	{ label: 'Team seats', solo: '1', studio: '8', agency: '15' },
+	{ label: 'AI tokens / month', solo: '100K', studio: '400K', agency: '1M' },
+	{ label: 'Card scans / month', solo: '25', studio: '150', agency: '500' },
+	{ label: 'Client-portal seats', solo: '5', studio: '15', agency: 'Unlimited' },
+	{ label: 'White-label branding', solo: '—', studio: '—', agency: 'Add-on' },
+];
+
 // ─── Pricing — the live wizard's plans; CTAs go straight to /register. ───
 const plans = [
 	{ name: 'Solo', price: '49', desc: 'For the one-person shop doing serious work.', featured: false, features: ['1 team seat', 'Every feature included', 'People, work, money & marketing', 'Context-aware Earnest AI', '5 client portal seats', 'Monthly or annual (2 months free)'], cta: 'Start free', href: registerUrl },
@@ -348,8 +385,11 @@ const plans = [
 const faqs = [
 	{ q: 'Is Earnest actually live?', a: 'Yes. Earnest is live in production — sign up at <a href="' + registerUrl + '">app.earnest.guru</a>, create your workspace in a few minutes, and start today. You can also explore the <strong>live demo</strong> with real sample data first, no sign-up required.' },
 	{ q: 'How is it different from ChatGPT or generic AI assistants?', a: 'Earnest runs on a <strong>real large language model</strong> — Anthropic’s Claude, on no-training terms — but instead of a blank prompt, it works from your <strong>actual organization</strong>: your goals, brand, clients and live data across every app, and drafts the day in your voice. Real context, not generic confidence.' },
+	{ q: 'Does Earnest really learn how I work?', a: 'Yes. It learns your voice, your rhythm, the calls you always make and the ones you never would — so its drafts sound like you and its priorities match yours. As it proves itself accurate you can dial up how much it handles on its own, from suggesting to assisting to running routine work end to end. There is a hard floor it never crosses: <strong>money and client-facing sends always wait for your tap</strong>.' },
+	{ q: 'What happens when Earnest doesn’t have enough context?', a: 'It stops and asks. If it’s thin on your brand, your goals, or a client’s voice, Earnest tells you what it’s missing instead of guessing or filling in generic text. It only acts on what it actually understands — real context over generic confidence.' },
 	{ q: 'Will Earnest send emails or move money on its own?', a: 'No. Low-stakes, reversible work — reconciling a payment, summarizing a meeting, enriching a contact — can run automatically with a full audit trail. But <strong>nothing reaches a client or moves money without your tap</strong>.' },
 	{ q: 'What does it cost?', a: 'Three plans: <strong>Solo $49/mo</strong>, <strong>Studio $149/mo</strong>, and <strong>Agency $299/mo</strong> — priced per workspace, not per action, with every feature included. Choose monthly or save two months on annual.' },
+	{ q: 'Is Earnest for solo operators or bigger agencies?', a: 'Both. Solo is built for the one-person shop doing serious work; Studio and Agency add seats, team channels and director tooling as you grow. The same daily rhythm scales from one person to a full team.' },
 	{ q: 'Do I have to replace all my tools at once?', a: 'No. Earnest brings people, work, money and marketing into one place, but you can start where it hurts most — chasing invoices, running a project, re-engaging leads — and let it earn the rest.' },
 	{ q: 'Who can see my data?', a: 'Your workspace is private to your organization — only members you invite can see it, and we never sell your data or share one customer’s with another. Earnest’s AI reads your data only to generate your own results, under no-training terms. Full detail is in our <a href="/privacy-policy">privacy policy</a>.' },
 ];
@@ -430,17 +470,26 @@ onUnmounted(() => {
 .l-spot { max-width: 540px; margin: 20px auto 0; }
 .l-spot-card {
 	display: flex; align-items: center; gap: 15px; text-align: left;
-	padding: 15px 19px; border-radius: 18px; min-height: 82px;
+	padding: 15px 19px; border-radius: 18px;
+	/* Safe area: reserve the tallest card's height (name + 2-line pitch) so the
+	   swap between shorter and longer pitches never reflows the page below. */
+	min-height: 104px;
 	border-left: 3px solid var(--spot-tint);
 }
 .l-spot-ic {
-	width: 46px; height: 46px; flex: none; border-radius: 13px; display: grid; place-items: center;
+	width: 46px; height: 46px; flex: none; border-radius: 50%; display: grid; place-items: center;
 	color: #fff; background: var(--spot-tint); box-shadow: 0 8px 20px -8px var(--spot-tint);
 }
 .l-spot-ic :deep(svg) { width: 23px; height: 23px; }
 .l-spot-body { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .l-spot-name { font-size: 15px; font-weight: 700; color: var(--g-ink); }
 .l-spot-pitch { font-size: 13.5px; line-height: 1.5; color: var(--g-ink-2); }
+
+/* Narrow cards wrap the longest pitches to a third line — reserve for that here
+   so the swap stays reflow-free on phones too (matches the 104px desktop area). */
+@media (max-width: 540px) {
+	.l-spot-card { min-height: 126px; }
+}
 
 .l-spot-dots { display: flex; justify-content: center; gap: 7px; margin-top: 13px; }
 .l-spot-dot {
@@ -484,6 +533,10 @@ onUnmounted(() => {
 .l-arg-check { color: var(--g-accent); flex: none; margin-top: 3px; }
 .l-arg-shot { margin: 0; }
 .l-arg-shot .e-frame { box-shadow: 0 40px 90px -40px rgba(12, 30, 52, 0.55); }
+/* Normalize every argument shot to one landscape frame so a taller capture (e.g.
+   the Day One / branding screen) doesn't stand taller than the rest of the rows.
+   Crops from the top so the meaningful header of each screen is always kept. */
+.l-arg-shot .e-frame-img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: center top; }
 
 @media (max-width: 860px) {
 	.l-arg { grid-template-columns: 1fr; gap: 26px; }
@@ -543,4 +596,39 @@ onUnmounted(() => {
 .l-cta-fine { margin: 22px 0 0; font-size: 13.5px; color: var(--g-ink-3); }
 .l-cta-fine a { color: var(--g-accent-ink); font-weight: 600; text-decoration: none; }
 .l-cta-fine a:hover { text-decoration: underline; }
+
+/* ─── Capacity ladder — the "every feature, pay for scale" comparison under the
+   plan cards. Every plan ships every feature; the table shows only what scales. */
+.l-compare { max-width: 900px; margin: clamp(28px, 4vw, 44px) auto 0; }
+.l-compare-lead {
+	display: flex; align-items: flex-start; gap: 9px; justify-content: center;
+	max-width: 640px; margin: 0 auto 20px; text-align: center;
+	font-size: 14.5px; line-height: 1.55; color: var(--g-ink-2);
+}
+.l-compare-lead strong { color: var(--g-ink); font-weight: 700; }
+.l-compare-lead-ic { color: var(--g-accent); flex: none; margin-top: 2px; }
+.l-compare-lead-ic :deep(svg) { width: 18px; height: 18px; }
+
+.l-compare-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.l-compare-table {
+	width: 100%; min-width: 480px; border-collapse: collapse; text-align: center;
+}
+.l-compare-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.l-compare-table thead th {
+	padding: 12px 16px; font-size: 15px; font-weight: 700; color: var(--g-ink);
+	border-bottom: 1px solid var(--g-line);
+}
+.l-compare-table tbody th,
+.l-compare-table tbody td {
+	padding: 13px 16px; font-size: 14px; border-bottom: 1px solid var(--g-line);
+}
+.l-compare-table tbody tr:last-child th,
+.l-compare-table tbody tr:last-child td { border-bottom: 0; }
+.l-compare-rowhead { text-align: left; color: var(--g-ink-2); font-weight: 600; white-space: nowrap; }
+.l-compare-table tbody td { color: var(--g-ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+/* Highlight the featured (Studio) column so it ties back to the plan card. */
+.l-compare-col--feat { background: var(--g-accent-soft); }
+.l-compare-table thead th.l-compare-col--feat { color: var(--g-accent-ink); border-bottom-color: var(--g-accent-line); }
+.l-compare-table tbody tr:first-child .l-compare-col--feat { border-top-left-radius: 12px; border-top-right-radius: 12px; }
+.l-compare-table tbody tr:last-child .l-compare-col--feat { border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; }
 </style>
