@@ -286,8 +286,6 @@
 				</nav>
 			</div>
 		</footer>
-
-		<GlassEarlyAccess ref="eaRef" :solo-demo-url="soloDemoUrl" source="early-access-form-automation" />
 	</div>
 </template>
 
@@ -304,6 +302,7 @@ import { useGlassMotion } from '~/composables/useGlassMotion';
 
 const config = useRuntimeConfig();
 const appUrl = config.public.appUrl || 'https://app.earnest.guru';
+const registerUrl = `${appUrl}/register`;
 const soloDemoUrl = `${appUrl}/try-demo?persona=solo`;
 const heroScreenshotSrc = '/screenshots/latest/ai-sidebar.png';
 
@@ -402,8 +401,8 @@ const plans = [
 const navScrolled = ref(false);
 function onScroll() { navScrolled.value = window.scrollY > 40; }
 
-const eaRef = ref(null);
-function openEarlyAccess() { eaRef.value?.open(); }
+// Earnest is live: primary CTAs go straight to the app's registration.
+function openEarlyAccess() { if (import.meta.client) window.location.href = registerUrl; }
 
 const { initMotion, revertMotion, dockRef, onDockMove, onDockLeave } = useGlassMotion();
 

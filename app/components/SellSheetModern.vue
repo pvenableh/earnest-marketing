@@ -507,126 +507,11 @@
 				</nav>
 			</div>
 		</footer>
-
-		<!-- ─── Early Access Dialog (intercepts sign-up) ─── -->
-		<Dialog :open="showEarlyAccess" @update:open="(v) => { showEarlyAccess = v; if (!v) resetEarlyAccess(); }">
-			<DialogContent class="e-ea-dialog">
-				<!-- Steps 1–3 -->
-				<template v-if="!eaSuccess">
-					<DialogHeader>
-						<span class="e-ea-eyebrow"><span class="e-spark"></span> Early access</span>
-						<DialogTitle class="e-ea-title">{{ eaStepMeta.title }}<span class="e-dot">.</span></DialogTitle>
-						<DialogDescription class="e-ea-desc">{{ eaStepMeta.desc }}</DialogDescription>
-					</DialogHeader>
-
-					<!-- progress -->
-					<div class="e-ea-progress" aria-hidden="true">
-						<span v-for="n in 3" :key="n" class="e-ea-progress-seg" :class="{ on: n <= eaStep }"></span>
-					</div>
-
-					<form class="e-ea-form" @submit.prevent="eaStep < 3 ? eaNext() : submitEarlyAccess()">
-						<!-- honeypot (hidden from humans) -->
-						<input v-model="eaHoneypot" type="text" tabindex="-1" autocomplete="off" class="e-ea-hp" aria-hidden="true" />
-
-						<!-- Step 1 — You -->
-						<div v-if="eaStep === 1" class="e-ea-fields">
-							<label class="e-ea-field">
-								<span class="e-ea-label">Your name<span class="e-ea-req">*</span></span>
-								<input v-model="eaForm.name" type="text" placeholder="Jane Rivera" class="e-ea-input" autocomplete="name" />
-							</label>
-							<label class="e-ea-field">
-								<span class="e-ea-label">Work email<span class="e-ea-req">*</span></span>
-								<input v-model="eaForm.email" type="email" placeholder="jane@studio.com" class="e-ea-input" autocomplete="email" />
-							</label>
-							<div class="e-ea-row">
-								<label class="e-ea-field">
-									<span class="e-ea-label">Your role</span>
-									<input v-model="eaForm.role" type="text" placeholder="Founder, Ops lead…" class="e-ea-input" autocomplete="organization-title" />
-								</label>
-								<label class="e-ea-field">
-									<span class="e-ea-label">Phone <span class="e-ea-opt">(optional)</span></span>
-									<input v-model="eaForm.phone" type="tel" placeholder="(555) 123-4567" class="e-ea-input" autocomplete="tel" />
-								</label>
-							</div>
-						</div>
-
-						<!-- Step 2 — Business -->
-						<div v-else-if="eaStep === 2" class="e-ea-fields">
-							<div class="e-ea-row">
-								<label class="e-ea-field">
-									<span class="e-ea-label">Company</span>
-									<input v-model="eaForm.company" type="text" placeholder="Studio name" class="e-ea-input" autocomplete="organization" />
-								</label>
-								<label class="e-ea-field">
-									<span class="e-ea-label">Website <span class="e-ea-opt">(optional)</span></span>
-									<input v-model="eaForm.website" type="text" placeholder="studio.com" class="e-ea-input" autocomplete="url" />
-								</label>
-							</div>
-							<div class="e-ea-field">
-								<span class="e-ea-label">What kind of business?</span>
-								<div class="e-ea-chips">
-									<button v-for="b in eaBusinessTypes" :key="b.value" type="button" class="e-ea-chip" :class="{ on: eaForm.business_type === b.value }" @click="eaForm.business_type = b.value">{{ b.label }}</button>
-								</div>
-							</div>
-							<div class="e-ea-field">
-								<span class="e-ea-label">Team size</span>
-								<div class="e-ea-chips">
-									<button v-for="t in eaTeamSizes" :key="t.value" type="button" class="e-ea-chip" :class="{ on: eaForm.team_size === t.value }" @click="eaForm.team_size = t.value">{{ t.label }}</button>
-								</div>
-							</div>
-						</div>
-
-						<!-- Step 3 — Goals & interest -->
-						<div v-else class="e-ea-fields">
-							<div class="e-ea-field">
-								<span class="e-ea-label">Which features are you most interested in?</span>
-								<div class="e-ea-chips">
-									<button v-for="f in eaFeatureOptions" :key="f" type="button" class="e-ea-chip" :class="{ on: eaForm.features_interested.includes(f) }" @click="eaToggleFeature(f)">{{ f }}</button>
-								</div>
-							</div>
-							<label class="e-ea-field">
-								<span class="e-ea-label">What are you hoping Earnest helps you do?</span>
-								<textarea v-model="eaForm.goals" rows="3" placeholder="e.g. Replace 5 tools, get AI follow-ups out the door, finally see cash flow clearly…" class="e-ea-input e-ea-textarea"></textarea>
-							</label>
-							<div class="e-ea-field">
-								<span class="e-ea-label">Timeline</span>
-								<div class="e-ea-chips">
-									<button v-for="t in eaTimelines" :key="t.value" type="button" class="e-ea-chip" :class="{ on: eaForm.timeline === t.value }" @click="eaForm.timeline = t.value">{{ t.label }}</button>
-								</div>
-							</div>
-						</div>
-
-						<p v-if="eaError" class="e-ea-error">{{ eaError }}</p>
-
-						<div class="e-ea-actions">
-							<button v-if="eaStep > 1" type="button" class="e-btn e-btn-ghost e-ea-back" @click="eaBack"><UIcon name="i-lucide-arrow-left" /> Back</button>
-							<span class="e-ea-step-count">Step {{ eaStep }} of 3</span>
-							<button v-if="eaStep < 3" type="submit" class="e-btn e-btn-primary e-ea-next">Continue <UIcon name="i-lucide-arrow-right" /></button>
-							<button v-else type="submit" class="e-btn e-btn-primary e-ea-next" :disabled="eaSubmitting">{{ eaSubmitting ? 'Sending…' : 'Request early access' }}</button>
-						</div>
-					</form>
-				</template>
-
-				<!-- Success -->
-				<template v-else>
-					<div class="e-ea-success">
-						<span class="e-ea-success-icon"><UIcon name="i-lucide-check" /></span>
-						<DialogTitle class="e-ea-title">You're on the list<span class="e-dot">.</span></DialogTitle>
-						<DialogDescription class="e-ea-desc">Thanks{{ eaForm.name ? ', ' + eaForm.name.split(' ')[0] : '' }} — we're onboarding early users as we finalize production. We'll reach out at <strong>{{ eaForm.email }}</strong> with your access.</DialogDescription>
-						<div class="e-ea-success-demos">
-							<p class="e-ea-success-hint">Want a look right now?</p>
-							<a :href="soloDemoUrl" class="e-btn e-btn-ghost"><UIcon name="i-lucide-play-circle" /> Explore the live demo</a>
-						</div>
-						<button class="e-ea-close-link" @click="showEarlyAccess = false; resetEarlyAccess()">Close</button>
-					</div>
-				</template>
-			</DialogContent>
-		</Dialog>
 	</div>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, onUnmounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 import emblaCarouselVue from 'embla-carousel-vue';
 import '~/assets/css/sellsheet-modern.css';
 import { features, pillars, pillarOrder, pillarMeta, getFeaturesByPillar } from '~/data/features';
@@ -634,7 +519,6 @@ import { features, pillars, pillarOrder, pillarMeta, getFeaturesByPillar } from 
 // <Dialog> tags don't resolve — import them explicitly.
 import Dialog from '~/components/ui/dialog/Dialog.vue';
 import DialogContent from '~/components/ui/dialog/DialogContent.vue';
-import DialogHeader from '~/components/ui/dialog/DialogHeader.vue';
 import DialogTitle from '~/components/ui/dialog/DialogTitle.vue';
 import DialogDescription from '~/components/ui/dialog/DialogDescription.vue';
 
@@ -648,6 +532,7 @@ const AGENCY_DEMO_READY = true;
 const AGENCY_DEMO_TOOLTIP = 'Admin-role agency walkthrough — shipping soon.';
 const soloDemoUrl = `${appUrl}/try-demo?persona=solo`;
 const agencyDemoUrl = `${appUrl}/try-demo?persona=agency`;
+const registerUrl = `${appUrl}/register`;
 
 // Lead with the seven-app shell — the clearest "this is the new Earnest" proof.
 const heroScreenshotSrc = '/screenshots/latest/apps-rail.png';
@@ -927,134 +812,11 @@ const navDemoRef = ref(null);
 function onNavDocClick(e) { if (navDemoRef.value && !navDemoRef.value.contains(e.target)) navDemoOpen.value = false; }
 function onScroll() { navScrolled.value = window.scrollY > 40; }
 
-// ── Early Access ──
-// We're intercepting open sign-up while finalizing production: every "Start for
-// free" / plan CTA opens this guided early-access capture instead of creating an
-// account. Submissions POST to a public Directus webhook flow ("Early Access
-// Signup", id below) that validates (honeypot + name + email) and writes a row
-// to the `early_access` collection. No public table-write permission needed.
-const EARLY_ACCESS_FLOW_ID = '08912f2e-d3a7-4ea6-b21e-9bdb79feee64';
-const earlyAccessUrl = `${config.public.directusUrl || 'https://admin.earnest.guru'}/flows/trigger/${EARLY_ACCESS_FLOW_ID}`;
-
-// Feature/app interest chips — mirror the seven apps + companions.
-const eaFeatureOptions = [
-	'People & CRM',
-	'Projects & Tasks',
-	'Invoicing & Money',
-	'Marketing & Content',
-	'Proposals & Contracts',
-	'Earnest AI & Director',
-	'Scheduling & Meetings',
-	'Client Portal',
-	'CardDesk',
-];
-const eaBusinessTypes = [
-	{ label: 'Agency', value: 'agency' },
-	{ label: 'Freelancer / Solo', value: 'solo' },
-	{ label: 'Small business', value: 'small_business' },
-	{ label: 'Startup', value: 'startup' },
-	{ label: 'Other', value: 'other' },
-];
-const eaTeamSizes = [
-	{ label: 'Just me', value: '1' },
-	{ label: '2–5', value: '2-5' },
-	{ label: '6–15', value: '6-15' },
-	{ label: '16–50', value: '16-50' },
-	{ label: '50+', value: '50+' },
-];
-const eaTimelines = [
-	{ label: 'Just exploring', value: 'exploring' },
-	{ label: 'Within a month', value: 'month' },
-	{ label: 'Switching now', value: 'now' },
-];
-
-const showEarlyAccess = ref(false);
-const eaStep = ref(1);
-const EA_STEPS = 3;
-const eaSubmitting = ref(false);
-const eaSuccess = ref(false);
-const eaError = ref('');
-const eaHoneypot = ref(''); // bots fill this; humans never see it
-function blankEaForm() {
-	return {
-		name: '', email: '', role: '', phone: '',
-		company: '', business_type: '', team_size: '', website: '',
-		goals: '', features_interested: [], timeline: '',
-	};
-}
-const eaForm = reactive(blankEaForm());
-
-const eaEmailValid = computed(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(eaForm.email.trim()));
-const eaStep1Valid = computed(() => eaForm.name.trim().length > 1 && eaEmailValid.value);
-const eaStepMeta = computed(() => ([
-	{ title: 'Let’s get you in', desc: 'We’re inviting early users while we finalize production. Start with the basics.' },
-	{ title: 'Tell us about your business', desc: 'This tailors your workspace and the demo data we set up for you.' },
-	{ title: 'What matters most to you', desc: 'Help us prioritize — and we’ll point you at the right places first.' },
-][eaStep.value - 1] || { title: '', desc: '' }));
-
+// ── Sign-up ──
+// Earnest is live: every "Start for free" / plan CTA sends the visitor straight
+// to the live app's registration.
 function openEarlyAccess() {
-	resetEarlyAccess();
-	showEarlyAccess.value = true;
-	trackPageView('early-access-open');
-}
-function resetEarlyAccess() {
-	Object.assign(eaForm, blankEaForm());
-	eaStep.value = 1;
-	eaSuccess.value = false;
-	eaError.value = '';
-	eaSubmitting.value = false;
-	eaHoneypot.value = '';
-}
-function eaToggleFeature(f) {
-	const i = eaForm.features_interested.indexOf(f);
-	if (i === -1) eaForm.features_interested.push(f);
-	else eaForm.features_interested.splice(i, 1);
-}
-function eaNext() {
-	eaError.value = '';
-	if (eaStep.value === 1 && !eaStep1Valid.value) {
-		eaError.value = 'Please enter your name and a valid email.';
-		return;
-	}
-	if (eaStep.value < EA_STEPS) eaStep.value += 1;
-}
-function eaBack() { eaError.value = ''; if (eaStep.value > 1) eaStep.value -= 1; }
-
-async function submitEarlyAccess() {
-	eaError.value = '';
-	if (!eaStep1Valid.value) { eaStep.value = 1; eaError.value = 'Please enter your name and a valid email.'; return; }
-	// Honeypot tripped — pretend success, never hit the server.
-	if (eaHoneypot.value) { eaSuccess.value = true; return; }
-	eaSubmitting.value = true;
-	try {
-		const referrer = [import.meta.client ? document.referrer : '', import.meta.client ? location.pathname + location.search : '']
-			.filter(Boolean).join(' ').trim();
-		await $fetch(earlyAccessUrl, {
-			method: 'POST',
-			body: {
-				name: eaForm.name.trim(),
-				email: eaForm.email.trim(),
-				role: eaForm.role.trim(),
-				phone: eaForm.phone.trim(),
-				company: eaForm.company.trim(),
-				business_type: eaForm.business_type,
-				team_size: eaForm.team_size,
-				website: eaForm.website.trim(),
-				goals: eaForm.goals.trim(),
-				features_interested: eaForm.features_interested,
-				timeline: eaForm.timeline,
-				source: 'early-access-form',
-				referrer,
-				hp: eaHoneypot.value,
-			},
-		});
-		eaSuccess.value = true;
-		trackPageView('early-access-submit');
-	} catch (e) {
-		eaError.value = 'Something went wrong. Please try again, or email hello@earnest.guru.';
-	} finally {
-		eaSubmitting.value = false;
-	}
+	if (import.meta.client) window.location.href = registerUrl;
 }
 
 // ── A/B + calculator ──

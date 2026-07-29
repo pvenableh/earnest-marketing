@@ -597,7 +597,6 @@
 			</div>
 		</footer>
 
-		<GlassEarlyAccess ref="eaRef" :solo-demo-url="soloDemoUrl" />
 	</div>
 </template>
 
@@ -614,6 +613,7 @@ import { useGlassMotion } from '~/composables/useGlassMotion';
 
 const config = useRuntimeConfig();
 const appUrl = config.public.appUrl || 'https://app.earnest.guru';
+const registerUrl = `${appUrl}/register`;
 const soloDemoUrl = `${appUrl}/try-demo?persona=solo`;
 const heroScreenshotSrc = '/screenshots/latest/command-center.png';
 
@@ -808,7 +808,7 @@ const faqs = [
 	{ q: 'Can I track proposals that go cold or get rejected?', a: 'Yes — that’s the point. Earnest keeps the <strong>whole life of every proposal</strong>, including the ones that went quiet or got a no, attached to the lead or client and its contact. Cold and lost deals stay on the record so you can see your real win rate, learn why work slips, and pick a deal back up later instead of losing the history.' },
 	{ q: 'What’s the difference between money I’m owed and money that’s still out there?', a: 'Earnest sorts every dollar by <strong>how certain it is</strong>: <em>banked</em> (paid), <em>owed</em> (invoiced — overdue or not yet due), <em>in play</em> (live proposals still open), and <em>cold</em> (deals that went quiet). Owed money is billed and collectible; money still out there is pipeline you haven’t won yet. Keeping them on separate rungs means the honest cash never blurs into the hopeful pipeline.' },
 	{ q: 'What happens to a deal that goes quiet?', a: 'It doesn’t just disappear. Earnest flags it as <strong>cold</strong>, keeps it in view as money worth reviving, and — because it remembers the full history — reads what happened and <strong>drafts the re-approach in your voice</strong>, ready for your tap. You decide whether to send it or log it as a touchpoint; nothing goes out on its own.' },
-	{ q: 'Can I try it before committing?', a: 'Yes. Explore the <strong>live demo</strong> right now with real sample data, or request early access to get your own workspace set up while we finalize production.' },
+	{ q: 'Can I try it before committing?', a: 'Yes. Explore the <strong>live demo</strong> right now with real sample data, or <strong>start free</strong> at app.earnest.guru/register — Earnest is live and your workspace sets up in minutes.' },
 	{ q: 'Who can see my data?', a: 'Your workspace is private to your organization — only members you invite can see it, and we never sell your data or share one customer’s data with another. Earnest’s AI reads your data only to generate your own results: context goes to Anthropic’s Claude under no-training terms that bar it from training on it, and we don’t train our own models on it either. Full detail is in our <a href="/privacy-policy">privacy policy</a>.' },
 ];
 const openFaq = ref(0);
@@ -864,9 +864,9 @@ const colorMode = useColorMode({ initialValue: 'dark', storageKey: 'earnest-mkt-
 const isDark = computed(() => colorMode.value === 'dark');
 function toggleTheme() { colorMode.value = isDark.value ? 'light' : 'dark'; }
 
-// Early access (delegated to shared child component)
-const eaRef = ref(null);
-function openEarlyAccess() { eaRef.value?.open(); }
+// Earnest is live: the "Start for free" / primary CTAs now go straight to the
+// live app's registration. (The early-access request form was retired at launch.)
+function openEarlyAccess() { if (import.meta.client) window.location.href = registerUrl; }
 
 // Motion engine (dock magnification + reveals + counters + rings)
 const { initMotion, revertMotion, dockRef, onDockMove, onDockLeave } = useGlassMotion();
