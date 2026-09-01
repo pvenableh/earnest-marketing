@@ -44,6 +44,35 @@
   font-display: swap;
 }
 
+/* DIN Pro Condensed — the Clean look's display face, carried over from the app
+ * (app/assets/css/fonts.css). It is the ONE thing that makes Clean
+ * recognisable, so the marketing page ships the real face rather than faking
+ * condensed caps with tracked-out Proxima. `local()` first, so anyone with it
+ * installed never downloads it. */
+@font-face {
+  font-family: 'DIN Pro Cond';
+  src:
+    local('DIN Pro Condensed Regular'),
+    local('DINPro-CondensedRegular'),
+    url('fonts/DINPro-CondensedRegular.woff2') format('woff2'),
+    url('fonts/DINPro-CondensedRegular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DIN Pro Cond';
+  src:
+    local('DIN Pro Condensed Bold'),
+    local('DINPro-CondensedBold'),
+    url('fonts/DINPro-CondensedBold.woff2') format('woff2'),
+    url('fonts/DINPro-CondensedBold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @font-face {
   font-family: 'Gaegu';
   src: url('fonts/Gaegu-Regular.woff2') format('woff2');

@@ -4,9 +4,10 @@ export type PillarKey =
   | 'work'
   | 'money'
   | 'marketing'
+  | 'chat'
   | 'org'
-  | 'ai'
-  | 'design';
+  | 'earnest'
+  | 'looks';
 
 export interface Feature {
   name: string;
@@ -24,12 +25,18 @@ function slugify(name: string): string {
 }
 
 /**
- * The seven apps on the Earnest rail (2026-06 revamp): HOME · PEOPLE · WORK ·
- * MONEY · MKTG · ORG · ME. Plus two cross-cutting pillars used for grouping:
- * `ai` (the Earnest assistant + Director, Context Broker, AI Actions) and
- * `design` (the shell, glass, palettes, motion, companion). The marketing
- * pillar-tour renders the seven `nav: true` entries; the feature list groups
- * every feature by `pillar`.
+ * The apps on the Earnest rail, as it ships: Dashboard · People · Work · Chat ·
+ * Money · Mktg, plus the Boardroom in the rail's footer group. Organization and
+ * Account moved into the avatar menu in the 2026-08 shell pass, so `org` is a
+ * real pillar with no rail chip — hence `nav: false` on it.
+ *
+ * Two more pillars exist only as groupings and never appear on the rail:
+ * `earnest` (the one door — Focus, its faces, AI Actions, the Context Broker)
+ * and `looks` (the three Looks, type, contrast and the shell itself).
+ *
+ * ⚠️ The keys `ai` and `design` were renamed to `earnest` and `looks` in the
+ * 2026-09 pass. `SellSheetModern.vue` reads these keys by literal string in two
+ * places — grep it before renaming any of them again.
  */
 export interface Pillar {
   key: PillarKey;
@@ -55,37 +62,49 @@ export const pillars: Pillar[] = [
   {
     key: 'home',
     label: 'Home',
-    title: 'Command Center',
-    tagline: 'Open Earnest and see exactly what needs you today — across every app.',
+    title: 'Home',
+    tagline: 'Decide · Do · Know — the day sorted into three piles, under four lenses.',
     icon: 'i-lucide-layout-dashboard',
     accent: 'var(--sm-status-scheduled)',
-    shot: 'command-center',
+    shot: 'home-v2',
     path: '/',
-    tabs: ['Command Center', 'Statistics'],
+    tabs: ['Everything', 'Money', 'Creative', 'Projects'],
     nav: true,
   },
   {
     key: 'people',
     label: 'People',
     title: 'Everyone you work with',
-    tagline: 'Clients, contacts, leads, and the cards you scan — one relationship graph with AI on top.',
+    tagline: 'Clients, contacts, pursuits, and the cards you scan — one relationship graph with Earnest on top.',
     icon: 'i-lucide-users',
     accent: 'var(--sm-status-active)',
     shot: 'people-dashboard',
     path: '/apps/clients',
-    tabs: ['Clients', 'Contacts', 'Leads', 'Card Desk', 'Intelligence'],
+    tabs: ['Clients', 'Contacts', 'Pursuits', 'CardDesk', 'Intelligence'],
     nav: true,
   },
   {
     key: 'work',
     label: 'Work',
     title: 'The work itself',
-    tagline: 'Projects, tasks, tickets, meetings, calendar, and time — every workspace with full parity.',
+    tagline: 'Projects, tasks, tickets, approvals, meetings and time — every workspace with full parity.',
     icon: 'i-lucide-square-kanban',
     accent: 'var(--sm-status-scheduled)',
-    shot: 'project-workspace',
+    shot: 'shell-dock',
     path: '/apps/work',
-    tabs: ['Projects', 'Tasks', 'Tickets', 'Meetings', 'Calendar', 'Time', 'Insights'],
+    tabs: ['Projects', 'Tasks', 'Tickets', 'Approvals', 'Calendar', 'Time', 'Intelligence'],
+    nav: true,
+  },
+  {
+    key: 'chat',
+    label: 'Chat',
+    title: 'Where the team talks',
+    tagline: 'Channels and calls, and the Boardroom when a decision needs the whole room.',
+    icon: 'i-lucide-messages-square',
+    accent: 'var(--sm-status-active)',
+    shot: 'channels-home',
+    path: '/apps/channels',
+    tabs: ['Channels', 'Direct', 'Calls', 'The Boardroom'],
     nav: true,
   },
   {
@@ -103,11 +122,11 @@ export const pillars: Pillar[] = [
   {
     key: 'marketing',
     label: 'Mktg',
-    title: 'Marketing on autopilot',
-    tagline: 'A marketing pulse, AI recommendations, campaigns, email, social, and a content studio.',
+    title: 'Marketing, drafted with you',
+    tagline: 'A marketing pulse, campaigns, email, and a Content Studio where posts get written and approved.',
     icon: 'i-lucide-megaphone',
     accent: 'var(--sm-status-pending)',
-    shot: 'marketing-overview',
+    shot: 'studio-river',
     path: '/apps/marketing',
     tabs: ['Pulse', 'Campaigns', 'Email', 'Accounts', 'Studio', 'Audience'],
     nav: true,
@@ -116,38 +135,38 @@ export const pillars: Pillar[] = [
     key: 'org',
     label: 'Org',
     title: 'Run the organization',
-    tagline: 'Brand direction, members, teams, billing, integrations, and whitelabel — all in one place.',
+    tagline: 'Brand direction, members, teams, files, billing and white-label — reached from your avatar.',
     icon: 'i-lucide-building-2',
     accent: 'var(--sm-status-active)',
     shot: 'organization-overview',
+    // Organization and Account left the rail in the 2026-08 shell pass — both
+    // now live in the avatar menu, so this pillar is grouped but not toured.
     path: '/apps/organization',
-    tabs: ['Overview', 'Members', 'Teams', 'Billing', 'Integrations', 'Settings'],
-    nav: true,
+    tabs: ['Overview', 'Members', 'Teams', 'Files', 'Billing', 'Settings'],
+    nav: false,
   },
   {
-    key: 'design',
-    label: 'Me',
-    title: 'Made yours',
-    tagline: 'Your profile, your Earnest Score, and an appearance system that lets every app feel like home.',
-    icon: 'i-lucide-circle-user',
-    accent: 'var(--sm-pop)',
-    // TODO: recapture `account-appearance` (Me → Appearance). Falls back to the
-    // shell shot until the new screenshot is generated.
-    shot: 'apps-rail',
-    path: '/account',
-    tabs: ['Profile', 'Earnest Score', 'Appearance', 'Notifications', 'About'],
-    nav: true,
-  },
-  {
-    key: 'ai',
-    label: 'AI',
-    title: 'Earnest, your operator',
-    tagline: 'One Earnest across every app — a real language model grounded in your live business. Ask it in a sentence, or size it up to a full Director’s Office briefing.',
+    key: 'earnest',
+    label: 'Earnest',
+    title: 'Earnest, one door',
+    tagline: 'One control in the header opens Focus full screen, already ranked for wherever you were standing.',
     icon: 'i-lucide-sparkles',
     accent: 'var(--sm-pop)',
-    shot: 'ai-sidebar',
+    shot: 'focus-takeover',
     path: '/',
-    tabs: ['Earnest', 'Director'],
+    tabs: ['Focus', 'Reflect', 'Work', 'Mirror'],
+    nav: false,
+  },
+  {
+    key: 'looks',
+    label: 'Looks',
+    title: 'Looks & appearance',
+    tagline: 'Glass, Paper and Clean — three real redesigns, with type and contrast on their own axes.',
+    icon: 'i-lucide-swatch-book',
+    accent: 'var(--sm-pop)',
+    shot: 'home-v2-paper',
+    path: '/account?section=appearance',
+    tabs: ['Look', 'Colour', 'Type', 'Contrast', 'Background'],
     nav: false,
   },
 ];
@@ -156,39 +175,55 @@ export const pillarMeta: Record<PillarKey, { label: string; icon: string; accent
   home: { label: 'Home', icon: 'i-lucide-layout-dashboard', accent: 'var(--sm-status-scheduled)' },
   people: { label: 'People', icon: 'i-lucide-users', accent: 'var(--sm-status-active)' },
   work: { label: 'Work', icon: 'i-lucide-square-kanban', accent: 'var(--sm-status-scheduled)' },
+  chat: { label: 'Chat & Boardroom', icon: 'i-lucide-messages-square', accent: 'var(--sm-status-active)' },
   money: { label: 'Money', icon: 'i-lucide-trending-up', accent: 'var(--sm-status-success)' },
   marketing: { label: 'Marketing', icon: 'i-lucide-megaphone', accent: 'var(--sm-status-pending)' },
   org: { label: 'Organization', icon: 'i-lucide-building-2', accent: 'var(--sm-status-active)' },
-  ai: { label: 'Earnest AI', icon: 'i-lucide-sparkles', accent: 'var(--sm-pop)' },
-  design: { label: 'Design & Mobile', icon: 'i-lucide-square-stack', accent: 'var(--sm-pop)' },
+  earnest: { label: 'Earnest', icon: 'i-lucide-sparkles', accent: 'var(--sm-pop)' },
+  looks: { label: 'Looks & shell', icon: 'i-lucide-swatch-book', accent: 'var(--sm-pop)' },
 };
 
 /** Order pillars appear in the grouped feature list. */
 export const pillarOrder: PillarKey[] = [
   'home',
+  'earnest',
   'people',
   'work',
   'money',
   'marketing',
+  'chat',
   'org',
-  'ai',
-  'design',
+  'looks',
 ];
 
 export const features: Feature[] = [
   // ─────────────────────────  HOME  ─────────────────────────
   {
-    name: 'Command Center',
+    name: 'Home — Decide, Do, Know',
     slug: 'productivity-engine',
-    icon: 'i-lucide-zap',
+    icon: 'i-lucide-layout-dashboard',
     pillar: 'home',
-    desc: 'Open Earnest to a single greeting and a ranked read on exactly what needs you. The prioritization engine scans tickets, projects, tasks, invoices, channels, social, deals, and goals and ranks them — pure computation that loads instantly and spends no AI tokens. Only the greeting on top is personalized by Claude when you want it, and it quietly falls back to an instant one when you’d rather not — the ranked engine underneath is the same either way.',
-    keywords: ['productivity', 'command center', 'task prioritization', 'business dashboard', 'priority actions'],
+    desc: 'Your home opens on a greeting with an honest read of the day — “22 things today — 5 need a decision, 13 are one tap each, 4 are just worth knowing” — then sorts everything into three piles. Decide holds what Earnest drafted and is waiting on you for. Do is one tap each. Know needs nothing, and is there so nothing surprises you later. The ranking is pure computation across tickets, projects, tasks, invoices, channels, approvals and deals: it loads instantly and spends no AI tokens. Only the greeting line is written by Claude, and it falls back to an instant one when you would rather it did not.',
+    keywords: ['home', 'decide do know', 'daily priorities', 'task prioritization', 'business dashboard'],
     benefits: [
-      'Scans, scores, and ranks your day instantly — zero AI tokens',
-      'A personalized greeting from Claude, with an instant fallback',
-      'Urgent items, overdue work, and unpaid invoices surfaced first',
-      'Statistics tab for the numbers behind the pulse',
+      'Three piles instead of a dashboard: Decide, Do, Know',
+      'Ranked instantly across every app — zero AI tokens',
+      'Four glance tiles: score, unpaid, pipeline, unread',
+      'Hold to arrange it — widgets jiggle, and a gallery holds the rest',
+    ],
+  },
+  {
+    name: 'Lenses & the ambient field',
+    slug: 'home-lenses',
+    icon: 'i-lucide-layers',
+    pillar: 'home',
+    desc: 'One home, four ways of reading it. Everything is the arrangement you made; Money, Creative and Projects re-rank the same widgets around one concern and re-tint the animated wave field behind them. When a lens has something true to say, Earnest writes one line under the greeting from data the page has already loaded — “Money lens on. $12k is out, $12k of it past 90 days.” When it has nothing, it stays quiet, because a lens line that always talks is just a label.',
+    keywords: ['lenses', 'home modes', 'ambient background', 'focus modes', 'dashboard views'],
+    benefits: [
+      'Everything · Money · Creative · Projects over one arrangement',
+      'A one-line read under the greeting, from data already on screen',
+      'The wave field re-tints with the lens — the ground moves too',
+      'Nothing is hidden, only re-ranked — and nothing is re-fetched',
     ],
   },
   {
@@ -206,31 +241,45 @@ export const features: Feature[] = [
     ],
   },
   {
-    name: 'Goals & Lenses',
-    slug: 'goal-suggestions',
-    icon: 'i-lucide-target',
+    name: 'Daily digest & web push',
+    slug: 'daily-digest',
+    icon: 'i-lucide-bell',
     pillar: 'home',
-    desc: 'Set goals once and Earnest threads them through every app as a lens — each app shows the goals in its lens and your progress against them. AI suggests strategic goals from your real data: financial, networking, performance, marketing, or custom. The Command Center factors your goals into daily priorities.',
-    keywords: ['goal tracking', 'OKRs', 'business goals', 'lenses', 'strategic planning'],
+    desc: 'One honest summary a day — what moved, what is waiting on you, what went quiet — and a web push only when something genuinely cannot wait for it. The bar for interrupting you is deliberately high; everything else waits for the digest or the home.',
+    keywords: ['daily digest', 'email summary', 'web push', 'notifications'],
     benefits: [
-      'Goals appear in-context as a "lens" inside every app',
-      'AI-suggested goals from your real business data',
-      'Financial, networking, performance, and marketing categories',
-      'Progress feeds into your daily Command Center priorities',
+      'One summary a day, not a stream of alerts',
+      'Web push reserved for what actually cannot wait',
+      'Same ranking as the home, so the two never disagree',
+      'Per-channel notification control in your account',
     ],
   },
   {
-    name: 'Health Snapshots',
-    slug: 'health-snapshots',
-    icon: 'i-lucide-activity',
+    name: 'Spotlight search',
+    slug: 'spotlight-search',
+    icon: 'i-lucide-search',
     pillar: 'home',
-    desc: 'Instant CRM, money, and marketing health scores computed from your real data — no AI tokens, no waiting. Algorithmic analysis of contacts, revenue trends, overdue items, AR aging, and pipeline health gives you a live pulse on your business the moment you open the app.',
-    keywords: ['health score', 'business analytics', 'dashboard', 'revenue trends'],
+    desc: 'One keystroke over every record you have — clients, contacts, projects, tasks, tickets, invoices, proposals, files and messages — with the result opening in place rather than navigating you somewhere and losing your context.',
+    keywords: ['search', 'spotlight', 'command palette', 'universal search'],
     benefits: [
-      'Instant health scores with zero AI token cost',
-      'Live pulse on contacts, revenue, AR, and pipeline',
-      'Tracks overdue items and trending metrics',
-      'Available the moment you open your dashboard',
+      'One shortcut, every record type',
+      'Results open in place — you keep where you were',
+      'Scoped to your organization and your permissions',
+      'Reachable from the first of the three header controls',
+    ],
+  },
+  {
+    name: 'Learning goals',
+    slug: 'goal-suggestions',
+    icon: 'i-lucide-graduation-cap',
+    pillar: 'home',
+    desc: 'Set what you are making time to get better at, and Earnest keeps it in front of you with a one-tap timer on the home. It can suggest goals from your real data — financial, networking, performance or marketing — and your progress feeds back into how the day is ranked.',
+    keywords: ['goal tracking', 'learning goals', 'OKRs', 'business goals', 'skill development'],
+    benefits: [
+      'A goal widget on the home with a one-tap timer',
+      'Earnest suggests goals from your real business data',
+      'Financial, networking, performance and marketing categories',
+      'Progress feeds back into how your day gets ranked',
     ],
   },
 
@@ -250,17 +299,17 @@ export const features: Feature[] = [
     ],
   },
   {
-    name: 'CRM Pipeline',
+    name: 'Pursuits',
     slug: 'crm-intelligence',
-    icon: 'i-lucide-scan-search',
+    icon: 'i-lucide-target',
     pillar: 'people',
-    desc: 'A drag-and-drop Kanban pipeline takes leads from first contact to closed-won (or captures why they were lost). AI overlays health scores, growth plans, and next-step recommendations so your team focuses on the deals that matter.',
-    keywords: ['crm', 'pipeline', 'kanban', 'leads', 'deals', 'conversion', 'sales'],
+    desc: 'Leads and pipeline merged into one lens on the People app. A drag-and-drop board takes a pursuit from first contact to closed-won, or captures why it was lost, and a deal timeline shows how it actually got where it is — every touchpoint, proposal and silence in order. Earnest overlays health scores and a next step for the ones going cold.',
+    keywords: ['crm', 'pursuits', 'pipeline', 'kanban', 'leads', 'deals', 'deal timeline'],
     benefits: [
-      'Drag-and-drop board: new → contacted → qualified → proposal → negotiating → won/lost',
-      'Conversion celebrations and lost-reason capture',
-      'AI-powered pipeline reviews, contact strategies, and growth plans',
-      'Filter by assignee, priority, source, and date range',
+      'One lens for leads and pipeline, not two lists',
+      'A deal timeline showing how the pursuit actually got here',
+      'New → contacted → qualified → proposal → negotiating → won/lost',
+      'Earnest flags what has gone quiet, with a drafted next move',
     ],
   },
   {
@@ -289,6 +338,20 @@ export const features: Feature[] = [
       'Lives as a tab in People and as a companion PWA',
       'Follow-up tracking and reminders',
       'Gamified networking with XP and badges',
+    ],
+  },
+  {
+    name: 'Booking page & My Card',
+    slug: 'booking-page',
+    icon: 'i-lucide-calendar-clock',
+    pillar: 'people',
+    desc: 'A public page that is both your profile and your scheduler: your CardDesk business card beside your real availability, so someone can read who you are and take a slot in the same breath. Booked meetings land on your calendar and turn into tasks. The page is signed by both wordmarks — yours, and Earnest small at the bottom.',
+    keywords: ['booking page', 'scheduler', 'public profile', 'business card', 'availability'],
+    benefits: [
+      'Profile and scheduler on one public page, at your own slug',
+      'Carries your CardDesk card — save-contact included',
+      'Booked meetings become calendar events and tasks',
+      'Signed by your studio first, Earnest second',
     ],
   },
   {
@@ -335,6 +398,35 @@ export const features: Feature[] = [
       'Earnest Notices flag overdue and off-track work up top',
       'Push/pop slide-over panels with iOS-style spring animations',
       'URL-bound stack — every slide-over is shareable and deep-linkable',
+    ],
+  },
+  {
+    name: 'Creative Approvals',
+    slug: 'creative-approvals',
+    icon: 'i-lucide-clipboard-check',
+    pillar: 'work',
+    desc: 'A board of work, out with a client at its own link. They open it with no login and no account, and mark each piece approved or ask for a change — with the note pinned to the artwork it is about. Rounds stack up and nothing is ever erased, so six weeks later you can still see who said what and when. The Approvals floor is a triage list grouped by who owes the next move, including when that is you. Included on every plan today.',
+    keywords: ['creative approvals', 'client approval', 'proofing', 'design review', 'markup', 'sign-off'],
+    benefits: [
+      'A client link that needs no login and no seat',
+      'Item-by-item approve or request-a-change, with pinned notes',
+      'Rounds with un-erasable history — the whole trail survives',
+      '@-mention someone into a thread without giving them a seat',
+      'Triaged by who owes the next move — including you',
+    ],
+  },
+  {
+    name: 'QuickSend',
+    slug: 'quicksend',
+    icon: 'i-lucide-send',
+    pillar: 'work',
+    desc: 'Send work for approval in one press. Pick the files, pick who is approving, send — Earnest assembles the board, generates the client link and puts it in front of them, without you building a board first. The same door works for a content plan.',
+    keywords: ['quicksend', 'send for approval', 'one press', 'client review'],
+    benefits: [
+      'From files to a client link in one press',
+      'No board to assemble first — it is built for you',
+      'Works for content plans as well as files',
+      'Everything it sends lands on the Approvals floor like any board',
     ],
   },
   {
@@ -524,6 +616,34 @@ export const features: Feature[] = [
     ],
   },
   {
+    name: 'Pitch pages',
+    slug: 'pitch-pages',
+    icon: 'i-lucide-sparkles',
+    pillar: 'money',
+    desc: 'A pitch as its own page rather than an attachment, drafted with Earnest from what it already knows about the client. Share it as a link and the analytics behind that link — who opened it, how far they read, how many times they came back — sit behind a gate you control.',
+    keywords: ['pitch page', 'proposal page', 'share link analytics', 'sales collateral'],
+    benefits: [
+      'A pitch that is a page, not a PDF nobody opens',
+      'Drafted from the client context Earnest already holds',
+      'Share-link analytics: opened, read depth, return visits',
+      'Analytics gated — you decide who sees the numbers',
+    ],
+  },
+  {
+    name: 'Retainers → invoices',
+    slug: 'retainer-to-invoice',
+    icon: 'i-lucide-repeat',
+    pillar: 'money',
+    desc: 'A retainer that rolls into an invoice on its own schedule, with the hours logged against it already attached. Overage is visible before it becomes an awkward conversation, and the invoice is drafted rather than sent — like everything else that touches money, it waits for your tap.',
+    keywords: ['retainer', 'recurring invoice', 'time tracking', 'overage', 'billing'],
+    benefits: [
+      'Retainers become invoices on schedule, with hours attached',
+      'Overage surfaced before the conversation, not after',
+      'The invoice is drafted — sending it is still your call',
+      'Reconciles against Stripe payments as they land',
+    ],
+  },
+  {
     name: 'Pursuit Tracking',
     slug: 'pursuit-pipeline',
     icon: 'i-lucide-flame',
@@ -598,43 +718,16 @@ export const features: Feature[] = [
   {
     name: 'Content Studio',
     slug: 'social-ai-generate',
-    icon: 'i-lucide-sparkles',
+    icon: 'i-lucide-palette',
     pillar: 'marketing',
-    desc: 'Draft, schedule, get client approval through the portal, and auto-publish to Instagram, LinkedIn, Facebook, TikTok, and Threads. AI generates platform-optimized posts, hashtags, and image suggestions — all informed by your brand direction and target audience — in seconds.',
-    keywords: ['social media management', 'content studio', 'AI content generation', 'social scheduling'],
+    desc: 'Social posts and campaign emails share one studio — what is drafted, what is out for review, and what is planned next, in the order it happens. Three lenses look at the same content: River is the timeline, Approval groups by who owes the next move, Upcoming is what is dated ahead. Start from an example rather than an empty box, let Earnest draft in your brand voice, and send a whole batch to a client as one approval board. Emails can be test-sent to yourself first. ⚠️ Publishing straight to Instagram, LinkedIn, Facebook, TikTok and Threads is coming soon — today the studio takes it as far as approved and queued.',
+    keywords: ['content studio', 'social media planning', 'AI content generation', 'content calendar', 'campaign email'],
     benefits: [
-      'Draft, schedule, approve, and auto-publish across every channel',
-      'AI generates platform-optimized content in seconds',
-      'Hashtag and image suggestions included',
-      'Client approval through the portal before anything publishes',
-    ],
-  },
-  {
-    name: 'Social Inbox',
-    slug: 'social-inbox',
-    icon: 'i-lucide-inbox',
-    pillar: 'marketing',
-    desc: 'A unified inbox for DMs, comment replies, and mentions across Facebook, Instagram, and Threads. One queue, per-platform filter, archived/active views — reply directly from the thread without bouncing between native apps.',
-    keywords: ['social inbox', 'social DMs', 'Instagram DMs', 'community management'],
-    benefits: [
-      'DMs, replies, and mentions unified in a single queue',
-      'Filter by platform and active vs. archived',
-      'Reply inline from the thread view — no platform switching',
-      'Archive resolved threads to keep your queue focused',
-    ],
-  },
-  {
-    name: 'Social Analytics',
-    slug: 'social-analytics',
-    icon: 'i-lucide-trending-up',
-    pillar: 'marketing',
-    desc: 'Followers, reach, impressions, and engagement-rate trends per account or rolled up across every connected platform. Filter by client, pick a 7/14/30/90-day window, and see your top-performing posts surfaced automatically.',
-    keywords: ['social analytics', 'engagement rate', 'follower growth', 'top posts'],
-    benefits: [
-      'Followers, reach, impressions, and engagement-rate over time',
-      'Filter by client or roll up every connected account',
-      '7, 14, 30, or 90-day windows with daily breakdowns',
-      'Top-performing posts surfaced automatically',
+      'Posts and campaign emails in one place, on one timeline',
+      'River, Approval and Upcoming — three lenses, same content',
+      'A whole batch becomes one client approval board',
+      'Test-send an email to yourself before anyone else sees it',
+      'Publishing to the networks is coming soon — the send is still yours',
     ],
   },
   {
@@ -685,7 +778,7 @@ export const features: Feature[] = [
     name: 'Channels',
     slug: 'channels',
     icon: 'i-lucide-messages-square',
-    pillar: 'org',
+    pillar: 'chat',
     desc: 'A comms hub built for the work — a top-level app on the Earnest rail. Channels is a two-pane messenger: a roster of channels on one side, the conversation on the other, with unread read-state that keeps up as your team talks. Every channel attaches to the projects and clients it’s about, so context lives with the work instead of someone else’s inbox.',
     keywords: ['channels', 'team chat', 'messaging', 'comms', 'slack alternative'],
     benefits: [
@@ -699,7 +792,7 @@ export const features: Feature[] = [
     name: 'Teams & Members',
     slug: 'team-channels',
     icon: 'i-lucide-users-2',
-    pillar: 'org',
+    pillar: 'chat',
     desc: 'Invite members, build teams, and assign clients per team so access is scoped to the people who should see it. Teams organize who works on what; the Channels app keeps their conversations attached to that work.',
     keywords: ['teams', 'members', 'roles', 'access', 'permissions'],
     benefits: [
@@ -751,33 +844,47 @@ export const features: Feature[] = [
       'Purchase additional token packages as needed',
     ],
   },
+  {
+    name: 'Files & storage',
+    slug: 'files-and-storage',
+    icon: 'i-lucide-folder',
+    pillar: 'org',
+    desc: 'A files floor inside your organization rather than a separate drive to keep in sync — folders per client and per project, with the documents Earnest generates landing where they belong. 25 GB on Solo, 100 GB on Studio, 500 GB on Agency, and extra storage available in 100 GB steps.',
+    keywords: ['files', 'file storage', 'document management', 'folders', 'cloud storage'],
+    benefits: [
+      'A floor of Organization, not a second app to keep in sync',
+      'Folders per client and per project, created as you go',
+      '25 / 100 / 500 GB by plan, with 100 GB add-ons',
+      'Generated documents land in the right folder on their own',
+    ],
+  },
 
   // ─────────────────────────  AI  ─────────────────────────
   {
-    name: 'Earnest, everywhere',
-    slug: 'contextual-ai-sidebar',
-    icon: 'i-lucide-message-square-more',
-    pillar: 'ai',
-    desc: 'There’s one Earnest, and it’s a tap away from every screen — a real language model that already sees the client, project, invoice, or lead in front of you. It pulls in the context that matters — past conversations, open tasks, billing history — and answers like a colleague who knows the account, not a blank-slate chatbot. The same conversation follows you from screen to screen. Save any answer as a note. No tab-switching, no re-explaining.',
-    keywords: ['ai sidebar', 'contextual chat', 'entity ai', 'ask earnest', 'ai notes', 'llm'],
+    name: 'Focus — one door to Earnest',
+    slug: 'focus',
+    icon: 'i-lucide-door-open',
+    pillar: 'earnest',
+    desc: 'The header is three controls: search, your avatar, and “E.” — the door. It opens Focus full screen, and the chips it offers first are ranked for whatever you were just looking at, so asking from a project opens on that project. There is no docked sidebar any more; there is one door, and it already knows where you are standing. It greets you the same way every time: “I’m here. No rush. What’s the honest version of how things are right now?”',
+    keywords: ['focus mode', 'ask earnest', 'ai assistant', 'contextual ai', 'llm', 'one door'],
     benefits: [
-      'One Earnest — a tap away from any screen, always in context',
-      'The same conversation follows you from screen to screen',
-      'Smart prompt suggestions adapt to the record type',
-      'Save any answer as a note directly on the record',
+      'One control opens Focus full screen, from any screen',
+      'Opening chips ranked for the record you were looking at',
+      'Three faces: Reflect to think, Work beside a project, Mirror to look back',
+      'An autonomy ring on the door shows what Earnest may do on its own',
     ],
   },
   {
-    name: 'The Director’s Office',
-    slug: 'director-mode',
+    name: 'The Boardroom',
+    slug: 'boardroom',
     icon: 'i-lucide-presentation',
-    pillar: 'ai',
-    desc: 'The same Earnest, sized up to a full boardroom. Convene the board and Earnest presents your whole business as a live briefing deck: a read across People, Work, Money and Marketing, each slide ending in a decision already drafted in your voice. Bring your team in live to walk it together, and every session is saved to meeting minutes you can reopen.',
-    keywords: ['director’s office', 'ai operator', 'ai boardroom', 'business briefing', 'ai agent'],
+    pillar: 'chat',
+    desc: 'The same Earnest, sized up to a full room. Convene the board and it presents your whole organization as a live briefing: a read across People, Work, Money and Marketing, each slide ending in a decision already drafted against real numbers. Bring your team in to walk it together, and every session is saved to meeting minutes you can reopen.',
+    keywords: ['boardroom', 'ai briefing', 'business review', 'multiplayer strategy', 'meeting minutes'],
     benefits: [
       'A live, presented briefing across every app',
-      'Every slide ends in a decision, drafted and ready',
-      'Convene the board with your team — live and multiplayer',
+      'Every slide ends in a decision, drafted against real numbers',
+      'Convene the room with your team — live and multiplayer',
       'Saved to meeting minutes you can reopen anytime',
     ],
   },
@@ -854,31 +961,31 @@ export const features: Feature[] = [
 
   // ─────────────────────────  DESIGN / SHELL / MOBILE  ─────────────────────────
   {
-    name: 'Seven-App Shell',
+    name: 'The shell',
     slug: 'apps-layout',
     icon: 'i-lucide-layout-grid',
-    pillar: 'design',
-    desc: 'A unified shell — circular gradient app chips on a floating rail, a glass top chrome, and pill-segmented floor strips inside each app. Move between Home, People, Work, Money, Marketing, Org, and Me without losing context. A MINE / ALL toggle flips between your work and the whole organization.',
-    keywords: ['app layout', 'app rail', 'navigation', 'unified shell', 'app chips', 'seven apps'],
+    pillar: 'looks',
+    desc: 'One shell over the whole app: six circular chips on a floating rail — Dashboard, People, Work, Chat, Money, Mktg — with the Boardroom in its own footer group, and pill-segmented floor strips inside each app. The top chrome is deliberately three controls and nothing else: search, the “E.” door with its autonomy ring, and your avatar. Organization and Account live in the avatar menu rather than taking rail space; Files is a floor of Organization.',
+    keywords: ['app shell', 'app rail', 'navigation', 'unified shell', 'app chips'],
     benefits: [
-      'Seven apps on a floating rail: Home, People, Work, Money, Mktg, Org, Me',
-      'Glass top chrome with universal search, notifications, and the Earnest launcher',
+      'Six app chips on a floating rail, plus the Boardroom',
+      'A three-control header — search, the Earnest door, your avatar',
       'Pill-segmented floor strips for in-app navigation',
-      'MINE / ALL scope toggle and rail position you can configure',
+      'Rail position and MINE / ALL scope both configurable',
     ],
   },
   {
-    name: 'Appearance & Palettes',
+    name: 'Looks, type & contrast',
     slug: 'appearance-palettes',
-    icon: 'i-lucide-paintbrush',
-    pillar: 'design',
-    desc: 'Make Earnest yours. Choose an app palette — Fresh, Aurora, or Neutral — toggle Glass chrome to frost every chip and button, and turn on Palette tint to wash the rail in a four-step gradient sampled from your palette (especially rich in dark mode). One control panel, every surface restyled.',
-    keywords: ['appearance', 'palettes', 'theming', 'glass chrome', 'palette tint', 'dark mode'],
+    icon: 'i-lucide-swatch-book',
+    pillar: 'looks',
+    desc: 'Three looks, and they are real redesigns rather than a colour swap. Glass is translucent surfaces and soft light. Paper is ink on linen — an editorial Didone, hairline rules, tracked caps. Clean is white on white, layered light, condensed caps and exactly one signal blue. Type (Sans, Condensed, Handwritten), colour (Default or Mono), an extra-contrast mode and the animated background each move on their own axis, and every combination is checked against a 210-pair contrast ratchet so no look can ship a stripe you cannot read.',
+    keywords: ['appearance', 'looks', 'themes', 'glass', 'paper', 'clean', 'dark mode', 'accessibility contrast'],
     benefits: [
-      'Selectable app palettes: Fresh, Aurora, Neutral',
-      'Glass chrome toggle frosts chips, buttons, and chrome',
-      'Palette tint washes the rail in a four-step gradient',
-      'App names on/off and a rich dark mode',
+      'Glass, Paper and Clean — three genuinely different designs',
+      'Type, colour and contrast on their own independent axes',
+      'A 210-pair contrast ratchet checks every combination',
+      'Animated background on or off, and a rich dark mode throughout',
     ],
   },
   {
@@ -923,20 +1030,6 @@ export const features: Feature[] = [
       'Glowing "now" indicator anchors past vs. future',
     ],
   },
-  {
-    name: 'Earnest Companion (E²)',
-    slug: 'earnest-companion',
-    icon: 'i-lucide-smartphone',
-    pillar: 'design',
-    desc: 'Your business in your pocket. Tasks, messages, contacts, CardDesk, and the Earnest assistant on the go — a mobile-first companion that installs to your home screen and keeps you connected to everything in Earnest.',
-    keywords: ['mobile app', 'companion app', 'mobile CRM', 'business on the go'],
-    benefits: [
-      'Tasks, messages, contacts, and AI on mobile',
-      'CardDesk scanning built in',
-      'Installs to your home screen as a real app',
-      'Stay connected to your whole business anywhere',
-    ],
-  },
 ];
 
 export function getFeatureBySlug(slug: string): Feature | undefined {
@@ -957,62 +1050,95 @@ export function getRelatedFeatures(slug: string, count = 3): Feature[] {
 }
 
 /**
- * Slugs captured by scripts/capture-demo-screenshots.ts in the `earnest` app
- * repo. The capture script writes each to
- * public/screenshots/<YYYY-MM>/<shot>.png AND public/screenshots/latest/<shot>.png.
- * The `latest/` mirror is what the site reads from, so it always shows the most
- * recent capture regardless of month. NOTE (2026-06 revamp): the app moved to a
- * 7-app shell (Home/People/Work/Money/Mktg/Org/Me). Re-run the capture script to
- * refresh these — new slugs `account-appearance`, `marketing-pulse`, and
- * `money-cashflow` cover screens that did not exist before.
+ * Slugs captured by `scripts/capture-demo-screenshots.ts` in the `earnest` app
+ * repo. The script writes each to `public/screenshots/<YYYY-MM>/<shot>.png` AND
+ * `public/screenshots/latest/<shot>.png`; the site only ever reads `latest/`,
+ * so it always shows the most recent capture regardless of month.
+ *
+ * ⚠️ Adding a slug here does NOT create a screenshot. Add the shot to `SHOTS`
+ * in the capture script first, run it, and confirm the PNG landed — a slug with
+ * no file behind it renders as a broken frame with nothing in the build to
+ * catch it. The Verification section of the refresh plan has a grep for this.
+ *
+ * ⚠️ RETIRED 2026-09, and deliberately absent from this union: `presence-home`,
+ * `command-center`, `ai-sidebar`, `social-inbox`, `social-analytics`,
+ * `apps-rail`, `account-appearance`, `marketing-pulse`, `money-cashflow`. The
+ * first six shot surfaces the app no longer has; the last three were declared
+ * here for a re-capture that never happened and never had files behind them.
+ *
+ * The six PNGs are still ON DISK on purpose. The archived sell sheets
+ * (`SellSheet{Modern,Glass,Director,Automation,Live}.vue`, all at noindex
+ * routes) still render them, and deleting the files would swap a stale claim
+ * for a broken image — which is worse. Dropping them from this union is what
+ * stops anything NEW from pointing at them; the capture script no longer
+ * refreshes them either.
  */
 export type DemoShot =
-  // HOME / WORK / PEOPLE
-  | 'command-center'
-  | 'leads-pipeline'
+  // HOME — the default home, its lenses and its Looks
+  | 'home-v2'
+  | 'home-v2-money'
+  | 'home-v2-creative'
+  | 'home-v2-projects'
+  | 'home-v2-arrange'
+  | 'home-v2-paper'
+  | 'home-v2-clean'
+  | 'money-paper'
+  | 'appearance-panel'
+  // EARNEST — the one door
+  | 'focus-takeover'
+  | 'focus-working'
+  | 'focus-mirror'
+  | 'ai-actions'
+  // THE SHELL
+  | 'shell-dock'
+  // PEOPLE
+  | 'people-dashboard'
   | 'contact-detail'
   | 'client-detail'
+  | 'client-workspace'
+  | 'carddesk'
+  | 'client-portal'
+  | 'booking-page'
+  | 'pursuits-lens'
+  | 'leads-pipeline'
+  // WORK
   | 'project-timeline'
+  | 'project-workspace'
+  | 'project-documents'
   | 'tickets-kanban'
-  | 'financials-overview'
-  | 'people-dashboard'
-  | 'scheduler-day'
   | 'quick-tasks'
   | 'time-tracker'
+  | 'scheduler-day'
+  | 'approvals-floor'
+  | 'approvals-board'
+  | 'approvals-quicksend'
+  // MONEY
+  | 'financials-overview'
+  | 'revenue-certainty'
+  | 'proposal-pipeline'
+  | 'pursuit-lead'
+  | 'pursuit-reapproach'
   | 'proposals-composer'
   | 'proposals-preview'
   | 'contracts-list'
   | 'contracts-signed'
-  | 'ai-sidebar'
-  | 'ai-actions'
-  | 'apps-rail'
-  | 'client-workspace'
-  | 'project-workspace'
-  | 'project-documents'
-  | 'carddesk'
-  // MARKETING / ORG (admin)
+  | 'pitch-page'
+  // MARKETING
   | 'marketing-overview'
   | 'marketing-recommendations'
-  | 'social-inbox'
-  | 'social-analytics'
+  | 'studio-river'
+  | 'studio-upcoming'
+  // CHAT + BOARDROOM
+  | 'channels-home'
+  | 'director-presentation'
+  | 'director-slides'
+  // ORG (admin)
   | 'organization-overview'
   | 'organization-teams'
   | 'organization-branding'
   | 'team-detail'
   | 'documents-library'
-  // New screens in the 2026-06 revamp (re-capture to populate)
-  | 'account-appearance'
-  | 'marketing-pulse'
-  | 'money-cashflow'
-  // Director's Office + Channels (2026-07)
-  | 'director-presentation'
-  | 'director-slides'
-  | 'channels-home'
-  // Money Pipeline + Pursuit tracking (2026-07)
-  | 'revenue-certainty'
-  | 'proposal-pipeline'
-  | 'pursuit-lead'
-  | 'pursuit-reapproach';
+  | 'files-floor';
 
 interface DemoMapping {
   /** Path under `https://app.earnest.guru` to deep-link the "Try this live" CTA to. */
@@ -1027,75 +1153,88 @@ interface DemoMapping {
   persona?: 'solo' | 'agency';
 }
 
-const DEFAULT_DEMO: DemoMapping = { path: '/', shot: 'command-center' };
+const DEFAULT_DEMO: DemoMapping = { path: '/', shot: 'home-v2' };
 
 /**
- * Per-feature demo mapping for the revamped 7-app shell. Features without a
- * dedicated screen fall back to the Command Center, the broadest single-page
- * view the Member-role demo user can see.
+ * Per-feature demo mapping. `path` deep-links the "Try this live" CTA into the
+ * running app; `shot` is the still shown on the feature page.
+ *
+ * ⚠️ Query-param names differ per app and are easy to get wrong: People uses
+ * `?view=`, while Work, Money, Marketing and Organization use `?floor=`. A
+ * wrong one silently lands on the app's default floor, which looks like the
+ * feature does not exist.
+ *
+ * Features with no dedicated screen fall back to `DEFAULT_DEMO` — the home,
+ * which is the broadest single view the Member-role demo user can see.
  */
 const FEATURE_DEMO_MAP: Record<string, DemoMapping> = {
   // HOME
-  'productivity-engine': { path: '/', shot: 'command-center' },
-  'earnest-score': { path: '/account', shot: 'command-center' },
-  'goal-suggestions': { path: '/', shot: 'command-center' },
-  'health-snapshots': { path: '/', shot: 'command-center' },
+  'productivity-engine': { path: '/', shot: 'home-v2' },
+  'home-lenses': { path: '/', shot: 'home-v2-money' },
+  'earnest-score': { path: '/account?section=score', shot: 'home-v2' },
+  'goal-suggestions': { path: '/account?section=goals', shot: 'home-v2' },
+  'daily-digest': { path: '/account?section=notifications', shot: 'home-v2' },
+  'spotlight-search': { path: '/', shot: 'shell-dock' },
   // PEOPLE
   'people-and-companies': { path: '/apps/clients', shot: 'people-dashboard' },
-  'crm-intelligence': { path: '/apps/clients?tab=leads', shot: 'leads-pipeline' },
-  'people-intelligence': { path: '/apps/clients?tab=intelligence', shot: 'people-dashboard' },
-  'carddesk': { path: '/apps/clients?tab=carddesk', shot: 'carddesk' },
-  'client-portal': { path: '/', shot: 'client-workspace' },
-  'client-access-control': { path: '/apps/organization', shot: 'organization-teams', persona: 'agency' },
+  'crm-intelligence': { path: '/apps/clients?view=pursuits', shot: 'pursuits-lens', persona: 'agency' },
+  'people-intelligence': { path: '/apps/clients?view=intelligence', shot: 'people-dashboard' },
+  'carddesk': { path: '/apps/clients?view=carddesk', shot: 'carddesk' },
+  'booking-page': { path: '/account?section=profile', shot: 'booking-page', persona: 'agency' },
+  'client-portal': { path: '/portal', shot: 'client-portal', persona: 'agency' },
+  'client-access-control': { path: '/apps/organization?floor=teams', shot: 'organization-teams', persona: 'agency' },
   // WORK
   'workspaces': { path: '/apps/work', shot: 'project-workspace' },
+  'creative-approvals': { path: '/apps/work?floor=approvals', shot: 'approvals-board', persona: 'agency' },
+  'quicksend': { path: '/apps/work?floor=approvals', shot: 'approvals-quicksend', persona: 'agency' },
   'project-management': { path: '/apps/work', shot: 'project-workspace' },
   'quick-tasks-and-ai-to-dos': { path: '/apps/work?floor=tasks', shot: 'quick-tasks' },
   'calendar-and-crm-hub': { path: '/apps/work?floor=calendar', shot: 'scheduler-day' },
   'meeting-ai-recap': { path: '/apps/work?floor=meetings', shot: 'scheduler-day' },
   'phone-and-video': { path: '/apps/work?floor=meetings', shot: 'scheduler-day' },
   'retainer-content-studio': { path: '/apps/work?floor=time', shot: 'time-tracker' },
-  'service-offerings': { path: '/apps/organization', shot: 'documents-library', persona: 'agency' },
+  'service-offerings': { path: '/apps/organization?floor=settings', shot: 'documents-library', persona: 'agency' },
   // MONEY
   'cash-flow-ar-aging': { path: '/apps/money', shot: 'financials-overview' },
   'invoicing-and-billing': { path: '/apps/money?floor=invoices', shot: 'financials-overview' },
   'accept-payments': { path: '/apps/money?floor=payments', shot: 'financials-overview' },
   'bank-sync': { path: '/apps/money?floor=expenses', shot: 'financials-overview' },
+  'retainer-to-invoice': { path: '/apps/money?floor=invoices', shot: 'financials-overview' },
   'proposals-and-contracts': { path: '/apps/money?floor=documents', shot: 'proposals-preview' },
   'money-pipeline': { path: '/apps/money?floor=insights', shot: 'revenue-certainty', persona: 'agency' },
+  'pitch-pages': { path: '/pitches', shot: 'pitch-page', persona: 'agency' },
   'pursuit-pipeline': { path: '/apps/money?floor=pipeline', shot: 'proposal-pipeline', persona: 'agency' },
-  'ai-pursuit-strategist': { path: '/leads', shot: 'pursuit-reapproach', persona: 'agency' },
-  'document-blocks': { path: '/apps/organization', shot: 'documents-library', persona: 'agency' },
-  'document-themes': { path: '/apps/organization', shot: 'organization-branding', persona: 'agency' },
+  'ai-pursuit-strategist': { path: '/apps/clients?view=pursuits', shot: 'pursuit-reapproach', persona: 'agency' },
+  'document-blocks': { path: '/apps/organization?floor=settings', shot: 'documents-library', persona: 'agency' },
+  'document-themes': { path: '/apps/organization?floor=branding', shot: 'organization-branding', persona: 'agency' },
   // MARKETING
   'marketing-ai-analyze': { path: '/apps/marketing', shot: 'marketing-overview', persona: 'agency' },
   'marketing-recommendations': { path: '/apps/marketing', shot: 'marketing-recommendations', persona: 'agency' },
-  'social-ai-generate': { path: '/apps/marketing?floor=studio', shot: 'marketing-overview', persona: 'agency' },
-  'social-inbox': { path: '/apps/marketing?floor=inbox', shot: 'social-inbox', persona: 'agency' },
-  'social-analytics': { path: '/apps/marketing?floor=analytics', shot: 'social-analytics', persona: 'agency' },
-  'email-marketing-ai': { path: '/apps/marketing?floor=email', shot: 'marketing-overview', persona: 'agency' },
-  'brand-awareness-ai': { path: '/apps/organization', shot: 'organization-branding', persona: 'agency' },
+  'social-ai-generate': { path: '/apps/marketing?floor=studio&view=calendar', shot: 'studio-river', persona: 'agency' },
+  'email-marketing-ai': { path: '/apps/marketing?floor=email', shot: 'studio-upcoming', persona: 'agency' },
+  'brand-awareness-ai': { path: '/apps/organization?floor=branding', shot: 'organization-branding', persona: 'agency' },
+  // CHAT + BOARDROOM
+  channels: { path: '/apps/channels', shot: 'channels-home', persona: 'agency' },
+  'team-channels': { path: '/apps/organization?floor=teams', shot: 'organization-teams', persona: 'agency' },
+  boardroom: { path: '/boardroom', shot: 'director-presentation' },
   // ORG
   'brand-strategy': { path: '/apps/organization', shot: 'organization-overview', persona: 'agency' },
-  channels: { path: '/apps/channels', shot: 'channels-home', persona: 'agency' },
-  'team-channels': { path: '/apps/organization?tab=teams', shot: 'organization-teams', persona: 'agency' },
-  'whitelabel': { path: '/apps/organization', shot: 'organization-branding', persona: 'agency' },
-  'branded-email': { path: '/apps/organization', shot: 'organization-branding', persona: 'agency' },
-  'ai-token-management': { path: '/apps/organization', shot: 'organization-overview', persona: 'agency' },
-  // AI
-  'contextual-ai-sidebar': { path: '/apps/clients', shot: 'ai-sidebar' },
-  'director-mode': { path: '/director', shot: 'director-presentation' },
+  'files-and-storage': { path: '/apps/organization?floor=files', shot: 'files-floor', persona: 'agency' },
+  whitelabel: { path: '/apps/organization?floor=branding', shot: 'organization-branding', persona: 'agency' },
+  'branded-email': { path: '/apps/organization?floor=branding', shot: 'organization-branding', persona: 'agency' },
+  'ai-token-management': { path: '/apps/organization?floor=ai', shot: 'organization-overview', persona: 'agency' },
+  // EARNEST — the one door
+  focus: { path: '/', shot: 'focus-takeover' },
   'ai-actions': { path: '/apps/work', shot: 'ai-actions' },
-  'ai-strategy-engine': { path: '/', shot: 'ai-sidebar' },
+  'ai-strategy-engine': { path: '/', shot: 'focus-mirror' },
   'ai-proposal-drafter': { path: '/apps/money?floor=documents', shot: 'proposals-composer' },
-  'ai-token-transparency': { path: '/account', shot: 'command-center' },
-  // DESIGN / SHELL / MOBILE
-  'apps-layout': { path: '/apps/work', shot: 'apps-rail' },
-  'appearance-palettes': { path: '/account', shot: 'apps-rail' },
+  'ai-token-transparency': { path: '/apps/organization?floor=ai', shot: 'organization-overview', persona: 'agency' },
+  // LOOKS + SHELL
+  'apps-layout': { path: '/apps/work', shot: 'shell-dock' },
+  'appearance-palettes': { path: '/account?section=appearance', shot: 'appearance-panel' },
   'native-ios-navigation': { path: '/apps/clients', shot: 'client-workspace' },
-  'liquid-glass-system': { path: '/apps/work', shot: 'apps-rail' },
+  'liquid-glass-system': { path: '/', shot: 'home-v2' },
   'river-timeline': { path: '/apps/work?floor=tasks', shot: 'project-workspace' },
-  'earnest-companion': { path: '/', shot: 'command-center' },
 };
 
 export function getFeatureDemo(slug: string): DemoMapping {

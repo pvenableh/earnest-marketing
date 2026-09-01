@@ -1,3 +1,14 @@
+<script setup lang="ts">
+// The app's own public pages sign themselves with both wordmarks; the footer
+// here is the pattern they follow, so it carries the two links a visitor who
+// has scrolled this far is actually looking for — try it, or get back in.
+const config = useRuntimeConfig();
+const appUrl = (config.public.appUrl as string) || 'https://app.earnest.guru';
+const demoUrl = `${appUrl}/try-demo?persona=solo`;
+// ⚠️ `/auth/signin`, not `/login` — the app has no `/login` route.
+const signInUrl = `${appUrl}/auth/signin`;
+</script>
+
 <template>
   <footer class="site-footer">
     <div class="site-footer-inner">
@@ -10,6 +21,8 @@
         <nuxt-link to="/blog">Blog</nuxt-link>
         <nuxt-link to="/privacy-policy">Privacy</nuxt-link>
         <nuxt-link to="/terms-of-service">Terms</nuxt-link>
+        <a :href="demoUrl">Live demo</a>
+        <a :href="signInUrl">Sign in</a>
       </div>
       <p class="site-footer-copy">&copy; {{ new Date().getFullYear() }} Earnest. All rights reserved.</p>
     </div>

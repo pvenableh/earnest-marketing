@@ -32,8 +32,14 @@ export default defineNuxtConfig({
         { rel: 'apple-touch-icon', href: '/icon-152x152.png', sizes: '152x152' },
         { rel: 'apple-touch-icon', href: '/icon-192x192.png', sizes: '192x192' },
         { rel: 'manifest', href: '/site.webmanifest' },
-        { rel: 'preload', as: 'font', type: 'font/woff2', href: '/_nuxt/assets/css/fonts/proxima-nova-regular.woff2', crossorigin: '' },
-        { rel: 'preload', as: 'font', type: 'font/woff2', href: '/_nuxt/assets/css/fonts/bauer-bodoni-roman.woff2', crossorigin: '' },
+        // ⚠️ NO font preloads here. Two used to sit at
+        // `/_nuxt/assets/css/fonts/<name>.woff2`, which is the SOURCE path —
+        // Vite emits these hashed (`/_nuxt/proxima-nova-regular.7V0hsHkj.woff2`),
+        // so both hints 404'd on every page while the fonts they were meant to
+        // warm still loaded late off the stylesheet. A hint that cannot be
+        // written correctly from static config is worse than none: it costs two
+        // requests and buys nothing. Every face is `font-display: swap` in
+        // main.css, so text paints immediately either way.
       ],
       script: [
         { src: 'https://www.googletagmanager.com/gtag/js?id=G-F8K2L0D8BG', async: true },
@@ -77,7 +83,46 @@ export default defineNuxtConfig({
 
   nitro: {
     prerender: {
-      routes: ['/privacy-policy', '/terms-of-service', '/features', '/blog', '/classic', '/next', '/director', '/automation', ...featureRoutes],
+      // `/` and the feature pages are the live site. The archived landings
+      // (/classic, /glass, /next, /director, /automation, /live-2026-07) are
+      // deliberately NOT prerendered: they are noindex, nothing links to them,
+      // and prerendering six full sell sheets on every build to serve nobody is
+      // pure build time. The static host falls back to the SPA shell for them,
+      // so the routes still resolve for anyone holding an old link.
+      routes: ['/privacy-policy', '/terms-of-service', '/features', '/blog', ...featureRoutes],
     },
+  },
+
+  // ⚠️ @nuxtjs/sitemap builds its index from the routes it can discover and
+  // does NOT read the `robots` meta tag, so a `noindex` page still lands in
+  // sitemap.xml unless it is excluded here. Every archived landing is listed.
+  sitemap: {
+    exclude: [
+      '/classic',
+      '/glass',
+      '/next',
+      '/director',
+      '/automation',
+      '/live-2026-07',
+      '/meeting-follow-up',
+    ],
+  },
+
+  routeRules: {
+    // Feature slugs that changed identity in the 2026-09 refresh. The surfaces
+    // behind them were renamed rather than removed, so these are permanent
+    // redirects to the page that now covers the same ground.
+    '/features/contextual-ai-sidebar': { redirect: { to: '/features/focus', statusCode: 301 } },
+    '/features/director-mode': { redirect: { to: '/features/boardroom', statusCode: 301 } },
+    // Retired outright — the app no longer has these surfaces. Each points at
+    // the nearest thing that is actually true today rather than 404-ing a URL
+    // that may still be linked from an old post.
+    '/features/health-snapshots': { redirect: { to: '/features/productivity-engine', statusCode: 301 } },
+    '/features/social-inbox': { redirect: { to: '/features/social-ai-generate', statusCode: 301 } },
+    '/features/social-analytics': { redirect: { to: '/features/social-ai-generate', statusCode: 301 } },
+    '/features/earnest-companion': { redirect: { to: '/features/apps-layout', statusCode: 301 } },
+    // The preview route the new landing was built at before it was promoted.
+    '/next-home': { redirect: { to: '/', statusCode: 301 } },
+    '/next-glass': { redirect: { to: '/', statusCode: 301 } },
   },
 });

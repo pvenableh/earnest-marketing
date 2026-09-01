@@ -42,7 +42,8 @@ const websiteUrl = 'https://huestudios.com';
 					{{ businessName }} ("we," "our," or "us") operates Earnest, a business management platform that helps
 					agencies, studios, freelancers, and small businesses run their operations in one place — including customer
 					relationships (CRM), projects and tasks, invoicing and payments, proposals and contracts, marketing, and an
-					AI assistant (the "Director's Office") that reads across your workspace to draft and automate work. This
+					AI assistant ("Earnest", including the board-level briefing we call "the Boardroom") that reads across your
+					workspace to draft and automate work. This
 					Privacy Policy explains how we collect, use, disclose, and safeguard information when you use Earnest.
 				</p>
 				<p>

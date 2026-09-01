@@ -89,7 +89,9 @@ onUnmounted(() => {
       </nuxt-link>
 
       <div class="site-nav-side site-nav-right">
-        <a href="#pricing" class="site-nav-link">Pricing</a>
+        <!-- `#pricing` only exists on the landing, so off-home this was a dead
+             anchor that scrolled nowhere. `/#pricing` navigates home first. -->
+        <nuxt-link to="/#pricing" class="site-nav-link">Pricing</nuxt-link>
         <a :href="appUrl + '/auth/signin'" class="site-nav-signin">Sign In</a>
       </div>
     </div>

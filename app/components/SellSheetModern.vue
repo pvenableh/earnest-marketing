@@ -561,8 +561,12 @@ const featureGroups = pillarOrder
 	.map((key) => ({ key, meta: pillarMeta[key], items: getFeaturesByPillar(key) }))
 	.filter((g) => g.items.length > 0);
 const expandedFeatureSlug = ref('');
-// Map a pillar key to its gradient app-chip class (design pillar = the "Me" app).
-const chipClass = (k) => 'e-chip-' + (k === 'design' ? 'me' : k);
+// Map a pillar key to its gradient app-chip class. This page is ARCHIVED at a
+// noindex route and is kept only so the old landing still builds — the pillar
+// keys it reads by literal string moved in the 2026-09 refresh (`design` →
+// `looks`, `ai` → `earnest`), and these two lines are the whole reason a rename
+// in features.ts can break a page nobody links to any more.
+const chipClass = (k) => 'e-chip-' + (k === 'looks' ? 'me' : k === 'earnest' ? 'ai' : k);
 
 // ── Hero app chips (the seven rail apps) ──
 // App-rail chips rendered as the real Neutral default: frosted-glass discs
@@ -575,7 +579,7 @@ const heroChips = [
 	{ key: 'money', label: 'Money', icon: 'i-lucide-trending-up', tint: '#1681aa' },
 	{ key: 'marketing', label: 'Mktg', icon: 'i-lucide-megaphone', tint: '#1a7299' },
 	{ key: 'org', label: 'Org', icon: 'i-lucide-building-2', tint: '#235377' },
-	{ key: 'design', label: 'Me', icon: 'i-lucide-circle-user', tint: '#274366' },
+	{ key: 'looks', label: 'Me', icon: 'i-lucide-circle-user', tint: '#274366' },
 ];
 
 // ── Showcase rows (alternating) ──

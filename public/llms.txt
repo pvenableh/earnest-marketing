@@ -1,46 +1,119 @@
 # Earnest
 
-> The AI-powered business operating system for creative agencies and service businesses.
+> One home for a creative studio — clients, projects, invoices, proposals, client approvals and content in one place, with an AI that reads across all of it and drafts the day with you.
 
-Earnest replaces the pile of disconnected tools — CRM, project management, invoicing, social media, email marketing, calendaring, team chat, phone, video, and AI intelligence — with one unified platform.
+Earnest replaces the pile of disconnected tools — CRM, project management, invoicing, proposals and contracts, client approvals, scheduling, team chat, content planning — with one workspace. It runs on a real large language model (Anthropic's Claude, under no-training terms) grounded in your own organization rather than a blank prompt.
 
-## Key Information
+## Key information
 
 - Website: https://earnest.guru
 - App: https://app.earnest.guru
-- Pricing: Solo ($49/mo), Studio ($149/mo), Agency ($299/mo)
-- Every plan includes every feature. No feature gates.
+- Pricing: Solo $49/mo, Studio $149/mo, Agency $299/mo — priced per workspace, not per action
+- Every feature is on every plan. Plans differ by capacity only: seats, AI tokens, file storage, card scans, client-portal seats.
+- Free trial: 14 days, no card required.
+
+## How it works
+
+- The home sorts the day into three piles: Decide (drafted by Earnest, waiting on you), Do (one tap each), Know (nothing required, but worth knowing).
+- Four lenses re-rank that same home: Everything, Money, Creative, Projects.
+- One door: a single control in the header opens Earnest full screen, with its opening suggestions already ranked for whatever you were looking at.
+- Three looks: Glass, Paper (ink on linen) and Clean (white on white, one signal blue). They are real redesigns, not colour swaps.
+- Nothing reaches a client and no money moves without an explicit human tap.
+
+## What Earnest does not do
+
+Stated plainly, because the rest of this file is a sales document and this part is not:
+
+- Publishing directly to Instagram, LinkedIn, Facebook, TikTok or Threads is NOT available yet — it is coming soon. Earnest drafts content, plans it, and gets it approved by the client today; a person still performs the send.
+- There is no unified social inbox and no social-media analytics.
+- Creative Approvals is included on every plan today at no extra charge.
 
 ## Features
 
-- Productivity Engine: AI-powered command center that prioritizes your daily actions
-- CRM Intelligence: Health scores, pipeline forecasts, and growth plans from your real data
-- Health Snapshots: Instant business health scores — zero AI tokens required
-- Marketing AI Analyze: One-click marketing health assessment with campaign plans
-- AI Strategy Engine: Cross-module AI that generates campaigns and spots opportunities
-- Brand Awareness AI: Per-client brand voice and positioning across all AI features
-- Social AI Generate: Schedule to Instagram, LinkedIn, Facebook, Threads with AI content
-- Email Marketing AI: Block-based newsletter builder with AI-generated content
-- Goal Suggestions: AI-suggested strategic goals based on your business data
-- Project Management: Kanban boards, task lists, timelines, and project dashboards
-- People & Companies: Unified CRM for clients, contacts, prospects, and networking
-- Quick Tasks & AI To-Dos: Personal task lists with AI suggestions and scheduling
-- AI Token Management: Per-member AI usage budgets and monitoring
-- Client Access Control: Role-based visibility with team assignments
-- Invoicing & Billing: Stripe-powered invoices, proposals, and payment tracking
-- Team Channels: Slack-style messaging built into your workspace
-- Phone & Video: Twilio calling and Daily.co video linked to your CRM
-- Calendar & CRM Hub: Calendar-first scheduling with Google/Outlook sync and booking pages
-- CardDesk: AI-powered business card scanning with gamified networking
-- Earnest Companion: Mobile-first companion app for business on the go
+### Home
+
+- Home — Decide, Do, Know: Your home opens on a greeting with an honest read of the day — “22 things today — 5 need a decision, 13 are one tap each, 4 are just worth knowing” — then sorts everything into three piles
+- Lenses & the ambient field: One home, four ways of reading it
+- Earnest Score: The Earnest Score tracks six dimensions of performance — follow-through, consistency, responsiveness, proactivity, depth, and CRM activity — and distills them into a single daily score with a team leaderboard
+- Daily digest & web push: One honest summary a day — what moved, what is waiting on you, what went quiet — and a web push only when something genuinely cannot wait for it
+- Spotlight search: One keystroke over every record you have — clients, contacts, projects, tasks, tickets, invoices, proposals, files and messages — with the result opening in place rather than navigating you somewhere and losing your context
+- Learning goals: Set what you are making time to get better at, and Earnest keeps it in front of you with a one-tap timer on the home
+
+### Earnest — the one door
+
+- Focus — one door to Earnest: The header is three controls: search, your avatar, and “E.” — the door
+
+### People
+
+- People & Companies: Clients, contacts, leads, and networking connections in one People app
+- Pursuits: Leads and pipeline merged into one lens on the People app
+- People Intelligence: An Intelligence tab right inside People
+- CardDesk: Turn every business card and networking event into a CRM relationship
+- Booking page & My Card: A public page that is both your profile and your scheduler: your CardDesk business card beside your real availability, so someone can read who you are and take a slot in the same breath
+- Client Portal: Give every client their own login to see exactly what you choose — projects, tickets, invoices, proposals, contracts, social content, and marketing — under their own brand-matched experience
+- Access Control: Role-based client visibility with team assignments and individual overrides
+
+### Work
+
+- Workspaces: Every client and project gets a full workspace with parity tabs — Overview, Conversations, Tasks, Tickets, Time, Documents, Billing, Activity
+- Creative Approvals: A board of work, out with a client at its own link
+- QuickSend: Send work for approval in one press
+- Project Management: Kanban boards, task lists, a timeline, tickets, file attachments, and a command-center project dashboard with stats, documents, billing, and activity feeds
+- Quick Tasks & AI To-Dos: Personal task lists with AI-powered suggestions, day and week scheduling, motivational progress tracking, and confetti celebrations
+- Calendar & Scheduling: Calendar-first scheduling with meetings, follow-ups, and lead touchpoints on one view
+- Meetings & AI Recap: Every Earnest meeting room auto-records and transcribes live the moment the host joins — and the same Earnest is right there in the room, following the conversation as it happens
+- Phone & Video: Twilio-powered calling and Daily.co video meetings linked to your CRM pipeline
+- Time Tracking & Retainers: Track time against any project and run hourly retainers as first-class projects with a live hour-pool meter on every entry
+- Service Offerings: A per-org library of the services you actually sell — name, color, base price, deliverables, scope tree, and timeline
+
+### Money
+
+- Cash Flow & AR Aging: The Money app opens on cash flow: outstanding, overdue, billed-this-month, and collected — with a true AR aging bar (not-yet-due, 1–30, 31–60, 61–90, 90+)
+- Invoicing & Billing: Send branded, themed invoices with rich line items — descriptions formatted with Tiptap, time-block tables pulled from your tracker, manual payment recording for cash/check/ACH, and automatic Stripe Connect processing for online payments
+- Accept Payments: Stripe Connect Standard powers payment acceptance — your customers pay you direct, Earnest never touches the funds
+- Expenses & Bank Sync: Connect your business bank and credit-card accounts via Plaid and Earnest pulls transactions in automatically
+- Proposals & Contracts: Build proposals and contracts from a reusable block library — bios, terms, pricing, deliverables, NDAs — and ship them as official, branded documents
+- Money Pipeline: See exactly where every dollar is — banked, owed, and still out there
+- Pitch pages: A pitch as its own page rather than an attachment, drafted with Earnest from what it already knows about the client
+- Retainers → invoices: A retainer that rolls into an invoice on its own schedule, with the hours logged against it already attached
+- Pursuit Tracking: Track every pitch through its whole life — including the ones that go cold or get rejected
+- Reusable Document Blocks: A per-org library of reusable blocks — bio, references, deliverables, terms, NDA, case studies — that compose into proposals and contracts via a drag-and-drop composer
+- Document Themes: Pick one theme on the org settings page and every invoice, proposal, and contract picks it up — including the PDF export and public payment + signing pages
+
+### Marketing
+
+- Marketing Pulse: The Marketing app opens on a Pulse: a marketing health score plus posts, email subscribers, social reach, and contacts at a glance
+- Marketing Recommendations: Earnest watches your CRM, social, and email for signals — new leads, lapsed contacts, milestone moments — and proposes ready-to-send marketing touches as a feed of campaign cards
+- Content Studio: Social posts and campaign emails share one studio — what is drafted, what is out for review, and what is planned next, in the order it happens
+- Email Marketing AI: Block-based newsletter builder with AI-powered content generation
+- Brand Awareness AI: Set brand direction, goals, target audience, and location per client
+
+### Chat & the Boardroom
+
+- Channels: A comms hub built for the work — a top-level app on the Earnest rail
+- Teams & Members: Invite members, build teams, and assign clients per team so access is scoped to the people who should see it
+- The Boardroom: The same Earnest, sized up to a full room
+
+### Organization
+
+- Brand & Strategy: Your organization profile holds brand direction, goals, target audience, and location — the strategic context Earnest reads everywhere
+- Whitelabel: A single org-level toggle hides "Powered by Earnest." across every client-facing surface — proposals, contracts, invoices, public sign pages, and the portal
+- Branded Email: Send transactional and marketing email from your own brand shell
+- AI Token Management: Admins control AI usage per member — set monthly budgets, toggle access on and off, and monitor usage across the team
+- Files & storage: A files floor inside your organization rather than a separate drive to keep in sync — folders per client and per project, with the documents Earnest generates landing where they belong
+
+### Looks & the shell
+
+- The shell: One shell over the whole app: six circular chips on a floating rail — Dashboard, People, Work, Chat, Money, Mktg — with the Boardroom in its own footer group, and pill-segmented floor strips inside each app
+- Looks, type & contrast: Three looks, and they are real redesigns rather than a colour swap
 
 ## Pages
 
 - Home: https://earnest.guru
 - Features: https://earnest.guru/features
 - Blog: https://earnest.guru/blog
-- Privacy Policy: https://earnest.guru/privacy-policy
-- Terms of Service: https://earnest.guru/terms-of-service
+- Privacy policy: https://earnest.guru/privacy-policy
+- Terms of service: https://earnest.guru/terms-of-service
 
 ## Contact
 
