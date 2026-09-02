@@ -19,11 +19,14 @@
  *   · Creative Approvals is "included on every plan today". It has an intended
  *     $19/mo price and no Stripe price id, so it is free for every org. Do not
  *     print a price for something nobody is charged.
- *   · Personal Brand is COMING SOON and is not purchasable. It is defined in
- *     `EARNEST_ADDONS` with `stripePriceId: null` and deliberately left out of
- *     `ALWAYS_INCLUDED_ADDONS`, so the gate is real and nobody has it. The app
- *     renders it as a dimmed row with NO PRICE — do the same here. The
- *     intended $19/mo is not a price anyone can pay yet.
+ *   · Personal Brand is BUILT BUT NOT ON SALE — a distinction worth keeping
+ *     straight. Phase 1 shipped (the profile editor, "apply to card & booking
+ *     page", Earnest drafting the profile), so it is not vapour. But
+ *     `personal_brand` still has `stripePriceId: null`, is deliberately out of
+ *     `ALWAYS_INCLUDED_ADDONS`, and `requireAddon` 402s anyone not entitled by
+ *     script — so nobody can buy it and almost nobody has it. The app renders a
+ *     dimmed "Coming soon" row with NO PRICE; do the same here. The intended
+ *     $19/mo is not a price anyone can pay.
  *   · Capacity numbers mirror `EARNEST_PLANS` in the app's `server/utils/
  *     stripe.ts`. If they move there, they move here.
  */
@@ -84,9 +87,9 @@ export const faqs: Faq[] = [
 	},
 	{
 		q: 'Can Earnest write in my own voice, not just my studio’s?',
-		a: 'That is <strong>Personal Brand</strong>, and it is coming soon rather than live. Earnest already works from your <em>studio’s</em> brand direction and audience. Personal Brand adds the layer above it: your own positioning and voice, written once, sitting on your business card and your booking page, and used when the Content Studio drafts posts in your name. It is defined and gated in the app today and you will see it listed as coming soon — nobody is charged for it, and nothing about it is switched on yet.',
+		a: 'Earnest already works from your <em>studio’s</em> brand direction and audience. <strong>Personal Brand</strong> is the layer above that — your own positioning, voice, audience and proof points, written once (Earnest drafts the first pass from what it already knows about you), then applied to your business card and your booking page in one press, and used when the Content Studio drafts in your name. <strong>It is built, but it is not on sale yet</strong>: you will see it in the app listed as coming soon, with no price, and nobody is being charged for it.',
 		aText:
-			'That is Personal Brand, and it is coming soon rather than live. Earnest already works from your studio’s brand direction and audience. Personal Brand adds the layer above it: your own positioning and voice, written once, sitting on your business card and your booking page, and used when the Content Studio drafts posts in your name. It is defined and gated in the app today and you will see it listed as coming soon — nobody is charged for it, and nothing about it is switched on yet.',
+			'Earnest already works from your studio’s brand direction and audience. Personal Brand is the layer above that — your own positioning, voice, audience and proof points, written once (Earnest drafts the first pass from what it already knows about you), then applied to your business card and your booking page in one press, and used when the Content Studio drafts in your name. It is built, but it is not on sale yet: you will see it in the app listed as coming soon, with no price, and nobody is being charged for it.',
 	},
 	{
 		q: 'Can I change how it looks?',
@@ -303,10 +306,13 @@ export interface MoreCard {
 	title: string;
 	desc: string;
 	/**
-	 * Renders a "Coming soon" tag and dims the card. ⚠️ Reserved for things the
-	 * app itself advertises as coming soon — it is a promise with a date-shaped
-	 * hole in it, and one that turns out to be already-shipped-elsewhere or
-	 * never-shipped costs more trust than leaving the card out entirely.
+	 * Renders a "Coming soon" tag and dims the card.
+	 *
+	 * ⚠️ Reserved for exactly what the app ITSELF advertises as coming soon.
+	 * The site must never be the first place a promise is made. Note this can
+	 * mean "built but not purchasable" (Personal Brand) as much as "not built
+	 * yet" (publishing) — from a buyer's side both are "I cannot have this
+	 * today", which is the only distinction the tag needs to carry.
 	 */
 	soon?: boolean;
 }
@@ -365,7 +371,7 @@ export const moreCards: MoreCard[] = [
 		icon: 'i-lucide-id-card',
 		title: 'Personal Brand',
 		soon: true,
-		desc: 'Your own positioning and voice — on your card, on your booking page, and in the posts the Studio drafts in your name. Defined and gated in the app today; not switched on, and not charged for.',
+		desc: 'Your own positioning, voice and proof points — written once, applied to your business card and booking page in one press, and used when the Studio drafts in your name. Built and in the app; not on sale yet, and not charged for.',
 	},
 	{
 		icon: 'i-lucide-bell',

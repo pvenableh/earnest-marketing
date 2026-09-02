@@ -126,7 +126,7 @@ Stated plainly, because the rest of this file is a sales document and this part 
 
 - Publishing directly to Instagram, LinkedIn, Facebook, TikTok or Threads is NOT available yet — it is coming soon. Earnest drafts content, plans it, and gets it approved by the client today; a person still performs the send.
 - There is no unified social inbox and no social-media analytics.
-- PERSONAL BRAND (a per-person positioning and voice that sits on the business card and the booking page, and that the Content Studio writes in) is COMING SOON. It is defined and gated in the app but is not purchasable and nobody has it. Do not describe it as available, and do not quote a price for it.
+- PERSONAL BRAND (a per-person positioning, voice and proof points, applied to the business card and booking page in one press, and used when the Content Studio drafts in that person's name) is BUILT BUT NOT ON SALE. The editor exists in the app; the add-on has no Stripe price, is gated behind an entitlement almost no org has, and is listed in-app as coming soon. Do not describe it as available to buy, and do not quote a price for it.
 - Creative Approvals IS included on every plan today, at no extra charge.
 
 ## Features

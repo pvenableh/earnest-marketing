@@ -355,8 +355,8 @@
 				<h2 class="e-h2" data-anim="rise">And everything else <span class="g-accent-text">it does</span><span class="e-dot">.</span></h2>
 				<p class="e-section-sub" data-anim="rise">
 					Six sections cannot hold it all. Everything below is on every plan — no add-ons for the features, no
-					meter on the actions — except the one card marked <em>coming soon</em>, which is not switched on yet
-					and is not charged for.
+					meter on the actions — except the one card marked <em>coming soon</em>, which is built but not on
+					sale yet, and is not charged for.
 				</p>
 			</div>
 
@@ -440,8 +440,8 @@
 					more AI tokens available if you run out
 					<br />
 					<span class="l-addons-soon">
-						<UIcon name="i-lucide-clock" /> Coming soon, not yet purchasable: <strong>Personal Brand</strong>
-						(your own positioning and voice, on your card and in your posts) and
+						<UIcon name="i-lucide-clock" /> Not on sale yet: <strong>Personal Brand</strong> (your own
+						positioning and voice, on your card and in your posts — built, but not yet purchasable) and
 						<strong>publishing straight to the social networks</strong>.
 					</span>
 				</p>
