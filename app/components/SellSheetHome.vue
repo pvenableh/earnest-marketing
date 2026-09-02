@@ -316,20 +316,40 @@
 							<UIcon name="i-lucide-check" class="l-arg-check" />
 							<span>Approval boards open at their own link — no portal seat required for a yes.</span>
 						</li>
+						<li>
+							<UIcon name="i-lucide-check" class="l-arg-check" />
+							<span>Your booking page shows real availability beside your card, so a stranger can read who you are and take a slot in one visit.</span>
+						</li>
 					</ul>
 				</div>
-				<figure class="l-arg-shot">
-					<div class="e-frame g-lift">
-						<div class="e-frame-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
-						<img
-							:src="shot('client-portal')"
-							alt="Earnest — the branded, white-label client portal"
-							loading="lazy"
-							decoding="async"
-							class="e-frame-img"
-						/>
-					</div>
-				</figure>
+				<!-- Two shots, because this section makes two claims: the portal a
+				     client logs into, and the page a stranger lands on. -->
+				<div class="l-arg-pair">
+					<figure class="l-arg-shot l-arg-shot--back">
+						<div class="e-frame g-lift">
+							<div class="e-frame-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+							<img
+								:src="shot('client-portal')"
+								alt="Earnest — the branded, white-label client portal"
+								loading="lazy"
+								decoding="async"
+								class="e-frame-img"
+							/>
+						</div>
+					</figure>
+					<figure class="l-arg-shot l-arg-shot--front">
+						<div class="e-frame g-lift">
+							<div class="e-frame-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+							<img
+								:src="shot('booking-page')"
+								alt="Earnest — a public booking page carrying the host's own card"
+								loading="lazy"
+								decoding="async"
+								class="e-frame-img"
+							/>
+						</div>
+					</figure>
+				</div>
 			</div>
 		</section>
 

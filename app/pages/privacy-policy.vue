@@ -94,7 +94,10 @@ const websiteUrl = 'https://huestudios.com';
 				</ul>
 
 				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">2.2 Information From Integrations</h3>
-				<p>When you connect a third-party account (for example, a social media, calendar, bank, or payment service):</p>
+				<p>
+					When you connect a third-party account (for example, a calendar, bank, payment, or social media
+					service):
+				</p>
 				<ul class="list-disc pl-6 space-y-2">
 					<li>
 						<strong>Profile &amp; Account Identifiers:</strong>
@@ -107,8 +110,16 @@ const websiteUrl = 'https://huestudios.com';
 					</li>
 					<li>
 						<strong>Service Data:</strong>
-						Data returned by the connected service that is needed to power the feature you enabled — for example,
-						social analytics (followers, reach, engagement) or financial transactions.
+						Data returned by the connected service that is needed to power the feature you enabled, and nothing
+						beyond it — for example, calendar events and availability from Google or Outlook, and payment and
+						payout records from Stripe.
+					</li>
+					<li>
+						<strong>Social media metrics:</strong>
+						Earnest is built to read follower, reach, impression and engagement figures for social accounts you
+						connect, but that collection is <strong>currently switched off</strong> and no such figures are being
+						gathered. If we turn it on, it will apply only to accounts you have connected yourself, and only for
+						as long as they stay connected.
 					</li>
 				</ul>
 
