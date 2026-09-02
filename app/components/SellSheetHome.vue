@@ -1,5 +1,5 @@
 <template>
-	<div class="e-page g-page" :data-look="look">
+	<div class="e-page g-page" :data-look="look" :data-palette="effectivePalette" :data-style="effectiveType">
 		<!-- ─── Nav ─── -->
 		<nav class="e-nav" :class="{ 'e-nav-scrolled': navScrolled }">
 			<nuxt-link to="/" class="e-nav-brand">
@@ -13,6 +13,29 @@
 				<a href="#faq" class="e-nav-link">FAQ</a>
 			</div>
 			<div class="e-nav-right">
+				<!-- The appearance control, reachable from anywhere on the page —
+				     the same one the Looks section opens out in full, sharing its
+				     state through `useLandingAppearance`. A visitor who wants to
+				     see Paper should not have to scroll to a section to find it. -->
+				<div ref="apRef" class="e-ap-wrap">
+					<button
+						type="button"
+						class="e-theme-toggle g-press"
+						:class="{ 'e-theme-toggle--on': apOpen }"
+						aria-label="Appearance"
+						:aria-expanded="apOpen"
+						@click="apOpen = !apOpen"
+					>
+						<UIcon name="i-lucide-swatch-book" />
+					</button>
+					<Transition name="e-ap-pop">
+						<div v-if="apOpen" class="e-ap-pop g-glass">
+							<p class="e-ap-pop-head">Appearance</p>
+							<LandingAppearance variant="compact" />
+							<p class="e-ap-pop-foot">The whole page wears it — same axes the app gives you.</p>
+						</div>
+					</Transition>
+				</div>
 				<button
 					type="button"
 					class="e-theme-toggle g-press"
@@ -33,8 +56,6 @@
 			<ClientOnly>
 				<LandingWaveField :tint="heroTint" />
 			</ClientOnly>
-			<span class="l-hero-veil" aria-hidden="true"></span>
-
 			<span class="g-eyebrow opacity-0"><span class="g-eyebrow-dot"></span> Clients · Projects · Invoices · Approvals · Content</span>
 			<h1 class="e-hero-wordmark l-hero-head opacity-0">
 				Your whole studio<span class="e-hero-period">.</span><br />And <span class="g-accent-text">what it needs from you today</span><span class="e-hero-period">.</span>
@@ -53,11 +74,12 @@
 				<span class="l-hero-note">14-day trial, no card · Solo $49/mo · every feature on every plan</span>
 			</div>
 
-			<!-- The lenses, working: the pills swap the shot, re-tint the field
-			     behind the hero, and show the line Earnest writes under the
+			<!-- The lenses, working, over a home that is BUILT rather than
+			     photographed: the pills re-rank the coded home, re-tint the field
+			     behind it, and let Earnest write its own line under its own
 			     greeting. `.e-dock` keeps useGlassMotion's intro stagger. -->
 			<div class="opacity-0 e-hero-shot" style="width: 100%">
-				<LandingLensDemo :look="look" @tint="onTint" />
+				<LandingLensDemo @tint="onTint" />
 			</div>
 		</header>
 
@@ -360,11 +382,12 @@
 				<h2 class="e-h2" data-anim="rise">Three looks<span class="e-dot">.</span> <span class="g-accent-text">One Earnest</span><span class="e-dot">.</span></h2>
 				<p class="e-section-sub" data-anim="rise">
 					Not a colour swap. Each look changes the type, the surfaces and the weight of every rule in the app —
-					and your work looks the same underneath all three.
+					and your work looks the same underneath all three. Here is the panel itself: move any axis and this
+					page moves with it, hero and all.
 				</p>
 			</div>
 			<div data-anim="scale">
-				<LandingLooks @look="onLook" />
+				<LandingLooks />
 			</div>
 		</section>
 
@@ -543,23 +566,40 @@
  * screenshots were taken from, on the same day. If a claim cannot point at one
  * of those two, it does not belong on the page.
  *
- * The Looks section restyles THE WHOLE PAGE rather than a swatch: the app's
- * three looks are real redesigns, and a screenshot carousel is the one medium
- * that cannot show that. `data-look` on the root is the whole mechanism; the
- * skins are token overrides in sellsheet-home.css.
+ * THE APPEARANCE PANEL IS REAL, AND IT DRIVES THIS PAGE. The app's looks are
+ * redesigns rather than colour swaps, and a screenshot carousel is the one
+ * medium that cannot show that — so the page hands over the app's own control
+ * instead. `data-look`, `data-palette` and `data-style` on this root are the
+ * whole mechanism (the same three attributes the app writes on <html>), the
+ * skins are token overrides in sellsheet-home.css, and `useLandingAppearance`
+ * owns the choice so the nav popover and the panel in the Looks section are
+ * one control. It also owns the rule that keeps this from exploding: a LOOK is
+ * not an axis — Paper and Clean bring their own palette, and Paper brings its
+ * own display face.
+ *
+ * THE HOME IN THE HERO IS MARKUP, not a capture (`Landing/HomeMock.vue`), for
+ * the reason above: a PNG is frozen in the look, palette, type and mode it was
+ * taken in, so the moment a visitor chose Paper the page was arguing its own
+ * central claim with a Glass app sitting in the middle of it. It also carries
+ * no browser chrome and floats straight on the wave field — the field is the
+ * app's own ambient ground, and a window frame between the two turns a product
+ * into a picture of one. The real captures stay on the page, in the Looks
+ * section, as the receipt.
  *
  * Structure and chrome are deliberately the archived SellSheetLive's — the
  * `.e-*` base, the glass tiers, `useGlassMotion`'s hero timeline and scroll
- * reveals. What is new is the wave field behind the hero (a port of the app's
- * own ambient background), the lens demo standing in for the retired app dock,
- * the drawn autonomy ring, and the looks switcher.
+ * reveals. What is new is the full-bleed wave field behind the hero (a port of
+ * the app's own ambient background), the coded home and the lens demo standing
+ * in for the retired app dock, the drawn autonomy ring, and the appearance
+ * panel.
  */
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import '~/assets/css/sellsheet-modern.css';
 import '~/assets/css/sellsheet-glass.css';
 import '~/assets/css/sellsheet-glass-sections.css';
 import '~/assets/css/sellsheet-home.css';
 import { useGlassMotion } from '~/composables/useGlassMotion';
+import { useLandingAppearance } from '~/composables/useLandingAppearance';
 import { faqs, plans, compareRows, marqueeItems, moreCards } from '~/data/landing';
 import { getScreenshotSrc } from '~/data/features';
 
@@ -580,17 +620,23 @@ function onTint(hue) {
 	heroTint.value = hue;
 }
 
-// Which Look the whole page is wearing. `data-look` on the root drives the
-// skins in sellsheet-home.css — Glass is the app's default, so it is ours,
-// and the attribute is only meaningful once the visitor has chosen otherwise.
-//
-// Deliberately NOT persisted. This is a demonstration inside one section of a
-// sales page: a visitor who tried Paper once and came back a week later to a
-// landing they did not recognise would reasonably think the site was broken.
-// The app persists the choice, because there it IS a preference.
-const look = ref('glass');
-function onLook(key) {
-	look.value = key;
+// What the whole page is wearing. `data-look`, `data-palette` and `data-style`
+// on the root drive the skins in sellsheet-home.css — the same three
+// attributes the app writes on <html>, carrying the same four axes. The
+// composable owns the state (and the rule that a look pins some of it), so the
+// nav popover and the panel in the Looks section are one control.
+const { look, effectivePalette, effectiveType, isDark, toggleTheme } = useLandingAppearance();
+
+// The nav popover. Closed on an outside click and on Escape — it is a menu
+// over a page the visitor is reading, not a mode they have to leave.
+const apOpen = ref(false);
+const apRef = ref(null);
+function onDocPointer(e) {
+	if (!apOpen.value || !apRef.value || apRef.value.contains(e.target)) return;
+	apOpen.value = false;
+}
+function onKey(e) {
+	if (e.key === 'Escape') apOpen.value = false;
 }
 
 const carouselRef = ref(null);
@@ -610,23 +656,20 @@ function onScroll() {
 	navScrolled.value = window.scrollY > 40;
 }
 
-// DARK by default — it matches the app and the field behind the hero.
-const colorMode = useColorMode({ initialValue: 'dark', storageKey: 'earnest-mkt-theme' });
-const isDark = computed(() => colorMode.value === 'dark');
-function toggleTheme() {
-	colorMode.value = isDark.value ? 'light' : 'dark';
-}
-
 // Motion engine — hero intro, scroll reveals, counters, parallax.
 const { initMotion, revertMotion } = useGlassMotion();
 
 onMounted(() => {
 	window.addEventListener('scroll', onScroll, { passive: true });
+	document.addEventListener('pointerdown', onDocPointer);
+	window.addEventListener('keydown', onKey);
 	onScroll();
 	initMotion();
 });
 onUnmounted(() => {
 	window.removeEventListener('scroll', onScroll);
+	document.removeEventListener('pointerdown', onDocPointer);
+	window.removeEventListener('keydown', onKey);
 	revertMotion();
 });
 // Head/SEO is set by the host page.
@@ -662,5 +705,68 @@ onUnmounted(() => {
 .e-theme-toggle :deep([class*='iconify']) {
 	width: 17px;
 	height: 17px;
+}
+.e-theme-toggle--on {
+	color: #fff;
+	background: var(--g-accent);
+}
+.e-theme-toggle--on:hover {
+	color: #fff;
+	background: var(--g-accent);
+}
+
+/* ── The nav's appearance popover ──
+   Anchored to its own button rather than the nav, so it stays put when the
+   nav's right-hand group changes width (it does: the CTA label is longer in
+   Clean's uppercase). */
+.e-ap-wrap {
+	position: relative;
+	display: flex;
+}
+.e-ap-pop {
+	position: absolute;
+	top: calc(100% + 12px);
+	right: 0;
+	z-index: 40;
+	width: min(340px, calc(100vw - 32px));
+	padding: 16px 18px 14px;
+	border-radius: 18px;
+	text-align: left;
+}
+.e-ap-pop-head {
+	margin: 0 0 12px;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--g-ink-3);
+}
+.e-ap-pop-foot {
+	margin: 14px 0 0;
+	padding-top: 12px;
+	border-top: 1px solid var(--g-line);
+	font-size: 12px;
+	line-height: 1.5;
+	color: var(--g-ink-3);
+}
+.e-ap-pop-enter-active,
+.e-ap-pop-leave-active {
+	transition: opacity 0.2s ease, transform 0.24s var(--spring);
+}
+.e-ap-pop-enter-from,
+.e-ap-pop-leave-to {
+	opacity: 0;
+	transform: translateY(-8px) scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.e-ap-pop-enter-active,
+	.e-ap-pop-leave-active {
+		transition: none;
+	}
+	.e-ap-pop-enter-from,
+	.e-ap-pop-leave-to {
+		transform: none;
+	}
 }
 </style>

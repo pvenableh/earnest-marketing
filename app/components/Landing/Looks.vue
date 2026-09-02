@@ -1,16 +1,22 @@
 <!--
-  LandingLooks — three looks, one Earnest.
+  LandingLooks — the appearance system, and the receipt for it.
 
   The looks are not a colour swap, and a page that argued that with a
   screenshot carousel would be making the claim in the one medium that cannot
-  show it. So this control does not restyle a card — it restyles THE WHOLE
-  PAGE. Picking Paper or Clean puts `data-look` on the landing's root and the
-  nav, headings, cards, buttons, rules and the hero's own wave field all
-  change with it. The skins live in `sellsheet-home.css`; this component owns
-  only the choice.
+  show it. So this section does not restyle a card — it hands over the app's
+  own Appearance panel and restyles THE WHOLE PAGE. Look, palette, type and
+  mode all write attributes on the landing's root, and the nav, headings,
+  cards, buttons, rules, the hero's wave field and the coded home standing in
+  front of it all change with them. The skins live in `sellsheet-home.css`;
+  `useLandingAppearance` owns the choice, so the nav popover and this panel are
+  the same control.
 
-  The screenshot inside the card swaps at the same time, so the app on screen
-  and the page around it are always wearing the same look.
+  ⚠️ THE SCREENSHOT IS STILL HERE, AND IT HAS A JOB. Everything else on this
+  page is now drawn by us, which is exactly the kind of claim a buyer should
+  want evidence for. This is the evidence: a real capture of the real app in
+  the selected look, taken on 2026-09-01, sitting directly under a page
+  wearing the same look. If the drawing and the photograph ever disagree, the
+  photograph is right and the page is wrong.
 
   ⚠️ FONT NOTE. `--font-bauer-bodoni` is remapped to Proxima in `main.css`, so
   Paper names 'Bauer Bodoni Pro_1 W05 Roman' directly — going through the token
@@ -20,37 +26,19 @@
   makes Clean recognisable, and tracked-out Proxima is not them.
 -->
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import { looks } from '~/data/landing';
 import { getScreenshotSrc } from '~/data/features';
+import { useLandingAppearance } from '~/composables/useLandingAppearance';
 
-const emit = defineEmits<{ (e: 'look', key: string): void }>();
-
-const active = ref(0);
-const current = computed(() => looks[active.value]!);
-
-function pick(i: number) {
-	if (i === active.value) return;
-	active.value = i;
-	emit('look', looks[i]!.key);
-}
+const { look } = useLandingAppearance();
+const current = computed(() => looks.find((l) => l.key === look.value) ?? looks[0]!);
 </script>
 
 <template>
 	<div class="l-looks">
-		<div class="l-looks-switch" role="tablist" aria-label="Looks">
-			<button
-				v-for="(l, i) in looks"
-				:key="l.key"
-				type="button"
-				role="tab"
-				class="l-looks-tab"
-				:class="{ 'l-looks-tab--on': i === active }"
-				:aria-selected="i === active"
-				@click="pick(i)"
-			>
-				{{ l.label }}
-			</button>
+		<div class="l-looks-panel g-glass">
+			<LandingAppearance variant="panel" />
 		</div>
 
 		<figure class="l-looks-card g-glass">
@@ -68,15 +56,18 @@ function pick(i: number) {
 				</Transition>
 			</div>
 			<figcaption class="l-looks-cap">
-				<span class="l-looks-name">{{ current.label }}</span>
-				<span class="l-looks-blurb">{{ current.blurb }}</span>
+				<span class="l-looks-name">{{ current.label }} — the capture</span>
+				<span class="l-looks-blurb">
+					The app itself, photographed on 2026-09-01. The home at the top of this page is the same screen in
+					markup, which is why it turns with the page and this one does not.
+				</span>
 			</figcaption>
 		</figure>
 
 		<p class="l-looks-fine">
-			<strong>This page is wearing it too</strong> — pick one and the whole thing changes, the same way the app
-			does. Type, colour and an extra-contrast mode move on their own axes in the app, and every combination is
-			checked against a 210-pair contrast ratchet, so no look can ship a stripe you cannot read.
+			<strong>This page is wearing your picks</strong> — look, palette, type and mode, the same four axes the app
+			gives you, with the same limits: a look brings its own palette, and Paper brings its own display face. Every
+			combination is checked against a 210-pair contrast ratchet, so no look can ship a stripe you cannot read.
 		</p>
 	</div>
 </template>
@@ -86,35 +77,16 @@ function pick(i: number) {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 22px;
+	gap: 26px;
 	width: 100%;
 }
 
-.l-looks-switch {
-	display: inline-flex;
-	gap: 4px;
-	padding: 5px;
-	border-radius: 999px;
-	background: var(--g-accent-soft);
-	border: 1px solid var(--g-line);
-}
-.l-looks-tab {
-	padding: 8px 20px;
-	border: 0;
-	border-radius: 999px;
-	background: transparent;
-	color: var(--g-ink-2);
-	font: inherit;
-	font-size: 13.5px;
-	font-weight: 600;
-	cursor: pointer;
-	transition:
-		background 0.4s cubic-bezier(0.36, 0.66, 0.04, 1),
-		color 0.4s cubic-bezier(0.36, 0.66, 0.04, 1);
-}
-.l-looks-tab--on {
-	color: #fff;
-	background: var(--g-accent);
+.l-looks-panel {
+	width: 100%;
+	max-width: 980px;
+	padding: 22px clamp(18px, 3vw, 30px);
+	border-radius: 22px;
+	transition: border-radius 0.45s cubic-bezier(0.36, 0.66, 0.04, 1), background 0.45s ease, border-color 0.45s ease;
 }
 
 .l-looks-card {
@@ -165,7 +137,7 @@ function pick(i: number) {
    like a preview widget rather than the page's own control. */
 
 .l-looks-fine {
-	max-width: 44rem;
+	max-width: 46rem;
 	margin: 0;
 	text-align: center;
 	font-size: 13.5px;

@@ -223,17 +223,12 @@ export interface Lens {
 	icon: string;
 	/** HSL triple — mirrors the app's own lens tints in useHomeV2Layout.ts. */
 	hue: string | null;
-	shot: string;
-	/**
-	 * The same lens captured in the other two Looks, where such a capture
-	 * exists. Only Everything has all three — it is the lens the page opens
-	 * on, so it is the one a visitor sees after switching the page's look,
-	 * and a Clean page showing a Glass app is the mismatch worth spending
-	 * two extra captures to avoid. The other lenses fall back to `shot`.
-	 */
-	shotByLook?: Record<string, string>;
 	line: string | null;
 	note: string;
+	/** Which stat tiles the lens leaves standing, in order — keys of `mockStats`. */
+	stats: string[];
+	/** Which rail widgets it leaves standing — keys of `mockWidgets`. */
+	widgets: string[];
 }
 
 export const lenses: Lens[] = [
@@ -242,10 +237,10 @@ export const lenses: Lens[] = [
 		label: 'Everything',
 		icon: 'i-lucide-layout-grid',
 		hue: null,
-		shot: 'home-v2',
-		shotByLook: { glass: 'home-v2', paper: 'home-v2-paper', clean: 'home-v2-clean' },
 		line: null,
 		note: 'Everything you arranged, in full.',
+		stats: ['score', 'unpaid', 'pipeline', 'unread', 'learning'],
+		widgets: ['outstanding', 'pipeline', 'content'],
 	},
 	{
 		key: 'money',
@@ -253,9 +248,10 @@ export const lenses: Lens[] = [
 		icon: 'i-lucide-banknote',
 		// var(--success) in the app.
 		hue: '142 72% 46%',
-		shot: 'home-v2-money',
 		line: 'Money lens on. $12k is out, $12k of it past 90 days. $286k in play across 12 open deals.',
 		note: 'Cash, ageing and pipeline come forward. Everything else steps back.',
+		stats: ['unpaid', 'pipeline'],
+		widgets: ['outstanding', 'pipeline'],
 	},
 	{
 		key: 'creative',
@@ -263,9 +259,10 @@ export const lenses: Lens[] = [
 		icon: 'i-lucide-palette',
 		// var(--tag-4) in the app.
 		hue: '194 73% 59%',
-		shot: 'home-v2-creative',
 		line: 'Creative lens on. 5 pieces out with clients. 4 posts queued.',
 		note: 'What is out for approval, and what goes out next.',
+		stats: ['unread'],
+		widgets: ['approvals', 'content'],
 	},
 	{
 		key: 'projects',
@@ -273,32 +270,153 @@ export const lenses: Lens[] = [
 		icon: 'i-lucide-folder-kanban',
 		// var(--tag-3) in the app.
 		hue: '188 70% 61%',
-		shot: 'home-v2-projects',
 		line: 'Projects lens on. 5 decisions waiting. 13 things one tap away.',
 		note: 'Today, as the work actually asks for it.',
+		stats: ['score', 'unread'],
+		widgets: [],
 	},
 ];
 
-/** The three Looks, for the switcher in the Looks section. */
+/* ────────────────────────────────────────────────────────────────────────
+   THE HOME, AS DATA.
+
+   The hero used to hold a PNG of the home. It holds a coded one now
+   (`Landing/HomeMock.vue`), so the app on the hero wears whatever look,
+   palette, type and mode the visitor has picked — which a capture cannot
+   do, and which is the whole claim the Looks section makes.
+
+   ⚠️ Every number below is read off the seeded solo demo workspace the
+   2026-09 captures were taken from — `public/screenshots/latest/home-v2*.png`
+   are the receipts, and they are still on the page in the Looks section. A
+   coded mock is allowed to re-render those numbers; it is NOT allowed to
+   invent friendlier ones. If the demo seed moves, these move with it.
+   ──────────────────────────────────────────────────────────────────────── */
+
+export interface MockStat {
+	label: string;
+	value: string;
+	/** The quiet half of the tile — "/ 100", "invoices", "12 open". */
+	unit: string;
+}
+
+export const mockStats: Record<string, MockStat> = {
+	score: { label: 'Score', value: '43', unit: '/ 100' },
+	unpaid: { label: 'Unpaid', value: '$12k', unit: 'invoices' },
+	pipeline: { label: 'Pipeline', value: '$286k', unit: '12 open' },
+	unread: { label: 'Unread', value: '0', unit: 'messages' },
+	learning: { label: 'Learning', value: '0m', unit: 'this wk' },
+};
+
+export interface MockPile {
+	key: string;
+	label: string;
+	sub: string;
+	count: number;
+	title: string;
+	/** The one line under the item's title. */
+	meta: string;
+	/** What the row offers: a draft to approve, a status to move, or a read. */
+	action: 'approve' | 'status' | 'open';
+	actionLabel?: string;
+}
+
+/**
+ * The three piles do not change with the lens — the same three rows stand at
+ * the top of all four captures. What a lens changes is what surrounds them.
+ */
+export const mockPiles: MockPile[] = [
+	{
+		key: 'decide',
+		label: 'Decide',
+		sub: 'Earnest drafted these — approve or adjust',
+		count: 5,
+		title: 'Create 2 tasks on Helios — Website Build',
+		meta: 'Create tasks · proposed by Earnest',
+		action: 'approve',
+		actionLabel: 'Approve',
+	},
+	{
+		key: 'do',
+		label: 'Do',
+		sub: 'One tap each',
+		count: 13,
+		title: 'Project Overdue: Helios West Hotel Launch',
+		meta: '30 days past deadline for Earnest Demo — Solo',
+		action: 'status',
+		actionLabel: 'In Progress',
+	},
+	{
+		key: 'know',
+		label: 'Know',
+		sub: 'Nothing required',
+		count: 4,
+		title: '$12,000 in Outstanding Invoices',
+		meta: 'Consider sending payment reminders to improve cash flow',
+		action: 'open',
+	},
+];
+
+export type MockWidget =
+	| { kind: 'bars'; title: string; value: string; rows: { label: string; pct: number; tone?: 'danger' }[] }
+	| { kind: 'chart'; title: string; value: string; bars: number[] }
+	| { kind: 'facts'; title: string; value: string; rows: { label: string; value: string }[] };
+
+export const mockWidgets: Record<string, MockWidget> = {
+	outstanding: {
+		kind: 'bars',
+		title: 'Outstanding',
+		value: '$12k',
+		rows: [
+			{ label: 'Current', pct: 0 },
+			{ label: '1–30 days', pct: 0 },
+			{ label: '31–90 days', pct: 0 },
+			// All of it. That is the point of the widget, and the reason the
+			// Money lens says "$12k of it past 90 days" out loud.
+			{ label: '90+ days', pct: 100, tone: 'danger' },
+		],
+	},
+	pipeline: {
+		kind: 'bars',
+		title: 'Pipeline',
+		value: '$230k',
+		rows: [
+			{ label: 'New', pct: 0 },
+			{ label: 'Contacted', pct: 26 },
+			{ label: 'Qualified', pct: 100 },
+			{ label: 'Proposal sent', pct: 5 },
+			{ label: 'Negotiating', pct: 0 },
+		],
+	},
+	content: {
+		kind: 'chart',
+		title: 'Content',
+		value: '11 published · 8 wk',
+		bars: [42, 62, 92, 44, 46, 48, 44, 30],
+	},
+	approvals: {
+		kind: 'facts',
+		title: 'Approvals',
+		value: '8 wk',
+		rows: [
+			{ label: 'Out with clients', value: '5' },
+			{ label: 'Queued to go out', value: '4' },
+		],
+	},
+};
+
+/**
+ * The three Looks, and the capture that proves each one.
+ *
+ * ⚠️ The blurbs used to live here too, and now live once, in
+ * `useLandingAppearance.ts` beside the option they describe — the appearance
+ * panel needs a hint per option on all four axes, and a second copy of three
+ * of them here was a second copy that could disagree. What is left is what
+ * only this list knows: which screenshot shows which look.
+ */
 export const looks = [
-	{
-		key: 'glass',
-		label: 'Glass',
-		shot: 'home-v2',
-		blurb: 'Translucent surfaces, soft light, rounded chrome. The default.',
-	},
-	{
-		key: 'paper',
-		label: 'Paper',
-		shot: 'home-v2-paper',
-		blurb: 'Ink on linen — an editorial serif, hairline rules, tracked caps.',
-	},
-	{
-		key: 'clean',
-		label: 'Clean',
-		shot: 'home-v2-clean',
-		blurb: 'White on white, layered light, condensed caps and one signal blue.',
-	},
+	{ key: 'glass', label: 'Glass', shot: 'home-v2' },
+	{ key: 'paper', label: 'Paper', shot: 'home-v2-paper' },
+	{ key: 'clean', label: 'Clean', shot: 'home-v2-clean' },
 ];
 
 export interface MoreCard {

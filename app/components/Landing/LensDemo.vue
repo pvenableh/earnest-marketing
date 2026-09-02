@@ -1,17 +1,29 @@
 <!--
-  LandingLensDemo — the four lenses, working.
+  LandingLensDemo — the four lenses, working, over a home that is BUILT.
 
   The home ships one arrangement and four ways of reading it. Picking a lens
   re-ranks the widgets, re-tints the wave field, and writes one line under the
-  greeting from data the page has ALREADY loaded. That third part is the one
-  a static screenshot cannot argue, so this control does all three: it swaps
-  the shot, hands the hero's `WaveField` a new hue, and shows the line.
+  greeting from data the page has ALREADY loaded. That third part is the one a
+  static screenshot cannot argue, so this control does all three: it re-ranks
+  `LandingHomeMock`, hands the hero's `WaveField` a new hue, and lets the mock
+  write Earnest's own line under its own greeting.
+
+  ⚠️ IT USED TO SWAP A PNG, AND THE PNG WAS THE CEILING. A capture is stuck in
+  the look, palette, type and mode it was taken in — so a visitor who put the
+  page into Paper got a Paper page with a Glass app sitting in the middle of
+  it, which is precisely the claim the page is trying to make and precisely the
+  frame it was breaking. The home is markup now (`HomeMock.vue`), reading the
+  same tokens as everything around it, and it floats straight on the wave field
+  instead of inside a drawn browser window: the field is the app's own ground,
+  and a chrome bar between them was a window onto a screenshot, not a product.
 
   ⚠️ Every line in `landing.ts` is a line the seeded demo workspace actually
   produced, in the format the app's own `useHomeV2ModeLine` writes. They are
-  not written here and they are not embellished — the screenshot beside them
-  shows the same words. Everything has no line on purpose: a lens line that
-  always talks is a label, and a label that repeats the lens name is noise.
+  not written here and they are not embellished. The captures those numbers
+  came from are still on the page, in the Looks section, so the drawing can be
+  checked against the photographs. Everything has no line on purpose: a lens
+  line that always talks is a label, and a label that repeats the lens name is
+  noise — so under Everything the mock shows the app's plain count instead.
 
   The pills carry `.e-dock` / `.e-dock-item` so `useGlassMotion`'s hero intro
   stagger picks them up, exactly as it did for the eight-app dock this
@@ -23,20 +35,11 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { lenses } from '~/data/landing';
-import { getScreenshotSrc } from '~/data/features';
 
-const props = withDefaults(defineProps<{ look?: string }>(), { look: 'glass' });
 const emit = defineEmits<{ (e: 'tint', hue: string | null): void }>();
 
 const active = ref(0);
 const current = computed(() => lenses[active.value]!);
-
-/**
- * The shot, in whichever Look the page is currently wearing. Only Everything
- * carries all three; every other lens falls back to its Glass capture, which
- * is the honest thing to show — it is the capture that exists.
- */
-const currentShot = computed(() => current.value.shotByLook?.[props.look] ?? current.value.shot);
 
 function pick(i: number) {
 	if (i === active.value) return;
@@ -63,42 +66,33 @@ function pick(i: number) {
 			</button>
 		</div>
 
-		<!-- The line, in its own reserved band. Fixed height so switching
-		     between a lens that speaks and one that doesn't never jumps the
-		     screenshot underneath. -->
-		<div class="l-lens-line" aria-live="polite">
+		<!-- The page's own aside about the lens, in its own reserved band. Fixed
+		     height so switching lenses never jumps the home underneath. What
+		     EARNEST says is a different voice and lives in the home itself. -->
+		<div class="l-lens-line">
 			<Transition name="l-lens-fade" mode="out-in">
-				<p v-if="current.line" :key="`${current.key}-${look}`" class="l-lens-said">
-					<span class="l-lens-mark" aria-hidden="true"></span>{{ current.line }}
-				</p>
-				<p v-else :key="`${current.key}-note`" class="l-lens-note">{{ current.note }}</p>
+				<p :key="current.key" class="l-lens-note">{{ current.note }}</p>
 			</Transition>
 		</div>
 
-		<figure class="l-lens-shot">
-			<div class="e-frame g-hero-frame">
-				<div class="e-frame-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
-				<Transition name="l-lens-fade" mode="out-in">
-					<img
-						:key="current.key"
-						:src="getScreenshotSrc(currentShot as any)"
-						:alt="`Earnest — the home under the ${current.label} lens`"
-						loading="eager"
-						decoding="async"
-						class="e-frame-img"
-					/>
-				</Transition>
-			</div>
-		</figure>
+		<LandingHomeMock :lens="current" />
 	</div>
 </template>
 
 <style scoped>
+/* ⚠️ LEFT, not centred, and on the home's own measure. The hero above centres
+   everything, and the pills used to centre with it — which was fine while what
+   followed was a screenshot in a frame, and wrong the moment what follows is
+   the home itself: a control centred over a left-aligned greeting reads as
+   part of the marketing page rather than part of the app. In Earnest the lens
+   switcher sits top-left above the greeting. It does here too. */
 .l-lens {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	align-items: flex-start;
 	width: 100%;
+	max-width: 1120px;
+	margin: 0 auto;
 }
 
 .l-lens-pills {
@@ -149,7 +143,10 @@ function pick(i: number) {
 	transform: scale(0.96);
 }
 .l-lens-pill--on {
-	color: #fff;
+	/* ⚠️ Not `#fff`. Mono's accent is near-WHITE in dark mode, and a hardcoded
+	   white label on it left the selected pill blank. `--g-on-accent` is the
+	   page's label-on-accent token (sellsheet-home.css) and flips with it. */
+	color: var(--g-on-accent, #fff);
 	background: var(--g-accent);
 	box-shadow: 0 8px 20px -10px var(--g-accent);
 }
@@ -161,44 +158,22 @@ function pick(i: number) {
 }
 
 /* Reserved band — two lines at the narrowest width this section reaches, so
-   the frame below never moves when a lens with a longer line comes up. */
+   the home below never moves when a longer note comes up. */
 .l-lens-line {
 	display: grid;
-	place-items: center;
-	min-height: 58px;
-	margin-top: 18px;
-	padding: 0 16px;
-	text-align: center;
+	align-items: center;
+	min-height: 40px;
+	margin-top: 14px;
+	padding: 0 2px;
 }
-.l-lens-said,
 .l-lens-note {
 	margin: 0;
 	max-width: 46rem;
-	font-size: 15px;
+	font-size: 14.5px;
 	line-height: 1.55;
-}
-.l-lens-said {
-	color: var(--g-ink);
-	font-weight: 600;
-}
-.l-lens-note {
 	color: var(--g-ink-3);
 }
-/* The small square Earnest writes its own lines behind, in the app. */
-.l-lens-mark {
-	display: inline-block;
-	width: 3px;
-	height: 13px;
-	margin-right: 9px;
-	border-radius: 2px;
-	background: var(--g-accent);
-	vertical-align: -1px;
-}
 
-.l-lens-shot {
-	width: 100%;
-	margin: 6px 0 0;
-}
 .l-lens-fade-enter-active,
 .l-lens-fade-leave-active {
 	transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.36, 0.66, 0.04, 1);
@@ -226,7 +201,7 @@ function pick(i: number) {
 @media (max-width: 560px) {
 	.l-lens-pills {
 		flex-wrap: wrap;
-		justify-content: center;
+		justify-content: flex-start;
 		border-radius: 22px;
 	}
 }

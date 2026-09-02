@@ -6,7 +6,7 @@
      sellsheet-glass.css         the .g-page token set + glass tiers
      sellsheet-glass-sections.css  section furniture
 
-   Two kinds of rule live here and nothing else:
+   Three kinds of rule live here and nothing else:
 
    1. THE `.l-*` SECTION FURNITURE lifted out of SellSheetLive.vue's scoped
       block — argument rows, the breadth carousel, the capacity ladder. It was
@@ -15,8 +15,16 @@
       bearing for the screenshot aspect ratios and the full-bleed carousel
       maths, both of which took tuning.
 
-   2. WHAT IS NEW to this landing — the wave hero, the door card, and the
-      section that holds the three looks.
+   2. WHAT IS NEW to this landing — the full-bleed wave hero, the door card,
+      the coded home that floats on it (`.hm-*`), and the appearance control
+      that drives the page (`.l-ap-*`).
+
+   3. THE APPEARANCE AXES themselves — look, palette and type, as token
+      overrides keyed off `data-look` / `data-palette` / `data-style` on the
+      page root. They are the app's own three attributes, carrying the app's
+      own four axes, and they are why the `.hm-*` block below needs no per-look
+      rules of its own: the mock's surfaces are `.g-glass*` tiers, so every
+      skin already reaches them.
 
    ⚠️ Anything genuinely shared belongs in sellsheet-glass.css, not here. This
    file is imported by exactly one component.
@@ -31,25 +39,47 @@
 	position: relative;
 	overflow: hidden;
 	isolation: isolate;
+
+	/* ⚠️ FULL-BLEED, and it has to be. `.e-hero` (sellsheet-modern.css) caps
+	   itself at 1120px and centres — right for a column of text, and wrong the
+	   moment the wave field moved inside it: the field is `position: absolute`
+	   against this box, so on anything wider than 1120px it stopped short of
+	   both edges and the flat page ground showed down either side of the hero.
+	   The BOX goes full width and the CONTENT keeps its measure through padding
+	   instead, because an absolutely positioned child is laid out against the
+	   PADDING box: the field spans the viewport while every line of copy stays
+	   on exactly the 1120px it was on before. */
+	max-width: none;
+	width: 100%;
+	padding-left: max(28px, calc((100% - 1120px) / 2));
+	padding-right: max(28px, calc((100% - 1120px) / 2));
 }
-/* ⚠️ `.l-hero-veil` is excluded alongside the field itself. It was not, once,
-   and this rule quietly turned the veil `position: relative` — an inline span
-   with `inset` doing nothing and a percentage height resolving to zero. The
-   field then ran to the bottom of the hero with no fade at all. */
-.e-hero.l-hero > *:not(.mkt-wave):not(.l-hero-veil) {
+.e-hero.l-hero > *:not(.mkt-wave) {
 	position: relative;
 	z-index: 1;
 }
 
 /* ⚠️ HEIGHT, not `inset: 0`. The field's viewBox is 1200×400 stretched with
    `preserveAspectRatio="none"`, so its vertical scale is entirely the height
-   it is given — and this hero runs past 1600px because the lens demo and its
-   screenshot live inside it. Left at full height the crest ladder stretches
+   it is given — and this hero runs past 1600px because the lens demo and the
+   home it holds live inside it. Left at full height the crest ladder stretches
    until the bands stop being waves and become a wash. Capped near a viewport
-   so the field keeps roughly the proportions it has in the app. */
+   so the field keeps roughly the proportions it has in the app.
+
+   ⚠️ AND IT FADES BY MASK, not by a veil painted over it. There used to be a
+   `.l-hero-veil` span here: a gradient from transparent to the page's ground
+   colour, laid over the bottom of the field. It worked only while the hero was
+   1120px wide with a screenshot sitting on top of it. Full-bleed, its own
+   bottom edge became a hard horizontal band right across the viewport — the
+   colour it faded TO was a single flat value, and the page ground underneath
+   is a three-stop gradient, so the two matched at exactly one scroll position
+   and nowhere else. A mask paints nothing, so there is no colour to mismatch:
+   the field simply stops existing, over whatever ground happens to be there. */
 .e-hero.l-hero .mkt-wave {
 	inset: 0 0 auto 0;
 	height: min(100vh, 900px);
+	-webkit-mask-image: linear-gradient(180deg, #000 0%, #000 46%, transparent 94%);
+	mask-image: linear-gradient(180deg, #000 0%, #000 46%, transparent 94%);
 }
 
 /* Field strength, per colour mode. Lives here rather than in the component
@@ -101,33 +131,6 @@
 	--wave-strength: 0.6;
 }
 
-/* The field fades out into the page rather than ending on a straight edge. */
-.l-hero-veil {
-	position: absolute;
-	display: block;
-	top: min(52vh, 470px);
-	right: 0;
-	left: 0;
-	height: min(50vh, 460px);
-	z-index: 0;
-	pointer-events: none;
-	background: linear-gradient(180deg, transparent, var(--g-hero-veil, #e6eef4));
-}
-.dark .l-hero-veil {
-	--g-hero-veil: #060a13;
-}
-.g-page.e-page[data-look='paper'] .l-hero-veil {
-	--g-hero-veil: #f0e7da;
-}
-.dark .g-page.e-page[data-look='paper'] .l-hero-veil {
-	--g-hero-veil: #100d0a;
-}
-.g-page.e-page[data-look='clean'] .l-hero-veil {
-	--g-hero-veil: #f2f5fa;
-}
-.dark .g-page.e-page[data-look='clean'] .l-hero-veil {
-	--g-hero-veil: #080a0f;
-}
 
 /* ⚠️ The hero headline REUSES `.e-hero-wordmark`, and it must: that class is
    what `useGlassMotion`'s intro timeline animates by selector. What it no
@@ -180,8 +183,9 @@
 }
 
 /* Slimmer browser-chrome on every screenshot frame — the frame is a quiet
-   container, not a focal point. */
-.l-hero .e-frame,
+   container, not a focal point. ⚠️ `.l-hero .e-frame` used to lead this list
+   and is gone with the hero's screenshot: the home up there is markup now and
+   stands in no window at all. */
 .l-arg-shot .e-frame,
 .l-looks-card .e-frame {
 	border-radius: 14px;
@@ -607,6 +611,145 @@
 }
 
 /* ════════════════════════════════════════════════════════════
+   THE APPEARANCE AXES — look, palette, type, mode.
+
+   The app gives a signed-in user four of these and writes three attributes on
+   <html> for them. The landing writes the same three on its own root
+   (`data-look`, `data-palette`, `data-style`) plus `.dark`, from the same
+   registries — see `useLandingAppearance.ts`, which also owns the one rule
+   that keeps this from becoming a combinatorial explosion:
+
+     A LOOK IS NOT AN AXIS. While Paper or Clean is on it brings its own
+     palette, and Paper brings its own display face. So `data-palette` only
+     ever reads 'neutral' or 'mono' under Glass — under the other two it
+     carries the look's own name, which is why nothing below has to defend
+     against a Mono Paper.
+
+   This block holds the two axes that are NEW to the page (palette + type).
+   The looks themselves are the section beneath it, and they come second on
+   purpose: Paper's pin of the display face wins on source order.
+   ════════════════════════════════════════════════════════════ */
+
+/* ⚠️ The label colour for anything filled with `--g-accent`. It was a
+   hardcoded `#fff` in four places, which is correct for every accent the page
+   had until Mono arrived with a near-WHITE accent in dark mode — white on
+   white, on the primary button and the selected lens pill. Anything that
+   fills with the accent reads its label from here instead. */
+.g-page.e-page {
+	--g-on-accent: #fff;
+	--font-look-display: 'Proxima Nova W01 Regular', system-ui, sans-serif;
+}
+
+/* ── The TYPE axis (`data-style`) ──────────────────────────────────────────
+   Family only. Case, weight and tracking belong to the type ladder, exactly
+   as in the app — the axis moved four things at once there too, once, and it
+   is the reason the app now ships three faces instead of four "styles". */
+.g-page.e-page[data-style='condensed'] {
+	--font-look-display: 'DIN Pro Cond', 'Proxima Nova W01 Regular', system-ui, sans-serif;
+}
+.g-page.e-page[data-style='handwritten'] {
+	--font-look-display: 'Gaegu', 'Proxima Nova W01 Regular', system-ui, cursive;
+}
+
+/* ── The PALETTE axis (`data-palette`) — Glass only ────────────────────────
+   Default is the Sky-Aqua → Yale ramp already declared in sellsheet-glass.css,
+   so only Mono needs saying. "Ink & glass — colour only where it means
+   something": the accent goes achromatic and FLIPS with the mode, near-black
+   on light and near-white on dark, which is what the app's own
+   `[data-palette='mono']` blocks do. */
+.g-page.e-page[data-palette='mono'] {
+	--pop: #334155;
+
+	--n-sky: #334155;
+	--n-3: #475569;
+	--n-5: #64748b;
+
+	--g-accent: #334155;
+	--g-accent-2: #475569;
+	--g-accent-ink: #1e293b;
+	--g-accent-soft: rgba(51, 65, 85, 0.08);
+	--g-accent-line: rgba(51, 65, 85, 0.2);
+	--g-glow: rgba(51, 65, 85, 0.25);
+	--g-on-accent: #fff;
+}
+.dark .g-page.e-page[data-palette='mono'] {
+	--pop: #cbd5e1;
+
+	--n-sky: #e2e8f0;
+	--n-3: #cbd5e1;
+	--n-5: #94a3b8;
+
+	--g-accent: #cbd5e1;
+	--g-accent-2: #94a3b8;
+	--g-accent-ink: #e2e8f0;
+	--g-accent-soft: rgba(203, 213, 225, 0.1);
+	--g-accent-line: rgba(203, 213, 225, 0.24);
+	--g-glow: rgba(203, 213, 225, 0.2);
+	/* The flip. Near-white fill wants dark ink on it, in exactly the way
+	   near-black fill wanted white. */
+	--g-on-accent: #0f172a;
+}
+
+/* The page's own ground and its drifting aurora are both painted in Sky Aqua
+   and Yale Blue, in `sellsheet-glass.css`, as a `background` shorthand and a
+   `::before` — neither of which a token can reach. Left alone, Mono was an
+   achromatic page floating on a blue wash, which is not a palette change, it
+   is a palette change everywhere except the largest surface on screen. */
+.g-page.e-page[data-palette='mono'] {
+	background:
+		radial-gradient(72% 46% at 2% 0%, rgba(100, 116, 139, 0.14), transparent 60%),
+		radial-gradient(64% 44% at 100% 8%, rgba(71, 85, 105, 0.12), transparent 62%),
+		radial-gradient(60% 50% at 50% 108%, rgba(51, 65, 85, 0.1), transparent 70%),
+		linear-gradient(180deg, #f8f9fb 0%, #eff1f5 55%, #eaedf2 100%);
+}
+.dark .g-page.e-page[data-palette='mono'] {
+	background:
+		radial-gradient(70% 46% at 6% 0%, rgba(148, 163, 184, 0.14), transparent 60%),
+		radial-gradient(58% 42% at 100% 6%, rgba(100, 116, 139, 0.12), transparent 62%),
+		radial-gradient(64% 52% at 50% 112%, rgba(71, 85, 105, 0.16), transparent 70%),
+		linear-gradient(180deg, #0f1319 0%, #0b0e13 55%, #080a0e 100%);
+}
+.g-page.e-page[data-palette='mono']::before {
+	background:
+		radial-gradient(38% 40% at 20% 25%, rgba(100, 116, 139, 0.14), transparent 60%),
+		radial-gradient(34% 38% at 82% 30%, rgba(71, 85, 105, 0.12), transparent 60%),
+		radial-gradient(40% 42% at 60% 82%, rgba(51, 65, 85, 0.1), transparent 62%);
+}
+
+/* The wave field is the ground, and a Mono page over a Sky-Aqua sea has not
+   changed palette, it has changed a button. ⚠️ Ends at `.mkt-wave` for the
+   reason spelled out on the look ramps below: the component sets these five
+   ON the element, and an inherited custom property never beats one set
+   directly. */
+.g-page.e-page[data-palette='mono'] .e-hero.l-hero .mkt-wave {
+	--wave-1: 215 16% 47%;
+	--wave-2: 215 14% 32%;
+	--wave-3: 215 15% 40%;
+	--wave-4: 215 12% 55%;
+	--wave-5: 215 14% 66%;
+	--wave-strength: 0.5;
+}
+.dark .g-page.e-page[data-palette='mono'] .e-hero.l-hero .mkt-wave {
+	--wave-strength: 0.72;
+}
+
+/* The primary button hardcodes the Sky-Aqua gradient and its glow — the same
+   two lines Paper and Clean have to undo. */
+.g-page.e-page[data-palette='mono'] .e-btn-primary {
+	background: var(--g-accent);
+	color: var(--g-on-accent);
+	box-shadow: none;
+}
+.g-page.e-page[data-palette='mono'] .e-btn-primary:hover {
+	box-shadow: 0 14px 30px -14px var(--g-accent);
+}
+/* …and the eyebrow dot pulses a cyan glow that Mono has no colour for. */
+.g-page.e-page[data-palette='mono'] .g-eyebrow-dot {
+	animation: none;
+	box-shadow: 0 0 0 4px var(--g-accent-soft);
+}
+
+/* ════════════════════════════════════════════════════════════
    THE LOOKS — the whole page, not a swatch.
 
    The app ships three looks and they are real redesigns, not a colour swap.
@@ -651,7 +794,16 @@
    all. The accent is a muted oxide rather than the Sky-Aqua: cyan on linen
    reads as a mistake. */
 .g-page.e-page[data-look='paper'] {
+	/* ⚠️ Paper PINS the display face — it is the one look that brings its own
+	   voice, exactly as the app hides the Typography section under it. That is
+	   why this declaration sits AFTER the type-axis block above: the two have
+	   identical specificity, so the pin has to win on order. */
 	--font-look-display: 'Bauer Bodoni Pro_1 W05 Roman', Georgia, 'Times New Roman', serif;
+
+	/* The accent dot in every headline. `--pop` is a modern-sheet token with a
+	   hardcoded blue in it, and it is not derived from anything — left alone,
+	   every look's headline still ends in a Sky-Aqua full stop. */
+	--pop: var(--g-accent);
 
 	--ink: #2b211a;
 	--ink-2: #5b4c3f;
@@ -678,6 +830,11 @@
 }
 
 .dark .g-page.e-page[data-look='paper'] {
+	/* The accent dot in every headline. `--pop` is a modern-sheet token with a
+	   hardcoded blue in it, and it is not derived from anything — left alone,
+	   every look's headline still ends in a Sky-Aqua full stop. */
+	--pop: var(--g-accent);
+
 	--ink: #ece3d6;
 	--ink-2: #b6a795;
 	--ink-3: #8b7d6c;
@@ -703,7 +860,15 @@
    Layered light instead of translucency, condensed caps for anything that
    acts as a title, and exactly one saturated colour in the whole page. */
 .g-page.e-page[data-look='clean'] {
-	--font-look-display: 'DIN Pro Cond', 'Proxima Nova W01 Regular', system-ui, sans-serif;
+	/* ⚠️ Clean does NOT pin its face, and it used to. The app stopped pinning
+	   DIN under Clean when the font axis was opened to both looks; it only
+	   DEFAULTS to condensed, which `useLandingAppearance` handles by resolving
+	   the axis rather than by a stylesheet override. Declare it here and a
+	   visitor who picks Sans under Clean gets condensed caps anyway. */
+	/* The accent dot in every headline. `--pop` is a modern-sheet token with a
+	   hardcoded blue in it, and it is not derived from anything — left alone,
+	   every look's headline still ends in a Sky-Aqua full stop. */
+	--pop: var(--g-accent);
 
 	--ink: #0f172a;
 	--ink-2: #475569;
@@ -730,6 +895,11 @@
 }
 
 .dark .g-page.e-page[data-look='clean'] {
+	/* The accent dot in every headline. `--pop` is a modern-sheet token with a
+	   hardcoded blue in it, and it is not derived from anything — left alone,
+	   every look's headline still ends in a Sky-Aqua full stop. */
+	--pop: var(--g-accent);
+
 	--ink: #f1f5f9;
 	--ink-2: #a3adbd;
 	--ink-3: #788294;
@@ -812,37 +982,73 @@
 
 /* ── Type. The one thing a token cannot carry, because the base sheet names
    `--font-serif` / `--font-body` on each rule directly. Only the display
-   voices move; body copy stays Proxima in all three looks, exactly as the app
-   keeps its body face across the Look axis. ── */
-.g-page.e-page[data-look='paper'] .e-h2,
-.g-page.e-page[data-look='paper'] .e-hero-wordmark,
-.g-page.e-page[data-look='paper'] .e-hero-tagline,
-.g-page.e-page[data-look='paper'] .e-cta-word,
-.g-page.e-page[data-look='paper'] .e-brand,
-.g-page.e-page[data-look='paper'] .e-plan-price,
-.g-page.e-page[data-look='paper'] .l-more-title,
-.g-page.e-page[data-look='clean'] .e-h2,
-.g-page.e-page[data-look='clean'] .e-hero-wordmark,
-.g-page.e-page[data-look='clean'] .e-hero-tagline,
-.g-page.e-page[data-look='clean'] .e-cta-word,
-.g-page.e-page[data-look='clean'] .e-brand,
-.g-page.e-page[data-look='clean'] .e-plan-price,
-.g-page.e-page[data-look='clean'] .l-more-title {
+   voices move; body copy stays Proxima under every look and every face,
+   exactly as the app keeps its body face across both axes.
+
+   ⚠️ This list is NOT scoped to a look any more. It was, back when only Paper
+   and Clean had a voice of their own — and then the font axis arrived and
+   `data-style` had nothing to paint under Glass, so Condensed and Handwritten
+   did nothing at all on the default look. Every display tier reads the token;
+   what SETS the token is the axis, with Paper's pin last. ── */
+.g-page.e-page .e-h2,
+.g-page.e-page .e-hero-wordmark,
+.g-page.e-page .e-hero-tagline,
+.g-page.e-page .e-cta-word,
+.g-page.e-page .e-brand,
+.g-page.e-page .e-plan-price,
+.g-page.e-page .l-more-title,
+.g-page.e-page .hm-hello {
 	font-family: var(--font-look-display);
 }
 
-/* Clean's titles are uppercase condensed — that IS Clean, and without it the
-   look arrives in the sans it is supposed to contrast with. */
-.g-page.e-page[data-look='clean'] .e-h2,
-.g-page.e-page[data-look='clean'] .l-more-title,
-.g-page.e-page[data-look='clean'] .e-plan-name {
+/* Condensed titles are uppercase — that IS the face, and set in mixed case a
+   condensed grotesque just reads as a narrow sans. Keyed off the AXIS, not off
+   Clean: Clean merely defaults to this face, and the same caps have to arrive
+   when a Glass visitor picks Condensed. */
+.g-page.e-page[data-style='condensed'] .e-h2,
+.g-page.e-page[data-style='condensed'] .l-more-title,
+.g-page.e-page[data-style='condensed'] .e-plan-name,
+.g-page.e-page[data-style='condensed'] .hm-hello {
 	text-transform: uppercase;
 	letter-spacing: 0.02em;
 	font-weight: 700;
 }
-.g-page.e-page[data-look='clean'] .e-hero-tagline {
+.g-page.e-page[data-style='condensed'] .e-hero-tagline {
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
+}
+
+/* Gaegu ships one weight here (Regular), so nothing may ask it for a bold —
+   the browser would synthesise one and smear the strokes. */
+.g-page.e-page[data-style='handwritten'] .e-h2,
+.g-page.e-page[data-style='handwritten'] .e-hero-wordmark,
+.g-page.e-page[data-style='handwritten'] .e-cta-word,
+.g-page.e-page[data-style='handwritten'] .l-more-title,
+.g-page.e-page[data-style='handwritten'] .hm-hello {
+	font-weight: 400;
+	letter-spacing: 0;
+}
+
+/* Gaegu's cap height is small for its em, so every display tier is lifted to
+   land on the same optical size as Proxima at the same rank.
+
+   ⚠️ Each one restates a full clamp, and it has to. `font-size: 1.14em` is the
+   obvious way to write "a bit bigger" and it is wrong here: `em` inside
+   `font-size` resolves against the PARENT's size, not the element's own, so a
+   38px greeting inside a 15px column became 17px — the handwritten face
+   arrived looking like a caption, and the rule that broke it read like a
+   nudge. */
+.g-page.e-page[data-style='handwritten'] .e-h2 {
+	font-size: clamp(38px, 5.7vw, 68px);
+}
+.g-page.e-page[data-style='handwritten'] .e-hero-wordmark.l-hero-head {
+	font-size: clamp(36px, 5.4vw, 74px);
+}
+.g-page.e-page[data-style='handwritten'] .e-cta-word {
+	font-size: clamp(36px, 5.3vw, 70px);
+}
+.g-page.e-page[data-style='handwritten'] .hm-hello {
+	font-size: clamp(30px, 3.6vw, 44px);
 }
 /* Paper's Didone wants its own tracking and a lighter weight — the base rules
    set a bold that the face does not have. */
@@ -1022,4 +1228,571 @@
 	height: 14px;
 	margin-right: 6px;
 	vertical-align: -2px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   THE HOME, BUILT — `Landing/HomeMock.vue`.
+
+   The hero used to hold a PNG of Home v2 inside a drawn browser window. Both
+   halves of that were wrong once the page grew an appearance panel:
+
+     · A CAPTURE CANNOT TURN. It is frozen in the look, palette, type and mode
+       it was taken in, so a visitor who put the page into Paper got a Paper
+       page with a Glass app sitting in the middle of it — the page breaking
+       its own central claim, in the middle of making it.
+     · A WINDOW FRAME SAYS "SCREENSHOT". The wave field behind the hero is the
+       app's OWN ambient ground; putting a chrome bar and a border between the
+       two turns a product into a picture of a product.
+
+   So the home is markup, reading the same tokens as the page around it, and
+   it floats straight on the field. Every surface below carries a `.g-glass*`
+   class rather than its own fill, which is what makes the Paper and Clean
+   flattening above reach it for free — the mock needs no per-look block of
+   its own, and could not drift from the rest of the page if it tried.
+
+   ⚠️ The numbers are `mockStats` / `mockPiles` / `mockWidgets` in
+   `~/data/landing`, read off the seeded demo the 2026-09 captures came from.
+   The captures are still on the page in the Looks section. A drawing of a
+   product is allowed to be a drawing; it is not allowed to be a nicer product
+   than the one that ships.
+   ════════════════════════════════════════════════════════════ */
+
+.hm {
+	display: flex;
+	align-items: flex-start;
+	gap: 26px;
+	width: 100%;
+	max-width: 1120px;
+	margin: 0 auto;
+	/* The hero centres everything; a home does not centre anything. */
+	text-align: left;
+}
+.hm-main {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+/* The rail LEAVES with the lens — under Projects the app clears it entirely,
+   so `:empty` collapses it rather than leaving a 296px hole. Flex `gap` does
+   not apply to a `display: none` child, so the main column simply widens. */
+.hm-rail {
+	flex: 0 0 296px;
+	display: grid;
+	gap: 14px;
+}
+.hm-rail:empty {
+	display: none;
+}
+
+/* ── The greeting ── */
+.hm-greet {
+	padding: 0 2px;
+}
+.hm-hello {
+	margin: 0;
+	font-size: clamp(26px, 3.1vw, 38px);
+	font-weight: 700;
+	line-height: 1.1;
+	letter-spacing: -0.02em;
+	color: var(--g-ink);
+}
+.hm-wave {
+	display: inline-block;
+	margin-left: 4px;
+}
+.hm-line {
+	/* Reserved for two lines at the narrowest width this runs at — the line is
+	   the one part of the home that changes length with the lens, and without
+	   a floor the stat tiles jump every time a lens is picked. */
+	margin: 10px 0 0;
+	min-height: 46px;
+	max-width: 46rem;
+	font-size: 15px;
+	line-height: 1.5;
+	color: var(--g-ink-2);
+}
+
+/* ── Stat tiles ── */
+.hm-stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 14px 0 0;
+}
+.hm-stat {
+	flex: 1 1 148px;
+	min-width: 132px;
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+	padding: 14px 16px;
+	border-radius: 16px;
+}
+.hm-stat-k {
+	font-size: 10.5px;
+	font-weight: 700;
+	letter-spacing: 0.11em;
+	text-transform: uppercase;
+	color: var(--g-ink-3);
+}
+.hm-stat-v {
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 1;
+	color: var(--g-ink);
+}
+.hm-stat-v em {
+	font-style: normal;
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--g-ink-3);
+}
+
+/* ── The three piles ── */
+.hm-pile {
+	margin-top: 22px;
+}
+.hm-pile-head {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+.hm-pile-rule {
+	width: 3px;
+	height: 14px;
+	border-radius: 2px;
+	background: var(--g-accent);
+	flex: none;
+}
+.hm-pile-name {
+	margin: 0;
+	font-size: 12.5px;
+	font-weight: 700;
+	letter-spacing: 0.13em;
+	text-transform: uppercase;
+	color: var(--g-ink);
+}
+.hm-pile-count {
+	margin-left: auto;
+	min-width: 25px;
+	padding: 2px 8px;
+	border-radius: 999px;
+	background: var(--g-accent-soft);
+	border: 1px solid var(--g-accent-line);
+	color: var(--g-accent-ink);
+	font-size: 11.5px;
+	font-weight: 700;
+	text-align: center;
+}
+.hm-pile-more {
+	width: 15px;
+	height: 15px;
+	color: var(--g-ink-3);
+	flex: none;
+}
+.hm-pile-sub {
+	margin: 5px 0 10px;
+	font-size: 13px;
+	color: var(--g-ink-3);
+}
+
+/* The stacked edges under each row — the app's own "there are more of these
+   behind this one" cue. Drawn as two siblings rather than faked with a
+   shadow, so they take the look's border radius along with everything else. */
+.hm-stack {
+	position: relative;
+	isolation: isolate;
+	padding-bottom: 13px;
+}
+.hm-row {
+	position: relative;
+	z-index: 3;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 14px 16px;
+	border-radius: 16px;
+}
+/* ⚠️ Outline only. These carried `--g-accent-soft` as a fill, which is a
+   whisper on Glass and a pair of solid bronze bars under Paper — the accent
+   there is an oxide at 12% over a near-black ground, which composites far
+   heavier than a cyan at the same alpha. What the app actually shows is the
+   EDGE of the card behind, so that is all these draw. */
+.hm-stack-2,
+.hm-stack-3 {
+	position: absolute;
+	height: 22px;
+	border-radius: 16px;
+	border: 1px solid var(--g-line);
+}
+.hm-stack-2 {
+	z-index: 2;
+	left: 14px;
+	right: 14px;
+	bottom: 6px;
+}
+.hm-stack-3 {
+	z-index: 1;
+	left: 30px;
+	right: 30px;
+	bottom: 0;
+}
+.hm-row-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--g-accent);
+	flex: none;
+}
+.hm-row-body {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+.hm-row-title {
+	margin: 0;
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 1.3;
+	color: var(--g-ink);
+}
+.hm-row-meta {
+	margin: 3px 0 0;
+	font-size: 13px;
+	line-height: 1.35;
+	color: var(--g-ink-3);
+}
+.hm-row-btn {
+	flex: none;
+	padding: 7px 15px;
+	border-radius: 999px;
+	background: var(--g-accent-soft);
+	border: 1px solid var(--g-accent-line);
+	color: var(--g-accent-ink);
+	font-size: 13px;
+	font-weight: 600;
+	white-space: nowrap;
+}
+.hm-row-status {
+	flex: none;
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 6px 12px;
+	border-radius: 999px;
+	border: 1px solid var(--g-line);
+	font-size: 12.5px;
+	font-weight: 500;
+	color: var(--g-ink-2);
+	white-space: nowrap;
+}
+.hm-row-status-dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: #10b981;
+}
+.hm-row-go,
+.hm-row-x {
+	width: 16px;
+	height: 16px;
+	flex: none;
+	color: var(--g-ink-3);
+}
+
+/* ── Rail widgets ── */
+.hm-widget {
+	padding: 16px;
+	border-radius: 18px;
+}
+.hm-widget-head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 10px;
+	margin-bottom: 12px;
+}
+.hm-widget-title {
+	font-size: 10.5px;
+	font-weight: 700;
+	letter-spacing: 0.11em;
+	text-transform: uppercase;
+	color: var(--g-ink-2);
+}
+.hm-widget-value {
+	font-size: 13px;
+	font-weight: 700;
+	color: var(--g-ink);
+	white-space: nowrap;
+}
+.hm-bar-row {
+	display: grid;
+	grid-template-columns: 82px minmax(0, 1fr);
+	align-items: center;
+	gap: 10px;
+	margin-top: 9px;
+}
+.hm-bar-label {
+	font-size: 12px;
+	color: var(--g-ink-3);
+}
+.hm-bar-track {
+	height: 6px;
+	border-radius: 999px;
+	background: var(--g-line);
+	overflow: hidden;
+}
+.hm-bar-fill {
+	display: block;
+	height: 100%;
+	border-radius: 999px;
+	background: var(--g-accent);
+	transition: width 0.6s var(--spring);
+}
+/* The only saturated colour the mock allows itself, in every look. Ageing
+   past 90 days is the one thing on this screen that is not neutral news. */
+.hm-bar-fill--danger {
+	background: #e0544f;
+}
+.hm-chart {
+	display: flex;
+	align-items: flex-end;
+	gap: 5px;
+	height: 74px;
+	margin-bottom: 16px;
+	position: relative;
+}
+.hm-chart-bar {
+	flex: 1 1 0;
+	min-width: 0;
+	border-radius: 4px 4px 2px 2px;
+	background: var(--g-accent);
+	opacity: 0.72;
+	transition: height 0.6s var(--spring);
+}
+.hm-chart-now {
+	position: absolute;
+	right: 0;
+	bottom: -15px;
+	font-size: 10px;
+	color: var(--g-ink-3);
+}
+.hm-fact {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 10px;
+	padding: 8px 0;
+	border-top: 1px solid var(--g-line);
+	font-size: 13px;
+}
+.hm-fact:first-child {
+	border-top: 0;
+	padding-top: 0;
+}
+.hm-fact-label {
+	color: var(--g-ink-3);
+}
+.hm-fact-value {
+	font-weight: 700;
+	color: var(--g-ink);
+}
+
+/* ── Motion. A lens change re-ranks; it does not reload. ── */
+.hm-fade-enter-active,
+.hm-fade-leave-active {
+	transition: opacity 0.26s ease;
+}
+.hm-fade-enter-from,
+.hm-fade-leave-to {
+	opacity: 0;
+}
+.hm-tile-move,
+.hm-tile-enter-active,
+.hm-tile-leave-active {
+	transition: opacity 0.35s ease, transform 0.45s var(--spring);
+}
+.hm-tile-enter-from,
+.hm-tile-leave-to {
+	opacity: 0;
+	transform: translateY(10px) scale(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.hm-bar-fill,
+	.hm-chart-bar,
+	.hm-fade-enter-active,
+	.hm-fade-leave-active,
+	.hm-tile-move,
+	.hm-tile-enter-active,
+	.hm-tile-leave-active {
+		transition: none;
+	}
+	.hm-tile-enter-from,
+	.hm-tile-leave-to {
+		transform: none;
+	}
+}
+
+/* The rail is the first thing the app drops on a narrow screen, so it is the
+   first thing dropped here. Below this the home is the piles, which is the
+   part the section beside it is actually arguing about. */
+@media (max-width: 1000px) {
+	.hm-rail {
+		display: none;
+	}
+}
+@media (max-width: 560px) {
+	/* Two up, not one. Five tiles stacked full width is a column of headlines
+	   with no numbers in view — the point of the row is that the day's figures
+	   are readable at a glance, and a glance does not scroll. */
+	.hm-stat {
+		flex-basis: calc(50% - 5px);
+		min-width: 0;
+	}
+	.hm-row {
+		flex-wrap: wrap;
+	}
+	.hm-row-btn,
+	.hm-row-status {
+		margin-left: 20px;
+	}
+}
+
+/* ════════════════════════════════════════════════════════════
+   THE APPEARANCE CONTROL — `Landing/Appearance.vue`.
+
+   One control, two shapes: `panel` in the Looks section, `compact` in the nav
+   popover. They share state, so a look picked in the nav is already picked in
+   the panel when the visitor scrolls to it.
+   ════════════════════════════════════════════════════════════ */
+
+.l-ap {
+	display: grid;
+	gap: 18px;
+	text-align: left;
+}
+.l-ap--panel {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 22px 30px;
+}
+.l-ap-row {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 9px;
+}
+.l-ap-key {
+	font-size: 10.5px;
+	font-weight: 700;
+	letter-spacing: 0.11em;
+	text-transform: uppercase;
+	color: var(--g-ink-3);
+}
+.l-ap-seg {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	padding: 4px;
+	border-radius: 999px;
+	background: var(--g-accent-soft);
+	border: 1px solid var(--g-line);
+}
+.l-ap-opt {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 7px 14px;
+	border: 0;
+	border-radius: 999px;
+	background: transparent;
+	color: var(--g-ink-2);
+	font: inherit;
+	font-size: 13px;
+	font-weight: 600;
+	white-space: nowrap;
+	cursor: pointer;
+	transition: background 0.4s var(--spring), color 0.4s var(--spring), transform 0.15s var(--spring);
+}
+.l-ap-opt:hover:not(:disabled) {
+	color: var(--g-ink);
+}
+.l-ap-opt:active:not(:disabled) {
+	transform: scale(0.96);
+}
+.l-ap-opt--on {
+	/* ⚠️ `--g-on-accent`, not `#fff` — Mono's accent is near-white in dark. */
+	color: var(--g-on-accent);
+	background: var(--g-accent);
+}
+.l-ap-opt:disabled {
+	cursor: not-allowed;
+}
+.l-ap-opt svg,
+.l-ap-opt [class*='iconify'] {
+	width: 15px;
+	height: 15px;
+	flex: none;
+}
+.l-ap-swatch {
+	width: 13px;
+	height: 13px;
+	border-radius: 50%;
+	flex: none;
+	box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+.l-ap-swatch[data-palette='neutral'] {
+	background: linear-gradient(135deg, #00cfff, #274366);
+}
+.l-ap-swatch[data-palette='mono'] {
+	background: linear-gradient(135deg, #e2e8f0, #334155);
+}
+.l-ap-hint {
+	/* Two lines at the panel's narrowest column, reserved — a hint that grows
+	   a line would shove the row under it every time a visitor changed axis. */
+	margin: 0;
+	min-height: 38px;
+	font-size: 12.5px;
+	line-height: 1.5;
+	color: var(--g-ink-3);
+}
+.l-ap-lock {
+	width: 13px;
+	height: 13px;
+	margin-right: 5px;
+	vertical-align: -2px;
+}
+/* A pinned row is shown, not hidden. The app hides these under Paper and
+   Clean, which is right INSIDE the product — the user has already bought it.
+   On a sales page the limit is part of what is being described: "a look
+   brings its own palette" is a design-system claim, and a row that quietly
+   vanished would leave the visitor to guess whether it was a rule or a bug. */
+.l-ap-row--pinned .l-ap-seg {
+	opacity: 0.5;
+}
+
+.l-ap--compact {
+	gap: 14px;
+}
+.l-ap--compact .l-ap-row {
+	gap: 7px;
+}
+.l-ap--compact .l-ap-opt {
+	padding: 6px 12px;
+	font-size: 12.5px;
+}
+
+@media (max-width: 720px) {
+	.l-ap--panel {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+/* The stacked edges are the one part of the mock that is not a `.g-glass*`
+   tier, so they are the one part the look skins cannot reach on their own. */
+.g-page.e-page[data-look='paper'] .hm-stack-2,
+.g-page.e-page[data-look='paper'] .hm-stack-3 {
+	border-radius: 4px;
+}
+.g-page.e-page[data-look='clean'] .hm-stack-2,
+.g-page.e-page[data-look='clean'] .hm-stack-3 {
+	border-radius: 14px;
 }
