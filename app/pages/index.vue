@@ -12,7 +12,7 @@ import { faqs } from '~/data/landing';
 import { features } from '~/data/features';
 
 const description =
-  'Earnest is one home for a creative studio — clients, projects, invoices, proposals, client approvals and content in one place, with an AI that reads across all of it and drafts the day with you. Nothing reaches a client or moves money without your tap.';
+  "Earnest brings every client, project, invoice, proposal, client approval and post into one place, then reads across all of it and tells you what needs a decision today, what's one tap, and what's just worth knowing. Nothing reaches a client or moves money without your tap.";
 
 // Built from `features.ts` rather than hand-listed, for the same reason the FAQ
 // is: a hand-kept list is a list that will describe surfaces the app no longer
@@ -25,7 +25,7 @@ const featureList = features
 const ogImage = 'https://earnest.guru/og/home.png';
 
 useHead({
-  title: 'Earnest — Run the whole studio from one home.',
+  title: 'Earnest — Your whole studio, and what it needs from you today.',
   meta: [{ name: 'description', content: description }],
   link: [{ rel: 'canonical', href: 'https://earnest.guru' }],
   script: [
@@ -69,8 +69,8 @@ useHead({
 });
 
 useSeoMeta({
-  title: 'Earnest — Run the whole studio from one home.',
-  ogTitle: 'Earnest — Run the whole studio from one home.',
+  title: 'Earnest — Your whole studio, and what it needs from you today.',
+  ogTitle: 'Earnest — Your whole studio, and what it needs from you today.',
   description,
   ogDescription: description,
   ogType: 'website',
@@ -79,10 +79,10 @@ useSeoMeta({
   ogImage,
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: 'Earnest — the home, with the day sorted into Decide, Do and Know',
+  ogImageAlt: 'Earnest — a studio’s day sorted into Decide, Do and Know',
   robots: 'index, follow',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Earnest — Run the whole studio from one home.',
+  twitterTitle: 'Earnest — Your whole studio, and what it needs from you today.',
   twitterDescription: description,
   twitterImage: ogImage,
 });

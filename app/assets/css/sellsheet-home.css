@@ -140,11 +140,16 @@
    The size has to come down with the change: 14vw is tuned for one short word,
    and a five-word sentence at that scale wraps into a wall. */
 .e-hero-wordmark.l-hero-head {
-	font-size: clamp(40px, 6.6vw, 88px);
-	line-height: 1.02;
+	/* Sized for the LONGEST line, not the shortest. The headline is two
+	   sentences with an explicit <br> between them, and the second runs to
+	   about 32 characters — at the old 88px cap that line was ~1900px wide and
+	   wrapped again, orphaning "today." onto a third line of its own.
+	   `text-wrap: balance` cannot help across an explicit break, so the size
+	   and the measure have to do it. */
+	font-size: clamp(32px, 4.7vw, 64px);
+	line-height: 1.08;
 	letter-spacing: -0.02em;
-	max-width: 16em;
-	text-wrap: balance;
+	max-width: 15.5em;
 }
 
 /* Same reasoning at the close — but the brand's own line ("Do good work.")
@@ -491,11 +496,14 @@
 	max-width: 900px;
 	margin: clamp(28px, 4vw, 44px) auto 0;
 }
+/* ⚠️ `display: block`, NOT flex — and this is a bug fix carried over, not a
+   style preference. This rule was `display: flex` on a <p> of prose containing
+   a <strong>, which makes EVERY inline child its own flex item: the sentence
+   rendered as three columns reading "…Creative Approvals and | every | plan.
+   What changes is scale." It shipped that way on the live page. Flex is for
+   laying out boxes; a sentence is one box. The icon goes inline instead. */
 .l-compare-lead {
-	display: flex;
-	align-items: flex-start;
-	gap: 9px;
-	justify-content: center;
+	display: block;
 	max-width: 640px;
 	margin: 0 auto 20px;
 	text-align: center;
@@ -508,9 +516,10 @@
 	font-weight: 700;
 }
 .l-compare-lead-ic {
+	display: inline-block;
 	color: var(--g-accent);
-	flex: none;
-	margin-top: 2px;
+	margin-right: 7px;
+	vertical-align: -3px;
 }
 .l-compare-lead-ic svg,
 .l-compare-lead-ic [class*='iconify'] {
@@ -966,4 +975,51 @@
 	.g-page.e-page[data-look] {
 		transition: none;
 	}
+}
+
+/* ─── "Coming soon" ────────────────────────────────────────────────────────
+   ⚠️ This tag is a promise, so it is deliberately quiet and deliberately
+   consistent: the same words, the same weight, wherever it appears. It marks
+   only things the APP already advertises as coming soon (Personal Brand,
+   social publishing) — the site must never be the first place a promise is
+   made, and it must never carry a price for something nobody can buy. */
+.l-soon {
+	display: inline-block;
+	margin-left: 8px;
+	padding: 3px 8px;
+	border-radius: 999px;
+	background: var(--g-accent-soft);
+	border: 1px solid var(--g-accent-line);
+	color: var(--g-accent-ink);
+	font-size: 10.5px;
+	font-weight: 700;
+	letter-spacing: 0.07em;
+	text-transform: uppercase;
+	vertical-align: 2px;
+	white-space: nowrap;
+}
+/* Held back from the cards around it — it is real, and it is not here yet. */
+.l-more-card--soon {
+	opacity: 0.82;
+}
+.l-more-card--soon .l-more-ic {
+	color: var(--g-ink-3);
+	background: transparent;
+	border-style: dashed;
+}
+
+.l-addons-soon {
+	/* Block, for the reason spelled out on `.l-compare-lead` above: this line
+	   also carries <strong>s inside prose. */
+	display: block;
+	margin-top: 12px;
+	color: var(--g-ink-3);
+}
+.l-addons-soon svg,
+.l-addons-soon [class*='iconify'] {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	margin-right: 6px;
+	vertical-align: -2px;
 }

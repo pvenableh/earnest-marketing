@@ -6,7 +6,7 @@
 				<LogoEarnest size="md" />
 			</nuxt-link>
 			<div class="e-nav-links">
-				<a href="#home" class="e-nav-link">The home</a>
+				<a href="#home" class="e-nav-link">Your day</a>
 				<a href="#focus" class="e-nav-link">Earnest</a>
 				<a href="#looks" class="e-nav-link">Looks</a>
 				<a href="#pricing" class="e-nav-link">Pricing</a>
@@ -37,12 +37,12 @@
 
 			<span class="g-eyebrow opacity-0"><span class="g-eyebrow-dot"></span> Clients · Projects · Invoices · Approvals · Content</span>
 			<h1 class="e-hero-wordmark l-hero-head opacity-0">
-				Run the whole studio<br />from <span class="g-accent-text">one home</span><span class="e-hero-period">.</span>
+				Your whole studio<span class="e-hero-period">.</span><br />And <span class="g-accent-text">what it needs from you today</span><span class="e-hero-period">.</span>
 			</h1>
 			<p class="e-hero-tagline opacity-0">Do good work<span class="e-dot">.</span></p>
 			<p class="e-hero-sub opacity-0">
-				Every client, project, invoice, proposal, approval and post in one place — sorted into what needs a
-				decision, what’s one tap, and what’s just worth knowing. One door to ask about any of it.
+				Every client, project, invoice, proposal, approval and post in one place — and Earnest reading across all
+				of it to tell you what needs a decision, what’s one tap, and what’s just worth knowing.
 				<strong>Nothing reaches a client or moves money without your tap.</strong>
 			</p>
 			<div class="e-hero-actions opacity-0">
@@ -70,11 +70,11 @@
 			</div>
 		</div>
 
-		<!-- ─── 1. The home ─── -->
+		<!-- ─── 1. The day, sorted ─── -->
 		<section id="home" class="e-section l-arg-section">
 			<div class="l-arg" data-anim="scale">
 				<div class="l-arg-copy">
-					<span class="g-kicker-pill"><span class="g-eyebrow-dot"></span> The home</span>
+					<span class="g-kicker-pill"><span class="g-eyebrow-dot"></span> Your day, sorted</span>
 					<h2 class="e-h2">Three piles, <span class="g-accent-text">not a dashboard</span><span class="e-dot">.</span></h2>
 					<p class="l-arg-sub">
 						A dashboard shows you everything and asks you to work out what it means. Your home sorts the day
@@ -119,12 +119,12 @@
 		<section id="focus" class="e-section l-arg-section">
 			<div class="l-arg l-arg--flip" data-anim="scale">
 				<div class="l-arg-copy">
-					<span class="g-kicker-pill"><span class="g-eyebrow-dot"></span> One door</span>
-					<h2 class="e-h2">One door<span class="e-dot">.</span> It already knows <span class="g-accent-text">where you are</span><span class="e-dot">.</span></h2>
+					<span class="g-kicker-pill"><span class="g-eyebrow-dot"></span> Ask Earnest</span>
+					<h2 class="e-h2">Ask from anywhere<span class="e-dot">.</span> It already knows <span class="g-accent-text">what you’re looking at</span><span class="e-dot">.</span></h2>
 					<p class="l-arg-sub">
-						The header is three controls: search, your avatar, and <strong>E.</strong> — the door. It opens
-						full screen, and what it offers you first is ranked for whatever you were just looking at. Ask it
-						from a project and it opens on that project.
+						One control in the header — <strong>E.</strong> — opens Earnest full screen from any page, and
+						what it offers you first is ranked for whatever you were just looking at. Ask from a project and
+						it opens on that project, with that project’s tasks beside the conversation.
 					</p>
 					<ul class="l-arg-points">
 						<li>
@@ -354,8 +354,9 @@
 				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> All included</span>
 				<h2 class="e-h2" data-anim="rise">And everything else <span class="g-accent-text">it does</span><span class="e-dot">.</span></h2>
 				<p class="e-section-sub" data-anim="rise">
-					Six sections cannot hold it all. Every plan includes the whole toolkit — no add-ons for the features,
-					no meter on the actions.
+					Six sections cannot hold it all. Everything below is on every plan — no add-ons for the features, no
+					meter on the actions — except the one card marked <em>coming soon</em>, which is not switched on yet
+					and is not charged for.
 				</p>
 			</div>
 
@@ -364,9 +365,18 @@
 					<UIcon name="i-lucide-chevron-left" />
 				</button>
 				<div ref="carouselRef" class="l-carousel" role="list">
-					<div v-for="m in moreCards" :key="m.title" class="l-more-card g-glass g-lift" role="listitem">
+					<div
+						v-for="m in moreCards"
+						:key="m.title"
+						class="l-more-card g-glass g-lift"
+						:class="{ 'l-more-card--soon': m.soon }"
+						role="listitem"
+					>
 						<span class="l-more-ic"><UIcon :name="m.icon" /></span>
-						<h3 class="l-more-title">{{ m.title }}</h3>
+						<h3 class="l-more-title">
+							{{ m.title }}
+							<span v-if="m.soon" class="l-soon">Coming soon</span>
+						</h3>
 						<p class="l-more-desc">{{ m.desc }}</p>
 					</div>
 				</div>
@@ -428,6 +438,12 @@
 					<strong>Extra storage</strong> $10/mo per 100 GB ·
 					<strong>White-label</strong> $19/mo on Agency ·
 					more AI tokens available if you run out
+					<br />
+					<span class="l-addons-soon">
+						<UIcon name="i-lucide-clock" /> Coming soon, not yet purchasable: <strong>Personal Brand</strong>
+						(your own positioning and voice, on your card and in your posts) and
+						<strong>publishing straight to the social networks</strong>.
+					</span>
 				</p>
 			</div>
 		</section>

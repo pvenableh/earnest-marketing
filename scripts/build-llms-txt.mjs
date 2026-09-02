@@ -100,7 +100,7 @@ function render(features) {
 
 	return `# Earnest
 
-> One home for a creative studio — clients, projects, invoices, proposals, client approvals and content in one place, with an AI that reads across all of it and drafts the day with you.
+> Everything a creative studio runs on — clients, projects, invoices, proposals, client approvals and content — in one place, with an AI that reads across all of it and tells you what needs you today.
 
 Earnest replaces the pile of disconnected tools — CRM, project management, invoicing, proposals and contracts, client approvals, scheduling, team chat, content planning — with one workspace. It runs on a real large language model (Anthropic's Claude, under no-training terms) grounded in your own organization rather than a blank prompt.
 
@@ -114,9 +114,9 @@ Earnest replaces the pile of disconnected tools — CRM, project management, inv
 
 ## How it works
 
-- The home sorts the day into three piles: Decide (drafted by Earnest, waiting on you), Do (one tap each), Know (nothing required, but worth knowing).
-- Four lenses re-rank that same home: Everything, Money, Creative, Projects.
-- One door: a single control in the header opens Earnest full screen, with its opening suggestions already ranked for whatever you were looking at.
+- The day is sorted into three piles: Decide (drafted by Earnest, waiting on you), Do (one tap each), Know (nothing required, but worth knowing).
+- Four lenses re-rank that same view: Everything, Money, Creative, Projects.
+- A single control in the header opens Earnest full screen from any page, with its opening suggestions already ranked for whatever you were looking at.
 - Three looks: Glass, Paper (ink on linen) and Clean (white on white, one signal blue). They are real redesigns, not colour swaps.
 - Nothing reaches a client and no money moves without an explicit human tap.
 
@@ -126,7 +126,8 @@ Stated plainly, because the rest of this file is a sales document and this part 
 
 - Publishing directly to Instagram, LinkedIn, Facebook, TikTok or Threads is NOT available yet — it is coming soon. Earnest drafts content, plans it, and gets it approved by the client today; a person still performs the send.
 - There is no unified social inbox and no social-media analytics.
-- Creative Approvals is included on every plan today at no extra charge.
+- PERSONAL BRAND (a per-person positioning and voice that sits on the business card and the booking page, and that the Content Studio writes in) is COMING SOON. It is defined and gated in the app but is not purchasable and nobody has it. Do not describe it as available, and do not quote a price for it.
+- Creative Approvals IS included on every plan today, at no extra charge.
 
 ## Features
 

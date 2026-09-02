@@ -217,7 +217,7 @@ export const features: Feature[] = [
     slug: 'home-lenses',
     icon: 'i-lucide-layers',
     pillar: 'home',
-    desc: 'One home, four ways of reading it. Everything is the arrangement you made; Money, Creative and Projects re-rank the same widgets around one concern and re-tint the animated wave field behind them. When a lens has something true to say, Earnest writes one line under the greeting from data the page has already loaded — “Money lens on. $12k is out, $12k of it past 90 days.” When it has nothing, it stays quiet, because a lens line that always talks is just a label.',
+    desc: 'One screen, four ways of reading it. Everything is the arrangement you made; Money, Creative and Projects re-rank the same widgets around one concern and re-tint the animated wave field behind them. When a lens has something true to say, Earnest writes one line under the greeting from data the page has already loaded — “Money lens on. $12k is out, $12k of it past 90 days.” When it has nothing, it stays quiet, because a lens line that always talks is just a label.',
     keywords: ['lenses', 'home modes', 'ambient background', 'focus modes', 'dashboard views'],
     benefits: [
       'Everything · Money · Creative · Projects over one arrangement',

@@ -19,6 +19,11 @@
  *   · Creative Approvals is "included on every plan today". It has an intended
  *     $19/mo price and no Stripe price id, so it is free for every org. Do not
  *     print a price for something nobody is charged.
+ *   · Personal Brand is COMING SOON and is not purchasable. It is defined in
+ *     `EARNEST_ADDONS` with `stripePriceId: null` and deliberately left out of
+ *     `ALWAYS_INCLUDED_ADDONS`, so the gate is real and nobody has it. The app
+ *     renders it as a dimmed row with NO PRICE — do the same here. The
+ *     intended $19/mo is not a price anyone can pay yet.
  *   · Capacity numbers mirror `EARNEST_PLANS` in the app's `server/utils/
  *     stripe.ts`. If they move there, they move here.
  */
@@ -43,9 +48,9 @@ export const faqs: Faq[] = [
 	},
 	{
 		q: 'What do I actually see when I open it?',
-		a: 'One home. A greeting with an honest read of the day, four numbers at a glance, and then three piles: <strong>Decide</strong> (things Earnest drafted and is waiting on you for), <strong>Do</strong> (one tap each) and <strong>Know</strong> (nothing required, but worth knowing). Four lenses re-rank the same home around money, creative work or projects.',
+		a: 'One screen. A greeting with an honest read of the day — “22 things today, 5 need a decision” — four numbers at a glance, and then three piles: <strong>Decide</strong> (things Earnest drafted and is waiting on you for), <strong>Do</strong> (one tap each) and <strong>Know</strong> (nothing required, but worth knowing). Four lenses re-rank the same screen around money, creative work or projects.',
 		aText:
-			'One home. A greeting with an honest read of the day, four numbers at a glance, and then three piles: Decide (things Earnest drafted and is waiting on you for), Do (one tap each) and Know (nothing required, but worth knowing). Four lenses re-rank the same home around money, creative work or projects.',
+			'One screen. A greeting with an honest read of the day — “22 things today, 5 need a decision” — four numbers at a glance, and then three piles: Decide (things Earnest drafted and is waiting on you for), Do (one tap each) and Know (nothing required, but worth knowing). Four lenses re-rank the same screen around money, creative work or projects.',
 	},
 	{
 		q: 'How is this different from ChatGPT or a generic AI assistant?',
@@ -76,6 +81,12 @@ export const faqs: Faq[] = [
 		a: 'You send it in one press. Your client opens a link — no login, no account — and marks each piece approved or asks for a change, with notes pinned to the artwork. Rounds stack up and nothing is erased, so six weeks later you can still see who said what. <strong>Included on every plan today.</strong>',
 		aText:
 			'You send it in one press. Your client opens a link — no login, no account — and marks each piece approved or asks for a change, with notes pinned to the artwork. Rounds stack up and nothing is erased, so six weeks later you can still see who said what. Included on every plan today.',
+	},
+	{
+		q: 'Can Earnest write in my own voice, not just my studio’s?',
+		a: 'That is <strong>Personal Brand</strong>, and it is coming soon rather than live. Earnest already works from your <em>studio’s</em> brand direction and audience. Personal Brand adds the layer above it: your own positioning and voice, written once, sitting on your business card and your booking page, and used when the Content Studio drafts posts in your name. It is defined and gated in the app today and you will see it listed as coming soon — nobody is charged for it, and nothing about it is switched on yet.',
+		aText:
+			'That is Personal Brand, and it is coming soon rather than live. Earnest already works from your studio’s brand direction and audience. Personal Brand adds the layer above it: your own positioning and voice, written once, sitting on your business card and your booking page, and used when the Content Studio drafts posts in your name. It is defined and gated in the app today and you will see it listed as coming soon — nobody is charged for it, and nothing about it is switched on yet.',
 	},
 	{
 		q: 'Can I change how it looks?',
@@ -231,7 +242,7 @@ export const lenses: Lens[] = [
 		shot: 'home-v2',
 		shotByLook: { glass: 'home-v2', paper: 'home-v2-paper', clean: 'home-v2-clean' },
 		line: null,
-		note: 'The home you arranged, in full.',
+		note: 'Everything you arranged, in full.',
 	},
 	{
 		key: 'money',
@@ -287,11 +298,24 @@ export const looks = [
 	},
 ];
 
+export interface MoreCard {
+	icon: string;
+	title: string;
+	desc: string;
+	/**
+	 * Renders a "Coming soon" tag and dims the card. ⚠️ Reserved for things the
+	 * app itself advertises as coming soon — it is a promise with a date-shaped
+	 * hole in it, and one that turns out to be already-shipped-elsewhere or
+	 * never-shipped costs more trust than leaving the card out entirely.
+	 */
+	soon?: boolean;
+}
+
 /**
  * The breadth carousel — everything the long-form argument does not have room
- * to make a section about. All of it is on every plan.
+ * to make a section about. Everything without `soon` is on every plan today.
  */
-export const moreCards = [
+export const moreCards: MoreCard[] = [
 	{
 		icon: 'i-lucide-presentation',
 		title: 'The Boardroom',
@@ -336,6 +360,12 @@ export const moreCards = [
 		icon: 'i-lucide-scan-line',
 		title: 'CardDesk',
 		desc: 'Snap a business card and the contact lands in your CRM — enriched, deduped, and yours.',
+	},
+	{
+		icon: 'i-lucide-id-card',
+		title: 'Personal Brand',
+		soon: true,
+		desc: 'Your own positioning and voice — on your card, on your booking page, and in the posts the Studio drafts in your name. Defined and gated in the app today; not switched on, and not charged for.',
 	},
 	{
 		icon: 'i-lucide-bell',
