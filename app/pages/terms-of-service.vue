@@ -23,7 +23,7 @@ useSeoMeta({
 
 const lastUpdated = 'July 17, 2026';
 const contactEmail = 'hello@earnest.guru';
-const businessName = 'Hue Studios LLC';
+const businessName = 'Hue Studios';
 const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 </script>
 
@@ -187,7 +187,7 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 					immediate add-on removal, admin-initiated token refunds with balance
 					reversal floored at zero). Keep it in sync with that behavior.
 				-->
-				<h3 class="text-lg font-semibold text-gray-900 dark:text-white mt-8 mb-3">Refunds and cancellations</h3>
+				<h3 id="refunds" class="text-lg font-semibold text-gray-900 dark:text-white mt-8 mb-3">Refunds and cancellations</h3>
 
 				<p class="mt-4"><strong>Subscriptions.</strong> You can cancel your plan at any time from Organization → Billing.
 					Cancellation takes effect at the end of your current billing period: you keep access until then, and we do not

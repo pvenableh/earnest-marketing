@@ -21,10 +21,11 @@ const signInUrl = `${appUrl}/auth/signin`;
         <nuxt-link to="/blog">Blog</nuxt-link>
         <nuxt-link to="/privacy-policy">Privacy</nuxt-link>
         <nuxt-link to="/terms-of-service">Terms</nuxt-link>
+        <nuxt-link to="/terms-of-service#refunds">Refunds</nuxt-link>
         <a :href="demoUrl">Live demo</a>
         <a :href="signInUrl">Sign in</a>
       </div>
-      <p class="site-footer-copy">&copy; {{ new Date().getFullYear() }} Earnest. All rights reserved.</p>
+      <p class="site-footer-copy">&copy; {{ new Date().getFullYear() }} Earnest, made by Hue Studios. All rights reserved.</p>
     </div>
   </footer>
 </template>
