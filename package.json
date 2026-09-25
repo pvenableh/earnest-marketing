@@ -7,7 +7,9 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "check:earnest": "node scripts/check-earnest-claims.mjs",
+    "build:llms": "node scripts/build-llms-txt.mjs"
   },
   "dependencies": {
     "@nuxtjs/sitemap": "^8.0.12",

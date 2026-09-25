@@ -3,6 +3,9 @@
 // archived at /live-2026-07; the older variants live at /classic, /glass,
 // /next, /director and /automation, all noindex.
 //
+// The Earnest story (voice, context, actions, honesty, the changelog) is data
+// in `~/data/earnest.ts` — see README "Keeping the Earnest story current".
+//
 // ⚠️ The FAQ used to be written out TWICE — once as HTML inside the landing
 // component and once, hand-copied to plain text, here for the FAQPage rich
 // result. They drifted, so the structured data kept answering questions the
@@ -12,7 +15,7 @@ import { faqs } from '~/data/landing';
 import { features } from '~/data/features';
 
 const description =
-  "Earnest brings every client, project, invoice, proposal, client approval and post into one place, then reads across all of it and tells you what needs a decision today, what's one tap, and what's just worth knowing. Nothing reaches a client or moves money without your tap.";
+  "Earnest is one assistant beside every screen of your studio — clients, projects, invoices, proposals, approvals and content. Talk to it out loud, and it reads the live rows, shows a receipt, answers precisely and drafts the change as a card you approve. Nothing reaches a client or moves money without your tap.";
 
 // Built from `features.ts` rather than hand-listed, for the same reason the FAQ
 // is: a hand-kept list is a list that will describe surfaces the app no longer
@@ -25,7 +28,7 @@ const featureList = features
 const ogImage = 'https://earnest.guru/og/home.png';
 
 useHead({
-  title: 'Earnest — Your whole studio, and what it needs from you today.',
+  title: 'Earnest — Talk to your studio. It already knows where you are.',
   meta: [{ name: 'description', content: description }],
   link: [{ rel: 'canonical', href: 'https://earnest.guru' }],
   script: [
@@ -69,8 +72,8 @@ useHead({
 });
 
 useSeoMeta({
-  title: 'Earnest — Your whole studio, and what it needs from you today.',
-  ogTitle: 'Earnest — Your whole studio, and what it needs from you today.',
+  title: 'Earnest — Talk to your studio. It already knows where you are.',
+  ogTitle: 'Earnest — Talk to your studio. It already knows where you are.',
   description,
   ogDescription: description,
   ogType: 'website',
@@ -79,10 +82,10 @@ useSeoMeta({
   ogImage,
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: 'Earnest — a studio’s day sorted into Decide, Do and Know',
+  ogImageAlt: 'Earnest — a spoken conversation: receipts, the answer, and a card that waits for your tap',
   robots: 'index, follow',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Earnest — Your whole studio, and what it needs from you today.',
+  twitterTitle: 'Earnest — Talk to your studio. It already knows where you are.',
   twitterDescription: description,
   twitterImage: ogImage,
 });

@@ -27,7 +27,7 @@
 -->
 <script setup lang="ts">
 import { computed } from 'vue';
-import { looks } from '~/data/landing';
+import { looks, looksCapturedNote } from '~/data/landing';
 import { getScreenshotSrc } from '~/data/features';
 import { useLandingAppearance } from '~/composables/useLandingAppearance';
 
@@ -57,10 +57,7 @@ const current = computed(() => looks.find((l) => l.key === look.value) ?? looks[
 			</div>
 			<figcaption class="l-looks-cap">
 				<span class="l-looks-name">{{ current.label }} — the capture</span>
-				<span class="l-looks-blurb">
-					The app itself, photographed on 2026-09-01. The home at the top of this page is the same screen in
-					markup, which is why it turns with the page and this one does not.
-				</span>
+				<span class="l-looks-blurb">{{ looksCapturedNote }}</span>
 			</figcaption>
 		</figure>
 

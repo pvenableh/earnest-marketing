@@ -89,7 +89,7 @@ export default defineNuxtConfig({
       // and prerendering six full sell sheets on every build to serve nobody is
       // pure build time. The static host falls back to the SPA shell for them,
       // so the routes still resolve for anyone holding an old link.
-      routes: ['/privacy-policy', '/terms-of-service', '/features', '/blog', ...featureRoutes],
+      routes: ['/', '/privacy-policy', '/terms-of-service', '/features', '/blog', ...featureRoutes],
     },
   },
 
@@ -112,8 +112,14 @@ export default defineNuxtConfig({
     // Feature slugs that changed identity in the 2026-09 refresh. The surfaces
     // behind them were renamed rather than removed, so these are permanent
     // redirects to the page that now covers the same ground.
-    '/features/contextual-ai-sidebar': { redirect: { to: '/features/focus', statusCode: 301 } },
-    '/features/director-mode': { redirect: { to: '/features/boardroom', statusCode: 301 } },
+    '/features/contextual-ai-sidebar': { redirect: { to: '/features/earnest-everywhere', statusCode: 301 } },
+    // The one-door Focus takeover and the Boardroom / Director layer were
+    // retired in the app's 2026-09-22 rethink. Both point at the page that
+    // describes what replaced them: the composer on every screen.
+    '/features/focus': { redirect: { to: '/features/earnest-everywhere', statusCode: 301 } },
+    '/features/director-mode': { redirect: { to: '/features/earnest-everywhere', statusCode: 301 } },
+    '/features/boardroom': { redirect: { to: '/features/earnest-everywhere', statusCode: 301 } },
+    '/features/ai-strategy-engine': { redirect: { to: '/features/earnest-everywhere', statusCode: 301 } },
     // Retired outright — the app no longer has these surfaces. Each points at
     // the nearest thing that is actually true today rather than 404-ing a URL
     // that may still be linked from an old post.
