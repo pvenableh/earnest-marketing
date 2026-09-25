@@ -35,12 +35,12 @@ const OUT = resolve(ROOT, 'public/llms.txt');
 /** Pillar render order and the heading each one gets. */
 const GROUPS = [
 	['home', 'Home'],
-	['earnest', 'Earnest — the one door'],
+	['earnest', 'Earnest — the assistant'],
 	['people', 'People'],
 	['work', 'Work'],
 	['money', 'Money'],
 	['marketing', 'Marketing'],
-	['chat', 'Chat & the Boardroom'],
+	['chat', 'Chat'],
 	['org', 'Organization'],
 	['looks', 'Looks & the shell'],
 ];
@@ -100,9 +100,9 @@ function render(features) {
 
 	return `# Earnest
 
-> Everything a creative studio runs on — clients, projects, invoices, proposals, client approvals and content — in one place, with an AI that reads across all of it and tells you what needs you today.
+> Everything a creative studio runs on — clients, projects, invoices, proposals, client approvals and content — in one place, with one assistant beside every screen that you can talk to, that reads the live rows before it answers, and that does the work as a card you approve.
 
-Earnest replaces the pile of disconnected tools — CRM, project management, invoicing, proposals and contracts, client approvals, scheduling, team chat, content planning — with one workspace. It runs on a real large language model (Anthropic's Claude, under no-training terms) grounded in your own organization rather than a blank prompt.
+Earnest replaces the pile of disconnected tools — CRM, project management, invoicing, proposals and contracts, client approvals, scheduling, team chat, content planning — with one workspace. It runs on a real large language model (Anthropic's Claude, under no-training terms) grounded in your own organization and the page you are on rather than a blank prompt.
 
 ## Key information
 
@@ -114,9 +114,15 @@ Earnest replaces the pile of disconnected tools — CRM, project management, inv
 
 ## How it works
 
-- The day is sorted into three piles: Decide (drafted by Earnest, waiting on you), Do (one tap each), Know (nothing required, but worth knowing).
-- Four lenses re-rank that same view: Everything, Money, Creative, Projects.
-- A single control in the header opens Earnest full screen from any page, with its opening suggestions already ranked for whatever you were looking at.
+- Earnest is one composer on every screen: a column beside the page on a wide screen, a bar at the foot of the page on a phone. On a record it carries that record as a scope chip, so it is reading what you are looking at.
+- You can talk to it: push-to-talk on the composer (hold on a phone, click on a computer), spoken replies ("Read replies aloud"), and a Hands-free mode where anything that starts with "Earnest, …" is sent and everything else is dropped on the device. Voice uses the device's own recogniser and voice (Chrome, Safari including iPhone, Edge; absent in Firefox).
+- Before it answers it reads live rows with six read tools (search, one record, open invoices, tasks, calendar, open-a-page) and shows a receipts line — "Read invoices · 6 rows · 0.4s" — above the reply.
+- A reply is receipts, the answer, and at most one action card: a real change drafted and waiting — Approve, Edit or Skip. Done cards carry Undo where the change is reversible.
+- Home speaks first: a greeting with one true clause from the person's own numbers, then an opening paragraph of at most three sentences, each ending in the verb it needs (Mark paid, Draft a reminder, Reschedule, Review them). Then Do · Decide · Know suggestions, "Waiting for you" and Recent.
+- Autonomy is one switch: "Earnest does small reversible things without asking" (tickets, tasks, events, field edits, filing an invoice to a project — each logged and undoable). The safety floor is not configurable: sending an email, issuing an invoice, booking, moving or cancelling a meeting, and changing where a client's invoices go ALWAYS require a person's tap, and are never approved by a spoken "yes".
+- Earnest can learn how a person thinks and writes: a short profile distilled nightly from their own conversations and decisions, readable, editable and forgettable under Account → Earnest. Off, it stops.
+- It reads files dropped in the composer (PDF and images, up to three per message, 10 MB each) — for example an RFP, from which it can draft a proposal into the organization.
+- Its written charter applies to every reply: accurate before interesting, numbers as they are, uncertainty named out loud, no unearned superlatives.
 - Three looks: Glass, Paper (ink on linen) and Clean (white on white, one signal blue). They are real redesigns, not colour swaps.
 - Nothing reaches a client and no money moves without an explicit human tap.
 
@@ -126,6 +132,8 @@ Stated plainly, because the rest of this file is a sales document and this part 
 
 - Publishing directly to Instagram, LinkedIn, Facebook, TikTok or Threads is NOT available yet — it is coming soon. Earnest drafts content, plans it, and gets it approved by the client today; a person still performs the send.
 - There is no unified social inbox and no social-media analytics.
+- There is no Boardroom, Director mode, full-screen Focus takeover or trust dial any more; those surfaces were retired in September 2026 in favour of the single composer, the action card and one autonomy switch described above.
+- Voice uses the browser's built-in speech recognition and synthesis. There is no hosted voice, and there is no wake word that listens across reloads or in the background — Hands-free is per tab, per session, and off after every reload.
 - PERSONAL BRAND (a per-person positioning, voice and proof points, applied to the business card and booking page in one press, and used when the Content Studio drafts in that person's name) is BUILT BUT NOT ON SALE. The editor exists in the app; the add-on has no Stripe price, is gated behind an entitlement almost no org has, and is listed in-app as coming soon. Do not describe it as available to buy, and do not quote a price for it.
 - Creative Approvals IS included on every plan today, at no extra charge.
 

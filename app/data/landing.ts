@@ -9,6 +9,11 @@
  *   · `aText`  the same answer as plain prose, for the rich result
  * Google strips markup from FAQPage anyway, so the two never disagree again.
  *
+ * Everything about EARNEST ITSELF — what it can do, say and refuse — lives in
+ * `~/data/earnest.ts`, with the app-repo file each claim was read from. The
+ * FAQ answers below that touch Earnest are written from that file, not from
+ * memory; when it changes, they change.
+ *
  * ⚠️ VOICE. This is marketing copy for a product whose own charter is "earn
  * trust by being right, not by being loud" (`server/utils/llm/voice.ts` in the
  * app repo). Concrete numbers over adjectives; no claim the app cannot make
@@ -27,6 +32,9 @@
  *     script — so nobody can buy it and almost nobody has it. The app renders a
  *     dimmed "Coming soon" row with NO PRICE; do the same here. The intended
  *     $19/mo is not a price anyone can pay.
+ *   · The Boardroom, Director, Focus and the trust dial were RETIRED in the
+ *     2026-09-22 rethink (app repo `docs/earnest-rethink-direction.md`, "What
+ *     goes"). Nothing here may mention them as a feature.
  *   · Capacity numbers mirror `EARNEST_PLANS` in the app's `server/utils/
  *     stripe.ts`. If they move there, they move here.
  */
@@ -50,28 +58,40 @@ export const faqs: Faq[] = [
 			'Yes. Earnest runs in production — sign up at app.earnest.guru and your workspace is ready in a few minutes. There is also a live demo with sample data, no sign-up needed.',
 	},
 	{
-		q: 'What do I actually see when I open it?',
-		a: 'One screen. A greeting with an honest read of the day — “22 things today, 5 need a decision” — four numbers at a glance, and then three piles: <strong>Decide</strong> (things Earnest drafted and is waiting on you for), <strong>Do</strong> (one tap each) and <strong>Know</strong> (nothing required, but worth knowing). Four lenses re-rank the same screen around money, creative work or projects.',
+		q: 'Can I actually talk to it?',
+		a: 'Yes. There is a mic on the composer on every screen: hold it on a phone, click it on a computer, and your words land in the box as you say them. Sending stays a separate act unless you switch on <strong>“Send when I stop talking”</strong>. Switch on <strong>“Read replies aloud”</strong> and it speaks each reply once it is finished. Switch on <strong>Hands-free</strong> and anything that starts with “Earnest, …” is sent without touching anything — only what starts with the name; everything else is dropped on your device, and it is off again after a reload. It uses your device’s own recogniser and voice (Chrome, Safari including iPhone, Edge; the button is absent in Firefox).',
 		aText:
-			'One screen. A greeting with an honest read of the day — “22 things today, 5 need a decision” — four numbers at a glance, and then three piles: Decide (things Earnest drafted and is waiting on you for), Do (one tap each) and Know (nothing required, but worth knowing). Four lenses re-rank the same screen around money, creative work or projects.',
+			'Yes. There is a mic on the composer on every screen: hold it on a phone, click it on a computer, and your words land in the box as you say them. Sending stays a separate act unless you switch on “Send when I stop talking”. Switch on “Read replies aloud” and it speaks each reply once it is finished. Switch on Hands-free and anything that starts with “Earnest, …” is sent without touching anything — only what starts with the name; everything else is dropped on your device, and it is off again after a reload. It uses your device’s own recogniser and voice (Chrome, Safari including iPhone, Edge; the button is absent in Firefox).',
+	},
+	{
+		q: 'What do I actually see when I open it?',
+		a: 'Home speaks first. A greeting with one true clause from your own numbers, then an opening paragraph of three sentences at most — <em>“You are owed $46,000 across 5 invoices, the oldest 104 days overdue. Mark paid · Draft a reminder.”</em> — each ending in the verb it needs. Under that, the composer with <strong>Do · Decide · Know</strong> suggestions, then <strong>Waiting for you</strong> (the things Earnest drafted and is waiting on you for) and <strong>Recent</strong> (what it did, with Undo). On a wide screen Earnest is a column beside every page; on a phone it is the bar at the foot of every page.',
+		aText:
+			'Home speaks first. A greeting with one true clause from your own numbers, then an opening paragraph of three sentences at most — “You are owed $46,000 across 5 invoices, the oldest 104 days overdue. Mark paid · Draft a reminder.” — each ending in the verb it needs. Under that, the composer with Do · Decide · Know suggestions, then Waiting for you (the things Earnest drafted and is waiting on you for) and Recent (what it did, with Undo). On a wide screen Earnest is a column beside every page; on a phone it is the bar at the foot of every page.',
 	},
 	{
 		q: 'How is this different from ChatGPT or a generic AI assistant?',
-		a: 'Earnest runs on a <strong>real large language model</strong> — Anthropic’s Claude, on no-training terms — but it does not start from a blank prompt. It starts from your organization: your clients, your work, your money, your brand voice. One door, and it already knows where you are standing when you open it.',
+		a: 'Earnest runs on a <strong>real large language model</strong> — Anthropic’s Claude, on no-training terms — but it does not start from a blank prompt. It starts from your organization: your clients, your work, your money, your brand voice, and the page you are on. It reads <strong>live rows</strong> before it answers and shows a receipt for what it read. And it can <strong>do</strong> things — draft the email, add the tasks, reschedule the project, sketch the prototype — as a card you approve, edit or skip.',
 		aText:
-			'Earnest runs on a real large language model — Anthropic’s Claude, on no-training terms — but it does not start from a blank prompt. It starts from your organization: your clients, your work, your money, your brand voice. One door, and it already knows where you are standing when you open it.',
+			'Earnest runs on a real large language model — Anthropic’s Claude, on no-training terms — but it does not start from a blank prompt. It starts from your organization: your clients, your work, your money, your brand voice, and the page you are on. It reads live rows before it answers and shows a receipt for what it read. And it can do things — draft the email, add the tasks, reschedule the project, sketch the prototype — as a card you approve, edit or skip.',
+	},
+	{
+		q: 'Does it learn how I work?',
+		a: 'If you let it. A short profile — how you write, what you approve untouched, what you come back to — is distilled nightly from your own conversations and decisions and used when it writes for you. It is <strong>yours to read</strong>: under Account → Earnest you can see it, edit a line, rebuild it now, or turn it off and forget it. It is never used to train the model.',
+		aText:
+			'If you let it. A short profile — how you write, what you approve untouched, what you come back to — is distilled nightly from your own conversations and decisions and used when it writes for you. It is yours to read: under Account → Earnest you can see it, edit a line, rebuild it now, or turn it off and forget it. It is never used to train the model.',
 	},
 	{
 		q: 'What happens when Earnest doesn’t have enough context?',
-		a: 'It stops and asks. If it is thin on your brand, your goals or a client’s voice, it tells you what is missing rather than filling the gap with something plausible. Real context over generic confidence.',
+		a: 'It stops and asks. If it is thin on your brand, a client’s voice or the record you mean, it tells you what is missing rather than filling the gap with something plausible. Its charter says it out loud: <em>if you do not have the data, say so plainly instead of guessing.</em>',
 		aText:
-			'It stops and asks. If it is thin on your brand, your goals or a client’s voice, it tells you what is missing rather than filling the gap with something plausible. Real context over generic confidence.',
+			'It stops and asks. If it is thin on your brand, a client’s voice or the record you mean, it tells you what is missing rather than filling the gap with something plausible. Its charter says it out loud: if you do not have the data, say so plainly instead of guessing.',
 	},
 	{
 		q: 'Will Earnest send emails or move money on its own?',
-		a: 'No. Low-stakes, reversible work — reconciling a payment, summarising a meeting, enriching a contact — can run on its own with a full audit trail, and you can dial how much of that it handles. The floor never moves: <strong>nothing reaches a client and no money moves without your tap</strong>.',
+		a: 'No. There is one switch — <strong>“Earnest does small reversible things without asking”</strong>. On, it opens tickets, adds tasks and events, edits fields and files invoices on its own, each logged and each undoable. The floor never moves: <strong>sending an email, issuing an invoice, booking, moving or cancelling a meeting, and changing where a client’s invoices go always wait for your tap</strong> — not a setting, and never on a spoken “yes”.',
 		aText:
-			'No. Low-stakes, reversible work — reconciling a payment, summarising a meeting, enriching a contact — can run on its own with a full audit trail, and you can dial how much of that it handles. The floor never moves: nothing reaches a client and no money moves without your tap.',
+			'No. There is one switch — “Earnest does small reversible things without asking”. On, it opens tickets, adds tasks and events, edits fields and files invoices on its own, each logged and each undoable. The floor never moves: sending an email, issuing an invoice, booking, moving or cancelling a meeting, and changing where a client’s invoices go always wait for your tap — not a setting, and never on a spoken “yes”.',
 	},
 	{
 		q: 'Can Earnest post to Instagram or LinkedIn for me?',
@@ -105,9 +125,9 @@ export const faqs: Faq[] = [
 	},
 	{
 		q: 'Is Earnest for solo operators or bigger studios?',
-		a: 'Both, and the daily rhythm is the same either way. Solo is the one-person shop doing serious work; Studio and Agency add seats, team channels and the Boardroom as you grow. You are choosing scale, not a feature set.',
+		a: 'Both, and the daily rhythm is the same either way. Solo is the one-person shop doing serious work; Studio and Agency add seats and team channels as you grow. You are choosing scale, not a feature set.',
 		aText:
-			'Both, and the daily rhythm is the same either way. Solo is the one-person shop doing serious work; Studio and Agency add seats, team channels and the Boardroom as you grow. You are choosing scale, not a feature set.',
+			'Both, and the daily rhythm is the same either way. Solo is the one-person shop doing serious work; Studio and Agency add seats and team channels as you grow. You are choosing scale, not a feature set.',
 	},
 	{
 		q: 'Do I have to replace all my tools at once?',
@@ -117,9 +137,9 @@ export const faqs: Faq[] = [
 	},
 	{
 		q: 'Who can see my data?',
-		a: 'Only the members you invite. Your workspace is isolated from every other organization, we never sell your data, and Earnest’s AI reads it only to produce your own results, under no-training terms. Full detail is in our <a href="/privacy-policy">privacy policy</a>.',
+		a: 'Only the members you invite. Your workspace is isolated from every other organization, we never sell your data, and Earnest’s AI reads it only to produce your own results, under no-training terms. What you say to the mic is handled by your own device’s recogniser; with Hands-free on, anything that does not start with “Earnest” is dropped on the device. Full detail is in our <a href="/privacy-policy">privacy policy</a>.',
 		aText:
-			'Only the members you invite. Your workspace is isolated from every other organization, we never sell your data, and Earnest’s AI reads it only to produce your own results, under no-training terms. Full detail is in our privacy policy.',
+			'Only the members you invite. Your workspace is isolated from every other organization, we never sell your data, and Earnest’s AI reads it only to produce your own results, under no-training terms. What you say to the mic is handled by your own device’s recogniser; with Hands-free on, anything that does not start with “Earnest” is dropped on the device. Full detail is in our privacy policy.',
 	},
 ];
 
@@ -161,7 +181,7 @@ export const plans: Plan[] = [
 			'Everything in Solo',
 			'400K AI tokens a month',
 			'100 GB of files',
-			'Team channels and the Boardroom',
+			'Team channels',
 			'15 client-portal seats',
 		],
 		cta: 'Start free',
@@ -200,224 +220,31 @@ export const compareRows = [
 
 /** The scrolling band under the hero — each one a claim the page then earns. */
 export const marqueeItems = [
-	{ label: 'Decide · Do · Know', icon: 'i-lucide-layers' },
-	{ label: 'One door to Earnest', icon: 'i-lucide-door-open' },
-	{ label: 'Money sorted by certainty', icon: 'i-lucide-trending-up' },
-	{ label: 'Approvals in one press', icon: 'i-lucide-send' },
-	{ label: 'Three looks, one Earnest', icon: 'i-lucide-swatch-book' },
+	{ label: '“Earnest, who owes me money?”', icon: 'i-lucide-mic' },
+	{ label: 'Receipts before answers', icon: 'i-lucide-receipt-text' },
+	{ label: 'It knows what you’re looking at', icon: 'i-lucide-scan-eye' },
+	{ label: 'Approve · Edit · Skip · Undo', icon: 'i-lucide-list-checks' },
 	{ label: 'Nothing moves without your tap', icon: 'i-lucide-hand' },
-	{ label: 'Set up in minutes', icon: 'i-lucide-rocket' },
+	{ label: 'Right, not loud', icon: 'i-lucide-badge-check' },
+	{ label: 'Three looks, one Earnest', icon: 'i-lucide-swatch-book' },
 ];
-
-/**
- * The four lenses, as the home actually ships them. `line` is the shape the
- * app's own `useHomeV2ModeLine` writes under the greeting — the strings here
- * are the ones the seeded demo workspace produced on 2026-09-01, which is
- * also what the screenshots show. Everything has no line by design: a lens
- * line that always talks is a label, and a label that repeats the lens name
- * is noise.
- */
-export interface Lens {
-	key: string;
-	label: string;
-	icon: string;
-	/** HSL triple — mirrors the app's own lens tints in useHomeV2Layout.ts. */
-	hue: string | null;
-	line: string | null;
-	note: string;
-	/** Which stat tiles the lens leaves standing, in order — keys of `mockStats`. */
-	stats: string[];
-	/** Which rail widgets it leaves standing — keys of `mockWidgets`. */
-	widgets: string[];
-}
-
-export const lenses: Lens[] = [
-	{
-		key: 'everything',
-		label: 'Everything',
-		icon: 'i-lucide-layout-grid',
-		hue: null,
-		line: null,
-		note: 'Everything you arranged, in full.',
-		stats: ['score', 'unpaid', 'pipeline', 'unread', 'learning'],
-		widgets: ['outstanding', 'pipeline', 'content'],
-	},
-	{
-		key: 'money',
-		label: 'Money',
-		icon: 'i-lucide-banknote',
-		// var(--success) in the app.
-		hue: '142 72% 46%',
-		line: 'Money lens on. $12k is out, $12k of it past 90 days. $286k in play across 12 open deals.',
-		note: 'Cash, ageing and pipeline come forward. Everything else steps back.',
-		stats: ['unpaid', 'pipeline'],
-		widgets: ['outstanding', 'pipeline'],
-	},
-	{
-		key: 'creative',
-		label: 'Creative',
-		icon: 'i-lucide-palette',
-		// var(--tag-4) in the app.
-		hue: '194 73% 59%',
-		line: 'Creative lens on. 5 pieces out with clients. 4 posts queued.',
-		note: 'What is out for approval, and what goes out next.',
-		stats: ['unread'],
-		widgets: ['approvals', 'content'],
-	},
-	{
-		key: 'projects',
-		label: 'Projects',
-		icon: 'i-lucide-folder-kanban',
-		// var(--tag-3) in the app.
-		hue: '188 70% 61%',
-		line: 'Projects lens on. 5 decisions waiting. 13 things one tap away.',
-		note: 'Today, as the work actually asks for it.',
-		stats: ['score', 'unread'],
-		widgets: [],
-	},
-];
-
-/* ────────────────────────────────────────────────────────────────────────
-   THE HOME, AS DATA.
-
-   The hero used to hold a PNG of the home. It holds a coded one now
-   (`Landing/HomeMock.vue`), so the app on the hero wears whatever look,
-   palette, type and mode the visitor has picked — which a capture cannot
-   do, and which is the whole claim the Looks section makes.
-
-   ⚠️ Every number below is read off the seeded solo demo workspace the
-   2026-09 captures were taken from — `public/screenshots/latest/home-v2*.png`
-   are the receipts, and they are still on the page in the Looks section. A
-   coded mock is allowed to re-render those numbers; it is NOT allowed to
-   invent friendlier ones. If the demo seed moves, these move with it.
-   ──────────────────────────────────────────────────────────────────────── */
-
-export interface MockStat {
-	label: string;
-	value: string;
-	/** The quiet half of the tile — "/ 100", "invoices", "12 open". */
-	unit: string;
-}
-
-export const mockStats: Record<string, MockStat> = {
-	score: { label: 'Score', value: '43', unit: '/ 100' },
-	unpaid: { label: 'Unpaid', value: '$12k', unit: 'invoices' },
-	pipeline: { label: 'Pipeline', value: '$286k', unit: '12 open' },
-	unread: { label: 'Unread', value: '0', unit: 'messages' },
-	learning: { label: 'Learning', value: '0m', unit: 'this wk' },
-};
-
-export interface MockPile {
-	key: string;
-	label: string;
-	sub: string;
-	count: number;
-	title: string;
-	/** The one line under the item's title. */
-	meta: string;
-	/** What the row offers: a draft to approve, a status to move, or a read. */
-	action: 'approve' | 'status' | 'open';
-	actionLabel?: string;
-}
-
-/**
- * The three piles do not change with the lens — the same three rows stand at
- * the top of all four captures. What a lens changes is what surrounds them.
- */
-export const mockPiles: MockPile[] = [
-	{
-		key: 'decide',
-		label: 'Decide',
-		sub: 'Earnest drafted these — approve or adjust',
-		count: 5,
-		title: 'Create 2 tasks on Helios — Website Build',
-		meta: 'Create tasks · proposed by Earnest',
-		action: 'approve',
-		actionLabel: 'Approve',
-	},
-	{
-		key: 'do',
-		label: 'Do',
-		sub: 'One tap each',
-		count: 13,
-		title: 'Project Overdue: Helios West Hotel Launch',
-		meta: '30 days past deadline for Earnest Demo — Solo',
-		action: 'status',
-		actionLabel: 'In Progress',
-	},
-	{
-		key: 'know',
-		label: 'Know',
-		sub: 'Nothing required',
-		count: 4,
-		title: '$12,000 in Outstanding Invoices',
-		meta: 'Consider sending payment reminders to improve cash flow',
-		action: 'open',
-	},
-];
-
-export type MockWidget =
-	| { kind: 'bars'; title: string; value: string; rows: { label: string; pct: number; tone?: 'danger' }[] }
-	| { kind: 'chart'; title: string; value: string; bars: number[] }
-	| { kind: 'facts'; title: string; value: string; rows: { label: string; value: string }[] };
-
-export const mockWidgets: Record<string, MockWidget> = {
-	outstanding: {
-		kind: 'bars',
-		title: 'Outstanding',
-		value: '$12k',
-		rows: [
-			{ label: 'Current', pct: 0 },
-			{ label: '1–30 days', pct: 0 },
-			{ label: '31–90 days', pct: 0 },
-			// All of it. That is the point of the widget, and the reason the
-			// Money lens says "$12k of it past 90 days" out loud.
-			{ label: '90+ days', pct: 100, tone: 'danger' },
-		],
-	},
-	pipeline: {
-		kind: 'bars',
-		title: 'Pipeline',
-		value: '$230k',
-		rows: [
-			{ label: 'New', pct: 0 },
-			{ label: 'Contacted', pct: 26 },
-			{ label: 'Qualified', pct: 100 },
-			{ label: 'Proposal sent', pct: 5 },
-			{ label: 'Negotiating', pct: 0 },
-		],
-	},
-	content: {
-		kind: 'chart',
-		title: 'Content',
-		value: '11 published · 8 wk',
-		bars: [42, 62, 92, 44, 46, 48, 44, 30],
-	},
-	approvals: {
-		kind: 'facts',
-		title: 'Approvals',
-		value: '8 wk',
-		rows: [
-			{ label: 'Out with clients', value: '5' },
-			{ label: 'Queued to go out', value: '4' },
-		],
-	},
-};
 
 /**
  * The three Looks, and the capture that proves each one.
  *
- * ⚠️ The blurbs used to live here too, and now live once, in
- * `useLandingAppearance.ts` beside the option they describe — the appearance
- * panel needs a hint per option on all four axes, and a second copy of three
- * of them here was a second copy that could disagree. What is left is what
- * only this list knows: which screenshot shows which look.
+ * ⚠️ The captures are from 2026-09-01 and show the Home the app had BEFORE
+ * the 2026-09-22 rethink (lenses, tiles, piles). The LOOK in each is still
+ * exactly what ships — that is the claim this section makes — but the Home
+ * under it is not, which the section says in its caption. Re-capture with the
+ * app repo's `scripts/capture-demo-screenshots.ts` and delete `capturedNote`.
  */
 export const looks = [
 	{ key: 'glass', label: 'Glass', shot: 'home-v2' },
 	{ key: 'paper', label: 'Paper', shot: 'home-v2-paper' },
 	{ key: 'clean', label: 'Clean', shot: 'home-v2-clean' },
 ];
+export const looksCapturedNote =
+	'Captured 2026-09-01. The look is exactly what ships; the Home in the frame predates the September simplification drawn in the section above.';
 
 export interface MoreCard {
 	icon: string;
@@ -441,9 +268,19 @@ export interface MoreCard {
  */
 export const moreCards: MoreCard[] = [
 	{
-		icon: 'i-lucide-presentation',
-		title: 'The Boardroom',
-		desc: 'Convene the whole org on one question and work the decision together, with Earnest drafting a plan against real numbers.',
+		icon: 'i-lucide-layout-template',
+		title: 'A prototype from a chat',
+		desc: '“Sketch a landing page for the retainer” writes one self-contained page on the proposal, at a link you can publish, password, expire or revoke — and revise in the same thread.',
+	},
+	{
+		icon: 'i-lucide-file-search',
+		title: 'Read the RFP, draft the proposal',
+		desc: 'Drop a PDF in the box. Earnest reads it directly, pulls the agreement out of it, and drafts the proposal into your organization from your own service templates and blocks.',
+	},
+	{
+		icon: 'i-lucide-video',
+		title: 'Earnest beside a live call',
+		desc: 'On a video meeting it slides in beside the call rather than over it — summarise what was covered, draft the action items, capture a follow-up — scoped to that meeting.',
 	},
 	{
 		icon: 'i-lucide-receipt',
@@ -458,7 +295,7 @@ export const moreCards: MoreCard[] = [
 	{
 		icon: 'i-lucide-target',
 		title: 'Pursuits',
-		desc: 'Leads and pipeline in one lens, with the deal timeline that shows how a pursuit actually got where it is.',
+		desc: 'Leads and pipeline in one lens, with the deal timeline that shows how a pursuit actually got where it is — and a re-approach drafted when one goes cold.',
 	},
 	{
 		icon: 'i-lucide-sparkles',
@@ -478,7 +315,7 @@ export const moreCards: MoreCard[] = [
 	{
 		icon: 'i-lucide-square-kanban',
 		title: 'Tickets, tasks & projects',
-		desc: 'Delivery end to end, on a timeline that keeps itself honest as dates move.',
+		desc: 'Delivery end to end, on a timeline that keeps itself honest as dates move — and that Earnest can reschedule in one card.',
 	},
 	{
 		icon: 'i-lucide-scan-line',
@@ -499,6 +336,6 @@ export const moreCards: MoreCard[] = [
 	{
 		icon: 'i-lucide-search',
 		title: 'Spotlight search',
-		desc: 'One keystroke over every record you have — clients, projects, invoices, files, messages.',
+		desc: 'One keystroke over every record you have — clients, projects, invoices, files, messages. No match? It falls through to Earnest.',
 	},
 ];

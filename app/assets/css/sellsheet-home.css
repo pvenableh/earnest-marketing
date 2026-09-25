@@ -331,38 +331,6 @@
 	}
 }
 
-/* ─── The door — one wide card, the ring drawn rather than captured ────── */
-.l-door-card {
-	display: grid;
-	grid-template-columns: 300px 1fr;
-	align-items: center;
-	gap: clamp(20px, 4vw, 48px);
-	max-width: 1000px;
-	margin: 0 auto;
-	padding: clamp(20px, 3vw, 34px);
-	border-radius: 26px;
-}
-.l-door-quote {
-	margin: 0;
-	padding-left: 20px;
-	border-left: 3px solid var(--g-accent-line);
-	font-size: clamp(17px, 2.2vw, 22px);
-	line-height: 1.5;
-	color: var(--g-ink);
-}
-.l-door-quote cite {
-	display: block;
-	margin-top: 12px;
-	font-style: normal;
-	font-size: 13px;
-	color: var(--g-ink-3);
-}
-@media (max-width: 720px) {
-	.l-door-card {
-		grid-template-columns: 1fr;
-	}
-}
-
 /* ─── Looks section ────────────────────────────────────────────────────── */
 .l-looks-section {
 	padding-top: clamp(48px, 7vw, 96px);
@@ -1157,13 +1125,15 @@
 .g-page.e-page[data-look='paper'] .l-more-card,
 .g-page.e-page[data-look='paper'] .e-plan,
 .g-page.e-page[data-look='paper'] .g-faq-item,
-.g-page.e-page[data-look='paper'] .l-door-card {
+.g-page.e-page[data-look='paper'] .l-guard-col,
+.g-page.e-page[data-look='paper'] .l-new-row {
 	border-radius: 4px;
 }
 .g-page.e-page[data-look='clean'] .l-more-card,
 .g-page.e-page[data-look='clean'] .e-plan,
 .g-page.e-page[data-look='clean'] .g-faq-item,
-.g-page.e-page[data-look='clean'] .l-door-card {
+.g-page.e-page[data-look='clean'] .l-guard-col,
+.g-page.e-page[data-look='clean'] .l-new-row {
 	border-radius: 14px;
 }
 
@@ -1228,433 +1198,6 @@
 	height: 14px;
 	margin-right: 6px;
 	vertical-align: -2px;
-}
-
-/* ════════════════════════════════════════════════════════════
-   THE HOME, BUILT — `Landing/HomeMock.vue`.
-
-   The hero used to hold a PNG of Home v2 inside a drawn browser window. Both
-   halves of that were wrong once the page grew an appearance panel:
-
-     · A CAPTURE CANNOT TURN. It is frozen in the look, palette, type and mode
-       it was taken in, so a visitor who put the page into Paper got a Paper
-       page with a Glass app sitting in the middle of it — the page breaking
-       its own central claim, in the middle of making it.
-     · A WINDOW FRAME SAYS "SCREENSHOT". The wave field behind the hero is the
-       app's OWN ambient ground; putting a chrome bar and a border between the
-       two turns a product into a picture of a product.
-
-   So the home is markup, reading the same tokens as the page around it, and
-   it floats straight on the field. Every surface below carries a `.g-glass*`
-   class rather than its own fill, which is what makes the Paper and Clean
-   flattening above reach it for free — the mock needs no per-look block of
-   its own, and could not drift from the rest of the page if it tried.
-
-   ⚠️ The numbers are `mockStats` / `mockPiles` / `mockWidgets` in
-   `~/data/landing`, read off the seeded demo the 2026-09 captures came from.
-   The captures are still on the page in the Looks section. A drawing of a
-   product is allowed to be a drawing; it is not allowed to be a nicer product
-   than the one that ships.
-   ════════════════════════════════════════════════════════════ */
-
-.hm {
-	display: flex;
-	align-items: flex-start;
-	gap: 26px;
-	width: 100%;
-	max-width: 1120px;
-	margin: 0 auto;
-	/* The hero centres everything; a home does not centre anything. */
-	text-align: left;
-}
-.hm-main {
-	flex: 1 1 auto;
-	min-width: 0;
-}
-/* The rail LEAVES with the lens — under Projects the app clears it entirely,
-   so `:empty` collapses it rather than leaving a 296px hole. Flex `gap` does
-   not apply to a `display: none` child, so the main column simply widens. */
-.hm-rail {
-	flex: 0 0 296px;
-	display: grid;
-	gap: 14px;
-}
-.hm-rail:empty {
-	display: none;
-}
-
-/* ── The greeting ── */
-.hm-greet {
-	padding: 0 2px;
-}
-.hm-hello {
-	margin: 0;
-	font-size: clamp(26px, 3.1vw, 38px);
-	font-weight: 700;
-	line-height: 1.1;
-	letter-spacing: -0.02em;
-	color: var(--g-ink);
-}
-.hm-wave {
-	display: inline-block;
-	margin-left: 4px;
-}
-.hm-line {
-	/* Reserved for two lines at the narrowest width this runs at — the line is
-	   the one part of the home that changes length with the lens, and without
-	   a floor the stat tiles jump every time a lens is picked. */
-	margin: 10px 0 0;
-	min-height: 46px;
-	max-width: 46rem;
-	font-size: 15px;
-	line-height: 1.5;
-	color: var(--g-ink-2);
-}
-
-/* ── Stat tiles ── */
-.hm-stats {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px;
-	margin: 14px 0 0;
-}
-.hm-stat {
-	flex: 1 1 148px;
-	min-width: 132px;
-	display: flex;
-	flex-direction: column;
-	gap: 7px;
-	padding: 14px 16px;
-	border-radius: 16px;
-}
-.hm-stat-k {
-	font-size: 10.5px;
-	font-weight: 700;
-	letter-spacing: 0.11em;
-	text-transform: uppercase;
-	color: var(--g-ink-3);
-}
-.hm-stat-v {
-	font-size: 20px;
-	font-weight: 700;
-	line-height: 1;
-	color: var(--g-ink);
-}
-.hm-stat-v em {
-	font-style: normal;
-	font-size: 13px;
-	font-weight: 500;
-	color: var(--g-ink-3);
-}
-
-/* ── The three piles ── */
-.hm-pile {
-	margin-top: 22px;
-}
-.hm-pile-head {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-}
-.hm-pile-rule {
-	width: 3px;
-	height: 14px;
-	border-radius: 2px;
-	background: var(--g-accent);
-	flex: none;
-}
-.hm-pile-name {
-	margin: 0;
-	font-size: 12.5px;
-	font-weight: 700;
-	letter-spacing: 0.13em;
-	text-transform: uppercase;
-	color: var(--g-ink);
-}
-.hm-pile-count {
-	margin-left: auto;
-	min-width: 25px;
-	padding: 2px 8px;
-	border-radius: 999px;
-	background: var(--g-accent-soft);
-	border: 1px solid var(--g-accent-line);
-	color: var(--g-accent-ink);
-	font-size: 11.5px;
-	font-weight: 700;
-	text-align: center;
-}
-.hm-pile-more {
-	width: 15px;
-	height: 15px;
-	color: var(--g-ink-3);
-	flex: none;
-}
-.hm-pile-sub {
-	margin: 5px 0 10px;
-	font-size: 13px;
-	color: var(--g-ink-3);
-}
-
-/* The stacked edges under each row — the app's own "there are more of these
-   behind this one" cue. Drawn as two siblings rather than faked with a
-   shadow, so they take the look's border radius along with everything else. */
-.hm-stack {
-	position: relative;
-	isolation: isolate;
-	padding-bottom: 13px;
-}
-.hm-row {
-	position: relative;
-	z-index: 3;
-	display: flex;
-	align-items: center;
-	gap: 12px;
-	padding: 14px 16px;
-	border-radius: 16px;
-}
-/* ⚠️ Outline only. These carried `--g-accent-soft` as a fill, which is a
-   whisper on Glass and a pair of solid bronze bars under Paper — the accent
-   there is an oxide at 12% over a near-black ground, which composites far
-   heavier than a cyan at the same alpha. What the app actually shows is the
-   EDGE of the card behind, so that is all these draw. */
-.hm-stack-2,
-.hm-stack-3 {
-	position: absolute;
-	height: 22px;
-	border-radius: 16px;
-	border: 1px solid var(--g-line);
-}
-.hm-stack-2 {
-	z-index: 2;
-	left: 14px;
-	right: 14px;
-	bottom: 6px;
-}
-.hm-stack-3 {
-	z-index: 1;
-	left: 30px;
-	right: 30px;
-	bottom: 0;
-}
-.hm-row-dot {
-	width: 8px;
-	height: 8px;
-	border-radius: 50%;
-	background: var(--g-accent);
-	flex: none;
-}
-.hm-row-body {
-	flex: 1 1 auto;
-	min-width: 0;
-}
-.hm-row-title {
-	margin: 0;
-	font-size: 15px;
-	font-weight: 600;
-	line-height: 1.3;
-	color: var(--g-ink);
-}
-.hm-row-meta {
-	margin: 3px 0 0;
-	font-size: 13px;
-	line-height: 1.35;
-	color: var(--g-ink-3);
-}
-.hm-row-btn {
-	flex: none;
-	padding: 7px 15px;
-	border-radius: 999px;
-	background: var(--g-accent-soft);
-	border: 1px solid var(--g-accent-line);
-	color: var(--g-accent-ink);
-	font-size: 13px;
-	font-weight: 600;
-	white-space: nowrap;
-}
-.hm-row-status {
-	flex: none;
-	display: inline-flex;
-	align-items: center;
-	gap: 7px;
-	padding: 6px 12px;
-	border-radius: 999px;
-	border: 1px solid var(--g-line);
-	font-size: 12.5px;
-	font-weight: 500;
-	color: var(--g-ink-2);
-	white-space: nowrap;
-}
-.hm-row-status-dot {
-	width: 7px;
-	height: 7px;
-	border-radius: 50%;
-	background: #10b981;
-}
-.hm-row-go,
-.hm-row-x {
-	width: 16px;
-	height: 16px;
-	flex: none;
-	color: var(--g-ink-3);
-}
-
-/* ── Rail widgets ── */
-.hm-widget {
-	padding: 16px;
-	border-radius: 18px;
-}
-.hm-widget-head {
-	display: flex;
-	align-items: baseline;
-	justify-content: space-between;
-	gap: 10px;
-	margin-bottom: 12px;
-}
-.hm-widget-title {
-	font-size: 10.5px;
-	font-weight: 700;
-	letter-spacing: 0.11em;
-	text-transform: uppercase;
-	color: var(--g-ink-2);
-}
-.hm-widget-value {
-	font-size: 13px;
-	font-weight: 700;
-	color: var(--g-ink);
-	white-space: nowrap;
-}
-.hm-bar-row {
-	display: grid;
-	grid-template-columns: 82px minmax(0, 1fr);
-	align-items: center;
-	gap: 10px;
-	margin-top: 9px;
-}
-.hm-bar-label {
-	font-size: 12px;
-	color: var(--g-ink-3);
-}
-.hm-bar-track {
-	height: 6px;
-	border-radius: 999px;
-	background: var(--g-line);
-	overflow: hidden;
-}
-.hm-bar-fill {
-	display: block;
-	height: 100%;
-	border-radius: 999px;
-	background: var(--g-accent);
-	transition: width 0.6s var(--spring);
-}
-/* The only saturated colour the mock allows itself, in every look. Ageing
-   past 90 days is the one thing on this screen that is not neutral news. */
-.hm-bar-fill--danger {
-	background: #e0544f;
-}
-.hm-chart {
-	display: flex;
-	align-items: flex-end;
-	gap: 5px;
-	height: 74px;
-	margin-bottom: 16px;
-	position: relative;
-}
-.hm-chart-bar {
-	flex: 1 1 0;
-	min-width: 0;
-	border-radius: 4px 4px 2px 2px;
-	background: var(--g-accent);
-	opacity: 0.72;
-	transition: height 0.6s var(--spring);
-}
-.hm-chart-now {
-	position: absolute;
-	right: 0;
-	bottom: -15px;
-	font-size: 10px;
-	color: var(--g-ink-3);
-}
-.hm-fact {
-	display: flex;
-	justify-content: space-between;
-	align-items: baseline;
-	gap: 10px;
-	padding: 8px 0;
-	border-top: 1px solid var(--g-line);
-	font-size: 13px;
-}
-.hm-fact:first-child {
-	border-top: 0;
-	padding-top: 0;
-}
-.hm-fact-label {
-	color: var(--g-ink-3);
-}
-.hm-fact-value {
-	font-weight: 700;
-	color: var(--g-ink);
-}
-
-/* ── Motion. A lens change re-ranks; it does not reload. ── */
-.hm-fade-enter-active,
-.hm-fade-leave-active {
-	transition: opacity 0.26s ease;
-}
-.hm-fade-enter-from,
-.hm-fade-leave-to {
-	opacity: 0;
-}
-.hm-tile-move,
-.hm-tile-enter-active,
-.hm-tile-leave-active {
-	transition: opacity 0.35s ease, transform 0.45s var(--spring);
-}
-.hm-tile-enter-from,
-.hm-tile-leave-to {
-	opacity: 0;
-	transform: translateY(10px) scale(0.96);
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.hm-bar-fill,
-	.hm-chart-bar,
-	.hm-fade-enter-active,
-	.hm-fade-leave-active,
-	.hm-tile-move,
-	.hm-tile-enter-active,
-	.hm-tile-leave-active {
-		transition: none;
-	}
-	.hm-tile-enter-from,
-	.hm-tile-leave-to {
-		transform: none;
-	}
-}
-
-/* The rail is the first thing the app drops on a narrow screen, so it is the
-   first thing dropped here. Below this the home is the piles, which is the
-   part the section beside it is actually arguing about. */
-@media (max-width: 1000px) {
-	.hm-rail {
-		display: none;
-	}
-}
-@media (max-width: 560px) {
-	/* Two up, not one. Five tiles stacked full width is a column of headlines
-	   with no numbers in view — the point of the row is that the day's figures
-	   are readable at a glance, and a glance does not scroll. */
-	.hm-stat {
-		flex-basis: calc(50% - 5px);
-		min-width: 0;
-	}
-	.hm-row {
-		flex-wrap: wrap;
-	}
-	.hm-row-btn,
-	.hm-row-status {
-		margin-left: 20px;
-	}
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -1786,13 +1329,477 @@
 	}
 }
 
-/* The stacked edges are the one part of the mock that is not a `.g-glass*`
-   tier, so they are the one part the look skins cannot reach on their own. */
-.g-page.e-page[data-look='paper'] .hm-stack-2,
-.g-page.e-page[data-look='paper'] .hm-stack-3 {
-	border-radius: 4px;
+/* ════════════════════════════════════════════════════════════
+   THE HOME — `Landing/HomeMock.vue`.
+
+   Greeting → brief → composer → Waiting for you → Recent, the order the app
+   renders them. Tokens only, so the look skins reach every part of it.
+   ════════════════════════════════════════════════════════════ */
+.hm {
+	width: 100%;
+	max-width: 560px;
+	margin: 0 auto;
+	text-align: left;
 }
-.g-page.e-page[data-look='clean'] .hm-stack-2,
-.g-page.e-page[data-look='clean'] .hm-stack-3 {
+.hm-greet {
+	padding: 0 2px;
+}
+.hm-hello {
+	margin: 0;
+	font-size: clamp(24px, 3vw, 32px);
+	font-weight: 700;
+	line-height: 1.1;
+	letter-spacing: -0.02em;
+	color: var(--g-ink);
+}
+.hm-wave {
+	display: inline-block;
+	margin-left: 4px;
+}
+.hm-intro {
+	margin: 8px 0 0;
+	font-size: 14px;
+	color: var(--g-ink-3);
+}
+.hm-brief {
+	margin: 16px 0 0;
+	padding: 0 2px;
+	font-size: 15px;
+	line-height: 1.6;
+	color: var(--g-ink-2);
+}
+.hm-num {
+	font-weight: 700;
+	color: var(--g-ink);
+}
+/* A verb is a link at the end of a sentence — the app's own rule. */
+.hm-verb {
+	color: var(--g-accent-ink);
+	font-weight: 600;
+	text-decoration: underline;
+	text-decoration-color: var(--g-accent-line);
+	text-underline-offset: 3px;
+}
+
+.hm-composer {
+	margin-top: 18px;
+}
+.hm-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin-bottom: 8px;
+}
+.hm-chip {
+	padding: 5px 12px;
+	border-radius: 999px;
+	background: var(--g-accent-soft);
+	border: 1px solid var(--g-line);
+	font-size: 12.5px;
+	font-weight: 600;
+	color: var(--g-ink-2);
+}
+.hm-chip--more {
+	background: transparent;
+	color: var(--g-ink-3);
+}
+.hm-box {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 10px 10px 16px;
+	border-radius: 20px;
+}
+.hm-box-input {
+	flex: 1 1 auto;
+	min-width: 0;
+	font-size: 14px;
+	color: var(--g-ink-3);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.hm-box-ic {
+	display: grid;
+	place-items: center;
+	width: 30px;
+	height: 30px;
+	flex: none;
+	border-radius: 50%;
+	color: var(--g-ink-3);
+}
+.hm-box-ic svg,
+.hm-box-ic [class*='iconify'] {
+	width: 15px;
+	height: 15px;
+}
+
+.hm-list {
+	margin-top: 22px;
+}
+.hm-list-head {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 10px;
+}
+.hm-list-name {
+	margin: 0;
+	font-size: 12.5px;
+	font-weight: 700;
+	letter-spacing: 0.13em;
+	text-transform: uppercase;
+	color: var(--g-ink);
+}
+.hm-list-count {
+	min-width: 25px;
+	padding: 2px 8px;
+	border-radius: 999px;
+	background: var(--g-accent-soft);
+	border: 1px solid var(--g-accent-line);
+	color: var(--g-accent-ink);
+	font-size: 11.5px;
+	font-weight: 700;
+	text-align: center;
+}
+.hm-list-all {
+	margin-left: auto;
+	font-size: 12.5px;
+	font-weight: 600;
+	color: var(--g-ink-3);
+}
+.hm-list-more {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	margin: 8px 0 0 4px;
+	font-size: 12.5px;
+	color: var(--g-ink-3);
+}
+.hm-list-more svg,
+.hm-list-more [class*='iconify'] {
+	width: 13px;
+	height: 13px;
+}
+
+/* The action card — the same one the thread renders. */
+.hm-card {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 13px 14px;
+	border-radius: 16px;
+}
+.hm-card-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--g-accent);
+	flex: none;
+}
+.hm-card-dot--done {
+	display: grid;
+	place-items: center;
+	width: 18px;
+	height: 18px;
+	background: var(--g-accent-soft);
+	color: var(--g-accent-ink);
+}
+.hm-card-dot--done svg,
+.hm-card-dot--done [class*='iconify'] {
+	width: 11px;
+	height: 11px;
+}
+.hm-card-body {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+.hm-card-title {
+	margin: 0;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1.3;
+	color: var(--g-ink);
+}
+.hm-card-meta {
+	margin: 3px 0 0;
+	font-size: 12.5px;
+	line-height: 1.35;
+	color: var(--g-ink-3);
+}
+.hm-card-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	flex: none;
+	padding: 6px 12px;
+	border-radius: 999px;
+	border: 1px solid var(--g-line);
+	font-size: 12.5px;
+	font-weight: 600;
+	color: var(--g-ink-2);
+	white-space: nowrap;
+}
+.hm-card-btn svg,
+.hm-card-btn [class*='iconify'] {
+	width: 13px;
+	height: 13px;
+}
+.hm-card-btn--primary {
+	background: var(--g-accent);
+	border-color: var(--g-accent);
+	color: var(--g-on-accent);
+}
+.hm-card-btn--quiet {
+	border-color: transparent;
+	color: var(--g-ink-3);
+}
+@media (max-width: 560px) {
+	.hm-card {
+		flex-wrap: wrap;
+	}
+	.hm-card-body {
+		flex-basis: 100%;
+	}
+	.hm-card-btn {
+		margin-left: 0;
+	}
+}
+
+/* ════════════════════════════════════════════════════════════
+   THE GUARDRAILS — two columns under the "it does the work" argument:
+   what runs on its own with the switch on, and what always asks.
+   ════════════════════════════════════════════════════════════ */
+.l-guard {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 18px;
+	max-width: 1000px;
+	margin: clamp(28px, 4vw, 48px) auto 0;
+}
+.l-guard-col {
+	padding: clamp(18px, 2.4vw, 26px);
+	border-radius: 22px;
+}
+.l-guard-head {
+	display: flex;
+	align-items: center;
+	gap: 9px;
+	margin: 0;
+	font-size: 15px;
+	font-weight: 700;
+	color: var(--g-ink);
+}
+.l-guard-head-ic {
+	width: 17px;
+	height: 17px;
+	color: var(--g-accent);
+	flex: none;
+}
+.l-guard-sub {
+	margin: 8px 0 0;
+	font-size: 13.5px;
+	line-height: 1.5;
+	color: var(--g-ink-2);
+}
+.l-guard-list {
+	list-style: none;
+	margin: 14px 0 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 7px;
+}
+.l-guard-list li {
+	padding: 6px 12px;
+	border-radius: 999px;
+	border: 1px solid var(--g-line);
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--g-ink-2);
+}
+.l-guard-col--floor .l-guard-list li {
+	background: var(--g-accent-soft);
+	border-color: var(--g-accent-line);
+	color: var(--g-accent-ink);
+}
+.l-guard-foot {
+	margin: 14px 0 0;
+	font-size: 12.5px;
+	line-height: 1.5;
+	color: var(--g-ink-3);
+}
+@media (max-width: 720px) {
+	.l-guard {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+/* ════════════════════════════════════════════════════════════
+   THE CHARTER — four lines, quoted.
+   ════════════════════════════════════════════════════════════ */
+.l-charter {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 14px;
+	max-width: 1000px;
+	margin: clamp(28px, 4vw, 48px) auto 0;
+}
+.l-charter-line {
+	margin: 0;
+	padding: 18px 20px 18px 22px;
+	border-left: 3px solid var(--g-accent-line);
+	border-radius: 0 18px 18px 0;
+	font-size: 14.5px;
+	line-height: 1.55;
+	color: var(--g-ink-2);
+}
+.l-charter-line strong {
+	display: block;
+	margin-bottom: 4px;
+	color: var(--g-ink);
+}
+.l-charter-cite {
+	grid-column: 1 / -1;
+	margin: 4px 0 0;
+	font-size: 12.5px;
+	color: var(--g-ink-3);
+	text-align: center;
+}
+@media (max-width: 720px) {
+	.l-charter {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+/* ════════════════════════════════════════════════════════════
+   THE VOICE SWITCHES — the gear's three, with their exact labels.
+   ════════════════════════════════════════════════════════════ */
+.l-switches {
+	list-style: none;
+	margin: 18px 0 0;
+	padding: 0;
+	display: grid;
+	gap: 8px;
+}
+.l-switches li {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	padding: 11px 14px;
 	border-radius: 14px;
+	border: 1px solid var(--g-line);
+}
+.l-switch-toggle {
+	flex: none;
+	width: 32px;
+	height: 18px;
+	margin-top: 2px;
+	border-radius: 999px;
+	background: var(--g-accent);
+	position: relative;
+}
+.l-switch-toggle::after {
+	content: '';
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background: var(--g-on-accent);
+}
+.l-switch-toggle--off {
+	background: var(--g-line);
+}
+.l-switch-toggle--off::after {
+	right: auto;
+	left: 2px;
+	background: var(--g-ink-3);
+}
+.l-switch-label {
+	display: block;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--g-ink);
+}
+.l-switch-desc {
+	display: block;
+	margin-top: 2px;
+	font-size: 12.5px;
+	line-height: 1.45;
+	color: var(--g-ink-3);
+}
+
+/* ════════════════════════════════════════════════════════════
+   WHAT'S NEW — the dated list from `earnestChangelog`.
+   ════════════════════════════════════════════════════════════ */
+.l-new {
+	max-width: 860px;
+	margin: 0 auto;
+	display: grid;
+	gap: 10px;
+}
+.l-new-row {
+	display: grid;
+	grid-template-columns: 96px 1fr;
+	gap: 16px;
+	align-items: start;
+	padding: 16px 20px;
+	border-radius: 18px;
+}
+.l-new-date {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--g-ink-3);
+	white-space: nowrap;
+	padding-top: 3px;
+}
+.l-new-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--g-accent);
+	flex: none;
+}
+.l-new-dot[data-pillar='talk'] {
+	background: #38bdf8;
+}
+.l-new-dot[data-pillar='context'] {
+	background: #a78bfa;
+}
+.l-new-dot[data-pillar='act'] {
+	background: #4fd89a;
+}
+.l-new-dot[data-pillar='honest'] {
+	background: #f59e0b;
+}
+.l-new-title {
+	margin: 0;
+	font-size: 15px;
+	font-weight: 700;
+	color: var(--g-ink);
+}
+.l-new-desc {
+	margin: 4px 0 0;
+	font-size: 13.5px;
+	line-height: 1.5;
+	color: var(--g-ink-2);
+}
+.l-new-foot {
+	margin: 18px 0 0;
+	text-align: center;
+	font-size: 12.5px;
+	color: var(--g-ink-3);
+}
+@media (max-width: 560px) {
+	.l-new-row {
+		grid-template-columns: 1fr;
+		gap: 6px;
+	}
 }

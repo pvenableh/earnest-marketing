@@ -93,7 +93,16 @@ useSeoMeta({
       </section>
 
       <section class="fd-shot">
-        <figure class="fd-shot-frame">
+        <!-- The Earnest surfaces have no honest capture since the 2026-09-22
+             rethink, so they render the same drawn conversation the homepage
+             plays: the app's own shapes, the demo seed's numbers. -->
+        <figure v-if="demo.drawn === 'talk'" class="fd-shot-frame fd-drawn">
+          <LandingEarnestTalk />
+          <figcaption class="fd-shot-caption">
+            Drawn from the app's own reply shapes and the demo workspace's numbers — every line is one Earnest produces.
+          </figcaption>
+        </figure>
+        <figure v-else class="fd-shot-frame">
           <img
             :src="screenshotSrc"
             :alt="`${feature.name} inside Earnest`"
@@ -263,6 +272,28 @@ useSeoMeta({
   object-fit: cover;
   object-position: top left;
   background: #f4f4f5;
+}
+/* The drawn conversation reads the sell sheet's `--g-*` tokens; this page is
+   light-only with its own palette, so it supplies them here. */
+.fd-drawn {
+  padding: 24px 20px 12px;
+  --g-ink: #0a0a0a;
+  --g-ink-2: #52525b;
+  --g-ink-3: #a1a1aa;
+  --g-line: #e4e4e7;
+  --g-accent: #00bfff;
+  --g-accent-ink: #0084b3;
+  --g-accent-soft: rgba(0, 191, 255, 0.08);
+  --g-accent-line: rgba(0, 191, 255, 0.3);
+  --g-on-accent: #fff;
+  --spring: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.fd-drawn :deep(.g-glass-thin) {
+  background: #fff;
+  border: 1px solid #e4e4e7;
+}
+.fd-drawn :deep(.et) {
+  min-height: 0;
 }
 .fd-shot-caption {
   margin-top: 10px;

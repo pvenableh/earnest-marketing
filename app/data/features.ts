@@ -26,12 +26,14 @@ function slugify(name: string): string {
 
 /**
  * The apps on the Earnest rail, as it ships: Dashboard · People · Work · Chat ·
- * Money · Mktg, plus the Boardroom in the rail's footer group. Organization and
+ * Money · Mktg. (The Boardroom left the rail's footer group in the 2026-09-22
+ * rethink.) Organization and
  * Account moved into the avatar menu in the 2026-08 shell pass, so `org` is a
  * real pillar with no rail chip — hence `nav: false` on it.
  *
  * Two more pillars exist only as groupings and never appear on the rail:
- * `earnest` (the one door — Focus, its faces, AI Actions, the Context Broker)
+ * `earnest` (the assistant — the composer on every screen, voice, the profile,
+ * the action card, the drafters)
  * and `looks` (the three Looks, type, contrast and the shell itself).
  *
  * ⚠️ The keys `ai` and `design` were renamed to `earnest` and `looks` in the
@@ -63,7 +65,7 @@ export const pillars: Pillar[] = [
     key: 'home',
     label: 'Home',
     title: 'Home',
-    tagline: 'Decide · Do · Know — the day sorted into three piles, under four lenses.',
+    tagline: 'Home speaks first — a brief that ends in verbs, then everything waiting on you.',
     icon: 'i-lucide-layout-dashboard',
     accent: 'var(--sm-status-scheduled)',
     shot: 'home-v2',
@@ -99,12 +101,12 @@ export const pillars: Pillar[] = [
     key: 'chat',
     label: 'Chat',
     title: 'Where the team talks',
-    tagline: 'Channels and calls, and the Boardroom when a decision needs the whole room.',
+    tagline: 'Channels and calls, with Earnest beside a live meeting rather than over it.',
     icon: 'i-lucide-messages-square',
     accent: 'var(--sm-status-active)',
     shot: 'channels-home',
     path: '/apps/channels',
-    tabs: ['Channels', 'Direct', 'Calls', 'The Boardroom'],
+    tabs: ['Channels', 'Direct', 'Calls'],
     nav: true,
   },
   {
@@ -148,13 +150,13 @@ export const pillars: Pillar[] = [
   {
     key: 'earnest',
     label: 'Earnest',
-    title: 'Earnest, one door',
-    tagline: 'One control in the header opens Focus full screen, already ranked for wherever you were standing.',
+    title: 'Earnest, on every screen',
+    tagline: 'One composer beside every page — talk to it, and it reads what you are looking at before it answers or acts.',
     icon: 'i-lucide-sparkles',
     accent: 'var(--sm-pop)',
-    shot: 'focus-takeover',
+    shot: 'ai-actions',
     path: '/',
-    tabs: ['Focus', 'Reflect', 'Work', 'Mirror'],
+    tabs: ['Column', 'Line', 'Do · Decide · Know', 'Waiting for you'],
     nav: false,
   },
   {
@@ -175,7 +177,7 @@ export const pillarMeta: Record<PillarKey, { label: string; icon: string; accent
   home: { label: 'Home', icon: 'i-lucide-layout-dashboard', accent: 'var(--sm-status-scheduled)' },
   people: { label: 'People', icon: 'i-lucide-users', accent: 'var(--sm-status-active)' },
   work: { label: 'Work', icon: 'i-lucide-square-kanban', accent: 'var(--sm-status-scheduled)' },
-  chat: { label: 'Chat & Boardroom', icon: 'i-lucide-messages-square', accent: 'var(--sm-status-active)' },
+  chat: { label: 'Chat', icon: 'i-lucide-messages-square', accent: 'var(--sm-status-active)' },
   money: { label: 'Money', icon: 'i-lucide-trending-up', accent: 'var(--sm-status-success)' },
   marketing: { label: 'Marketing', icon: 'i-lucide-megaphone', accent: 'var(--sm-status-pending)' },
   org: { label: 'Organization', icon: 'i-lucide-building-2', accent: 'var(--sm-status-active)' },
@@ -199,31 +201,31 @@ export const pillarOrder: PillarKey[] = [
 export const features: Feature[] = [
   // ─────────────────────────  HOME  ─────────────────────────
   {
-    name: 'Home — Decide, Do, Know',
+    name: 'Home — it speaks first',
     slug: 'productivity-engine',
     icon: 'i-lucide-layout-dashboard',
     pillar: 'home',
-    desc: 'Your home opens on a greeting with an honest read of the day — “22 things today — 5 need a decision, 13 are one tap each, 4 are just worth knowing” — then sorts everything into three piles. Decide holds what Earnest drafted and is waiting on you for. Do is one tap each. Know needs nothing, and is there so nothing surprises you later. The ranking is pure computation across tickets, projects, tasks, invoices, channels, approvals and deals: it loads instantly and spends no AI tokens. Only the greeting line is written by Claude, and it falls back to an instant one when you would rather it did not.',
-    keywords: ['home', 'decide do know', 'daily priorities', 'task prioritization', 'business dashboard'],
+    desc: 'Home is four things in order. A greeting with one true clause from your own numbers — “Earnest ran 3 things while you were away.” Then the opening paragraph: three sentences at most, each ending in the verb it needs — “You are owed $46,000 across 5 invoices, the oldest 104 days overdue. Mark paid · Draft a reminder.” Then the composer, with Do · Decide · Know suggestions. Then Waiting for you — everything Earnest drafted and is waiting on you for, one card each, with Approve all for the reversible ones — and Recent, where Undo lives. The brief is pure computation over your own rows: it loads instantly and spends no AI tokens.',
+    keywords: ['home', 'daily brief', 'waiting for you', 'daily priorities', 'business dashboard'],
     benefits: [
-      'Three piles instead of a dashboard: Decide, Do, Know',
-      'Ranked instantly across every app — zero AI tokens',
-      'Four glance tiles: score, unpaid, pipeline, unread',
-      'Hold to arrange it — widgets jiggle, and a gallery holds the rest',
+      'An opening paragraph that ends in verbs, not a dashboard of tiles',
+      'Waiting for you — one count, one list, the same card as the thread',
+      'Recent — what ran, including on its own, with Undo',
+      'The composer on Home itself, so the day starts with a question',
     ],
   },
   {
-    name: 'Lenses & the ambient field',
+    name: 'The Home lens',
     slug: 'home-lenses',
     icon: 'i-lucide-layers',
     pillar: 'home',
-    desc: 'One screen, four ways of reading it. Everything is the arrangement you made; Money, Creative and Projects re-rank the same widgets around one concern and re-tint the animated wave field behind them. When a lens has something true to say, Earnest writes one line under the greeting from data the page has already loaded — “Money lens on. $12k is out, $12k of it past 90 days.” When it has nothing, it stays quiet, because a lens line that always talks is just a label.',
-    keywords: ['lenses', 'home modes', 'ambient background', 'focus modes', 'dashboard views'],
+    desc: 'One chip row over Home: Everything, Money, Work, Clients, Creative. A lens narrows the glance tiles, the Waiting for you count and the Do and Know stacks to one concern — the Money lens leaves unpaid, pipeline and the invoice cards standing — without hiding anything for good or fetching anything twice. Charts are options you add to the row and they stay where you put them. The animated wave field behind the page is the app’s own ambient ground.',
+    keywords: ['lenses', 'home filters', 'ambient background', 'dashboard views'],
     benefits: [
-      'Everything · Money · Creative · Projects over one arrangement',
-      'A one-line read under the greeting, from data already on screen',
-      'The wave field re-tints with the lens — the ground moves too',
-      'Nothing is hidden, only re-ranked — and nothing is re-fetched',
+      'Everything · Money · Work · Clients · Creative, one chip each',
+      'Tiles, the waiting count and the stacks narrow together',
+      'Charts as options — pick them once, they persist',
+      'Nothing is hidden for good, and nothing is re-fetched',
     ],
   },
   {
@@ -859,72 +861,89 @@ export const features: Feature[] = [
     ],
   },
 
-  // ─────────────────────────  AI  ─────────────────────────
+  // ─────────────────────────  EARNEST  ─────────────────────────
+  // Read from the app repo on 2026-09-25 (`28f598d`). The one-door Focus
+  // takeover, its three faces, the Boardroom and the trust dial were retired
+  // in the 2026-09-22 rethink; the old slugs redirect here (nuxt.config.ts).
   {
-    name: 'Focus — one door to Earnest',
-    slug: 'focus',
-    icon: 'i-lucide-door-open',
+    name: 'Earnest, on every screen',
+    slug: 'earnest-everywhere',
+    icon: 'i-lucide-panel-right',
     pillar: 'earnest',
-    desc: 'The header is three controls: search, your avatar, and “E.” — the door. It opens Focus full screen, and the chips it offers first are ranked for whatever you were just looking at, so asking from a project opens on that project. There is no docked sidebar any more; there is one door, and it already knows where you are standing. It greets you the same way every time: “I’m here. No rush. What’s the honest version of how things are right now?”',
-    keywords: ['focus mode', 'ask earnest', 'ai assistant', 'contextual ai', 'llm', 'one door'],
+    desc: 'Earnest is one composer beside every page: a 360px column on a wide screen (or the Line, a bar at the foot of the page, if you prefer), and the bar on a phone. ⌘K focuses it from anywhere. On a record it carries that record as a removable chip, so asking on an invoice means asking about that invoice — its client, its billing contacts, its line items, each fact tagged with its source. Before it answers it reads live rows with six read tools and shows the receipt above the reply: “Read invoices · 6 rows · 0.4s”. Under the box, Do · Decide · Know suggestions are ranked for where you are standing.',
+    keywords: ['ask earnest', 'ai assistant', 'contextual ai', 'llm', 'composer', 'scope chip', 'receipts'],
     benefits: [
-      'One control opens Focus full screen, from any screen',
-      'Opening chips ranked for the record you were looking at',
-      'Three faces: Reflect to think, Work beside a project, Mirror to look back',
-      'An autonomy ring on the door shows what Earnest may do on its own',
+      'A column beside every page, or a bar at its foot — one thread, one box',
+      'The scope chip: on a record, it is reading that record',
+      'Six read tools over live rows, capped and org-scoped, with a receipts line',
+      'Do · Decide · Know chips chosen for the page, not the org',
     ],
   },
   {
-    name: 'The Boardroom',
-    slug: 'boardroom',
-    icon: 'i-lucide-presentation',
-    pillar: 'chat',
-    desc: 'The same Earnest, sized up to a full room. Convene the board and it presents your whole organization as a live briefing: a read across People, Work, Money and Marketing, each slide ending in a decision already drafted against real numbers. Bring your team in to walk it together, and every session is saved to meeting minutes you can reopen.',
-    keywords: ['boardroom', 'ai briefing', 'business review', 'multiplayer strategy', 'meeting minutes'],
+    name: 'Talk to Earnest',
+    slug: 'talk-to-earnest',
+    icon: 'i-lucide-mic',
+    pillar: 'earnest',
+    desc: 'A mic on the composer, everywhere. Hold it on a phone or click it on a computer and your words stream into the box as you say them; sending stays a separate act unless you turn on “Send when I stop talking”. Turn on “Read replies aloud” and each reply is spoken once it finishes. Turn on Hands-free and anything that starts with “Earnest, …” is a message — only what starts with the name is sent, everything else is dropped on your device, and it is off again after a reload. When a reply ends in a card, Earnest reads it aloud and a spoken “yes” approves it — unless the card is on the floor (email, invoices, meetings), which it reads and then says “This one needs a tap.” Voice uses your device’s own recogniser and voice: Chrome, Safari including iPhone, Edge; the button is absent in Firefox.',
+    keywords: ['voice', 'speech', 'push to talk', 'hands-free', 'wake word', 'spoken replies', 'text to speech'],
     benefits: [
-      'A live, presented briefing across every app',
-      'Every slide ends in a decision, drafted against real numbers',
-      'Convene the room with your team — live and multiplayer',
-      'Saved to meeting minutes you can reopen anytime',
+      'Push-to-talk on the composer — hold on a phone, click on a computer',
+      'Spoken replies, and a Speak button on every reply',
+      'Hands-free: “Earnest, …” by name, per tab, never after a reload',
+      'A spoken yes on a card — never on email, money or meetings',
     ],
   },
   {
-    name: 'AI Actions',
+    name: 'Earnest knows you',
+    slug: 'earnest-knows-you',
+    icon: 'i-lucide-user-round-pen',
+    pillar: 'earnest',
+    desc: 'How you write, what you approve untouched, what you come back to. A short profile — under 1,200 characters — is distilled nightly from your own conversations and decisions and used when Earnest writes for you, so a draft reads like something you would send rather than a form letter. It is yours to read: under Account → Earnest you can see the summary and the style lines, edit them, rebuild now, or turn it off and forget it. Off, it stops. It is never used to train the model.',
+    keywords: ['personalization', 'writing style', 'preferences', 'person profile', 'learns from you'],
+    benefits: [
+      'A distilled profile, not a replay of your history — a few hundred tokens',
+      'Rebuilt nightly, incrementally, from your own conversations and decisions',
+      'Readable, editable, rebuildable and forgettable under Account → Earnest',
+      'One switch: “Learns from your conversations”',
+    ],
+  },
+  {
+    name: 'Action cards',
     slug: 'ai-actions',
     icon: 'i-lucide-wand-sparkles',
-    pillar: 'ai',
-    desc: 'Tell Earnest what to change — it does the work. Reschedule a project and watch every event and task shift automatically. Update a status, add a task, or change a deadline — all from a single sentence. No hunting through menus. Just say it, and a live confirmation shows exactly what changed.',
-    keywords: ['ai actions', 'ai mutations', 'natural language updates', 'ai task management'],
+    pillar: 'earnest',
+    desc: 'Tell Earnest what to change and it drafts the change as a card under the reply — Approve, Edit or Skip. Reschedule a project and every event and task under it moves; add tasks; update a status or a due date; connect an invoice to a project; draft the email, the invoice, the content plan, the campaign; find a time and book it. One switch — “Earnest does small reversible things without asking” — lets tickets, tasks, events, field edits and invoice filing run on their own, each logged and each undoable from Recent. The floor is not a setting: sending an email, issuing an invoice, booking, moving or cancelling a meeting, and changing where a client’s invoices go always wait for your tap. Undo puts back exactly what was changed, and refuses if anyone touched the record since.',
+    keywords: ['ai actions', 'action card', 'approve edit skip', 'undo', 'autonomy', 'safety floor', 'natural language updates'],
     benefits: [
-      'Reschedule a project — every linked event and task shifts automatically',
-      'Update any field (status, priority, due date) with a sentence',
-      'Add tasks from chat — linked to the current project or ticket',
-      'Live confirmation shows exactly what changed',
+      'Approve · Edit · Skip on every card; Undo on every reversible one',
+      'One autonomy switch for the small reversible set — off by default',
+      'Email, money and meetings always ask, and never on a spoken yes',
+      'Every action in an audit trail, including the ones that ran on their own',
     ],
   },
   {
-    name: 'Context Broker',
-    slug: 'ai-strategy-engine',
-    icon: 'i-lucide-brain',
-    pillar: 'ai',
-    desc: 'The Context Broker is the engine that makes Earnest different. It assembles a live snapshot of your entire organization — clients, projects, invoices, deals, tickets, and brand direction — and feeds it to a real large language model — Anthropic’s Claude, on no-training terms — on every turn. That’s why Earnest reasons about your actual business instead of guessing from a blank prompt. A 3-tier cache (memory → snapshot → live query) keeps context fresh without burning tokens on redundant fetches.',
-    keywords: ['AI strategy', 'context broker', 'business intelligence', 'llm', 'token efficiency'],
+    name: 'A prototype from a chat',
+    slug: 'prototype-from-chat',
+    icon: 'i-lucide-layout-template',
+    pillar: 'earnest',
+    desc: '“Sketch a landing page for the retainer.” Earnest writes one self-contained page in your brand and puts it on the proposal as a pitch page: a link you can publish, password, expire or revoke, with view analytics and a version recorded each time you revise it in the same thread. Active content is stripped at ingest, every time, because the page is served on our origin. When the sketch is not enough, one press turns it into a build brief for a developer.',
+    keywords: ['prototype', 'landing page', 'one-pager', 'microsite', 'pitch page', 'generate'],
     benefits: [
-      'A real language model, grounded in your live data — not a generic chatbot',
-      'Organization-wide context assembled automatically for every AI call',
-      '3-tier caching: in-memory, snapshot, live fallback',
-      'Token-efficient — context is shared across all AI features',
+      'One page from one sentence, in your brand',
+      'Hosted on the proposal — publish, password, expire, revoke',
+      'Revise in the same thread; every version kept',
+      '“Turn into a build brief” when it needs to be bespoke',
     ],
   },
   {
     name: 'AI Proposal Drafter',
     slug: 'ai-proposal-drafter',
     icon: 'i-lucide-wand-2',
-    pillar: 'ai',
-    desc: "Hand the AI a lead and get back a complete proposal draft. The drafter pulls the lead's full context — contact, prior activities, sourced attribution, brief — uses your service templates as the spine, and slots in library blocks for terms, references, and deliverables. Outputs an editable composer so you stay in control of the final cut.",
-    keywords: ['ai proposals', 'proposal generation', 'service templates', 'document automation'],
+    pillar: 'earnest',
+    desc: "Hand the AI a lead — or drop the RFP in the composer — and get back a complete proposal draft. The drafter pulls the lead's full context — contact, prior activities, sourced attribution, brief — uses your service templates as the spine, and slots in library blocks for terms, references, and deliverables. Outputs an editable composer so you stay in control of the final cut.",
+    keywords: ['ai proposals', 'proposal generation', 'service templates', 'document automation', 'rfp'],
     benefits: [
-      "Drafts a full proposal from a lead's context in one step",
+      "Drafts a full proposal from a lead's context, or from an RFP you drop in the box",
       'Uses your service templates as the structural spine',
       'Pulls library blocks for standard terms, deliverables, and references',
       'Outputs an editable composer — never a black-box send',
@@ -934,7 +953,7 @@ export const features: Feature[] = [
     name: 'Pursuit Strategist',
     slug: 'ai-pursuit-strategist',
     icon: 'i-lucide-sparkles',
-    pillar: 'ai',
+    pillar: 'earnest',
     desc: "When a deal goes cold, Earnest reads its entire pursuit history — every touchpoint, every proposal, and why it likely stalled — and drafts a fresh re-approach: a short strategic read, a ready-to-send next touch that tries a different angle than what already failed, and an optional trimmed-proposal idea. One tap turns the suggestion into a real, logged touchpoint.",
     keywords: ['ai re-approach', 'cold deal revival', 'pursuit strategist', 'sales ai', 'follow-up', 'stalled deals'],
     benefits: [
@@ -948,7 +967,7 @@ export const features: Feature[] = [
     name: 'Transparent AI Costs',
     slug: 'ai-token-transparency',
     icon: 'i-lucide-gauge',
-    pillar: 'ai',
+    pillar: 'earnest',
     desc: 'Every AI feature shows its token cost before you use it, and admins see usage across the team. No surprises, no metered-billing anxiety — just clear, upfront numbers on what each action costs.',
     keywords: ['ai cost transparency', 'token cost', 'ai pricing', 'usage visibility'],
     benefits: [
@@ -965,11 +984,11 @@ export const features: Feature[] = [
     slug: 'apps-layout',
     icon: 'i-lucide-layout-grid',
     pillar: 'looks',
-    desc: 'One shell over the whole app: six circular chips on a floating rail — Dashboard, People, Work, Chat, Money, Mktg — with the Boardroom in its own footer group, and pill-segmented floor strips inside each app. The top chrome is deliberately three controls and nothing else: search, the “E.” door with its autonomy ring, and your avatar. Organization and Account live in the avatar menu rather than taking rail space; Files is a floor of Organization.',
-    keywords: ['app shell', 'app rail', 'navigation', 'unified shell', 'app chips'],
+    desc: 'One shell over the whole app: six circular chips on a floating rail — Dashboard, People, Work, Chat, Money, Mktg — and pill-segmented floor strips inside each app. Earnest is the column beside the page, or the Line at its foot, and never takes the screen over. Below a laptop width the rail folds into the composer’s pill: apps, the waiting count, the box and the mic in one bar above the safe area. The header is the wordmark, your organization, the bell and your avatar; Organization and Account live in the avatar menu rather than taking rail space, and Files is a floor of Organization.',
+    keywords: ['app shell', 'app rail', 'navigation', 'unified shell', 'app chips', 'one bar'],
     benefits: [
-      'Six app chips on a floating rail, plus the Boardroom',
-      'A three-control header — search, the Earnest door, your avatar',
+      'Six app chips on a floating rail; the Earnest column or Line beside the page',
+      'One bar on a phone — apps, waiting count, the box and the mic',
       'Pill-segmented floor strips for in-app navigation',
       'Rail position and MINE / ALL scope both configurable',
     ],
@@ -1065,6 +1084,9 @@ export function getRelatedFeatures(slug: string, count = 3): Feature[] {
  * `apps-rail`, `account-appearance`, `marketing-pulse`, `money-cashflow`. The
  * first six shot surfaces the app no longer has; the last three were declared
  * here for a re-capture that never happened and never had files behind them.
+ * Retired 2026-09-25 for the same reason: `focus-takeover`, `focus-working`,
+ * `focus-mirror`, `director-presentation`, `director-slides` — the Focus
+ * takeover and the Boardroom went in the app's 2026-09-22 rethink.
  *
  * The six PNGs are still ON DISK on purpose. The archived sell sheets
  * (`SellSheet{Modern,Glass,Director,Automation,Live}.vue`, all at noindex
@@ -1074,7 +1096,8 @@ export function getRelatedFeatures(slug: string, count = 3): Feature[] {
  * refreshes them either.
  */
 export type DemoShot =
-  // HOME — the default home, its lenses and its Looks
+  // HOME — captured 2026-09-01, BEFORE the rethink: the look in each is
+  // current, the Home under it is not (see landing.ts `looksCapturedNote`)
   | 'home-v2'
   | 'home-v2-money'
   | 'home-v2-creative'
@@ -1084,10 +1107,7 @@ export type DemoShot =
   | 'home-v2-clean'
   | 'money-paper'
   | 'appearance-panel'
-  // EARNEST — the one door
-  | 'focus-takeover'
-  | 'focus-working'
-  | 'focus-mirror'
+  // EARNEST
   | 'ai-actions'
   // THE SHELL
   | 'shell-dock'
@@ -1128,10 +1148,8 @@ export type DemoShot =
   | 'marketing-recommendations'
   | 'studio-river'
   | 'studio-upcoming'
-  // CHAT + BOARDROOM
+  // CHAT
   | 'channels-home'
-  | 'director-presentation'
-  | 'director-slides'
   // ORG (admin)
   | 'organization-overview'
   | 'organization-teams'
@@ -1145,6 +1163,14 @@ interface DemoMapping {
   path: string;
   /** Screenshot slug used on the feature page. */
   shot: DemoShot;
+  /**
+   * Render the coded conversation (`Landing/EarnestTalk`) instead of `shot`.
+   * For the Earnest surfaces that changed in the 2026-09-22 rethink and have
+   * no honest capture yet — the drawing is built from the app's own shapes
+   * and the demo seed's numbers (`~/data/earnest`). Drop it once
+   * `capture-demo-screenshots.ts` has a shot of the column.
+   */
+  drawn?: 'talk';
   /**
    * Which demo persona to sign the visitor into before redirecting. Default
    * is `solo` (Member role). Admin-only destinations (`/apps/organization`,
@@ -1213,20 +1239,21 @@ const FEATURE_DEMO_MAP: Record<string, DemoMapping> = {
   'social-ai-generate': { path: '/apps/marketing?floor=studio&view=calendar', shot: 'studio-river', persona: 'agency' },
   'email-marketing-ai': { path: '/apps/marketing?floor=email', shot: 'studio-upcoming', persona: 'agency' },
   'brand-awareness-ai': { path: '/apps/organization?floor=branding', shot: 'organization-branding', persona: 'agency' },
-  // CHAT + BOARDROOM
+  // CHAT
   channels: { path: '/apps/channels', shot: 'channels-home', persona: 'agency' },
   'team-channels': { path: '/apps/organization?floor=teams', shot: 'organization-teams', persona: 'agency' },
-  boardroom: { path: '/boardroom', shot: 'director-presentation' },
   // ORG
   'brand-strategy': { path: '/apps/organization', shot: 'organization-overview', persona: 'agency' },
   'files-and-storage': { path: '/apps/organization?floor=files', shot: 'files-floor', persona: 'agency' },
   whitelabel: { path: '/apps/organization?floor=branding', shot: 'organization-branding', persona: 'agency' },
   'branded-email': { path: '/apps/organization?floor=branding', shot: 'organization-branding', persona: 'agency' },
   'ai-token-management': { path: '/apps/organization?floor=ai', shot: 'organization-overview', persona: 'agency' },
-  // EARNEST — the one door
-  focus: { path: '/', shot: 'focus-takeover' },
-  'ai-actions': { path: '/apps/work', shot: 'ai-actions' },
-  'ai-strategy-engine': { path: '/', shot: 'focus-mirror' },
+  // EARNEST
+  'earnest-everywhere': { path: '/', shot: 'ai-actions', drawn: 'talk' },
+  'talk-to-earnest': { path: '/', shot: 'ai-actions', drawn: 'talk' },
+  'earnest-knows-you': { path: '/account', shot: 'ai-actions', drawn: 'talk' },
+  'ai-actions': { path: '/', shot: 'ai-actions', drawn: 'talk' },
+  'prototype-from-chat': { path: '/pitches', shot: 'pitch-page', persona: 'agency' },
   'ai-proposal-drafter': { path: '/apps/money?floor=documents', shot: 'proposals-composer' },
   'ai-token-transparency': { path: '/apps/organization?floor=ai', shot: 'organization-overview', persona: 'agency' },
   // LOOKS + SHELL

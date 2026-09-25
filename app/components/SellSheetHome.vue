@@ -6,8 +6,10 @@
 				<LogoEarnest size="md" />
 			</nuxt-link>
 			<div class="e-nav-links">
+				<a href="#talk" class="e-nav-link">Talk</a>
+				<a href="#context" class="e-nav-link">Context</a>
+				<a href="#act" class="e-nav-link">Actions</a>
 				<a href="#home" class="e-nav-link">Your day</a>
-				<a href="#focus" class="e-nav-link">Earnest</a>
 				<a href="#looks" class="e-nav-link">Looks</a>
 				<a href="#pricing" class="e-nav-link">Pricing</a>
 				<a href="#faq" class="e-nav-link">FAQ</a>
@@ -51,19 +53,20 @@
 			</div>
 		</nav>
 
-		<!-- ─── Hero — the home, and the wave field it actually sits in ─── -->
+		<!-- ─── Hero — one conversation, spoken, over the wave field ─── -->
 		<header class="e-hero l-hero">
 			<ClientOnly>
-				<LandingWaveField :tint="heroTint" />
+				<LandingWaveField :tint="null" />
 			</ClientOnly>
-			<span class="g-eyebrow opacity-0"><span class="g-eyebrow-dot"></span> Clients · Projects · Invoices · Approvals · Content</span>
+			<span class="g-eyebrow opacity-0"><span class="g-eyebrow-dot"></span> Clients · Projects · Invoices · Approvals · Content — and one Earnest across all of it</span>
 			<h1 class="e-hero-wordmark l-hero-head opacity-0">
-				Your whole studio<span class="e-hero-period">.</span><br />And <span class="g-accent-text">what it needs from you today</span><span class="e-hero-period">.</span>
+				Talk to your studio<span class="e-hero-period">.</span><br />It <span class="g-accent-text">already knows where you are</span><span class="e-hero-period">.</span>
 			</h1>
 			<p class="e-hero-tagline opacity-0">Do good work<span class="e-dot">.</span></p>
 			<p class="e-hero-sub opacity-0">
-				Every client, project, invoice, proposal, approval and post in one place — and Earnest reading across all
-				of it to tell you what needs a decision, what’s one tap, and what’s just worth knowing.
+				Earnest is one assistant beside every screen of your business — clients, projects, invoices, proposals,
+				approvals and content. Say what you need, out loud if you like. It reads the live rows, shows you the
+				receipt, answers precisely, and drafts the change as a card you approve.
 				<strong>Nothing reaches a client or moves money without your tap.</strong>
 			</p>
 			<div class="e-hero-actions opacity-0">
@@ -74,12 +77,11 @@
 				<span class="l-hero-note">14-day trial, no card · Solo $49/mo · every feature on every plan</span>
 			</div>
 
-			<!-- The lenses, working, over a home that is BUILT rather than
-			     photographed: the pills re-rank the coded home, re-tint the field
-			     behind it, and let Earnest write its own line under its own
-			     greeting. `.e-dock` keeps useGlassMotion's intro stagger. -->
+			<!-- The conversation, BUILT rather than photographed, and played rather
+			     than frozen: the ear pulses, the words land, the receipt precedes the
+			     answer, the card lands, and the floor holds out loud. -->
 			<div class="opacity-0 e-hero-shot" style="width: 100%">
-				<LandingLensDemo @tint="onTint" />
+				<LandingEarnestTalk />
 			</div>
 		</header>
 
@@ -92,113 +94,185 @@
 			</div>
 		</div>
 
-		<!-- ─── 1. The day, sorted ─── -->
+		<!-- ─── 1. Talk to it ─── -->
+		<section id="talk" class="e-section l-arg-section">
+			<div class="l-arg" data-anim="scale">
+				<div class="l-arg-copy">
+					<span class="g-kicker-pill"><span class="g-eyebrow-dot"></span> {{ talk.kicker }}</span>
+					<h2 class="e-h2">{{ talk.head[0] }} <span class="g-accent-text">{{ talk.head[1] }}</span></h2>
+					<p class="l-arg-sub">{{ talk.lead }}</p>
+					<ul class="l-arg-points">
+						<li v-for="p in talk.points" :key="p.text">
+							<UIcon name="i-lucide-check" class="l-arg-check" />
+							<span><strong v-if="p.strong">{{ p.strong }}</strong> {{ p.text }}</span>
+						</li>
+					</ul>
+					<p v-if="talk.limit" class="l-arg-foot">
+						<UIcon name="i-lucide-info" class="l-arg-foot-ic" />
+						<span>{{ talk.limit }}</span>
+					</p>
+				</div>
+				<!-- The gear's three Voice switches, with their exact labels, and
+				     the platform note the app itself shows under them — quoted, not
+				     paraphrased, because it is the one place the limits are stated. -->
+				<div class="l-arg-shot">
+					<div class="l-voice g-glass">
+						<p class="l-voice-head"><UIcon name="i-lucide-settings-2" /> Voice</p>
+						<ul class="l-switches">
+							<li v-for="(s, i) in voiceSwitches" :key="s.label">
+								<span class="l-switch-toggle" :class="{ 'l-switch-toggle--off': i === 0 }" aria-hidden="true"></span>
+								<span>
+									<span class="l-switch-label">{{ s.label }}</span>
+									<span class="l-switch-desc">{{ s.desc }}</span>
+								</span>
+							</li>
+						</ul>
+						<p class="l-voice-note">{{ HANDS_FREE_NOTE }}</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ─── 2. It knows where you're standing ─── -->
+		<section id="context" class="e-section l-arg-section">
+			<div class="l-arg l-arg--flip" data-anim="scale">
+				<div class="l-arg-copy">
+					<span class="g-kicker-pill"><span class="g-eyebrow-dot"></span> {{ context.kicker }}</span>
+					<h2 class="e-h2">{{ context.head[0] }} <span class="g-accent-text">{{ context.head[1] }}</span></h2>
+					<p class="l-arg-sub">{{ context.lead }}</p>
+					<ul class="l-arg-points">
+						<li v-for="p in context.points" :key="p.text">
+							<UIcon name="i-lucide-check" class="l-arg-check" />
+							<span><strong v-if="p.strong">{{ p.strong }}</strong> {{ p.text }}</span>
+						</li>
+					</ul>
+				</div>
+				<!-- The Home, drawn: greeting, the brief with its verbs, the composer
+				     and its chips, Waiting for you, Recent — the order the app renders. -->
+				<div class="l-arg-shot">
+					<div class="l-home-card g-glass">
+						<LandingHomeMock />
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ─── 3. It does the work ─── -->
+		<section id="act" class="e-section l-arg-section">
+			<div class="l-arg" data-anim="scale">
+				<div class="l-arg-copy">
+					<span class="g-kicker-pill"><span class="g-eyebrow-dot"></span> {{ act.kicker }}</span>
+					<h2 class="e-h2">{{ act.head[0] }} <span class="g-accent-text">{{ act.head[1] }}</span></h2>
+					<p class="l-arg-sub">{{ act.lead }}</p>
+					<ul class="l-arg-points">
+						<li v-for="p in act.points" :key="p.text">
+							<UIcon name="i-lucide-check" class="l-arg-check" />
+							<span><strong v-if="p.strong">{{ p.strong }}</strong> {{ p.text }}</span>
+						</li>
+					</ul>
+				</div>
+				<!-- The card in its four states, drawn — the July capture of the
+				     action list showed the retired Focus takeover behind it. -->
+				<div class="l-arg-shot">
+					<div class="l-home-card g-glass">
+						<LandingActionCards />
+					</div>
+				</div>
+			</div>
+
+			<!-- The guardrails, as two lists the app's own code defines. -->
+			<div class="l-guard" data-anim="scale">
+				<div class="l-guard-col g-glass">
+					<p class="l-guard-head"><UIcon name="i-lucide-toggle-right" class="l-guard-head-ic" /> One switch</p>
+					<p class="l-guard-sub">“{{ AUTONOMY_SETTING.label }}.” {{ AUTONOMY_SETTING.blurb }}</p>
+					<ul class="l-guard-list">
+						<li v-for="t in SMALL_REVERSIBLE" :key="t">{{ TOOL_LABEL[t] }}</li>
+					</ul>
+					<p class="l-guard-foot">Off by default. Each one is logged as it runs and undoable from Recent.</p>
+				</div>
+				<div class="l-guard-col l-guard-col--floor g-glass">
+					<p class="l-guard-head"><UIcon name="i-lucide-hand" class="l-guard-head-ic" /> The floor</p>
+					<p class="l-guard-sub">Always your tap. Not a setting, not an “approve all”, not a spoken yes.</p>
+					<ul class="l-guard-list">
+						<li v-for="t in SAFETY_FLOOR" :key="t">{{ TOOL_LABEL[t] }}</li>
+					</ul>
+					<p class="l-guard-foot">With Hands-free on, Earnest reads these cards aloud and then says “This one needs a tap.”</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- ─── 4. Accurate before interesting ─── -->
+		<section id="honest" class="e-section l-arg-section">
+			<div class="l-arg l-arg--flip" data-anim="scale">
+				<div class="l-arg-copy">
+					<span class="g-kicker-pill"><span class="g-eyebrow-dot"></span> {{ honest.kicker }}</span>
+					<h2 class="e-h2">{{ honest.head[0] }} <span class="g-accent-text">{{ honest.head[1] }}</span></h2>
+					<p class="l-arg-sub">{{ honest.lead }}</p>
+					<ul class="l-arg-points">
+						<li v-for="p in honest.points" :key="p.text">
+							<UIcon name="i-lucide-check" class="l-arg-check" />
+							<span><strong v-if="p.strong">{{ p.strong }}</strong> {{ p.text }}</span>
+						</li>
+					</ul>
+				</div>
+				<!-- The charter, quoted. It is the product's own promise, in the
+				     product's own words, and every Earnest surface inherits it. -->
+				<div class="l-arg-shot">
+					<div class="l-charter">
+						<blockquote v-for="(line, i) in charterLines" :key="i" class="l-charter-line g-glass">{{ line }}</blockquote>
+						<p class="l-charter-cite">— the Earnest Voice Charter, the floor every reply inherits</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ─── What's new ─── -->
+		<section id="new" class="e-section">
+			<div class="g-sec-head">
+				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> What’s new in Earnest</span>
+				<h2 class="e-h2" data-anim="rise">Shipping <span class="g-accent-text">weekly</span><span class="e-dot">.</span></h2>
+				<p class="e-section-sub" data-anim="rise">
+					The most recent changes to the assistant itself, dated to the day they landed. If it is on this list, it is
+					in the app today.
+				</p>
+			</div>
+			<div class="l-new" data-anim="scale">
+				<div v-for="(c, i) in changelog" :key="i" class="l-new-row g-glass">
+					<span class="l-new-date"><span class="l-new-dot" :data-pillar="c.pillar" aria-hidden="true"></span>{{ fmtDate(c.date) }}</span>
+					<div>
+						<p class="l-new-title">{{ c.title }}</p>
+						<p class="l-new-desc">{{ c.desc }}</p>
+					</div>
+				</div>
+			</div>
+			<p class="l-new-foot">Voice · context · actions · honesty — the four things every change above is in service of.</p>
+		</section>
+
+		<!-- ─── 5. Your day ─── -->
 		<section id="home" class="e-section l-arg-section">
 			<div class="l-arg" data-anim="scale">
 				<div class="l-arg-copy">
-					<span class="g-kicker-pill"><span class="g-eyebrow-dot"></span> Your day, sorted</span>
-					<h2 class="e-h2">Three piles, <span class="g-accent-text">not a dashboard</span><span class="e-dot">.</span></h2>
+					<span class="g-kicker-pill"><span class="g-eyebrow-dot"></span> Your day, read for you</span>
+					<h2 class="e-h2">Home speaks first<span class="e-dot">.</span> <span class="g-accent-text">Then it hands you the verb</span><span class="e-dot">.</span></h2>
 					<p class="l-arg-sub">
-						A dashboard shows you everything and asks you to work out what it means. Your home sorts the day
-						into three piles instead, and tells you the count before you scroll:
-						<em>22 things today — 5 need a decision, 13 are one tap each, 4 are just worth knowing.</em>
+						A dashboard shows you everything and asks you to work out what it means. Home has already read the
+						day: three sentences at most, each ending in the thing it needs — and under them, everything Earnest
+						drafted and is waiting on you for, one card each.
 					</p>
 					<ul class="l-arg-points">
 						<li>
 							<UIcon name="i-lucide-check" class="l-arg-check" />
-							<span><strong>Decide</strong> — Earnest drafted these and is waiting on you. Approve or adjust.</span>
+							<span><strong>Waiting for you</strong> — one count, one list, the same card as the thread. Approve, edit or skip each; approve all the reversible ones at once.</span>
 						</li>
 						<li>
 							<UIcon name="i-lucide-check" class="l-arg-check" />
-							<span><strong>Do</strong> — one tap each. Nothing here needs a decision, only a moment.</span>
+							<span><strong>Recent</strong> — what it did, including what ran on its own, with Undo on anything the ledger calls reversible.</span>
 						</li>
 						<li>
 							<UIcon name="i-lucide-check" class="l-arg-check" />
-							<span><strong>Know</strong> — nothing required. It is here so you are not surprised later.</span>
-						</li>
-						<li>
-							<UIcon name="i-lucide-check" class="l-arg-check" />
-							<span>Hold the home to arrange it — the widgets jiggle, and a gallery holds the rest.</span>
+							<span><strong>Money sorted by certainty</strong> — every dollar laid out by how sure it is: banked, owed, in play, gone cold. Turn on the Money lens and Home narrows to it.</span>
 						</li>
 					</ul>
-				</div>
-				<figure class="l-arg-shot">
-					<div class="e-frame g-lift">
-						<div class="e-frame-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
-						<img
-							:src="shot('home-v2-arrange')"
-							alt="Earnest — arranging the home, widgets jiggling with the gallery open"
-							loading="lazy"
-							decoding="async"
-							class="e-frame-img"
-						/>
-					</div>
-				</figure>
-			</div>
-		</section>
-
-		<!-- ─── 2. One door ─── -->
-		<section id="focus" class="e-section l-arg-section">
-			<div class="l-arg l-arg--flip" data-anim="scale">
-				<div class="l-arg-copy">
-					<span class="g-kicker-pill"><span class="g-eyebrow-dot"></span> Ask Earnest</span>
-					<h2 class="e-h2">Ask from anywhere<span class="e-dot">.</span> It already knows <span class="g-accent-text">what you’re looking at</span><span class="e-dot">.</span></h2>
-					<p class="l-arg-sub">
-						One control in the header — <strong>E.</strong> — opens Earnest full screen from any page, and
-						what it offers you first is ranked for whatever you were just looking at. Ask from a project and
-						it opens on that project, with that project’s tasks beside the conversation.
-					</p>
-					<ul class="l-arg-points">
-						<li>
-							<UIcon name="i-lucide-check" class="l-arg-check" />
-							<span>Three faces: <strong>Reflect</strong> to think out loud, <strong>Work</strong> for the task rail beside a project, <strong>Mirror</strong> for a read-only look at how you actually work.</span>
-						</li>
-						<li>
-							<UIcon name="i-lucide-check" class="l-arg-check" />
-							<span>It works from your organization, not a blank prompt — on Anthropic’s Claude, under no-training terms.</span>
-						</li>
-						<li>
-							<UIcon name="i-lucide-check" class="l-arg-check" />
-							<span>When it is thin on context it says so, rather than filling the gap with something plausible.</span>
-						</li>
-					</ul>
-				</div>
-				<figure class="l-arg-shot">
-					<div class="e-frame g-lift">
-						<div class="e-frame-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
-						<img
-							:src="shot('focus-takeover')"
-							alt="Earnest — the full-screen Focus takeover, opened from the header"
-							loading="lazy"
-							decoding="async"
-							class="e-frame-img"
-						/>
-					</div>
-				</figure>
-			</div>
-
-			<!-- The ring is a gauge, and one frame of a gauge is a circle — so
-			     it is drawn here rather than screenshotted. -->
-			<div class="l-door-card g-glass" data-anim="scale">
-				<LandingDoor />
-				<blockquote class="l-door-quote">
-					“I’m here. No rush. What’s the honest version of how things are right now?”
-					<cite>— what Earnest opens with, every time</cite>
-				</blockquote>
-			</div>
-		</section>
-
-		<!-- ─── 3. Money ─── -->
-		<section class="e-section l-arg-section">
-			<div class="l-arg" data-anim="scale">
-				<div class="l-arg-copy">
-					<span class="g-kicker-pill"><span class="g-eyebrow-dot"></span> Financial clarity</span>
-					<h2 class="e-h2">Your money, <span class="g-accent-text">sorted by certainty</span><span class="e-dot">.</span></h2>
-					<p class="l-arg-sub">
-						Not one “revenue” number that hides the truth. Every dollar is laid out by how sure it is —
-						banked, owed, in play, gone cold — so the honest cash never blurs into the hopeful pipeline. Turn
-						the Money lens on and the home says it in a line: <em>$12k is out, $12k of it past 90 days.</em>
-					</p>
 				</div>
 				<figure class="l-arg-shot">
 					<div class="e-frame g-lift">
@@ -215,7 +289,7 @@
 			</div>
 		</section>
 
-		<!-- ─── 4. Creative Approvals ─── -->
+		<!-- ─── 6. Creative Approvals ─── -->
 		<section class="e-section l-arg-section">
 			<div class="l-arg l-arg--flip" data-anim="scale">
 				<div class="l-arg-copy">
@@ -273,7 +347,7 @@
 			</div>
 		</section>
 
-		<!-- ─── 5. Content Studio ─── -->
+		<!-- ─── 7. Content Studio ─── -->
 		<section class="e-section l-arg-section">
 			<div class="l-arg" data-anim="scale">
 				<div class="l-arg-copy">
@@ -295,7 +369,7 @@
 						</li>
 						<li>
 							<UIcon name="i-lucide-check" class="l-arg-check" />
-							<span>Earnest drafts in your brand voice — as a short form, or as a conversation.</span>
+							<span>Earnest drafts in your brand voice — a content plan, the posts, a campaign — as cards you approve.</span>
 						</li>
 					</ul>
 					<p class="l-arg-foot">
@@ -318,7 +392,7 @@
 			</div>
 		</section>
 
-		<!-- ─── 6. What the client sees ─── -->
+		<!-- ─── 8. What the client sees ─── -->
 		<section class="e-section l-arg-section">
 			<div class="l-arg l-arg--flip" data-anim="scale">
 				<div class="l-arg-copy">
@@ -397,7 +471,7 @@
 				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> All included</span>
 				<h2 class="e-h2" data-anim="rise">And everything else <span class="g-accent-text">it does</span><span class="e-dot">.</span></h2>
 				<p class="e-section-sub" data-anim="rise">
-					Six sections cannot hold it all. Everything below is on every plan — no add-ons for the features, no
+					Eight sections cannot hold it all. Everything below is on every plan — no add-ons for the features, no
 					meter on the actions — except the one card marked <em>coming soon</em>, which is built but not on
 					sale yet, and is not charged for.
 				</p>
@@ -453,7 +527,7 @@
 			<div class="l-compare" data-anim="scale">
 				<p class="l-compare-lead">
 					<UIcon name="i-lucide-check-check" class="l-compare-lead-ic" />
-					Every feature — all six apps, the Boardroom, Creative Approvals and context-aware Earnest — is
+					Every feature — all six apps, Creative Approvals, and Earnest itself with voice, context and actions — is
 					included on <strong>every</strong> plan. What changes is scale.
 				</p>
 				<div class="l-compare-scroll">
@@ -521,11 +595,11 @@
 		<!-- ─── One closing CTA ─── -->
 		<section class="e-cta">
 			<div class="e-cta-card" data-anim="scale">
-				<p class="e-cta-word">Start with the pile<br />that’s bothering you<span class="e-dot">.</span></p>
+				<p class="e-cta-word">Start by asking it<br />the question you’re avoiding<span class="e-dot">.</span></p>
 				<p class="e-cta-hand">Do good work.</p>
 				<p class="e-cta-sub">
 					A workspace takes a few minutes to set up. Bring in one client, one project or one unpaid invoice —
-					Earnest picks up your brand voice on day one and starts drafting the day with you.
+					then say “Earnest, what needs me today?” and read the receipt before you read the answer.
 				</p>
 				<div class="e-hero-actions" style="justify-content: center">
 					<a :href="registerUrl" class="e-btn e-btn-primary g-press">Start free</a>
@@ -553,19 +627,38 @@
 
 <script setup>
 /**
- * SellSheetHome — the landing page, reframed around the app as it ships.
+ * SellSheetHome — the landing page, reframed around Earnest as it ships.
  *
- * It replaced a page that led with the Command Center, an eight-chip app rail,
- * a docked AI sidebar and social publishing. All four are gone from the
- * product: the home is Home v2, the rail is six chips plus the Boardroom, the
- * sidebar became a full-screen door, and publishing to the networks sits
- * behind a kill-switch that is off in production.
+ * The 2026-09 refresh (this file's previous shape) sold the Home as three
+ * piles with four lenses, a full-screen Focus door with three "faces", and a
+ * four-tier autonomy ring. Every one of those was retired in the app's
+ * 2026-09-22 rethink and the two weeks of work after it: Earnest is now ONE
+ * composer on every screen (a column beside the page or a bar at its foot),
+ * a reply is receipts → answer → one card, autonomy is one switch over one
+ * floor, and you can TALK to it — push-to-talk, spoken replies, and a
+ * hands-free "Earnest, …" by name. This page argues that, in that order:
  *
- * ⚠️ The copy here is bound by the app's own Voice Charter — "earn trust by
- * being right, not by being loud". Every number on the page comes from either
- * `EARNEST_PLANS` (via `landing.ts`) or the seeded demo workspace the
- * screenshots were taken from, on the same day. If a claim cannot point at one
- * of those two, it does not belong on the page.
+ *   hero      one spoken conversation, drawn and played (`Landing/EarnestTalk`)
+ *   talk      voice: the mic, the three switches, the platform note verbatim
+ *   context   the column, the scope chip, read tools, files, the profile, Home
+ *   act       the card, the one switch, the floor, undo — and the two lists
+ *   honest    the charter, quoted
+ *   new       the dated changelog, from `~/data/earnest`
+ *   then      Home, Approvals, Studio, the client side, Looks, breadth, pricing, FAQ
+ *
+ * ⚠️ EVERYTHING EARNEST SAYS ABOUT ITSELF HERE IS DATA. `~/data/earnest.ts`
+ * holds the four pillars, the script, the guardrail lists (copied from the
+ * app's `shared/ai-autonomy.ts`), the charter lines and the changelog, each
+ * with the app-repo file it was read from. This template renders it and adds
+ * nothing. To update the story: edit that file (README, "Keeping the Earnest
+ * story current"). `pnpm check:earnest` diffs the guardrails against a sibling
+ * checkout of the app.
+ *
+ * ⚠️ The copy is bound by the app's own Voice Charter — "earn trust by being
+ * right, not by being loud". Every number on the page comes from either
+ * `EARNEST_PLANS` (via `landing.ts`) or the solo demo seed the screenshots and
+ * the drawn conversation were read from. If a claim cannot point at one of
+ * those, it does not belong on the page.
  *
  * THE APPEARANCE PANEL IS REAL, AND IT DRIVES THIS PAGE. The app's looks are
  * redesigns rather than colour swaps, and a screenshot carousel is the one
@@ -574,25 +667,13 @@
  * whole mechanism (the same three attributes the app writes on <html>), the
  * skins are token overrides in sellsheet-home.css, and `useLandingAppearance`
  * owns the choice so the nav popover and the panel in the Looks section are
- * one control. It also owns the rule that keeps this from exploding: a LOOK is
- * not an axis — Paper and Clean bring their own palette, and Paper brings its
- * own display face.
+ * one control.
  *
- * THE HOME IN THE HERO IS MARKUP, not a capture (`Landing/HomeMock.vue`), for
- * the reason above: a PNG is frozen in the look, palette, type and mode it was
- * taken in, so the moment a visitor chose Paper the page was arguing its own
- * central claim with a Glass app sitting in the middle of it. It also carries
- * no browser chrome and floats straight on the wave field — the field is the
- * app's own ambient ground, and a window frame between the two turns a product
- * into a picture of one. The real captures stay on the page, in the Looks
- * section, as the receipt.
- *
- * Structure and chrome are deliberately the archived SellSheetLive's — the
- * `.e-*` base, the glass tiers, `useGlassMotion`'s hero timeline and scroll
- * reveals. What is new is the full-bleed wave field behind the hero (a port of
- * the app's own ambient background), the coded home and the lens demo standing
- * in for the retired app dock, the drawn autonomy ring, and the appearance
- * panel.
+ * THE CONVERSATION IN THE HERO AND THE HOME IN THE CONTEXT SECTION ARE MARKUP,
+ * not captures, for the same reason: a PNG is frozen in the look it was taken
+ * in, and — since the rethink — frozen in a Home the app no longer has. The
+ * real captures stay on the page where they are still true (Money, Approvals,
+ * Studio, the client side, the Looks receipt with its dated caption).
  */
 import { ref, onMounted, onUnmounted } from 'vue';
 import '~/assets/css/sellsheet-modern.css';
@@ -602,6 +683,18 @@ import '~/assets/css/sellsheet-home.css';
 import { useGlassMotion } from '~/composables/useGlassMotion';
 import { useLandingAppearance } from '~/composables/useLandingAppearance';
 import { faqs, plans, compareRows, marqueeItems, moreCards } from '~/data/landing';
+import {
+	earnestPillars,
+	earnestChangelog,
+	CHANGELOG_SHOWN,
+	charterLines,
+	voiceSwitches,
+	SAFETY_FLOOR,
+	SMALL_REVERSIBLE,
+	AUTONOMY_SETTING,
+	HANDS_FREE_NOTE,
+	TOOL_LABEL,
+} from '~/data/earnest';
 import { getScreenshotSrc } from '~/data/features';
 
 const config = useRuntimeConfig();
@@ -613,13 +706,17 @@ const soloDemoUrl = `${appUrl}/try-demo?persona=solo`;
 
 const shot = (slug) => getScreenshotSrc(slug);
 
-// The hero's wave field takes its hue from whichever lens is selected below
-// it — the same re-tint the app does, for the same reason: a lens is a way of
-// looking at the whole home, ground included.
-const heroTint = ref(null);
-function onTint(hue) {
-	heroTint.value = hue;
-}
+// The four pillars, by key, so the template reads `talk.lead` rather than
+// indexing an array whose order is a data-file decision.
+const pillar = (key) => earnestPillars.find((p) => p.key === key);
+const talk = pillar('talk');
+const context = pillar('context');
+const act = pillar('act');
+const honest = pillar('honest');
+
+const changelog = earnestChangelog.slice(0, CHANGELOG_SHOWN);
+const fmtDate = (iso) =>
+	new Date(`${iso}T12:00:00Z`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
 
 // What the whole page is wearing. `data-look`, `data-palette` and `data-style`
 // on the root drive the skins in sellsheet-home.css — the same three
@@ -758,6 +855,44 @@ onUnmounted(() => {
 .e-ap-pop-leave-to {
 	opacity: 0;
 	transform: translateY(-8px) scale(0.97);
+}
+
+/* ── The voice card and the home card — the two drawn "shots" ── */
+.l-voice {
+	padding: clamp(18px, 2.4vw, 26px);
+	border-radius: 22px;
+	text-align: left;
+}
+.l-voice-head {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin: 0;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--g-ink-3);
+}
+.l-voice-head :deep(svg),
+.l-voice-head :deep([class*='iconify']) {
+	width: 14px;
+	height: 14px;
+}
+.l-voice :deep(.l-switches) {
+	margin-top: 14px;
+}
+.l-voice-note {
+	margin: 14px 0 0;
+	padding-top: 12px;
+	border-top: 1px solid var(--g-line);
+	font-size: 12px;
+	line-height: 1.55;
+	color: var(--g-ink-3);
+}
+.l-home-card {
+	padding: clamp(18px, 2.4vw, 26px);
+	border-radius: 22px;
 }
 
 @media (prefers-reduced-motion: reduce) {
