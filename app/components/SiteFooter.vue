@@ -25,7 +25,7 @@ const signInUrl = `${appUrl}/auth/signin`;
         <a :href="demoUrl">Live demo</a>
         <a :href="signInUrl">Sign in</a>
       </div>
-      <p class="site-footer-copy">&copy; {{ new Date().getFullYear() }} Earnest, made by Hue Studios. All rights reserved.</p>
+      <p class="site-footer-copy">&copy; {{ new Date().getFullYear() }} Earnest, made by Hue. All rights reserved.</p>
     </div>
   </footer>
 </template>

@@ -15,13 +15,14 @@ remembered per browser.
 
 The footer follows Hue's own footer pattern, centred and small: "created by"
 with the Hue logo (pink on hover), one line saying Earnest is made, sold and
-billed by Hue so a card statement matches the Stripe account, and "© 2026
+billed by Hue and appears as HUE STUDIOS on the card statement, which is the
+Stripe descriptor, and "© 2026
 Hue" in tracked caps. Hue is the legal name, so "Hue Studios" appears nowhere
 in these mockups. The three concepts carry the same footer.
 
-Note for the live site: `app/pages/terms-of-service.vue` and
-`app/pages/privacy-policy.vue` still set `businessName = 'Hue Studios'`, and
-`SiteFooter.vue` says "made by Hue Studios". Those should say "Hue" too.
+The live site's legal pages (terms, privacy, data deletion) and footers now
+name Hue as the operator too, and the terms say charges appear as HUE
+STUDIOS on a card statement.
 
 Page order: nav · hero (copy | Focus demo) · six-app switcher · replace strip ·
 brand (profile card, three drafts) · AI Actions (diff, guardrail) · Decide ·

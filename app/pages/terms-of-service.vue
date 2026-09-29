@@ -21,9 +21,9 @@ useSeoMeta({
 	ogSiteName: 'Earnest',
 });
 
-const lastUpdated = 'July 17, 2026';
+const lastUpdated = 'September 29, 2026';
 const contactEmail = 'hello@earnest.guru';
-const businessName = 'Hue Studios';
+const businessName = 'Hue';
 const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 </script>
 
@@ -38,7 +38,7 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 			<!-- Introduction -->
 			<section class="mb-10">
 				<p>
-					Welcome to Earnest, the business management platform operated by {{ businessName }} — bringing your clients,
+					Welcome to Earnest, the business management platform made and operated by {{ businessName }} (doing business as Hue Studios) — bringing your clients,
 					projects, invoicing, marketing, and AI assistance together in one place. These Terms of Service ("Terms")
 					govern your access to and use of Earnest and our companion app CardDesk, including any associated services,
 					features, and content (collectively, the "Service").
@@ -188,6 +188,9 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 					reversal floored at zero). Keep it in sync with that behavior.
 				-->
 				<h3 id="refunds" class="text-lg font-semibold text-gray-900 dark:text-white mt-8 mb-3">Refunds and cancellations</h3>
+
+				<p class="mt-4"><strong>Who bills you.</strong> Earnest subscriptions, add-ons and AI token top-ups are sold and billed by
+					{{ businessName }} through Stripe. Charges appear as <strong>HUE STUDIOS</strong> on your card or bank statement.</p>
 
 				<p class="mt-4"><strong>Subscriptions.</strong> You can cancel your plan at any time from Organization → Billing.
 					Cancellation takes effect at the end of your current billing period: you keep access until then, and we do not

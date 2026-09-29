@@ -537,7 +537,7 @@
 
 		<footer class="e-footer">
 			<div class="e-footer-inner">
-				<span class="e-footer-copy">&copy; {{ new Date().getFullYear() }} <span class="e-brand">Earnest</span>, made by Hue Studios — Do good work.</span>
+				<span class="e-footer-copy">&copy; {{ new Date().getFullYear() }} <span class="e-brand">Earnest</span>, made by Hue — Do good work.</span>
 				<nav class="e-footer-links">
 					<nuxt-link to="/features">Features</nuxt-link>
 					<nuxt-link to="/blog">Blog</nuxt-link>

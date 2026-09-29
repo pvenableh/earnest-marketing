@@ -21,9 +21,9 @@ useSeoMeta({
 	ogSiteName: 'Earnest',
 });
 
-const lastUpdated = 'July 17, 2026';
+const lastUpdated = 'September 29, 2026';
 const contactEmail = 'hello@earnest.guru';
-const businessName = 'Hue Studios';
+const businessName = 'Hue';
 const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 </script>
 

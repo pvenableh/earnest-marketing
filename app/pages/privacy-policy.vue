@@ -21,9 +21,9 @@ useSeoMeta({
 	ogSiteName: 'Earnest',
 });
 
-const lastUpdated = 'July 17, 2026';
+const lastUpdated = 'September 29, 2026';
 const contactEmail = 'hello@earnest.guru';
-const businessName = 'Hue Studios';
+const businessName = 'Hue';
 const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 const websiteUrl = 'https://huestudios.com';
 </script>
@@ -39,7 +39,7 @@ const websiteUrl = 'https://huestudios.com';
 			<!-- Introduction -->
 			<section class="mb-10">
 				<p>
-					{{ businessName }} ("we," "our," or "us") operates Earnest, a business management platform that helps
+					{{ businessName }} (doing business as Hue Studios; "we," "our," or "us") operates Earnest, a business management platform that helps
 					agencies, studios, freelancers, and small businesses run their operations in one place — including customer
 					relationships (CRM), projects and tasks, invoicing and payments, proposals and contracts, marketing, and an
 					AI assistant ("Earnest", including the board-level briefing we call "the Boardroom") that reads across your
