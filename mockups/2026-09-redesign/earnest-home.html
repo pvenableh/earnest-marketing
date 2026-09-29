@@ -33,6 +33,15 @@
   --wave:0,150,230; --wave-a:.09;
   --measure:1120px;
 }
+/* ── Glass · light ── */
+:root[data-look="glass"][data-mode="light"]{
+  color-scheme:light;
+  --bg:#f3f6fc; --surface:rgba(255,255,255,.7); --surface-2:rgba(226,234,250,.9); --paper:#e9eef8;
+  --ink:#0f1730; --ink-2:#4a5470; --ink-3:#8590aa; --line:rgba(20,40,90,.12);
+  --pop:#0099d6; --pop-ink:#fff; --pop-soft:rgba(0,153,214,.1);
+  --shadow:0 24px 60px rgba(20,40,90,.12);
+  --wave:0,150,230; --wave-a:.07;
+}
 /* ── Paper ── */
 :root[data-look="paper"]{
   color-scheme:light;
@@ -44,6 +53,15 @@
   --font-display:'Bauer Bodoni','Bodoni MT','Didot',Georgia,serif;
   --h-weight:400; --h-transform:none; --h-tracking:-.01em; --h-lh:1.02; --h-scale:1;
   --wave:150,80,60; --wave-a:.06;
+}
+/* ── Paper · dark ── */
+:root[data-look="paper"][data-mode="dark"]{
+  color-scheme:dark;
+  --bg:#1b1714; --surface:#221d19; --surface-2:#2a241f; --paper:#221d19;
+  --ink:#f1ebe3; --ink-2:#bdb3a6; --ink-3:#7d746a; --line:#352e28;
+  --pop:hsl(16 55% 62%); --pop-ink:#1b1714; --pop-soft:hsl(16 40% 20%);
+  --shadow:0 24px 50px rgba(0,0,0,.45);
+  --wave:190,110,80; --wave-a:.07;
 }
 /* ── Clean ── */
 :root[data-look="clean"]{
@@ -58,6 +76,14 @@
   --wave:36,82,238; --wave-a:.05;
 }
 
+/* ── Clean · dark ── */
+:root[data-look="clean"][data-mode="dark"]{
+  color-scheme:dark;
+  --bg:#0c0e14; --surface:#0c0e14; --surface-2:#161a24; --paper:#161a24;
+  --ink:#f2f4f8; --ink-2:#aab1c2; --ink-3:#6e7689; --line:#252a37;
+  --pop:hsl(228 91% 66%); --pop-ink:#0c0e14; --pop-soft:hsl(228 60% 18%);
+  --wave:60,110,255; --wave-a:.07;
+}
 *{box-sizing:border-box}
 html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .25s,color .25s}
@@ -88,16 +114,25 @@ h1,h2,h3{font-family:var(--font-display);font-weight:var(--h-weight);text-transf
 .nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;backdrop-filter:blur(16px);background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
 .nav ul{display:flex;gap:24px;list-style:none;margin:0;padding:0;font-size:15px;color:var(--ink-2)}
-.nav .cta{display:flex;gap:10px}
+.nav .cta{display:flex;gap:10px;align-items:center}
 .nav .btn{padding:9px 16px;font-size:14px}
 @media(max-width:860px){.nav ul{display:none}}
 
-/* look switcher */
-.looks{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;gap:4px;padding:4px;border-radius:999px;border:1px solid var(--line);background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);box-shadow:var(--shadow)}
-.looks button{font:inherit;font-size:13px;padding:7px 12px;border-radius:999px;border:0;background:transparent;color:var(--ink-2);cursor:pointer}
-.looks button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
-.looks .lab{align-self:center;padding-left:10px;padding-right:4px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
-@media(max-width:560px){.looks .lab{display:none}}
+/* theme control (in the nav): Look × Mode, the app's own two axes */
+.theme{position:relative}
+.theme-btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:14px;padding:8px 12px;border-radius:var(--r-btn);border:1px solid var(--line);background:transparent;color:var(--ink-2);cursor:pointer}
+.theme-btn:hover{color:var(--ink)}
+.theme-btn .sw{width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--pop) 50%,var(--surface-2) 50%);border:1px solid var(--line)}
+.theme-btn .lbl{white-space:nowrap}
+@media(max-width:560px){.theme-btn .lbl{display:none}}
+.theme-pop{position:absolute;right:0;top:calc(100% + 10px);min-width:260px;padding:14px;border-radius:var(--r-card);border:1px solid var(--line);background:var(--bg);box-shadow:var(--shadow);display:grid;gap:12px;z-index:40}
+.theme-pop[hidden]{display:none}
+.theme-pop .row{display:grid;gap:6px}
+.theme-pop .row b{font-weight:400;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.theme-pop .seg{display:flex;gap:4px;padding:3px;border-radius:var(--r-btn);border:1px solid var(--line);background:var(--surface-2)}
+.theme-pop .seg button{flex:1;font:inherit;font-size:13px;padding:7px 10px;border-radius:var(--r-btn);border:0;background:transparent;color:var(--ink-2);cursor:pointer}
+.theme-pop .seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.theme-pop small{color:var(--ink-3);font-size:12px;line-height:1.4}
 
 /* hero */
 .hero{position:relative;isolation:isolate;overflow:hidden;padding-block:64px 56px}
@@ -220,9 +255,18 @@ h1,h2,h3{font-family:var(--font-display);font-weight:var(--h-weight);text-transf
 .cta .mark{font-size:clamp(64px,12vw,140px);line-height:1}
 .cta .tag{font-family:var(--font-note);font-size:26px;color:var(--pop);margin-top:6px}
 .cta .actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:28px}
-footer{border-top:1px solid var(--line);padding-block:28px 96px;font-size:14px;color:var(--ink-3)}
-footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-footer a{margin-right:18px}
+footer{border-top:1px solid var(--line);padding-block:40px 48px;font-size:14px;color:var(--ink-3)}
+footer .wrap{display:grid;gap:22px}
+footer .links a{margin-right:18px}
+.hue{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;padding:20px 22px;border:1px solid var(--line);border-radius:var(--r-card);background:var(--surface)}
+.hue .hmark{font-family:var(--font-mark);font-size:34px;line-height:1;color:var(--ink);letter-spacing:-.01em}
+.hue .hmark i{font-style:normal;color:var(--pop)}
+.hue .hmark small{display:block;font-family:var(--font-body);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+.hue p{color:var(--ink-2);font-size:14px;max-width:70ch}
+.hue p strong{color:var(--ink);font-weight:400}
+.hue p a{color:var(--pop)}
+@media(max-width:560px){.hue{grid-template-columns:1fr}}
+footer .copy{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -238,18 +282,19 @@ footer a{margin-right:18px}
       <li><a href="#pricing">Pricing</a></li>
     </ul>
     <div class="cta">
+      <div class="theme">
+        <button class="theme-btn" id="themeBtn" aria-expanded="false" aria-controls="themePop"><span class="sw" aria-hidden="true"></span><span class="lbl" id="themeLbl">Glass · Dark</span></button>
+        <div class="theme-pop" id="themePop" hidden>
+          <div class="row"><b>Look</b><div class="seg" role="group" aria-label="Look"><button data-look="glass" aria-pressed="true">Glass</button><button data-look="paper" aria-pressed="false">Paper</button><button data-look="clean" aria-pressed="false">Clean</button></div></div>
+          <div class="row"><b>Mode</b><div class="seg" role="group" aria-label="Mode"><button data-mode="light" aria-pressed="false">Light</button><button data-mode="dark" aria-pressed="true">Dark</button></div></div>
+          <small>The same three looks and two modes you get inside Earnest. Remembered on this browser.</small>
+        </div>
+      </div>
       <a class="btn" href="https://app.earnest.guru/try-demo?persona=solo">Live demo</a>
       <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
     </div>
   </div>
 </nav>
-
-<div class="looks" role="group" aria-label="Look">
-  <span class="lab">Look</span>
-  <button data-look="glass" aria-pressed="true">Glass</button>
-  <button data-look="paper" aria-pressed="false">Paper</button>
-  <button data-look="clean" aria-pressed="false">Clean</button>
-</div>
 
 <header class="hero">
   <canvas id="wave" aria-hidden="true"></canvas>
@@ -428,8 +473,14 @@ footer a{margin-right:18px}
 
 <footer>
   <div class="wrap">
-    <span>© 2026 Earnest · made by Hue Studios</span>
-    <span><a href="#">Features</a><a href="#">Blog</a><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Refunds</a></span>
+    <div class="hue">
+      <div class="hmark">Created by Hue<i>.</i><small>Hue Studios</small></div>
+      <p><strong>Earnest is made and sold by Hue Studios.</strong> Your subscription is billed by Hue Studios and shows as Hue Studios on your card statement. <a href="https://huestudios.com">huestudios.com</a></p>
+    </div>
+    <div class="copy">
+      <span>© 2026 Hue Studios · Earnest · Do good work.</span>
+      <span class="links"><a href="#">Features</a><a href="#">Blog</a><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Refunds</a></span>
+    </div>
   </div>
 </footer>
 
@@ -438,23 +489,35 @@ footer a{margin-right:18px}
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var root=document.documentElement;
 
-  // ── Look ── the same three the app ships; #glass / #paper / #clean deep-links.
-  var LOOKS=['glass','paper','clean'];
-  var lookBtns=[].slice.call(document.querySelectorAll('.looks button'));
-  function setLook(l,store){
-    if(LOOKS.indexOf(l)<0)return;
-    root.setAttribute('data-look',l);
+  // ── Theme ── Look × Mode, the app's own two axes. #glass / #paper / #clean
+  // deep-link a look (and its default mode); #glass-light etc. set both.
+  var LOOKS=['glass','paper','clean'],MODES=['light','dark'],DEFAULT_MODE={glass:'dark',paper:'light',clean:'light'};
+  var pop=document.getElementById('themePop'),tbtn=document.getElementById('themeBtn'),tlbl=document.getElementById('themeLbl');
+  var lookBtns=[].slice.call(pop.querySelectorAll('[data-look]')),modeBtns=[].slice.call(pop.querySelectorAll('[data-mode]'));
+  function cap(x){return x.charAt(0).toUpperCase()+x.slice(1);}
+  function setTheme(l,m,store){
+    if(LOOKS.indexOf(l)<0)l='glass'; if(MODES.indexOf(m)<0)m=DEFAULT_MODE[l];
+    root.setAttribute('data-look',l);root.setAttribute('data-mode',m);
     lookBtns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.look===l));});
+    modeBtns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.mode===m));});
+    tlbl.textContent=cap(l)+' · '+cap(m);
     [].slice.call(document.querySelectorAll('img[data-glass]')).forEach(function(im){
       var src=im.getAttribute('data-'+l)||im.getAttribute('data-glass'); if(im.getAttribute('src')!==src)im.setAttribute('src',src);
     });
-    if(store){try{localStorage.setItem('earnest-look',l);}catch(e){}}
+    if(store){try{localStorage.setItem('earnest-look',l);localStorage.setItem('earnest-mode',m);}catch(e){}}
     readWave();
   }
-  lookBtns.forEach(function(b){b.addEventListener('click',function(){setLook(b.dataset.look,true);});});
-  var initial=(location.hash||'').slice(1);
-  if(LOOKS.indexOf(initial)<0){try{initial=localStorage.getItem('earnest-look')||'glass';}catch(e){initial='glass';}}
-  addEventListener('hashchange',function(){var h=location.hash.slice(1);if(LOOKS.indexOf(h)>=0)setLook(h,false);});
+  function cur(){return {l:root.getAttribute('data-look'),m:root.getAttribute('data-mode')};}
+  lookBtns.forEach(function(b){b.addEventListener('click',function(){setTheme(b.dataset.look,cur().m,true);});});
+  modeBtns.forEach(function(b){b.addEventListener('click',function(){setTheme(cur().l,b.dataset.mode,true);});});
+  tbtn.addEventListener('click',function(){var open=pop.hidden;pop.hidden=!open;tbtn.setAttribute('aria-expanded',String(open));});
+  document.addEventListener('click',function(e){if(!pop.hidden&&!pop.contains(e.target)&&e.target!==tbtn&&!tbtn.contains(e.target)){pop.hidden=true;tbtn.setAttribute('aria-expanded','false');}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!pop.hidden){pop.hidden=true;tbtn.setAttribute('aria-expanded','false');}});
+  function fromHash(){var h=(location.hash||'').slice(1).split('-');return LOOKS.indexOf(h[0])>=0?{l:h[0],m:h[1]||DEFAULT_MODE[h[0]]}:null;}
+  var init=fromHash(),initialL='glass',initialM='dark';
+  if(init){initialL=init.l;initialM=init.m;}
+  else{try{initialL=localStorage.getItem('earnest-look')||'glass';initialM=localStorage.getItem('earnest-mode')||DEFAULT_MODE[initialL];}catch(e){}}
+  addEventListener('hashchange',function(){var h=fromHash();if(h)setTheme(h.l,h.m,false);});
 
   // ── Focus demo ── answers written from the seeded demo workspace.
   var Q=[
@@ -511,7 +574,7 @@ footer a{margin-right:18px}
     }
     if(!reduce){t+=0.006;requestAnimationFrame(draw);}
   }
-  setLook(initial,false);
+  setTheme(initialL,initialM,false);
   draw();
 })();
 </script>

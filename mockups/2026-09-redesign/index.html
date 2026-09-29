@@ -84,7 +84,7 @@ tr:last-child td,tr:last-child th{border-bottom:0}
     <span class="mark">Earnest<b>.</b></span>
     <span class="eyebrow">Landing page redesign · September 2026 · round 2</span>
     <h1>One home, three looks.</h1>
-    <p class="lede">Concept A’s thesis (the model, grounded in the studio) with Concept B’s breadth (the six-app switcher), in about half the words, in each of the app’s three looks. The look switcher sits bottom-right on the page; each thumbnail below opens the page already in that look.</p>
+    <p class="lede">Concept A’s thesis (the model, grounded in the studio) with Concept B’s breadth (the six-app switcher), in about half the words, in each of the app’s three looks. A Theme control in the nav sets Look (Glass, Paper, Clean) and Mode (Light, Dark), the same two axes as inside the app. Each thumbnail below opens the page already in that look.</p>
   </header>
 
   <div class="looks">
@@ -105,16 +105,17 @@ tr:last-child td,tr:last-child th{border-bottom:0}
         <li><b>Pricing from B.</b> The capacity ladder is shorter than three plan cards and says the same thing.</li>
         <li><b>FAQ down to three.</b> ChatGPT, missing context, and “will it send on its own”.</li>
         <li><b>Wording.</b> “No-training terms” became “your data is never used to train the model”, here and in the three original concepts.</li>
+        <li><b>Footer.</b> A “Created by Hue” block: Earnest is made and sold by Hue Studios, and the subscription is billed by Hue Studios, so the statement matches the Stripe account. The three concepts carry the same line.</li>
       </ul>
     </div>
     <div>
       <h2>How the looks work</h2>
       <ul>
-        <li><b>One page, one token set per look,</b> switched with a <code>data-look</code> attribute on the root, which is how the app itself does it. Nothing is duplicated.</li>
-        <li><b>Glass</b> is the default: navy ground, sky-blue accent, light Proxima headings, glass cards, the wave field.</li>
-        <li><b>Paper</b> swaps to linen, oxide accent, Bodoni headings, square corners, warm shadows. The home and Money screenshots swap to their Paper captures.</li>
-        <li><b>Clean</b> swaps to white, one blue, DIN condensed caps, borders instead of shadows. The home screenshot swaps to its Clean capture.</li>
-        <li><b>Deep links.</b> <code>#glass</code>, <code>#paper</code> and <code>#clean</code> open the page in that look; the choice is remembered per browser.</li>
+        <li><b>One page, one token set per look and mode,</b> switched with <code>data-look</code> and <code>data-mode</code> on the root, which is how the app itself does it. Six combinations, nothing duplicated.</li>
+        <li><b>Glass</b> is the default and opens dark: navy ground, sky-blue accent, light Proxima headings, glass cards, the wave field. Its light mode is a cool white with the same blue.</li>
+        <li><b>Paper</b> opens light: linen, oxide accent, Bodoni headings, square corners, warm shadows. Dark mode is ink-on-dark-linen with a warmer oxide. The home and Money screenshots swap to their Paper captures.</li>
+        <li><b>Clean</b> opens light: white, one blue, DIN condensed caps, borders instead of shadows. Dark mode is near-black with the same blue lifted. The home screenshot swaps to its Clean capture.</li>
+        <li><b>Deep links.</b> <code>#glass</code>, <code>#paper</code> and <code>#clean</code> open a look in its default mode; <code>#paper-dark</code> and the like set both. The choice is remembered per browser.</li>
         <li><b>Gap.</b> Only the home and Money screens were captured in Paper and Clean, so the other switcher tabs show Glass screenshots in every look. A capture run with the other looks would close it.</li>
       </ul>
     </div>

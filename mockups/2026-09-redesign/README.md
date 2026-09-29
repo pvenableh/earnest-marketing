@@ -7,16 +7,23 @@ links to the three round-1 concepts it was built from.
 
 Concept A's thesis (the model, grounded in the studio) with Concept B's
 breadth (the six-app switcher), in about half the words, presented in all
-three of the app's looks from one file. A look switcher sits bottom-right;
-`#glass`, `#paper` and `#clean` deep-link to a look, and the choice is
+three of the app's looks from one file. A Theme control in the nav sets Look
+(Glass, Paper, Clean) and Mode (Light, Dark), the app's own two axes, six
+combinations in all. `#glass`, `#paper` and `#clean` deep-link to a look in
+its default mode; `#paper-dark` and the like set both. The choice is
 remembered per browser.
+
+The footer carries a "Created by Hue" block: Earnest is made and sold by Hue
+Studios, and the subscription is billed by Hue Studios, so what a customer
+sees on a card statement matches the Stripe account. The three concepts carry
+the same line.
 
 Page order: nav · hero (copy | Focus demo) · six-app switcher · replace strip ·
 brand (profile card, three drafts) · AI Actions (diff, guardrail) · Decide ·
 Do · Know · pricing ladder · three FAQs · CTA.
 
-The looks are one token set each on `<html data-look>`, the same mechanism
-the app uses. Paper swaps the home and Money screenshots to their Paper
+The looks are one token set each on `<html data-look data-mode>`, the same
+mechanism the app uses. Paper swaps the home and Money screenshots to their Paper
 captures; Clean swaps the home. The other switcher tabs show Glass captures
 in every look, because only the home and Money screens were captured in
 Paper and Clean.
