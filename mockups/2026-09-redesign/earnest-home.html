@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en" data-look="glass">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Earnest — It already knows your business.</title>
+<style>
+/* The combined home: Concept A's thesis (the model, grounded) with Concept B's
+   breadth (the six-app switcher), in fewer words, in all three looks.
+   Layout: one 1120px column. Hero = copy | Focus. Then the switcher, a replace
+   strip, brand, actions, the home, pricing, FAQ, CTA. The look is a token set
+   on <html data-look>, exactly as the app does it. */
+@font-face{font-family:'Bauer Bodoni';src:url('fonts/bauer-bodoni-roman.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Proxima Nova';src:url('fonts/proxima-nova-regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Proxima Nova';src:url('fonts/proxima-nova-light.woff2') format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'DIN Pro Cond';src:url('fonts/DINPro-CondensedBold.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Gaegu';src:url('fonts/Gaegu-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+
+/* ── Glass (default) ── */
+:root{
+  color-scheme:dark;
+  --bg:#0b1020; --surface:rgba(22,30,58,.55); --surface-2:rgba(30,40,76,.75); --paper:#0f1730;
+  --ink:#eef2fb; --ink-2:#aab4cc; --ink-3:#6d7894; --line:rgba(170,190,240,.14);
+  --pop:#00bfff; --pop-ink:#061018; --pop-soft:rgba(0,191,255,.12);
+  --shadow:0 30px 80px rgba(0,0,0,.45); --blur:blur(14px);
+  --r-card:18px; --r-btn:999px; --r-chip:999px;
+  --font-body:'Proxima Nova',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-display:'Proxima Nova',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mark:'Bauer Bodoni','Bodoni MT','Didot',Georgia,serif;
+  --font-note:'Gaegu','Comic Sans MS',cursive;
+  --h-weight:300; --h-transform:none; --h-tracking:-.02em; --h-lh:1.05; --h-scale:1;
+  --wave:0,150,230; --wave-a:.09;
+  --measure:1120px;
+}
+/* ── Paper ── */
+:root[data-look="paper"]{
+  color-scheme:light;
+  --bg:#f6f1ea; --surface:#fdfbf8; --surface-2:#efe8de; --paper:#fdfbf8;
+  --ink:#1c1916; --ink-2:#5c554d; --ink-3:#948b80; --line:#dfd6ca;
+  --pop:hsl(16 42% 41%); --pop-ink:#fff; --pop-soft:hsl(16 42% 93%);
+  --shadow:0 24px 50px rgba(60,40,20,.12); --blur:none;
+  --r-card:2px; --r-btn:4px; --r-chip:4px;
+  --font-display:'Bauer Bodoni','Bodoni MT','Didot',Georgia,serif;
+  --h-weight:400; --h-transform:none; --h-tracking:-.01em; --h-lh:1.02; --h-scale:1;
+  --wave:150,80,60; --wave-a:.06;
+}
+/* ── Clean ── */
+:root[data-look="clean"]{
+  color-scheme:light;
+  --bg:#ffffff; --surface:#ffffff; --surface-2:#f3f5f9; --paper:#f3f5f9;
+  --ink:#0e1220; --ink-2:#4a5266; --ink-3:#8b93a6; --line:#e1e5ee;
+  --pop:hsl(228 91% 54%); --pop-ink:#fff; --pop-soft:hsl(228 91% 96%);
+  --shadow:none; --blur:none;
+  --r-card:12px; --r-btn:8px; --r-chip:8px;
+  --font-display:'DIN Pro Cond','Oswald','Arial Narrow',Impact,sans-serif;
+  --h-weight:700; --h-transform:uppercase; --h-tracking:.005em; --h-lh:.95; --h-scale:1.18;
+  --wave:36,82,238; --wave-a:.05;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .25s,color .25s}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+p{margin:0}
+h1,h2,h3{font-family:var(--font-display);font-weight:var(--h-weight);text-transform:var(--h-transform);letter-spacing:var(--h-tracking);line-height:var(--h-lh);margin:0;text-wrap:balance}
+.pop{color:var(--pop)}
+.wrap{max-width:var(--measure);margin-inline:auto;padding-inline:24px}
+.mark{font-family:var(--font-mark);font-size:26px;letter-spacing:-.01em}
+.mark b{color:var(--pop);font-weight:400}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--pop)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:var(--r-btn);font-size:16px;border:1px solid var(--line);background:var(--surface);color:var(--ink);backdrop-filter:var(--blur);transition:background .15s,color .15s,transform .15s;cursor:pointer;font-family:inherit}
+:root[data-look="paper"] .btn,:root[data-look="clean"] .btn{border-color:var(--ink)}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--pop);color:var(--pop-ink);border-color:var(--pop)}
+:root[data-look="paper"] .btn.primary{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.btn:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--pop);outline-offset:3px}
+.card{border:1px solid var(--line);border-radius:var(--r-card);background:var(--surface);backdrop-filter:var(--blur);box-shadow:var(--shadow)}
+.sub{font-size:19px;color:var(--ink-2);font-weight:300;max-width:52ch;margin-top:14px}
+.sub strong{color:var(--ink);font-weight:400}
+.sec{padding-block:88px}
+.sec h2{font-size:clamp(calc(30px*var(--h-scale)),calc(4.2vw*var(--h-scale)),calc(52px*var(--h-scale)))}
+@media(max-width:900px){.sec{padding-block:60px}}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;backdrop-filter:blur(16px);background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.nav ul{display:flex;gap:24px;list-style:none;margin:0;padding:0;font-size:15px;color:var(--ink-2)}
+.nav .cta{display:flex;gap:10px}
+.nav .btn{padding:9px 16px;font-size:14px}
+@media(max-width:860px){.nav ul{display:none}}
+
+/* look switcher */
+.looks{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;gap:4px;padding:4px;border-radius:999px;border:1px solid var(--line);background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);box-shadow:var(--shadow)}
+.looks button{font:inherit;font-size:13px;padding:7px 12px;border-radius:999px;border:0;background:transparent;color:var(--ink-2);cursor:pointer}
+.looks button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.looks .lab{align-self:center;padding-left:10px;padding-right:4px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+@media(max-width:560px){.looks .lab{display:none}}
+
+/* hero */
+.hero{position:relative;isolation:isolate;overflow:hidden;padding-block:64px 56px}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1;-webkit-mask-image:linear-gradient(180deg,#000 40%,transparent 100%);mask-image:linear-gradient(180deg,#000 40%,transparent 100%)}
+.hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(calc(38px*var(--h-scale)),calc(5.4vw*var(--h-scale)),calc(68px*var(--h-scale)));margin-top:16px}
+.hero .lede{font-size:19px;color:var(--ink-2);font-weight:300;max-width:34ch;margin-top:18px}
+.hero .lede strong{color:var(--ink);font-weight:400}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.hero .fine{margin-top:14px;font-size:14px;color:var(--ink-3);max-width:40ch}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr}.hero{padding-block:44px 32px}}
+
+/* focus panel */
+.focus{padding:18px;min-width:0}
+.focus-top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;color:var(--ink-3);letter-spacing:.12em;text-transform:uppercase}
+.focus-top .where{border:1px solid var(--line);border-radius:999px;padding:4px 10px;letter-spacing:0;text-transform:none;font-size:12px;color:var(--ink-2)}
+.focus-greet{font-size:21px;font-weight:300;line-height:1.3;margin-top:18px;text-wrap:balance}
+:root[data-look="paper"] .focus-greet{font-family:var(--font-display)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font:inherit;font-size:14px;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:var(--r-chip);padding:7px 13px;cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--pop);background:var(--pop-soft)}
+.answer{margin-top:16px;min-height:120px;border-top:1px solid var(--line);padding-top:14px;font-size:16px;line-height:1.5}
+.answer .you{display:inline-block;background:var(--surface-2);border-radius:14px;padding:6px 12px;margin-bottom:10px;font-size:14px;color:var(--ink-2)}
+.answer .cursor{display:inline-block;width:8px;height:1em;background:var(--pop);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.read{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:var(--ink-3)}
+.read span{border:1px solid var(--line);border-radius:6px;padding:3px 8px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.read b{font-weight:400;letter-spacing:.1em;text-transform:uppercase;margin-right:4px}
+.act{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.act .btn{padding:8px 14px;font-size:14px}
+.focus-input{margin-top:14px;display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:var(--r-btn);padding:9px 10px 9px 16px;color:var(--ink-3);font-size:15px}
+.focus-input .send{margin-left:auto;width:32px;height:32px;border-radius:50%;background:var(--pop-soft);display:grid;place-items:center;color:var(--pop)}
+
+/* switcher */
+.switch{margin-top:36px}
+.tabs{display:flex;border:1px solid var(--line);border-bottom:0;border-radius:var(--r-card) var(--r-card) 0 0;overflow-x:auto;background:var(--surface-2)}
+.tab{flex:1 0 auto;font:inherit;font-family:var(--font-display);font-weight:var(--h-weight);text-transform:var(--h-transform);font-size:calc(17px*var(--h-scale));padding:14px 20px;border:0;border-right:1px solid var(--line);background:transparent;color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.tab:last-child{border-right:0}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--pop);box-shadow:inset 0 3px 0 var(--pop)}
+:root[data-look="glass"] .tab[aria-selected="true"]{background:rgba(255,255,255,.04)}
+.stage{border:1px solid var(--line);border-radius:0 0 var(--r-card) var(--r-card);display:grid;grid-template-columns:1fr 2fr;min-height:400px;overflow:hidden;background:var(--surface)}
+.stage .side{padding:26px;border-right:1px solid var(--line);display:grid;align-content:start;gap:12px;min-width:0}
+.stage .side h3{font-size:calc(26px*var(--h-scale))}
+.stage .side p{color:var(--ink-2);font-size:15px}
+.echip{margin-top:4px;border:1px solid var(--line);border-radius:var(--r-chip);padding:12px 14px;background:var(--pop-soft);font-size:14px;line-height:1.45;display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
+.echip .e{font-family:var(--font-mark);font-size:20px;line-height:1}
+.echip .e b{color:var(--pop);font-weight:400}
+.echip small{display:block;color:var(--ink-3);font-size:12px;margin-top:4px}
+.stage .view{position:relative;overflow:hidden;background:#0b1020;min-width:0}
+.stage .view img{width:100%;height:100%;object-fit:cover;object-position:top left;position:absolute;inset:0;opacity:0;transition:opacity .25s}
+.stage .view img.on{opacity:1}
+@media(max-width:900px){.stage{grid-template-columns:1fr}.stage .side{border-right:0;border-bottom:1px solid var(--line)}.stage .view{aspect-ratio:16/10}}
+
+/* replace strip */
+.replace{padding-block:36px;border-block:1px solid var(--line)}
+.replace .wrap{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.replace .eyebrow{margin-right:8px}
+.replace span{border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:14px;color:var(--ink-2);text-decoration:line-through;text-decoration-color:var(--pop);text-decoration-thickness:1.5px}
+.replace span.keep{text-decoration:none;color:var(--pop);border-color:var(--pop)}
+
+/* two-column argument */
+.arg{display:grid;grid-template-columns:1fr 1.15fr;gap:48px;align-items:center}
+.arg.flip .copy{order:2}
+@media(max-width:900px){.arg{grid-template-columns:1fr;gap:28px}.arg.flip .copy{order:0}}
+.copy .eyebrow{margin-bottom:14px}
+
+/* brand */
+.brandcard{padding:20px;display:grid;gap:12px;min-width:0}
+.brandcard h3{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-family:var(--font-body);font-weight:400}
+.kv{display:grid;grid-template-columns:100px 1fr;gap:6px 14px;font-size:15px;margin:0}
+.kv dt{color:var(--ink-3)}.kv dd{margin:0}
+.outputs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.o{border:1px solid var(--line);border-radius:var(--r-card);padding:14px;font-size:14px;line-height:1.45;color:var(--ink-2);min-width:0;background:var(--surface)}
+.o .t{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--pop);margin-bottom:8px}
+.o q{color:var(--ink);quotes:none;display:block}
+@media(max-width:820px){.outputs{grid-template-columns:1fr}.kv{grid-template-columns:1fr}}
+
+/* actions diff */
+.diff{padding:20px;min-width:0}
+.diff .said{font-size:17px;padding:10px 14px;border-radius:14px;background:var(--surface-2);display:inline-block}
+.diff ol{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px;font-size:15px;font-variant-numeric:tabular-nums}
+.diff li{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;border-top:1px solid var(--line);padding-top:8px}
+.diff li .app{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.diff li .n{color:var(--pop)}
+.diff li.held .n{color:var(--ink-3)}
+.diff .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}
+.diff .foot small{color:var(--ink-3);font-size:13px}
+.guard{margin-top:22px;border-left:2px solid var(--pop);padding-left:16px;color:var(--ink-2);font-size:16px}
+.guard strong{color:var(--ink);font-weight:400}
+
+/* home shot */
+.shot{border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden;box-shadow:var(--shadow);min-width:0}
+.shot img{width:100%;height:auto}
+
+/* pricing */
+.ladder{margin-top:32px;border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden;background:var(--surface)}
+.ladder-scroll{overflow-x:auto}
+.ladder table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;min-width:560px}
+.ladder th,.ladder td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--line);font-size:15px}
+.ladder th{font-weight:400;color:var(--ink-3);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.ladder thead th{background:var(--surface-2);color:var(--ink);font-size:14px;letter-spacing:0;text-transform:none}
+.ladder thead th .p{display:block;font-family:var(--font-display);font-weight:var(--h-weight);font-size:calc(34px*var(--h-scale));line-height:1;margin-top:4px;color:var(--ink)}
+.ladder thead th .p small{font-family:var(--font-body);font-size:12px;color:var(--ink-3);font-weight:400}
+.ladder thead th.feat{color:var(--pop)}
+.ladder td.feat{background:var(--pop-soft)}
+.ladder tbody tr:last-child td,.ladder tbody tr:last-child th{border-bottom:0}
+.every{margin-top:16px;color:var(--ink-3);font-size:15px}
+.every strong{color:var(--ink);font-weight:400}
+
+/* faq */
+.faq{margin-top:28px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line);padding:16px 0}
+.faq summary{cursor:pointer;font-size:18px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::after{content:"+";color:var(--pop);font-size:22px;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq p{margin-top:10px;color:var(--ink-2);max-width:70ch}
+
+/* cta + footer */
+.cta{padding-block:88px;text-align:center;border-top:1px solid var(--line)}
+.cta .mark{font-size:clamp(64px,12vw,140px);line-height:1}
+.cta .tag{font-family:var(--font-note);font-size:26px;color:var(--pop);margin-top:6px}
+.cta .actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:28px}
+footer{border-top:1px solid var(--line);padding-block:28px 96px;font-size:14px;color:var(--ink-3)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{margin-right:18px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Site">
+  <div class="wrap">
+    <a href="#" class="mark">Earnest<b>.</b></a>
+    <ul>
+      <li><a href="#apps">Apps</a></li>
+      <li><a href="#brand">Brand</a></li>
+      <li><a href="#does">Actions</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+    <div class="cta">
+      <a class="btn" href="https://app.earnest.guru/try-demo?persona=solo">Live demo</a>
+      <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+    </div>
+  </div>
+</nav>
+
+<div class="looks" role="group" aria-label="Look">
+  <span class="lab">Look</span>
+  <button data-look="glass" aria-pressed="true">Glass</button>
+  <button data-look="paper" aria-pressed="false">Paper</button>
+  <button data-look="clean" aria-pressed="false">Clean</button>
+</div>
+
+<header class="hero">
+  <canvas id="wave" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Clients · Work · Money · Marketing · Schedule</span>
+      <h1>Ask anything.<br>It already knows <span class="pop">your business.</span></h1>
+      <p class="lede">A real language model, grounded in <strong>your clients, projects, invoices and brand</strong>, that drafts the work and waits for your tap.</p>
+      <div class="actions">
+        <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+        <a class="btn" href="https://app.earnest.guru/try-demo?persona=solo">Try the live demo</a>
+      </div>
+      <p class="fine">14-day trial, no card · Solo $49/mo · every feature on every plan · your data is never used to train the model</p>
+    </div>
+
+    <div class="focus card" aria-label="Focus, working on sample data">
+      <div class="focus-top"><span>Focus</span><span class="where">◎ Earnest Demo — Solo</span></div>
+      <p class="focus-greet">I’m here. No rush.<br>What’s the honest version of how things are right now?</p>
+      <div class="chips" role="group" aria-label="Try a question">
+        <button class="chip" data-q="0" aria-pressed="true">What needs my attention today?</button>
+        <button class="chip" data-q="1" aria-pressed="false">Who has gone quiet?</button>
+        <button class="chip" data-q="2" aria-pressed="false">Draft the Helios proposal</button>
+        <button class="chip" data-q="3" aria-pressed="false">Where is the money?</button>
+      </div>
+      <div class="answer" id="answer" aria-live="polite"></div>
+      <div class="read" id="read"></div>
+      <div class="act" id="act"></div>
+      <div class="focus-input"><span>Tell Earnest what’s on your mind…</span><span class="send">↑</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="sec" id="apps" style="padding-top:24px">
+  <div class="wrap">
+    <span class="eyebrow">Six apps, one memory</span>
+    <h2 style="margin-top:12px">It knows because <span class="pop">you run the studio here.</span></h2>
+    <p class="sub">Clients, work, money, marketing and schedules are the apps on the rail, not integrations. Every screen feeds the same memory, and Earnest is one control away in each.</p>
+    <div class="switch">
+      <div class="tabs" role="tablist" aria-label="The apps">
+        <button class="tab" role="tab" aria-selected="true" data-i="0">People</button>
+        <button class="tab" role="tab" aria-selected="false" data-i="1">Work</button>
+        <button class="tab" role="tab" aria-selected="false" data-i="2">Money</button>
+        <button class="tab" role="tab" aria-selected="false" data-i="3">Marketing</button>
+        <button class="tab" role="tab" aria-selected="false" data-i="4">Schedule</button>
+        <button class="tab" role="tab" aria-selected="false" data-i="5">Organization</button>
+      </div>
+      <div class="stage">
+        <div class="side" id="side"></div>
+        <div class="view" id="view">
+          <img src="shots/pursuits-lens.png" alt="People app: pursuits from first contact to signed deal" class="on">
+          <img src="shots/shell-dock.png" alt="Work app: projects on a timeline" loading="lazy">
+          <img src="shots/revenue-certainty.png" data-paper="shots/money-paper.png" data-glass="shots/revenue-certainty.png" alt="Money app: revenue certainty, banked to cold" loading="lazy">
+          <img src="shots/studio-river.png" alt="Marketing: the Content Studio river" loading="lazy">
+          <img src="shots/booking-page.png" alt="A public booking page with the studio card beside it" loading="lazy">
+          <img src="shots/files-floor.png" alt="Organization app: members, teams, files, templates, billing" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="replace">
+  <div class="wrap">
+    <span class="eyebrow">What it replaces</span>
+    <span>a CRM</span><span>a project tool</span><span>invoicing</span><span>proposals</span><span>a scheduler</span><span>a social planner</span><span>a client portal</span><span>a ChatGPT tab</span><span class="keep">Earnest.</span>
+  </div>
+</section>
+
+<section class="sec" id="brand">
+  <div class="wrap">
+    <div class="arg">
+      <div class="copy">
+        <span class="eyebrow">Brand awareness</span>
+        <h2>Set the brand once.<br><span class="pop">Every sentence inherits it.</span></h2>
+        <p class="sub">Direction, audience and voice live on your organization and on each client. Every draft Earnest writes, and every document you send, reads from them.</p>
+      </div>
+      <div>
+        <div class="brandcard card">
+          <h3>Organization · Brand &amp; Strategy</h3>
+          <dl class="kv">
+            <dt>Direction</dt><dd>Quiet confidence. Fewer, better clients. Proof over promises.</dd>
+            <dt>Audience</dt><dd>Boutique hospitality and healthcare, Pacific Northwest</dd>
+            <dt>Voice</dt><dd>Warm, direct, no jargon. First names.</dd>
+          </dl>
+        </div>
+        <div class="outputs">
+          <div class="o"><div class="t">Proposal</div><q>Helios, you asked for a site that books rooms without a phone call. Here is the plan, in three phases.</q></div>
+          <div class="o"><div class="t">Post</div><q>Three things we changed on the Pinecrest site this month, and what each did to bookings.</q></div>
+          <div class="o"><div class="t">Reminder</div><q>Hi Priya, invoice 0042 is 30 days out. Just making sure it didn’t get lost.</q></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="does" style="background:var(--paper);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="arg flip">
+      <div class="copy">
+        <span class="eyebrow">AI Actions</span>
+        <h2>Then it does <span class="pop">the work.</span></h2>
+        <p class="sub">Say what should change. Earnest lists every task, event, invoice and message it touches, and waits.</p>
+        <p class="guard"><strong>Nothing reaches a client or moves money without your tap.</strong> Everything else is a draft until you say so.</p>
+      </div>
+      <div class="diff card" aria-label="A proposed change, waiting for approval">
+        <div class="said">Push Helios West Hotel Launch two weeks. Tell Dana.</div>
+        <ol>
+          <li><span class="app">Work</span><span>Move 7 tasks, dependency order kept</span><span class="n">+14 d</span></li>
+          <li><span class="app">Work</span><span>Move 4 events, skip the Oct 12 holiday</span><span class="n">+14 d</span></li>
+          <li><span class="app">Money</span><span>Milestone invoice 2 of 3, new due date</span><span class="n">Nov 3</span></li>
+          <li><span class="app">Mktg</span><span>Launch-week posts, re-planned</span><span class="n">+14 d</span></li>
+          <li class="held"><span class="app">People</span><span>Email to Dana, drafted in your voice</span><span class="n">held</span></li>
+        </ol>
+        <div class="foot"><small>5 changes · 1 held for you · nothing sent</small><span><a class="btn" href="#">Adjust</a> <a class="btn primary" href="#">Approve all</a></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="arg">
+      <div class="copy">
+        <span class="eyebrow">Every morning</span>
+        <h2>Three piles, <span class="pop">not a dashboard.</span></h2>
+        <p class="sub">“22 things today. 5 need a decision, 13 are one tap each, 4 are just worth knowing.” Decide is what Earnest drafted. Do is one tap. Know needs nothing.</p>
+      </div>
+      <div class="shot"><img id="homeshot" src="shots/home-v2.png" data-glass="shots/home-v2.png" data-paper="shots/home-v2-paper.png" data-clean="shots/home-v2-clean.png" alt="The Earnest home, sorted into Decide, Do and Know"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="pricing" style="padding-top:0">
+  <div class="wrap">
+    <span class="eyebrow">Pricing</span>
+    <h2 style="margin-top:12px">Every feature. <span class="pop">Every plan.</span></h2>
+    <p class="sub">What you choose is scale. Monthly, or two months free on annual.</p>
+    <div class="ladder"><div class="ladder-scroll">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col">Solo<span class="p">$49<small> /mo</small></span></th><th scope="col" class="feat">Studio<span class="p">$149<small> /mo</small></span></th><th scope="col">Agency<span class="p">$299<small> /mo</small></span></th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Team seats</th><td>1</td><td class="feat">8</td><td>15</td></tr>
+          <tr><th scope="row">AI tokens / month</th><td>100K</td><td class="feat">400K</td><td>1M</td></tr>
+          <tr><th scope="row">File storage</th><td>25 GB</td><td class="feat">100 GB</td><td>500 GB</td></tr>
+          <tr><th scope="row">Client-portal seats</th><td>5</td><td class="feat">15</td><td>Unlimited</td></tr>
+          <tr><th scope="row">White-label</th><td>—</td><td class="feat">—</td><td>Add-on, $19/mo</td></tr>
+          <tr><th scope="row"></th><td><a class="btn" href="https://app.earnest.guru/register">Start free</a></td><td class="feat"><a class="btn primary" href="https://app.earnest.guru/register">Start free</a></td><td><a class="btn" href="https://app.earnest.guru/register">Start free</a></td></tr>
+        </tbody>
+      </table>
+    </div></div>
+    <p class="every"><strong>All six apps, the Boardroom, Creative Approvals and Earnest on every plan.</strong> Extra storage $10/mo per 100 GB · more AI tokens if you run out.</p>
+  </div>
+</section>
+
+<section class="sec" id="faq" style="padding-top:0">
+  <div class="wrap">
+    <h2>Straight <span class="pop">answers.</span></h2>
+    <div class="faq">
+      <details open><summary>How is this different from ChatGPT?</summary><p>Earnest runs on a real language model, Anthropic’s Claude, but never from a blank prompt. It starts from your organization: your clients, your work, your money, your brand voice. And your data is never used to train the model.</p></details>
+      <details><summary>What happens when it doesn’t have enough context?</summary><p>It stops and asks. If it is thin on your brand or a client’s voice, it tells you what is missing instead of guessing.</p></details>
+      <details><summary>Will it send emails or move money on its own?</summary><p>No. Earnest drafts, ranks and proposes. Anything that reaches a client or touches money waits for your tap.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="mark">Earnest<b>.</b></div>
+    <p class="tag">Do good work.</p>
+    <div class="actions">
+      <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+      <a class="btn" href="https://app.earnest.guru/try-demo?persona=agency">Try the agency demo</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Earnest · made by Hue Studios</span>
+    <span><a href="#">Features</a><a href="#">Blog</a><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Refunds</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root=document.documentElement;
+
+  // ── Look ── the same three the app ships; #glass / #paper / #clean deep-links.
+  var LOOKS=['glass','paper','clean'];
+  var lookBtns=[].slice.call(document.querySelectorAll('.looks button'));
+  function setLook(l,store){
+    if(LOOKS.indexOf(l)<0)return;
+    root.setAttribute('data-look',l);
+    lookBtns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.look===l));});
+    [].slice.call(document.querySelectorAll('img[data-glass]')).forEach(function(im){
+      var src=im.getAttribute('data-'+l)||im.getAttribute('data-glass'); if(im.getAttribute('src')!==src)im.setAttribute('src',src);
+    });
+    if(store){try{localStorage.setItem('earnest-look',l);}catch(e){}}
+    readWave();
+  }
+  lookBtns.forEach(function(b){b.addEventListener('click',function(){setLook(b.dataset.look,true);});});
+  var initial=(location.hash||'').slice(1);
+  if(LOOKS.indexOf(initial)<0){try{initial=localStorage.getItem('earnest-look')||'glass';}catch(e){initial='glass';}}
+  addEventListener('hashchange',function(){var h=location.hash.slice(1);if(LOOKS.indexOf(h)>=0)setLook(h,false);});
+
+  // ── Focus demo ── answers written from the seeded demo workspace.
+  var Q=[
+    {you:'What needs my attention today?',e:'22 things. Five need a decision, and two of those are urgent: the Helios West launch is 30 days past its deadline, and Meridian Law’s invoice is 92 days out. I’ve drafted a status note for Helios and a gentle nudge for Amara. The other 13 are one tap each.',read:['9 projects','118 tasks','12 invoices','6 meetings'],act:['Approve both drafts','Show the 13']},
+    {you:'Who has gone quiet?',e:'Four clients, all 140+ days since a real touch: David Park at Helios Studio (242d), Priya Shah at Pinecrest (174d), Amara Okafor and Tom Bennett at Meridian Law (159d, 146d). Meridian also holds the overdue invoice, so I’d start there. Want a re-approach for each, in your voice?',read:['41 contacts','last touch','pipeline','brand voice'],act:['Draft all four','Just Meridian']},
+    {you:'Draft the Helios proposal',e:'Done. Three phases, each one something Helios can see before paying for the next, priced from your Website Build offering at $12,000 and the brand identity block at $6,500. It reads warm and direct, first names, no jargon, the way your brand direction says. It is a draft in Money → Documents, not sent.',read:['brand direction','2 service offerings','last 3 proposals','client history'],act:['Open the draft','Change the phases']},
+    {you:'Where is the money?',e:'$12,000 is out across 6 invoices, and $9,400 of it is past 90 days, all Meridian Law. Pipeline is $286k across 12 open pursuits, but only $60k is past “proposal sent”. Billed this month: $0, which is the real thing to fix. Two milestones are ready to invoice today.',read:['12 invoices','AR aging','12 pursuits','cash flow 2026'],act:['Draft both invoices','Draft the reminders']}
+  ];
+  var ans=document.getElementById('answer'),read=document.getElementById('read'),act=document.getElementById('act');
+  var chips=[].slice.call(document.querySelectorAll('.chip')),timer=null;
+  function show(i){
+    chips.forEach(function(c,j){c.setAttribute('aria-pressed',String(i===j));});
+    var q=Q[i];clearTimeout(timer);
+    ans.innerHTML='<span class="you">'+q.you+'</span><div class="e"></div>';
+    read.innerHTML='<b>Read</b>'+q.read.map(function(r){return '<span>'+r+'</span>';}).join('');
+    act.innerHTML=q.act.map(function(a,k){return '<a class="btn'+(k===0?' primary':'')+'" href="https://app.earnest.guru/try-demo?persona=solo">'+a+'</a>';}).join('');
+    var el=ans.querySelector('.e');
+    if(reduce){el.textContent=q.e;return;}
+    var n=0;(function tick(){n+=3;el.textContent=q.e.slice(0,n);if(n<q.e.length){el.insertAdjacentHTML('beforeend','<span class="cursor"></span>');timer=setTimeout(tick,14);}})();
+  }
+  chips.forEach(function(c){c.addEventListener('click',function(){show(+c.dataset.q);});});
+  show(0);
+
+  // ── App switcher ──
+  var APPS=[
+    {h:'Everyone you work with',p:'Clients, contacts and pursuits in one relationship graph, with the whole history attached and a cold-contact alert before the silence costs you.',e:'4 clients are 140+ days quiet. Meridian Law also holds the overdue invoice. Draft a re-approach?',w:'From People'},
+    {h:'The work itself',p:'Projects, tasks, tickets, Creative Approvals, meetings with AI recap, and time. Move a date and every dependency moves with it.',e:'Helios West is 30 days past deadline and the hero image is still in Round 2. Nudge Dana?',w:'From Work'},
+    {h:'The money side',p:'Money sorted by certainty, banked to cold. Cash flow, AR aging, invoices, payments, expenses, proposals and contracts.',e:'$9,400 of the $12k out is past 90 days. Two milestones are ready to invoice today. Draft both?',w:'From Money'},
+    {h:'Marketing, drafted with you',p:'A marketing pulse, campaigns, email, and a Content Studio where posts get written in the client’s voice, planned on the river, and approved.',e:'Pinecrest has nothing scheduled after Thursday. Three post ideas from this month’s wins, in their voice?',w:'From Marketing'},
+    {h:'Schedules that follow the work',p:'A booking page with your card on it, a calendar, instant video, follow-ups, and a recap after every meeting that becomes tasks on the right project.',e:'Two follow-ups are due today and you have a gap at 2. Book the Meridian call there?',w:'From Schedule'},
+    {h:'Run the organization',p:'Brand direction, members, teams, files, document themes and white-label, reached from your avatar. Set the brand here and every app inherits it.',e:'Your brand direction is set, but Helios has no client voice yet. Draft one from their last three approvals?',w:'From Organization'}
+  ];
+  var side=document.getElementById('side'),imgs=[].slice.call(document.querySelectorAll('#view img')),tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function app(i){
+    var a=APPS[i];
+    side.innerHTML='<h3>'+a.h+'</h3><p>'+a.p+'</p><div class="echip"><span class="e">E<b>.</b></span><span>'+a.e+'<small>'+a.w+' · drafted, not sent</small></span></div>';
+    imgs.forEach(function(im,j){im.classList.toggle('on',i===j);});
+    tabs.forEach(function(t,j){t.setAttribute('aria-selected',String(i===j));});
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){app(+t.dataset.i);});});
+  app(0);
+
+  // ── Wave field ── colour and strength come from the look's tokens.
+  var cv=document.getElementById('wave'),ctx=cv.getContext('2d'),t=0,wave='0,150,230',wa=.09;
+  function readWave(){var cs=getComputedStyle(root);wave=cs.getPropertyValue('--wave').trim()||wave;wa=parseFloat(cs.getPropertyValue('--wave-a'))||wa;if(reduce)draw();}
+  function size(){cv.width=cv.clientWidth*devicePixelRatio;cv.height=cv.clientHeight*devicePixelRatio;}
+  size();addEventListener('resize',size);
+  function draw(){
+    var w=cv.width,h=cv.height;ctx.clearRect(0,0,w,h);
+    for(var b=0;b<5;b++){
+      ctx.beginPath();var amp=h*(0.05+b*0.02),base=h*(0.42+b*0.11),k=0.0018/devicePixelRatio*(1+b*0.15);
+      for(var x=0;x<=w;x+=8){var y=base+Math.sin(x*k+t*(0.6+b*0.12)+b)*amp+Math.sin(x*k*0.37-t*0.4)*amp*0.5;ctx.lineTo(x,y);}
+      ctx.lineTo(w,h);ctx.lineTo(0,h);ctx.closePath();ctx.fillStyle='rgba('+wave+','+(wa*(0.6+b*0.3))+')';ctx.fill();
+    }
+    if(!reduce){t+=0.006;requestAnimationFrame(draw);}
+  }
+  setLook(initial,false);
+  draw();
+})();
+</script>
+</body>
+</html>

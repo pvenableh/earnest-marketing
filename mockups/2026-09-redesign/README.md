@@ -1,8 +1,32 @@
-# Landing page redesign — three concepts (September 2026)
+# Landing page redesign (September 2026)
 
-Three complete, self-contained mockups of a new `earnest.guru` homepage, plus a
-review page (`index.html`) that carries the rationale for each and a
-recommendation. Open `index.html` in a browser; it links to the three concepts.
+Open `index.html` in a browser. It leads with the round-2 combined home and
+links to the three round-1 concepts it was built from.
+
+## Round 2 — the combined home (`earnest-home.html`)
+
+Concept A's thesis (the model, grounded in the studio) with Concept B's
+breadth (the six-app switcher), in about half the words, presented in all
+three of the app's looks from one file. A look switcher sits bottom-right;
+`#glass`, `#paper` and `#clean` deep-link to a look, and the choice is
+remembered per browser.
+
+Page order: nav · hero (copy | Focus demo) · six-app switcher · replace strip ·
+brand (profile card, three drafts) · AI Actions (diff, guardrail) · Decide ·
+Do · Know · pricing ladder · three FAQs · CTA.
+
+The looks are one token set each on `<html data-look>`, the same mechanism
+the app uses. Paper swaps the home and Money screenshots to their Paper
+captures; Clean swaps the home. The other switcher tabs show Glass captures
+in every look, because only the home and Money screens were captured in
+Paper and Clean.
+
+Wording: "no-training terms" is now "your data is never used to train the
+model" on every page here.
+
+## Round 1 — three concepts
+
+Three complete, self-contained mockups, each leading with a different claim.
 
 Nothing in this folder is wired into the Nuxt build. It is static HTML for
 review. `shots/` and `fonts/` are symlinks into `public/screenshots/latest/`
@@ -91,9 +115,10 @@ is an app, a thing Earnest drafted, and a thing you tapped.
 - Weakest on skimmability, and it costs the most to keep true, because the
   story depends on the screenshots matching the copy.
 
-## Recommendation
+## Recommendation (round 1)
 
 Ship **A** as the homepage, with **B's app switcher** as its breadth section.
+This is what round 2 does.
 The grounded-LLM claim is the one competitors cannot copy by adding a feature,
 and the Focus demo proves it fastest. A's only gap is breadth, and B's
 switcher closes it in one section.
