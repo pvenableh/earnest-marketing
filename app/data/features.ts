@@ -907,7 +907,7 @@ export const features: Feature[] = [
     slug: 'ai-strategy-engine',
     icon: 'i-lucide-brain',
     pillar: 'ai',
-    desc: 'The Context Broker is the engine that makes Earnest different. It assembles a live snapshot of your entire organization — clients, projects, invoices, deals, tickets, and brand direction — and feeds it to a real large language model — Anthropic’s Claude, on no-training terms — on every turn. That’s why Earnest reasons about your actual business instead of guessing from a blank prompt. A 3-tier cache (memory → snapshot → live query) keeps context fresh without burning tokens on redundant fetches.',
+    desc: 'The Context Broker is the engine that makes Earnest different. It assembles a live snapshot of your entire organization — clients, projects, invoices, deals, tickets, and brand direction — and feeds it to a real large language model — Anthropic’s Claude — on every turn. Your data is never used to train the model. That’s why Earnest reasons about your actual business instead of guessing from a blank prompt. A 3-tier cache (memory → snapshot → live query) keeps context fresh without burning tokens on redundant fetches.',
     keywords: ['AI strategy', 'context broker', 'business intelligence', 'llm', 'token efficiency'],
     benefits: [
       'A real language model, grounded in your live data — not a generic chatbot',

@@ -57,9 +57,9 @@ export const faqs: Faq[] = [
 	},
 	{
 		q: 'How is this different from ChatGPT or a generic AI assistant?',
-		a: 'Earnest runs on a <strong>real large language model</strong> — Anthropic’s Claude, on no-training terms — but it does not start from a blank prompt. It starts from your organization: your clients, your work, your money, your brand voice. One door, and it already knows where you are standing when you open it.',
+		a: 'Earnest runs on a <strong>real large language model</strong> — Anthropic’s Claude — but it does not start from a blank prompt. It starts from your organization: your clients, your work, your money, your brand voice. One door, and it already knows where you are standing when you open it. Your data is never used to train the model.',
 		aText:
-			'Earnest runs on a real large language model — Anthropic’s Claude, on no-training terms — but it does not start from a blank prompt. It starts from your organization: your clients, your work, your money, your brand voice. One door, and it already knows where you are standing when you open it.',
+			'Earnest runs on a real large language model — Anthropic’s Claude — but it does not start from a blank prompt. It starts from your organization: your clients, your work, your money, your brand voice. One door, and it already knows where you are standing when you open it. Your data is never used to train the model.',
 	},
 	{
 		q: 'What happens when Earnest doesn’t have enough context?',
@@ -117,9 +117,9 @@ export const faqs: Faq[] = [
 	},
 	{
 		q: 'Who can see my data?',
-		a: 'Only the members you invite. Your workspace is isolated from every other organization, we never sell your data, and Earnest’s AI reads it only to produce your own results, under no-training terms. Full detail is in our <a href="/privacy-policy">privacy policy</a>.',
+		a: 'Only the members you invite. Your workspace is isolated from every other organization, we never sell your data, and Earnest’s AI reads it only to produce your own results. Your data is never used to train the model. Full detail is in our <a href="/privacy-policy">privacy policy</a>.',
 		aText:
-			'Only the members you invite. Your workspace is isolated from every other organization, we never sell your data, and Earnest’s AI reads it only to produce your own results, under no-training terms. Full detail is in our privacy policy.',
+			'Only the members you invite. Your workspace is isolated from every other organization, we never sell your data, and Earnest’s AI reads it only to produce your own results. Your data is never used to train the model. Full detail is in our privacy policy.',
 	},
 ];
 
@@ -501,4 +501,164 @@ export const moreCards: MoreCard[] = [
 		title: 'Spotlight search',
 		desc: 'One keystroke over every record you have — clients, projects, invoices, files, messages.',
 	},
+];
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Round 2 (2026-09) — the combined home. Everything below is read by the
+   hero's Focus demo, the app switcher, the brand and AI Actions sections.
+   Every number is from the seeded demo workspace the September captures were
+   taken from, so it agrees with `mockStats` and the screenshots.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+export interface FocusQuestion {
+	/** The chip label and the "you" bubble. */
+	q: string;
+	/** What Earnest answers, typed out. */
+	a: string;
+	/** The "Read" strip — what it consulted before it spoke. */
+	read: string[];
+	/** Two follow-ups; the first is primary. Both go to the live demo. */
+	actions: [string, string];
+}
+
+/** The four questions the hero's Focus demo can answer. */
+export const focusQuestions: FocusQuestion[] = [
+	{
+		q: 'What needs my attention today?',
+		a: '22 things. Five need a decision, and two of those are urgent: the Helios West launch is 30 days past its deadline, and Meridian Law’s invoice is 92 days out. I’ve drafted a status note for Helios and a gentle nudge for Amara. The other 13 are one tap each.',
+		read: ['9 projects', '118 tasks', '12 invoices', '6 meetings'],
+		actions: ['Approve both drafts', 'Show the 13'],
+	},
+	{
+		q: 'Who has gone quiet?',
+		a: 'Four clients, all 140+ days since a real touch: David Park at Helios Studio (242d), Priya Shah at Pinecrest (174d), Amara Okafor and Tom Bennett at Meridian Law (159d, 146d). Meridian also holds the overdue invoice, so I’d start there. Want a re-approach for each, in your voice?',
+		read: ['41 contacts', 'last touch', 'pipeline', 'brand voice'],
+		actions: ['Draft all four', 'Just Meridian'],
+	},
+	{
+		q: 'Draft the Helios proposal',
+		a: 'Done. Three phases, each one something Helios can see before paying for the next, priced from your Website Build offering at $12,000 and the brand identity block at $6,500. It reads warm and direct, first names, no jargon, the way your brand direction says. It is a draft in Money → Documents, not sent.',
+		read: ['brand direction', '2 service offerings', 'last 3 proposals', 'client history'],
+		actions: ['Open the draft', 'Change the phases'],
+	},
+	{
+		q: 'Where is the money?',
+		a: '$12,000 is out across 6 invoices, and $9,400 of it is past 90 days, all Meridian Law. Pipeline is $286k across 12 open pursuits, but only $60k is past “proposal sent”. Billed this month: $0, which is the real thing to fix. Two milestones are ready to invoice today.',
+		read: ['12 invoices', 'AR aging', '12 pursuits', 'cash flow 2026'],
+		actions: ['Draft both invoices', 'Draft the reminders'],
+	},
+];
+
+export interface AppTab {
+	key: string;
+	/** Tab label. */
+	label: string;
+	title: string;
+	desc: string;
+	/**
+	 * Screenshot slug under /screenshots/latest/, and an optional per-look
+	 * override. Only September 2026 captures belong here — the July files
+	 * still in `latest/` show the old shell.
+	 */
+	shot: string;
+	shotByLook?: Record<string, string>;
+	/** What Earnest offers from inside this app, unprompted. Drafted, not sent. */
+	chip: string;
+}
+
+/** The six-app switcher under the hero. */
+export const appTabs: AppTab[] = [
+	{
+		key: 'people',
+		label: 'People',
+		title: 'Everyone you work with',
+		desc: 'Clients, contacts and pursuits in one relationship graph, with the whole history attached and a cold-contact alert before the silence costs you.',
+		shot: 'pursuits-lens',
+		chip: '4 clients are 140+ days quiet. Meridian Law also holds the overdue invoice. Draft a re-approach?',
+	},
+	{
+		key: 'work',
+		label: 'Work',
+		title: 'The work itself',
+		desc: 'Projects, tasks, tickets, Creative Approvals, meetings with AI recap, and time. Move a date and every dependency moves with it.',
+		shot: 'shell-dock',
+		chip: 'Helios West is 30 days past deadline and the hero image is still in Round 2. Nudge Dana?',
+	},
+	{
+		key: 'money',
+		label: 'Money',
+		title: 'The money side',
+		desc: 'Money sorted by certainty, banked to cold. Cash flow, AR aging, invoices, payments, expenses, proposals and contracts.',
+		shot: 'revenue-certainty',
+		shotByLook: { paper: 'money-paper' },
+		chip: '$9,400 of the $12k out is past 90 days. Two milestones are ready to invoice today. Draft both?',
+	},
+	{
+		key: 'marketing',
+		label: 'Marketing',
+		title: 'Marketing, drafted with you',
+		desc: 'A marketing pulse, campaigns, email, and a Content Studio where posts get written in the client’s voice, planned on the river, and approved.',
+		shot: 'studio-river',
+		chip: 'Pinecrest has nothing scheduled after Thursday. Three post ideas from this month’s wins, in their voice?',
+	},
+	{
+		key: 'schedule',
+		label: 'Schedule',
+		title: 'Schedules that follow the work',
+		desc: 'A booking page with your card on it, a calendar, instant video, follow-ups, and a recap after every meeting that becomes tasks on the right project.',
+		shot: 'booking-page',
+		chip: 'Two follow-ups are due today and you have a gap at 2. Book the Meridian call there?',
+	},
+	{
+		key: 'organization',
+		label: 'Organization',
+		title: 'Run the organization',
+		desc: 'Brand direction, members, teams, files, document themes and white-label, reached from your avatar. Set the brand here and every app inherits it.',
+		shot: 'files-floor',
+		chip: 'Your brand direction is set, but Helios has no client voice yet. Draft one from their last three approvals?',
+	},
+];
+
+/** The strip under the switcher — what a studio stops paying for. */
+export const replaces = [
+	'a CRM',
+	'a project tool',
+	'invoicing',
+	'proposals',
+	'a scheduler',
+	'a social planner',
+	'a client portal',
+	'a ChatGPT tab',
+];
+
+/** The organization profile the brand section shows, as a studio would fill it. */
+export const brandProfile = [
+	{ k: 'Direction', v: 'Quiet confidence. Fewer, better clients. Proof over promises.' },
+	{ k: 'Audience', v: 'Boutique hospitality and healthcare, Pacific Northwest' },
+	{ k: 'Voice', v: 'Warm, direct, no jargon. First names.' },
+];
+
+/** Three drafts written from that profile. */
+export const brandOutputs = [
+	{ kind: 'Proposal', text: 'Helios, you asked for a site that books rooms without a phone call. Here is the plan, in three phases.' },
+	{ kind: 'Post', text: 'Three things we changed on the Pinecrest site this month, and what each did to bookings.' },
+	{ kind: 'Reminder', text: 'Hi Priya, invoice 0042 is 30 days out. Just making sure it didn’t get lost.' },
+];
+
+export interface ActionRow {
+	app: string;
+	what: string;
+	delta: string;
+	/** Held for the visitor’s tap rather than proposed as a change. */
+	held?: boolean;
+}
+
+/** One sentence, and everything it touches. */
+export const actionSaid = 'Push Helios West Hotel Launch two weeks. Tell Dana.';
+export const actionRows: ActionRow[] = [
+	{ app: 'Work', what: 'Move 7 tasks, dependency order kept', delta: '+14 d' },
+	{ app: 'Work', what: 'Move 4 events, skip the Oct 12 holiday', delta: '+14 d' },
+	{ app: 'Money', what: 'Milestone invoice 2 of 3, new due date', delta: 'Nov 3' },
+	{ app: 'Mktg', what: 'Launch-week posts, re-planned', delta: '+14 d' },
+	{ app: 'People', what: 'Email to Dana, drafted in your voice', delta: 'held', held: true },
 ];

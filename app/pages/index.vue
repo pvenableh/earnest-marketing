@@ -12,7 +12,7 @@ import { faqs } from '~/data/landing';
 import { features } from '~/data/features';
 
 const description =
-  "Earnest brings every client, project, invoice, proposal, client approval and post into one place, then reads across all of it and tells you what needs a decision today, what's one tap, and what's just worth knowing. Nothing reaches a client or moves money without your tap.";
+  "Ask anything. It already knows your business. Earnest is a real language model grounded in your clients, projects, invoices and brand, running the whole studio from six apps on one rail. It drafts the work and waits for your tap: nothing reaches a client or moves money without you.";
 
 // Built from `features.ts` rather than hand-listed, for the same reason the FAQ
 // is: a hand-kept list is a list that will describe surfaces the app no longer
@@ -25,7 +25,7 @@ const featureList = features
 const ogImage = 'https://earnest.guru/og/home.png';
 
 useHead({
-  title: 'Earnest — Your whole studio, and what it needs from you today.',
+  title: 'Earnest — Ask anything. It already knows your business.',
   meta: [{ name: 'description', content: description }],
   link: [{ rel: 'canonical', href: 'https://earnest.guru' }],
   script: [
@@ -69,8 +69,8 @@ useHead({
 });
 
 useSeoMeta({
-  title: 'Earnest — Your whole studio, and what it needs from you today.',
-  ogTitle: 'Earnest — Your whole studio, and what it needs from you today.',
+  title: 'Earnest — Ask anything. It already knows your business.',
+  ogTitle: 'Earnest — Ask anything. It already knows your business.',
   description,
   ogDescription: description,
   ogType: 'website',
@@ -79,10 +79,10 @@ useSeoMeta({
   ogImage,
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: 'Earnest — a studio’s day sorted into Decide, Do and Know',
+  ogImageAlt: 'Earnest — Focus, answering from a studio’s own data',
   robots: 'index, follow',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Earnest — Your whole studio, and what it needs from you today.',
+  twitterTitle: 'Earnest — Ask anything. It already knows your business.',
   twitterDescription: description,
   twitterImage: ogImage,
 });
