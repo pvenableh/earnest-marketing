@@ -245,6 +245,7 @@ export const lenses: Lens[] = [
 	{
 		key: 'money',
 		label: 'Money',
+		icon: 'i-lucide-trending-up',
 		icon: 'i-lucide-banknote',
 		// var(--success) in the app.
 		hue: '142 72% 46%',
@@ -553,6 +554,8 @@ export interface AppTab {
 	key: string;
 	/** Tab label. */
 	label: string;
+	/** Lucide icon, the same one the app's rail uses. */
+	icon: string;
 	title: string;
 	desc: string;
 	/**
@@ -571,6 +574,7 @@ export const appTabs: AppTab[] = [
 	{
 		key: 'people',
 		label: 'People',
+		icon: 'i-lucide-users',
 		title: 'Everyone you work with',
 		desc: 'Clients, contacts and pursuits in one relationship graph, with the whole history attached and a cold-contact alert before the silence costs you.',
 		shot: 'pursuits-lens',
@@ -579,6 +583,7 @@ export const appTabs: AppTab[] = [
 	{
 		key: 'work',
 		label: 'Work',
+		icon: 'i-lucide-square-kanban',
 		title: 'The work itself',
 		desc: 'Projects, tasks, tickets, Creative Approvals, meetings with AI recap, and time. Move a date and every dependency moves with it.',
 		shot: 'shell-dock',
@@ -587,6 +592,7 @@ export const appTabs: AppTab[] = [
 	{
 		key: 'money',
 		label: 'Money',
+		icon: 'i-lucide-trending-up',
 		title: 'The money side',
 		desc: 'Money sorted by certainty, banked to cold. Cash flow, AR aging, invoices, payments, expenses, proposals and contracts.',
 		shot: 'revenue-certainty',
@@ -596,6 +602,7 @@ export const appTabs: AppTab[] = [
 	{
 		key: 'marketing',
 		label: 'Marketing',
+		icon: 'i-lucide-megaphone',
 		title: 'Marketing, drafted with you',
 		desc: 'A marketing pulse, campaigns, email, and a Content Studio where posts get written in the client’s voice, planned on the river, and approved.',
 		shot: 'studio-river',
@@ -604,6 +611,7 @@ export const appTabs: AppTab[] = [
 	{
 		key: 'schedule',
 		label: 'Schedule',
+		icon: 'i-lucide-calendar',
 		title: 'Schedules that follow the work',
 		desc: 'A booking page with your card on it, a calendar, instant video, follow-ups, and a recap after every meeting that becomes tasks on the right project.',
 		shot: 'booking-page',
@@ -612,6 +620,7 @@ export const appTabs: AppTab[] = [
 	{
 		key: 'organization',
 		label: 'Organization',
+		icon: 'i-lucide-building-2',
 		title: 'Run the organization',
 		desc: 'Brand direction, members, teams, files, document themes and white-label, reached from your avatar. Set the brand here and every app inherits it.',
 		shot: 'files-floor',

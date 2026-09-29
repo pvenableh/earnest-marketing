@@ -1295,6 +1295,9 @@
 	letter-spacing: -0.02em;
 	color: var(--g-ink);
 }
+.hm-hello-dot {
+	color: var(--g-accent);
+}
 .hm-wave {
 	display: inline-block;
 	margin-left: 4px;
@@ -2015,30 +2018,40 @@
 	height: 14px;
 }
 
-/* ─── The app switcher ─── */
+/* ─── The app rail, and what is behind each chip ─── */
 .l-apps {
 	max-width: 1120px;
 	margin: 36px auto 0;
 }
-.l-apps-tabs {
+/* The rail: icon chips in one glass pill, the way the app's own dock reads.
+   Distinct on purpose from the lens pills inside Home, which are text only —
+   a rail picks an app, a lens picks a way of reading one. */
+.l-apps-rail {
 	display: flex;
+	justify-content: center;
 	gap: 4px;
-	padding: 5px;
+	width: max-content;
+	max-width: 100%;
+	margin: 0 auto;
+	padding: 6px;
 	border-radius: 999px;
 	background: var(--g-accent-soft);
 	border: 1px solid var(--g-line);
+	backdrop-filter: blur(10px);
 	overflow-x: auto;
 	scrollbar-width: none;
 }
-.l-apps-tabs::-webkit-scrollbar {
+.l-apps-rail::-webkit-scrollbar {
 	display: none;
 }
-.l-apps-tab {
-	flex: 1 0 auto;
+.l-apps-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
 	font: inherit;
-	font-size: 14px;
+	font-size: 13.5px;
 	font-weight: 600;
-	padding: 9px 16px;
+	padding: 9px 15px 9px 12px;
 	border: 0;
 	border-radius: 999px;
 	background: transparent;
@@ -2047,12 +2060,38 @@
 	white-space: nowrap;
 	transition: background 0.3s var(--spring), color 0.3s var(--spring);
 }
-.l-apps-tab:hover {
+.l-apps-chip :deep(svg),
+.l-apps-chip [class*='iconify'] {
+	width: 16px;
+	height: 16px;
+	flex: none;
+}
+.l-apps-chip:hover {
 	color: var(--g-ink);
 }
-.l-apps-tab--on {
+.l-apps-chip--on {
 	background: var(--g-accent);
 	color: #fff;
+}
+@media (max-width: 640px) {
+	.l-apps-rail {
+		justify-content: flex-start;
+	}
+	.l-apps-chip span {
+		display: none;
+	}
+	.l-apps-chip--on span {
+		display: inline;
+	}
+}
+/* Home behind the rail: the coded home, on its own measure. The lens demo
+   pushes its pills 34px down for the hero it used to sit in; here the rail
+   is the thing above them, so they come up. */
+.l-apps-home {
+	margin-top: 18px;
+}
+.l-apps-home .l-lens-pills {
+	margin-top: 0;
 }
 .l-apps-stage {
 	display: grid;
@@ -2080,7 +2119,7 @@
 	line-height: 1.55;
 	color: var(--g-ink-2);
 }
-.l-apps-chip {
+.l-apps-chip-e-wrap {
 	display: grid;
 	grid-template-columns: auto 1fr;
 	gap: 10px;
@@ -2397,36 +2436,12 @@
 	margin: 0;
 	min-width: 0;
 }
-.l-hero2-home {
-	width: 100%;
-	max-width: 1120px;
-	margin: 48px auto 0;
-}
-.l-hero2-home-k {
-	display: inline-flex;
-	align-items: center;
-	gap: 8px;
-	margin: 0;
-	font-size: 13px;
-	font-weight: 600;
-	letter-spacing: 0.02em;
-	color: var(--g-ink-3);
-}
-.l-hero2-home-k :deep(svg),
-.l-hero2-home-k [class*='iconify'] {
-	width: 15px;
-	height: 15px;
-	color: var(--g-accent);
-}
 /* Argument rows whose right-hand side is a drawn card rather than a figure. */
 .l-arg-side {
 	min-width: 0;
 }
 .l-arg--flip .l-arg-side {
 	order: 1;
-}
-.l-hero2-home {
-	text-align: left;
 }
 .l-hero2-copy .e-hero-tagline {
 	font-size: clamp(20px, 2vw, 26px);

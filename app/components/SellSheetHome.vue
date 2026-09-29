@@ -84,14 +84,6 @@
 				</div>
 			</div>
 
-			<!-- The lenses, working, over a home that is BUILT rather than
-			     photographed: the pills re-rank the coded home, re-tint the field
-			     behind it, and let Earnest write its own line under its own
-			     greeting. `.e-dock` keeps useGlassMotion's intro stagger. -->
-			<div class="opacity-0 e-hero-shot l-hero2-home">
-				<p class="l-hero2-home-k"><UIcon name="i-lucide-layers" /> Every morning it opens on this. Pick a lens.</p>
-				<LandingLensDemo @tint="onTint" />
-			</div>
 		</header>
 
 		<!-- ─── Marquee ─── -->
@@ -110,11 +102,12 @@
 				<h2 class="e-h2" data-anim="rise">It knows because <span class="g-accent-text">you run the studio here</span><span class="e-dot">.</span></h2>
 				<p class="e-section-sub" data-anim="rise">
 					Clients, work, money, marketing and schedules are the apps on the rail, not integrations. Every screen
-					feeds the same memory, and Earnest is one control away in each.
+					feeds the same memory, and Earnest is one control away in each. Home is built, not photographed —
+					pick a lens and watch it re-rank.
 				</p>
 			</div>
 			<div data-anim="scale">
-				<LandingAppSwitcher />
+				<LandingAppSwitcher @tint="onTint" />
 			</div>
 			<div class="l-replace" data-anim="rise">
 				<span class="g-kicker-pill l-replace-k"><span class="g-eyebrow-dot"></span> What it replaces</span>
@@ -393,8 +386,8 @@ const registerUrl = `${appUrl}/register`;
 const loginUrl = `${appUrl}/auth/signin`;
 const soloDemoUrl = `${appUrl}/try-demo?persona=solo`;
 
-// The hero's wave field takes its hue from whichever lens is selected below
-// it — the same re-tint the app does, for the same reason: a lens is a way of
+// The hero's wave field takes its hue from whichever lens is selected on the
+// coded home (the rail's Home entry) — the same re-tint the app does, for the same reason: a lens is a way of
 // looking at the whole home, ground included.
 const heroTint = ref(null);
 function onTint(hue) {

@@ -39,7 +39,7 @@ const widgets = computed(() => props.lens.widgets.map((k) => ({ key: k, ...mockW
 			     visitor on a screen reader picking a lens should hear what
 			     Earnest now says, not silence. -->
 			<div class="hm-greet" aria-live="polite">
-				<p class="hm-hello">Welcome back <span class="hm-wave" aria-hidden="true">👋</span></p>
+				<p class="hm-hello">Tuesday morning<span class="hm-hello-dot">.</span></p>
 				<!-- The line Earnest writes under the greeting. Keyed on the lens so
 				     it cross-fades rather than swapping mid-sentence. -->
 				<Transition name="hm-fade" mode="out-in">

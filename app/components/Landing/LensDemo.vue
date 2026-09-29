@@ -25,12 +25,10 @@
   line that always talks is a label, and a label that repeats the lens name is
   noise — so under Everything the mock shows the app's plain count instead.
 
-  The pills carry `.e-dock` / `.e-dock-item` so `useGlassMotion`'s hero intro
-  stagger picks them up, exactly as it did for the eight-app dock this
-  replaced — that part is selector-driven and needs no wiring. Pointer
-  MAGNIFICATION is deliberately not wired up: it sets a pixel width per item,
-  which is right for square chips and wrong for pills whose width is their
-  label.
+  Since round 2 the home is the first entry of the app switcher rather than a
+  block in the hero, so the pills no longer carry the `.e-dock` classes that
+  hooked them into the hero intro timeline — outside the hero those would only
+  have hidden them until the timeline finished.
 -->
 <script setup lang="ts">
 import { ref, computed } from 'vue';
@@ -50,13 +48,13 @@ function pick(i: number) {
 
 <template>
 	<div class="l-lens">
-		<div class="l-lens-pills e-dock" role="tablist" aria-label="Home lenses">
+		<div class="l-lens-pills" role="tablist" aria-label="Home lenses">
 			<button
 				v-for="(l, i) in lenses"
 				:key="l.key"
 				type="button"
 				role="tab"
-				class="l-lens-pill e-dock-item"
+				class="l-lens-pill"
 				:class="{ 'l-lens-pill--on': i === active }"
 				:aria-selected="i === active"
 				@click="pick(i)"
