@@ -6,8 +6,31 @@ recommendation. Open `index.html` in a browser; it links to the three concepts.
 
 Nothing in this folder is wired into the Nuxt build. It is static HTML for
 review. `shots/` and `fonts/` are symlinks into `public/screenshots/latest/`
-and `app/assets/css/fonts/`, so the mockups use the same September 2026
-captures and the same brand faces the live site ships.
+and `app/assets/css/fonts/`, so the mockups use the same brand faces the live
+site ships.
+
+## Screenshots: only the September pass
+
+`public/screenshots/latest/` is a mirror, not a single capture. Tracing each
+file back to its dated folder shows the 1 September 2026 run covered 25
+screens; the other 39 files in `latest/` are still July 2026 captures of the
+old shell. The mockups link only September files (the `shots/` symlinks are
+exactly that set). Where a screen has no September capture, the mockup uses a
+coded card instead:
+
+| Screen | Newest capture | Used instead |
+| --- | --- | --- |
+| Calendar (`scheduler-day`) | July | `booking-page` (September) |
+| Organization brand settings (`organization-branding`) | July | `files-floor` (September, the Organization app) |
+| Proposal preview (`proposals-preview`) | July | a coded, themed proposal card |
+| People overview (`people-dashboard`) | July | `pursuits-lens` (September) |
+| Money cash flow (`financials-overview`) | July | `revenue-certainty` (September) |
+| Project workspace / timeline | July | `shell-dock`, `approvals-floor` (September) |
+
+To close the gaps, re-run the capture script from the app repo against the
+live demo (`APP_URL=https://app.earnest.guru`, with the demo passwords), then
+add `scheduler-day`, `organization-branding` and `proposals-preview` back to
+the concepts.
 
 ## What every concept has to sell
 
