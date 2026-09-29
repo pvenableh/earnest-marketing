@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Earnest — A day with it.</title>
+<style>
+/* Concept C · "A day with Earnest" · the Paper look.
+   Layout: a single narrative column with a time rail down the left, ink on
+   linen, Bodoni for the hours and the claims, a handwritten face for the
+   margin notes. Eight stops, one tally, then the pitch. */
+@font-face{font-family:'Bauer Bodoni';src:url('fonts/bauer-bodoni-roman.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Proxima Nova';src:url('fonts/proxima-nova-regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Proxima Nova';src:url('fonts/proxima-nova-light.woff2') format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'Gaegu';src:url('fonts/Gaegu-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+:root{
+  color-scheme:light;
+  --bg:#f6f1ea;            /* linen */
+  --bg-2:#efe8de;
+  --paper:#fdfbf8;
+  --ink:#1c1916;
+  --ink-2:#5c554d;
+  --ink-3:#948b80;
+  --line:#dfd6ca;
+  --oxide:hsl(16 42% 41%); /* the Paper look's tag ramp */
+  --oxide-ink:#fff;
+  --oxide-soft:hsl(16 42% 94%);
+  --umber:hsl(38 26% 39%);
+  --ok:#3d7a4e; --warn:#b7791f; --bad:#b23a3a;
+  --font-display:'Bauer Bodoni','Bodoni MT','Didot',Georgia,serif;
+  --font-body:'Proxima Nova',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-note:'Gaegu','Comic Sans MS',cursive;
+  --measure:1040px;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;background-image:radial-gradient(ellipse 80% 40% at 50% 0%,rgba(255,255,255,.7),transparent)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+p{margin:0}
+h1,h2,h3{font-family:var(--font-display);font-weight:400;letter-spacing:-.01em;line-height:1.02;margin:0;text-wrap:balance}
+.wrap{max-width:var(--measure);margin-inline:auto;padding-inline:24px}
+.mark{font-family:var(--font-display);font-size:26px}
+.mark b{color:var(--oxide);font-weight:400}
+.note{font-family:var(--font-note);font-size:21px;color:var(--oxide);line-height:1.2}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;border-radius:4px;font-size:16px;border:1px solid var(--ink);background:transparent;color:var(--ink);transition:background .15s,color .15s}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn.primary:hover{background:var(--oxide);border-color:var(--oxide)}
+.btn:focus-visible,a:focus-visible{outline:2px solid var(--oxide);outline-offset:3px}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(246,241,234,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-size:15px;color:var(--ink-2)}
+.nav .cta{display:flex;gap:10px}
+.nav .btn{padding:9px 16px;font-size:14px}
+@media(max-width:820px){.nav ul{display:none}}
+
+/* hero */
+.hero{padding-block:80px 56px;text-align:center}
+.hero .time{font-family:var(--font-display);font-size:22px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.hero h1{font-size:clamp(46px,8vw,104px);margin-top:14px}
+.hero h1 em{font-style:normal;color:var(--oxide)}
+.hero .lede{font-size:21px;color:var(--ink-2);font-weight:300;max-width:46ch;margin:26px auto 0}
+.hero .lede strong{color:var(--ink);font-weight:400}
+.hero .actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:32px}
+.hero .fine{margin-top:16px;font-size:14px;color:var(--ink-3)}
+.hero .shot{margin:52px auto 0;border:1px solid var(--line);background:var(--paper);box-shadow:0 30px 60px rgba(60,40,20,.12);max-width:100%}
+.hero .shot img{width:100%;height:auto}
+.hero .note{display:block;margin-top:12px;transform:rotate(-1.5deg)}
+
+/* day */
+.day{padding-block:40px 80px;position:relative}
+.day .intro{max-width:60ch;margin-inline:auto;text-align:center;color:var(--ink-2);font-size:19px;font-weight:300}
+.stops{display:grid;gap:0;margin-top:56px;position:relative}
+.stops::before{content:"";position:absolute;left:96px;top:0;bottom:0;width:1px;background:var(--line)}
+.stop{display:grid;grid-template-columns:96px 1fr;gap:0;padding-block:40px;border-top:1px solid var(--line)}
+.stop:first-child{border-top:0}
+.stop .when{font-family:var(--font-display);font-size:26px;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums;position:sticky;top:88px;align-self:start}
+.stop .when small{display:block;font-family:var(--font-body);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:8px}
+.stop .body{padding-left:40px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;min-width:0}
+.stop h2{font-size:clamp(30px,3.6vw,42px)}
+.stop h2 em{font-style:normal;color:var(--oxide)}
+.stop .app{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--oxide);border:1px solid var(--oxide);border-radius:2px;padding:3px 8px;margin-bottom:14px}
+.stop p.t{color:var(--ink-2);margin-top:14px;font-size:16px}
+.did{margin-top:18px;display:grid;gap:8px;font-size:15px}
+.did div{display:grid;grid-template-columns:86px 1fr;gap:12px;border-top:1px solid var(--line);padding-top:8px}
+.did div b{font-weight:400;color:var(--ink-3);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-top:3px}
+.did .you{color:var(--ink)}
+.stop .proof{border:1px solid var(--line);background:var(--paper);box-shadow:0 18px 40px rgba(60,40,20,.1);overflow:hidden;min-width:0;max-width:100%}
+.stop .proof.crop{aspect-ratio:4/3}
+.stop .proof.crop img{width:100%;height:100%;object-fit:cover;object-position:top left}
+.stop .proof .card{padding:18px 20px;font-size:15px;line-height:1.5}
+.stop .proof .card .h{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);display:flex;justify-content:space-between;margin-bottom:12px}
+.stop .proof .card q{quotes:none;color:var(--ink);display:block}
+.stop .proof .card .row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-block:8px;font-variant-numeric:tabular-nums}
+.stop .proof .card .row:last-child{border-bottom:1px solid var(--line)}
+.stop .proof .card .row .n{color:var(--oxide)}
+.stop .proof .card .act{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.stop .proof .card .act .btn{padding:8px 14px;font-size:14px}
+.stop .note{display:block;margin-top:14px;transform:rotate(-1.2deg)}
+@media(max-width:900px){.stops::before{left:24px}.stop{grid-template-columns:1fr;gap:16px}.stop .when{position:static;padding-left:40px}.stop .body{padding-left:40px;grid-template-columns:1fr}}
+@media(max-width:560px){.stop .when,.stop .body{padding-left:28px}}
+
+/* tally */
+.tally{background:var(--ink);color:var(--bg);padding-block:80px}
+.tally .wrap{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;text-align:center}
+.tally .n{font-family:var(--font-display);font-size:clamp(64px,9vw,120px);line-height:1;font-variant-numeric:tabular-nums}
+.tally .l{margin-top:8px;color:rgba(246,241,234,.7);font-size:16px}
+.tally .n.zero{color:hsl(16 60% 62%)}
+.tally .line{grid-column:1/-1;margin-top:30px;font-family:var(--font-display);font-size:clamp(24px,3vw,34px);line-height:1.2;max-width:26ch;margin-inline:auto;text-wrap:balance}
+@media(max-width:700px){.tally .wrap{grid-template-columns:1fr;gap:36px}}
+
+/* pitch sections */
+.sec{padding-block:96px}
+.sec h2{font-size:clamp(36px,5vw,64px)}
+.sec h2 em{font-style:normal;color:var(--oxide)}
+.sub{font-size:19px;color:var(--ink-2);font-weight:300;max-width:56ch;margin-top:18px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media(max-width:900px){.two{grid-template-columns:1fr;gap:28px}.sec{padding-block:64px}}
+.touched{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:40px}
+.touched div{background:var(--bg);padding:22px;min-width:0}
+.touched h3{font-size:26px}
+.touched p{color:var(--ink-2);font-size:15px;margin-top:8px}
+.touched .t{font-family:var(--font-note);font-size:18px;color:var(--oxide);margin-top:10px}
+@media(max-width:800px){.touched{grid-template-columns:1fr}}
+.brandbox{border:1px solid var(--line);background:var(--paper);padding:26px;display:grid;gap:14px;box-shadow:0 18px 40px rgba(60,40,20,.08)}
+.brandbox .h{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.brandbox dl{display:grid;grid-template-columns:110px 1fr;gap:8px 16px;margin:0;font-size:16px}
+.brandbox dt{color:var(--ink-3)}.brandbox dd{margin:0}
+.brandbox .fine{font-size:14px;color:var(--ink-3);border-top:1px solid var(--line);padding-top:12px}
+@media(max-width:560px){.brandbox dl{grid-template-columns:1fr}}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:40px}
+.plan{background:var(--bg);padding:28px 26px;display:grid;gap:14px;align-content:start;min-width:0}
+.plan.feat{background:var(--paper)}
+.plan .name{font-family:var(--font-display);font-size:30px}
+.plan .name small{font-family:var(--font-note);font-size:17px;color:var(--oxide);margin-left:8px}
+.plan .price{font-family:var(--font-display);font-size:56px;line-height:1;font-variant-numeric:tabular-nums}
+.plan .price sup{font-size:22px;vertical-align:top;margin-right:2px}
+.plan .price span{font-family:var(--font-body);font-size:15px;color:var(--ink-3)}
+.plan .d{color:var(--ink-2);font-size:15px}
+.plan ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:15px;color:var(--ink-2)}
+.plan li::before{content:"— ";color:var(--oxide)}
+@media(max-width:820px){.plans{grid-template-columns:1fr}}
+.every{margin-top:20px;color:var(--ink-3);font-size:15px;text-align:center}
+.every strong{color:var(--ink);font-weight:400}
+
+.cta{padding-block:96px;text-align:center;border-top:1px solid var(--line)}
+.cta .mark{font-size:clamp(64px,12vw,140px);line-height:1}
+.cta .note{font-size:28px;margin-top:8px;display:block}
+.cta .actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:32px}
+footer{border-top:1px solid var(--line);padding-block:28px;font-size:14px;color:var(--ink-3)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{margin-right:18px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Site">
+  <div class="wrap">
+    <a href="#" class="mark">Earnest<b>.</b></a>
+    <ul>
+      <li><a href="#day">The day</a></li>
+      <li><a href="#touched">The apps</a></li>
+      <li><a href="#brand">Brand</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+    <div class="cta">
+      <a class="btn" href="https://app.earnest.guru/try-demo?persona=solo">Live demo</a>
+      <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="time">Tuesday, 8:07 am</p>
+    <h1>22 things today.<br><em>Five need a decision.</em></h1>
+    <p class="lede">That is the first sentence Earnest says every morning, and it is true, because it runs your <strong>clients, projects, money, marketing and schedule</strong> in one place and reads across all of it. Here is one ordinary day with it.</p>
+    <div class="actions">
+      <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+      <a class="btn" href="https://app.earnest.guru/try-demo?persona=solo">Try the live demo</a>
+    </div>
+    <p class="fine">14-day trial, no card · Solo $49/mo · every feature on every plan</p>
+    <div class="shot"><img src="shots/home-v2-paper.png" alt="The Earnest home in the Paper look: Decide, Do, Know"></div>
+    <span class="note">← the home, in the Paper look. Glass and Clean are one tap away.</span>
+  </div>
+</header>
+
+<section class="day" id="day">
+  <div class="wrap">
+    <p class="intro">Every number below is from the live demo workspace. Everything Earnest wrote, it wrote in the studio’s own voice. Everything it sent, you sent.</p>
+
+    <div class="stops">
+
+      <article class="stop">
+        <div class="when">8:07<small>Home</small></div>
+        <div class="body">
+          <div>
+            <span class="app">Decide · Do · Know</span>
+            <h2>The day, <em>sorted.</em></h2>
+            <p class="t">Not a dashboard. Three piles. Decide holds what Earnest drafted overnight and is waiting on you for. Do is one tap each. Know needs nothing, and is there so nothing surprises you at 4 pm.</p>
+            <div class="did">
+              <div><b>Earnest</b><span>Ranked 22 items across six apps, instantly, no tokens spent. Drafted 5 of them.</span></div>
+              <div><b>You</b><span class="you">Read one sentence. Tapped “Money” to see the same day ranked around cash.</span></div>
+            </div>
+          </div>
+          <div class="proof crop"><img src="shots/home-v2-money.png" alt="The home under the Money lens" loading="lazy"></div>
+        </div>
+      </article>
+
+      <article class="stop">
+        <div class="when">9:30<small>People</small></div>
+        <div class="body">
+          <div>
+            <span class="app">Pursuits · Intelligence</span>
+            <h2>The client who <em>went quiet.</em></h2>
+            <p class="t">Priya Shah at Pinecrest Clinic, 174 days since a real touch. Earnest noticed before you did, and it also knew Pinecrest’s brand voice, the last proposal, and the two posts you shipped for them last month.</p>
+            <div class="did">
+              <div><b>Earnest</b><span>Drafted a re-approach that mentions the booking-rate win, in Pinecrest’s voice.</span></div>
+              <div><b>You</b><span class="you">Changed one word. Tapped send. Logged as a touchpoint on its own.</span></div>
+            </div>
+          </div>
+          <div class="proof"><div class="card"><div class="h"><span>Re-approach · draft</span><span>People</span></div><q>Priya, it has been a while. The booking form we rebuilt in May is still doing its job, up 31% on the month. I have two small ideas for the autumn if you have twenty minutes.</q><div class="act"><a class="btn primary" href="https://app.earnest.guru/try-demo?persona=solo">Send</a><a class="btn" href="#">Edit</a></div></div></div>
+        </div>
+      </article>
+
+      <article class="stop">
+        <div class="when">10:45<small>Money</small></div>
+        <div class="body">
+          <div>
+            <span class="app">Proposals · Brand voice</span>
+            <h2>A proposal, <em>in your voice.</em></h2>
+            <p class="t">Helios wants a site that books rooms without a phone call. You told Earnest that in a sentence. It knew your service offerings, your prices, your last three proposals, and that your brand direction says proof over promises.</p>
+            <div class="did">
+              <div><b>Earnest</b><span>Drafted three phases from your Website Build and Brand Identity offerings, themed with your document theme.</span></div>
+              <div><b>You</b><span class="you">Moved one deliverable to phase two. Sent it to the portal for signature.</span></div>
+            </div>
+          </div>
+          <div class="proof crop"><img src="shots/proposals-preview.png" alt="A proposal preview, themed" loading="lazy"></div>
+        </div>
+      </article>
+
+      <article class="stop">
+        <div class="when">12:10<small>Work</small></div>
+        <div class="body">
+          <div>
+            <span class="app">Creative Approvals</span>
+            <h2>Round two, <em>in one press.</em></h2>
+            <p class="t">The autumn campaign for Atlas came back with notes. Every item is in the project workspace already, so sending the round is one press, and Dana approves from the portal without an account, a login, or a PDF.</p>
+            <div class="did">
+              <div><b>Earnest</b><span>Bundled the five items, wrote the round note, tracked who signed off on what.</span></div>
+              <div><b>You</b><span class="you">Pressed QuickSend. Dana approved two by lunch.</span></div>
+            </div>
+          </div>
+          <div class="proof crop"><img src="shots/approvals-board.png" alt="Creative Approvals: Autumn Campaign, round 2" loading="lazy"></div>
+        </div>
+      </article>
+
+      <article class="stop">
+        <div class="when">2:00<small>Marketing</small></div>
+        <div class="body">
+          <div>
+            <span class="app">Content Studio</span>
+            <h2>Three posts, <em>already in their voice.</em></h2>
+            <p class="t">Pinecrest had nothing scheduled after Thursday. Earnest drafted three posts from this month’s real wins, in Pinecrest’s voice, and planned them on the river. They sit in the studio until the client approves, then you publish.</p>
+            <div class="did">
+              <div><b>Earnest</b><span>Drafted 3 posts, planned Fri / Mon / Wed, sent them to Pinecrest for review.</span></div>
+              <div><b>You</b><span class="you">Swapped one image. Nothing published yet; that is yours.</span></div>
+            </div>
+          </div>
+          <div class="proof crop"><img src="shots/studio-river.png" alt="The Content Studio river timeline" loading="lazy"></div>
+        </div>
+      </article>
+
+      <article class="stop">
+        <div class="when">3:30<small>Money</small></div>
+        <div class="body">
+          <div>
+            <span class="app">Cash flow · AR aging</span>
+            <h2>Twelve thousand out. <em>Nine of it old.</em></h2>
+            <p class="t">Money sorted by certainty: $0 billed this month, $12k invoiced and waiting, $286k in pipeline. Six invoices are overdue and $9,400 of that is Meridian Law, past 90 days. Earnest does not send a reminder. It drafts six, in the right register for each client.</p>
+            <div class="did">
+              <div><b>Earnest</b><span>Drafted 6 reminders. Formal for Meridian, light for the rest. Flagged two milestones ready to invoice today.</span></div>
+              <div><b>You</b><span class="you">Sent five. Held Meridian; you are calling Amara tomorrow.</span></div>
+            </div>
+          </div>
+          <div class="proof"><div class="card"><div class="h"><span>AR aging</span><span>Money</span></div><div class="row"><span>Current</span><span>$0</span></div><div class="row"><span>1–30 days</span><span>$1,400</span></div><div class="row"><span>31–90 days</span><span>$1,200</span></div><div class="row"><span>90+ days · Meridian Law</span><span class="n">$9,400</span></div><div class="act"><a class="btn primary" href="https://app.earnest.guru/try-demo?persona=solo">Send 5 reminders</a><a class="btn" href="#">Hold Meridian</a></div></div></div>
+        </div>
+      </article>
+
+      <article class="stop">
+        <div class="when">4:45<small>Schedule</small></div>
+        <div class="body">
+          <div>
+            <span class="app">AI Actions · Calendar</span>
+            <h2>“Push Helios <em>two weeks.”</em></h2>
+            <p class="t">One sentence. Earnest works out the seven tasks, four events, one milestone invoice and the launch-week posts it touches, keeps the dependency order, skips the holiday, and shows you the list. The email to Dana is drafted and held.</p>
+            <div class="did">
+              <div><b>Earnest</b><span>Proposed 5 changes across Work, Money and Marketing. Held the client email.</span></div>
+              <div><b>You</b><span class="you">Approved all. Read the email. Sent it.</span></div>
+            </div>
+          </div>
+          <div class="proof"><div class="card"><div class="h"><span>Proposed change</span><span>waiting for you</span></div><div class="row"><span>Work · 7 tasks, dependency order kept</span><span class="n">+14 d</span></div><div class="row"><span>Work · 4 events, holiday skipped</span><span class="n">+14 d</span></div><div class="row"><span>Money · milestone invoice 2 of 3</span><span class="n">Nov 3</span></div><div class="row"><span>Marketing · launch-week posts</span><span class="n">+14 d</span></div><div class="row"><span>People · email to Dana, drafted</span><span>held</span></div><div class="act"><a class="btn primary" href="https://app.earnest.guru/try-demo?persona=solo">Approve all</a><a class="btn" href="#">Adjust</a></div></div></div>
+        </div>
+      </article>
+
+      <article class="stop">
+        <div class="when">6:00<small>Focus</small></div>
+        <div class="body">
+          <div>
+            <span class="app">Mirror</span>
+            <h2>What did today <em>actually move?</em></h2>
+            <p class="t">The door in the header opens Focus full screen. Mirror looks back over the day with everything it knows: what shipped, what is waiting on whom, and the one thing to carry into tomorrow.</p>
+            <div class="did">
+              <div><b>Earnest</b><span>“Two proposals out, five reminders sent, Helios re-planned. Tomorrow hinges on the Meridian call. Sleep.”</span></div>
+              <div><b>You</b><span class="you">Closed the laptop.</span></div>
+            </div>
+            <span class="note">it greets you the same way every time: “I’m here. No rush.”</span>
+          </div>
+          <div class="proof crop"><img src="shots/focus-takeover.png" alt="Focus, full screen" loading="lazy"></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="tally" aria-label="The day in numbers">
+  <div class="wrap">
+    <div><div class="n">7</div><div class="l">decisions you made</div></div>
+    <div><div class="n">17</div><div class="l">things Earnest drafted or moved</div></div>
+    <div><div class="n zero">0</div><div class="l">things sent or paid without your tap</div></div>
+    <p class="line">Nothing reaches a client or moves money without you. That is the whole design.</p>
+  </div>
+</section>
+
+<section class="sec" id="touched">
+  <div class="wrap">
+    <span class="eyebrow">Everything it touched today</span>
+    <h2 style="margin-top:12px">Six apps. One memory.<br><em>That is why it knew.</em></h2>
+    <p class="sub">Earnest could write Pinecrest’s post because the proposal, the approvals, the invoice and the last call all live in the same place. Not integrations. The apps on the rail.</p>
+    <div class="touched">
+      <div><h3>People</h3><p>Clients, contacts, pursuits, CardDesk, a booking page, and a client portal.</p><p class="t">9:30 · the quiet client</p></div>
+      <div><h3>Work</h3><p>Projects, tasks, tickets, Creative Approvals, meetings with AI recap, time.</p><p class="t">12:10 · round two</p></div>
+      <div><h3>Money</h3><p>Cash flow, AR aging, invoices, payments, expenses, proposals, contracts.</p><p class="t">10:45 and 3:30</p></div>
+      <div><h3>Marketing</h3><p>Pulse, campaigns, email, Content Studio, recommendations from real numbers.</p><p class="t">2:00 · three posts</p></div>
+      <div><h3>Schedule</h3><p>Calendar, follow-ups, instant video, and a schedule that moves with the work.</p><p class="t">4:45 · two weeks</p></div>
+      <div><h3>Chat &amp; the Boardroom</h3><p>Channels, calls, and a room for the decisions that need everyone.</p><p class="t">on Studio and Agency</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="brand" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="two">
+      <div>
+        <span class="eyebrow">Brand awareness</span>
+        <h2 style="margin-top:12px">It wrote in your voice all day <em>because you told it once.</em></h2>
+        <p class="sub">Brand direction, audience, voice and goals live on your organization profile, and per client. Every AI feature reads them: the proposal at 10:45, the posts at 2:00, the reminders at 3:30. Your document theme carries the same brand onto every invoice and contract you send.</p>
+        <span class="note" style="display:block;margin-top:18px">when it is thin on a client’s voice, it stops and asks. it never guesses.</span>
+      </div>
+      <div class="brandbox">
+        <div class="h">Organization · Brand &amp; Strategy</div>
+        <dl>
+          <dt>Direction</dt><dd>Quiet confidence. Fewer, better clients. Proof over promises.</dd>
+          <dt>Audience</dt><dd>Boutique hospitality and healthcare, Pacific Northwest</dd>
+          <dt>Voice</dt><dd>Warm, direct, no jargon. Short sentences. First names.</dd>
+          <dt>Per client</dt><dd>Pinecrest: calm, clinical, kind · Meridian Law: formal, precise</dd>
+        </dl>
+        <p class="fine">Read by every AI call · Personal Brand, your own voice on your card and posts, is built and coming to sale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="pricing">
+  <div class="wrap">
+    <span class="eyebrow">Pricing</span>
+    <h2 style="margin-top:12px">One price. <em>Every feature.</em></h2>
+    <p class="sub">The whole day above is on every plan. What changes is scale: seats, tokens, storage, portal seats. Monthly, or two months free on annual.</p>
+    <div class="plans">
+      <div class="plan"><div class="name">Solo</div><div class="price"><sup>$</sup>49<span>/mo</span></div><p class="d">The one-person shop doing serious work.</p><ul><li>1 seat</li><li>Every feature, including Creative Approvals</li><li>100K AI tokens a month</li><li>25 GB of files</li><li>5 client-portal seats</li></ul><a class="btn" href="https://app.earnest.guru/register">Start free</a></div>
+      <div class="plan feat"><div class="name">Studio<small>most popular</small></div><div class="price"><sup>$</sup>149<span>/mo</span></div><p class="d">A team that has outgrown the group chat.</p><ul><li>8 seats</li><li>Everything in Solo</li><li>400K AI tokens a month</li><li>100 GB of files</li><li>Team channels and the Boardroom</li><li>15 client-portal seats</li></ul><a class="btn primary" href="https://app.earnest.guru/register">Start free</a></div>
+      <div class="plan"><div class="name">Agency</div><div class="price"><sup>$</sup>299<span>/mo</span></div><p class="d">A studio that has grown into something real.</p><ul><li>15 seats</li><li>Everything in Studio</li><li>1M AI tokens a month</li><li>500 GB of files</li><li>Unlimited client-portal seats</li><li>Priority support and onboarding</li></ul><a class="btn" href="https://app.earnest.guru/register">Start free</a></div>
+    </div>
+    <p class="every"><strong>Every feature on every plan.</strong> Extra storage $10/mo per 100 GB · White-label $19/mo on Agency · more AI tokens if you run out</p>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="mark">Earnest<b>.</b></div>
+    <span class="note">Do good work.</span>
+    <div class="actions">
+      <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+      <a class="btn" href="https://app.earnest.guru/try-demo?persona=agency">Try the agency demo</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Earnest · made by Hue Studios</span>
+    <span><a href="#">Features</a><a href="#">Blog</a><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Refunds</a></span>
+  </div>
+</footer>
+</body>
+</html>

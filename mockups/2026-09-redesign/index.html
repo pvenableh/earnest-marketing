@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Earnest Landing Concepts</title>
+<style>
+/* The review page for the three landing concepts. Utilitarian: a brief, three
+   concept cards with their rationale, a comparison, a recommendation. */
+@font-face{font-family:'Bauer Bodoni';src:url('fonts/bauer-bodoni-roman.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Proxima Nova';src:url('fonts/proxima-nova-regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Proxima Nova';src:url('fonts/proxima-nova-light.woff2') format('woff2');font-weight:300;font-display:swap}
+:root{
+  --bg:#f7f5f1; --surface:#ffffff; --ink:#1a1916; --ink-2:#5a574f; --ink-3:#8f8a80; --line:#e3dfd6;
+  --accent:#0a84c8; --accent-soft:#e6f3fb;
+  --a:#0b1020; --b:hsl(228 91% 54%); --c:hsl(16 42% 41%);
+  --font-mark:'Bauer Bodoni','Bodoni MT','Didot',Georgia,serif;
+  --font-body:'Proxima Nova',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15171c;--surface:#1d2026;--ink:#eef0f4;--ink-2:#b4b9c4;--ink-3:#7f8593;--line:#2c313a;--accent:#4fb3ec;--accent-soft:#1a2b38;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15171c;--surface:#1d2026;--ink:#eef0f4;--ink-2:#b4b9c4;--ink-3:#7f8593;--line:#2c313a;--accent:#4fb3ec;--accent-soft:#1a2b38;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;padding-inline:16px}
+a{color:var(--accent)}
+img{max-width:100%;display:block}
+.wrap{max-width:1080px;margin-inline:auto;padding-block:48px 80px}
+h1,h2,h3{font-weight:300;letter-spacing:-.02em;line-height:1.1;margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,5vw,52px)}
+h2{font-size:clamp(26px,3.4vw,36px)}
+h3{font-size:22px;font-weight:400}
+p{margin:0}
+.mark{font-family:var(--font-mark);font-size:24px;color:var(--ink)}
+.mark b{color:#00bfff;font-weight:400}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+header{display:grid;gap:14px;max-width:70ch}
+header .lede{font-size:19px;color:var(--ink-2);font-weight:300;margin-top:6px}
+.brief{margin-top:36px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.brief div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+.brief b{display:block;font-weight:400;font-size:15px}
+.brief span{display:block;color:var(--ink-2);font-size:14px;margin-top:4px}
+@media(max-width:800px){.brief{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.brief{grid-template-columns:1fr}}
+
+.concepts{display:grid;gap:28px;margin-top:56px}
+.concept{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;min-width:0}
+.concept .shot{position:relative;background:#0b1020;min-width:0}
+.concept .shot img{width:100%;height:100%;object-fit:cover;object-position:top}
+.concept .shot a{position:absolute;inset:0;display:block}
+.concept .shot .tag{position:absolute;left:14px;top:14px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);padding:5px 9px;border-radius:6px}
+.concept .body{padding:26px;display:grid;gap:16px;align-content:start;min-width:0}
+.concept .body .eyebrow{display:flex;align-items:center;gap:8px}
+.concept .body .eyebrow i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.concept h2{font-size:28px}
+.concept .thesis{font-size:17px;color:var(--ink-2)}
+.concept ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px;color:var(--ink-2)}
+.concept li{padding-left:16px;position:relative}
+.concept li::before{content:"";position:absolute;left:0;top:.65em;width:8px;height:1.5px;background:var(--accent)}
+.concept .sells{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:14px;border-top:1px solid var(--line);padding-top:14px}
+.concept .sells dt{color:var(--ink-3);white-space:nowrap}
+.concept .sells dd{margin:0;color:var(--ink-2)}
+.concept .risk{font-size:14px;color:var(--ink-2);border-left:2px solid var(--line);padding-left:12px}
+.concept .risk b{font-weight:400;color:var(--ink)}
+.concept .open{display:inline-flex;align-items:center;gap:8px;justify-self:start;padding:11px 18px;border-radius:8px;background:var(--ink);color:var(--bg);text-decoration:none;font-size:15px}
+.concept .open:hover{background:var(--accent);color:#fff}
+@media(max-width:860px){.concept{grid-template-columns:1fr}.concept .shot{aspect-ratio:16/10}}
+
+.compare{margin-top:64px}
+.compare .scroll{overflow-x:auto;margin-top:20px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:640px}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:400;color:var(--ink-3);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+thead th{color:var(--ink);font-size:14px;letter-spacing:0;text-transform:none;background:var(--bg)}
+tbody th{white-space:nowrap}
+tr:last-child td,tr:last-child th{border-bottom:0}
+.rec{margin-top:64px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;display:grid;gap:14px}
+.rec p{color:var(--ink-2);max-width:70ch}
+.rec ol{margin:0;padding-left:20px;color:var(--ink-2);display:grid;gap:8px}
+.rec strong{font-weight:400;color:var(--ink)}
+.foot{margin-top:40px;font-size:13px;color:var(--ink-3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="mark">Earnest<b>.</b></span>
+    <span class="eyebrow">Landing page redesign · three concepts · September 2026</span>
+    <h1>Three ways to sell the same true thing.</h1>
+    <p class="lede">Earnest is an organization with a voice: a real language model grounded in a studio’s own clients, work, money, marketing and schedule, that writes in the studio’s brand and then does the work, with nothing reaching a client or moving money without a tap. Each concept below leads with a different one of those claims, and earns the rest on the way down. Every mockup is built in one of the app’s own three looks, so the site and the product match. Every number in them is from the live demo workspace.</p>
+    <div class="brief" aria-label="What every concept has to sell">
+      <div><b>The organization LLM</b><span>Focus, the Context Broker, AI Actions. It knows the business, not a blank prompt.</span></div>
+      <div><b>Brand awareness</b><span>Direction, audience, voice set once, per org and per client, read by every draft and document.</span></div>
+      <div><b>Execution</b><span>Tasks, projects, clients, money, marketing, schedules, run in six apps on one rail.</span></div>
+      <div><b>The guardrail</b><span>Nothing reaches a client or moves money without your tap. It is the reason a studio can trust the first three.</span></div>
+    </div>
+  </header>
+
+  <div class="concepts">
+
+    <article class="concept">
+      <div class="shot"><img src="thumbs/concept-a.png" alt="Concept A hero: Ask anything. It already knows your business."><span class="tag">Glass look</span><a href="concept-a.html" aria-label="Open Concept A"></a></div>
+      <div class="body">
+        <span class="eyebrow"><i style="background:var(--a);border:1px solid #00bfff"></i> Concept A</span>
+        <h2>It already knows.</h2>
+        <p class="thesis">Lead with the model. The hero is Focus itself, working on sample data: four questions, four grounded answers, each one showing what Earnest read before it spoke. The rest of the page explains why it could answer.</p>
+        <ul>
+          <li>Differentiates on the one thing HoneyBook, Bonsai and a ChatGPT tab cannot claim: an LLM that starts from the studio’s live data.</li>
+          <li>The Context Broker diagram makes “organization LLM” concrete: six sources, one door, three kinds of output.</li>
+          <li>Brand is shown as cause and effect: one profile card, three drafts that sound like it.</li>
+          <li>AI Actions is a proposed change with a held email, so the guardrail is demonstrated, not asserted.</li>
+        </ul>
+        <dl class="sells">
+          <dt>Sells the LLM</dt><dd>Hero demo, Context Broker section, FAQ</dd>
+          <dt>Sells brand</dt><dd>Profile → proposal, post, reminder</dd>
+          <dt>Sells execution</dt><dd>AI Actions diff, six-app strip, Decide · Do · Know</dd>
+          <dt>Best for</dt><dd>Buyers who have tried generic AI and found it hollow; the current positioning</dd>
+        </dl>
+        <p class="risk"><b>Risk.</b> The breadth of the product is a strip, not a section. A visitor shopping for “a CRM with invoicing” has to scroll to find it. Mitigated by the six-app strip and the nav.</p>
+        <a class="open" href="concept-a.html">Open Concept A →</a>
+      </div>
+    </article>
+
+    <article class="concept">
+      <div class="shot"><img src="thumbs/concept-b.png" alt="Concept B hero: Clients. Projects. Money. Marketing. Schedules. One place."><span class="tag">Clean look</span><a href="concept-b.html" aria-label="Open Concept B"></a></div>
+      <div class="body">
+        <span class="eyebrow"><i style="background:var(--b)"></i> Concept B</span>
+        <h2>One place.</h2>
+        <p class="thesis">Lead with breadth. The hero is an app switcher: six tabs, six real screens, and an Earnest chip that changes with the room. It says, in one device, that the studio runs here and that the model is in every part of it.</p>
+        <ul>
+          <li>Answers the first question a studio owner has: does it do everything I do? Six real screens say yes before any copy does.</li>
+          <li>The “what it replaces” strip prices the switch: nine tools out, one in.</li>
+          <li>The bento is execution-first, with demo numbers on the tiles rather than adjectives.</li>
+          <li>The LLM gets its own section, “Earnest is in every room”, with three grounded answers from three apps.</li>
+        </ul>
+        <dl class="sells">
+          <dt>Sells the LLM</dt><dd>The chip in every tab, then the “every room” section</dd>
+          <dt>Sells brand</dt><dd>A filled-in brand form beside four outputs, including documents</dd>
+          <dt>Sells execution</dt><dd>The hero itself, the bento, the capacity ladder</dd>
+          <dt>Best for</dt><dd>SEO landings and comparison shoppers; studios consolidating tools</dd>
+        </dl>
+        <p class="risk"><b>Risk.</b> Breadth-first pages read as “another all-in-one”, which is a crowded shelf. The chip in every tab and the “every room” section have to carry the difference, and they sit below the switcher.</p>
+        <a class="open" href="concept-b.html">Open Concept B →</a>
+      </div>
+    </article>
+
+    <article class="concept">
+      <div class="shot"><img src="thumbs/concept-c.png" alt="Concept C hero: 22 things today. Five need a decision."><span class="tag">Paper look</span><a href="concept-c.html" aria-label="Open Concept C"></a></div>
+      <div class="body">
+        <span class="eyebrow"><i style="background:var(--c)"></i> Concept C</span>
+        <h2>A day with it.</h2>
+        <p class="thesis">Lead with the outcome. The page is one Tuesday, 8:07 to 6:00, eight stops, each one an app and a thing Earnest drafted and a thing you tapped. Breadth, the model and the brand all arrive as plot rather than as features.</p>
+        <ul>
+          <li>The most memorable of the three and the easiest to retell: “it drafted the reminders, I sent five and held one.”</li>
+          <li>Every stop shows the division of labour explicitly, Earnest / You, so the guardrail is the structure of the page.</li>
+          <li>The tally (7 decisions, 17 drafts, 0 sent without you) turns the safety promise into a number.</li>
+          <li>Brand is proven in retrospect: it wrote in your voice all day because you told it once.</li>
+        </ul>
+        <dl class="sells">
+          <dt>Sells the LLM</dt><dd>Every stop; the 6:00 Mirror stop names Focus</dd>
+          <dt>Sells brand</dt><dd>Voice at 9:30, 10:45, 2:00, 3:30; the brand section after the tally</dd>
+          <dt>Sells execution</dt><dd>Eight stops across six apps; the “everything it touched” grid</dd>
+          <dt>Best for</dt><dd>Founder-led selling, referrals, the blog’s audience, launch posts</dd>
+        </dl>
+        <p class="risk"><b>Risk.</b> Long. A skimmer wants the feature list this page refuses to lead with, and the story only works if the screenshots keep matching the copy, so it costs the most to keep true.</p>
+        <a class="open" href="concept-c.html">Open Concept C →</a>
+      </div>
+    </article>
+
+  </div>
+
+  <section class="compare">
+    <h2>Side by side</h2>
+    <div class="scroll">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col">A · It already knows</th><th scope="col">B · One place</th><th scope="col">C · A day with it</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Leads with</th><td>The organization LLM</td><td>Execution across six apps</td><td>The outcome of one day</td></tr>
+          <tr><th scope="row">Hero device</th><td>Focus, answering four grounded questions</td><td>Six-tab app switcher with a live Earnest chip</td><td>The home’s first sentence, in Bodoni</td></tr>
+          <tr><th scope="row">Look</th><td>Glass (the default)</td><td>Clean (one blue, DIN condensed)</td><td>Paper (ink on linen)</td></tr>
+          <tr><th scope="row">Copy density</th><td>Medium</td><td>Low; screens and numbers do the work</td><td>High; it is a story</td></tr>
+          <tr><th scope="row">Interaction</th><td>Question chips, typed answers, wave field</td><td>Tabs swap screen, pitch and chip</td><td>None; a sticky time rail</td></tr>
+          <tr><th scope="row">Guardrail shown as</th><td>A proposed change with one item held</td><td>A section with a four-verb list</td><td>Earnest / You at every stop, then the tally</td></tr>
+          <tr><th scope="row">Reuses today</th><td>Wave hero, marquee claims, pricing, FAQ data</td><td>Pricing ladder, looks section, pillar data</td><td>Home screenshots, plans, FAQ voice</td></tr>
+          <tr><th scope="row">Build effort</th><td>Medium: the Focus demo is new</td><td>Medium: the switcher is new, the rest is data</td><td>Low: static sections, one new layout</td></tr>
+          <tr><th scope="row">Weakest claim</th><td>Breadth</td><td>Difference</td><td>Skimmability</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="rec">
+    <h2>Recommendation</h2>
+    <p><strong>Ship A as the homepage, with B’s app switcher as its breadth section.</strong> The grounded-LLM claim is the one competitors cannot copy by adding a feature, and the Focus demo is the fastest way to prove it: a visitor asks, it answers from real data, and the “Read” strip shows why. A’s only weakness is breadth, and B’s switcher fixes it in one section without a paragraph.</p>
+    <ol>
+      <li>Keep C. It is the blog post, the launch email and the sales deck. Its eight stops are also the outline for a product tour inside the demo.</li>
+      <li>Use B as the shape of the per-feature pages and any SEO landing (“CRM for design studios”), where the visitor arrives with a category in mind.</li>
+      <li>Whichever ships, keep the guardrail in the hero’s fine print, as every concept does. It is the sentence that lets a studio owner trust the rest.</li>
+    </ol>
+    <p>All three are static HTML in <code>mockups/2026-09-redesign/</code> in the marketing repo, built on the same screenshots, fonts, plans and FAQ answers the live site already ships, so any of them ports into <code>SellSheetHome.vue</code> with the existing data files.</p>
+  </section>
+
+  <p class="foot">Screenshots are the September 2026 captures from the demo workspaces. Copy uses the demo’s clients (Helios, Pinecrest Clinic, Meridian Law, Atlas Fintech) and its numbers ($12k outstanding, $286k pipeline, 22 items today).</p>
+</div>
+</body>
+</html>
