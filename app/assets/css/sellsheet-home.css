@@ -186,8 +186,7 @@
    container, not a focal point. ⚠️ `.l-hero .e-frame` used to lead this list
    and is gone with the hero's screenshot: the home up there is markup now and
    stands in no window at all. */
-.l-arg-shot .e-frame,
-.l-looks-card .e-frame {
+.l-arg-shot .e-frame {
 	border-radius: 14px;
 }
 .e-frame-chrome {
@@ -1142,6 +1141,33 @@
 	background: #161b25;
 }
 
+/* The nav's appearance popover. It floats over whatever the page is showing,
+   so a translucent tier made it unreadable over busy sections — Glass's
+   frosted fill and, worst, Paper dark's 4.5% wash. Clean is already solid.
+   ⚠️ No `backdrop-filter` on it, in any look: it sits inside the nav, which
+   has its own, and Chromium renders a backdrop-filter nested in another one
+   as if the fill were barely there — page text showed through a 95% white. */
+.g-page.e-page .e-ap-pop {
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+}
+.g-page.e-page[data-look='glass'] .e-ap-pop {
+	background: #fff;
+	box-shadow: var(--glass-edge-shadow), 0 24px 60px -24px rgba(15, 23, 42, 0.35);
+}
+.dark .g-page.e-page[data-look='glass'] .e-ap-pop {
+	background: #0e1522;
+	box-shadow: var(--glass-edge-shadow), 0 24px 60px -20px rgba(0, 0, 0, 0.7);
+}
+.g-page.e-page[data-look='paper'] .e-ap-pop.g-glass {
+	background: #fffdf9;
+	box-shadow: 0 18px 40px -24px rgba(40, 28, 16, 0.35);
+}
+.dark .g-page.e-page[data-look='paper'] .e-ap-pop.g-glass {
+	background: #1f1915;
+	box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.7);
+}
+
 /* The carousel arrows hardcode a near-white glass in both base sheets. */
 .g-page.e-page[data-look='paper'] .l-carousel-btn,
 .g-page.e-page[data-look='clean'] .l-carousel-btn {
@@ -1257,30 +1283,40 @@
    than the one that ships.
    ════════════════════════════════════════════════════════════ */
 
+/* A grid, not a flex row: the greeting takes the first row of the main column
+   and the rail starts on the SECOND, so its top widget lines up with the stat
+   tiles rather than floating level with the greeting. */
 .hm {
-	display: flex;
-	align-items: flex-start;
-	gap: 26px;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 296px;
+	align-items: start;
+	column-gap: 26px;
 	width: 100%;
 	max-width: 1120px;
 	margin: 0 auto;
 	/* The hero centres everything; a home does not centre anything. */
 	text-align: left;
 }
+.hm-greet,
 .hm-main {
-	flex: 1 1 auto;
+	grid-column: 1;
 	min-width: 0;
 }
 /* The rail LEAVES with the lens — under Projects the app clears it entirely,
-   so `:empty` collapses it rather than leaving a 296px hole. Flex `gap` does
-   not apply to a `display: none` child, so the main column simply widens. */
+   so the grid drops its second track rather than leaving a 296px hole. The
+   `margin-top` matches `.hm-stats`, which is what the rail lines up with. */
 .hm-rail {
-	flex: 0 0 296px;
+	grid-column: 2;
+	grid-row: 2;
 	display: grid;
 	gap: 14px;
+	margin-top: 14px;
 }
 .hm-rail:empty {
 	display: none;
+}
+.hm:has(.hm-rail:empty) {
+	grid-template-columns: minmax(0, 1fr);
 }
 
 /* ── The greeting ── */
@@ -1639,6 +1675,9 @@
    first thing dropped here. Below this the home is the piles, which is the
    part the section beside it is actually arguing about. */
 @media (max-width: 1000px) {
+	.hm {
+		grid-template-columns: minmax(0, 1fr);
+	}
 	.hm-rail {
 		display: none;
 	}
@@ -1663,9 +1702,9 @@
 /* ════════════════════════════════════════════════════════════
    THE APPEARANCE CONTROL — `Landing/Appearance.vue`.
 
-   One control, two shapes: `panel` in the Looks section, `compact` in the nav
-   popover. They share state, so a look picked in the nav is already picked in
-   the panel when the visitor scrolls to it.
+   One control, two shapes: `compact` in the nav popover, and `panel`. State is
+   shared, so a look picked in the nav is already picked on the Looks
+   section's cards when the visitor scrolls to them.
    ════════════════════════════════════════════════════════════ */
 
 .l-ap {
@@ -2024,7 +2063,7 @@
 	margin: 36px auto 0;
 }
 /* The rail: icon chips in one glass pill, the way the app's own dock reads.
-   Distinct on purpose from the lens pills inside Home, which are text only —
+   Distinct on purpose from Home's lens pills in the Earnest column, text only —
    a rail picks an app, a lens picks a way of reading one. */
 .l-apps-rail {
 	display: flex;
@@ -2083,15 +2122,6 @@
 	.l-apps-chip--on span {
 		display: inline;
 	}
-}
-/* Home behind the rail: the coded home, on its own measure. The lens demo
-   pushes its pills 34px down for the hero it used to sit in; here the rail
-   is the thing above them, so they come up. */
-.l-apps-home {
-	margin-top: 18px;
-}
-.l-apps-home .l-lens-pills {
-	margin-top: 0;
 }
 .l-apps-stage {
 	display: grid;
@@ -2168,6 +2198,89 @@
 .l-apps-img--on {
 	opacity: 1;
 }
+.l-apps-img:not(.l-apps-img--on) {
+	pointer-events: none;
+}
+
+/* ── Home in the stage ──
+   The view drops its dark photo mat: the home is drawn in the page's own
+   tokens and sits on the stage's glass, the way it sits on the app's ground.
+   Under `--fit` it is laid out at its full 1120px measure and zoomed (the
+   inline `zoom` from AppSwitcher.vue), so the widget column stays — the
+   viewport breakpoint that drops it is for a home that REFLOWS, and a zoomed
+   one does not. Below 600px of view it reflows, and that rule applies again. */
+.l-apps-stage--home .l-apps-view {
+	background: transparent;
+}
+.l-apps-home {
+	padding: 22px;
+}
+.l-apps-home--fit {
+	padding: 28px;
+}
+.l-apps-home--fit .hm {
+	width: 1120px;
+	max-width: none;
+}
+.l-apps-home--fit .hm {
+	grid-template-columns: minmax(0, 1fr) 296px;
+}
+.l-apps-home--fit .hm:has(.hm-rail:empty) {
+	grid-template-columns: minmax(0, 1fr);
+}
+.l-apps-home--fit .hm-rail:not(:empty) {
+	display: grid;
+}
+
+/* Home's lenses — text pills in the Earnest column, two to a row in the
+   column and one row of four once the stage stacks. Text only, so they never
+   read as a second rail: a rail picks an app, a lens picks a way of reading
+   one. */
+.l-apps-lenses {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin-top: 18px;
+}
+.l-apps-lens {
+	flex: 1 1 130px;
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 8px 12px;
+	border: 1px solid var(--g-line);
+	border-radius: 999px;
+	background: transparent;
+	color: var(--g-ink-2);
+	font: inherit;
+	font-size: 13.5px;
+	font-weight: 600;
+	white-space: nowrap;
+	cursor: pointer;
+	transition: background 0.3s var(--spring), color 0.3s var(--spring), border-color 0.3s var(--spring);
+}
+.l-apps-lens:hover {
+	color: var(--g-ink);
+}
+.l-apps-lens [class*='iconify'] {
+	width: 15px;
+	height: 15px;
+	flex: none;
+}
+.l-apps-lens--on {
+	/* `--g-on-accent`, not #fff: Mono's accent is near-white in dark mode. */
+	color: var(--g-on-accent, #fff);
+	background: var(--g-accent);
+	border-color: transparent;
+}
+/* Reserved for two lines, so picking a lens never moves the chip below. */
+.l-apps-lens-note {
+	margin: 10px 2px 0;
+	min-height: 2.9em;
+	font-size: 13.5px;
+	line-height: 1.45;
+	color: var(--g-ink-3);
+}
 .l-apps-fade-enter-active,
 .l-apps-fade-leave-active {
 	transition: opacity 0.2s ease, transform 0.2s ease;
@@ -2201,8 +2314,12 @@
 	margin: 0 auto;
 	padding: 8px 28px 0;
 }
+/* A label, not a pill: a pill in a row of pills reads as one more item. */
 .l-replace-k {
-	margin-right: 6px;
+	margin-right: 4px;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--g-ink);
 }
 .l-replace-item {
 	padding: 6px 12px;

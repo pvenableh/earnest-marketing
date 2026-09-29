@@ -33,22 +33,24 @@ const widgets = computed(() => props.lens.widgets.map((k) => ({ key: k, ...mockW
 
 <template>
 	<div class="hm" :data-lens="lens.key">
-		<div class="hm-main">
-			<!-- `aria-live` on the greeting, because the line under it is the one
-			     thing on this screen that CHANGES without the page moving — a
-			     visitor on a screen reader picking a lens should hear what
-			     Earnest now says, not silence. -->
-			<div class="hm-greet" aria-live="polite">
-				<p class="hm-hello">Tuesday morning<span class="hm-hello-dot">.</span></p>
-				<!-- The line Earnest writes under the greeting. Keyed on the lens so
-				     it cross-fades rather than swapping mid-sentence. -->
-				<Transition name="hm-fade" mode="out-in">
-					<p :key="lens.key" class="hm-line">
-						{{ lens.line ?? '22 things today — 5 need a decision, 13 are one tap each, 4 are just worth knowing.' }}
-					</p>
-				</Transition>
-			</div>
+		<!-- The greeting sits OUTSIDE `.hm-main`, on its own grid row, so the
+		     widget rail starts level with the stat tiles, not the greeting.
+		     `aria-live` on the greeting, because the line under it is the one
+		     thing on this screen that CHANGES without the page moving — a
+		     visitor on a screen reader picking a lens should hear what
+		     Earnest now says, not silence. -->
+		<div class="hm-greet" aria-live="polite">
+			<p class="hm-hello">Tuesday morning<span class="hm-hello-dot">.</span></p>
+			<!-- The line Earnest writes under the greeting. Keyed on the lens so
+			     it cross-fades rather than swapping mid-sentence. -->
+			<Transition name="hm-fade" mode="out-in">
+				<p :key="lens.key" class="hm-line">
+					{{ lens.line ?? '22 things today — 5 need a decision, 13 are one tap each, 4 are just worth knowing.' }}
+				</p>
+			</Transition>
+		</div>
 
+		<div class="hm-main">
 			<TransitionGroup tag="div" name="hm-tile" class="hm-stats">
 				<div v-for="s in stats" :key="s.key" class="hm-stat g-glass-thin">
 					<span class="hm-stat-k">{{ s.label }}</span>

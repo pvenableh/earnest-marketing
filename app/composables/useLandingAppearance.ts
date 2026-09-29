@@ -15,8 +15,8 @@
  * and `useAppPalette.ts` in the app repo; the values here are their registries.
  *
  * Shared via `useState` rather than a module ref, because two controls read
- * it — the nav popover and the panel in the Looks section — and they must
- * agree.
+ * it — the nav popover and the look cards in the Looks section — and they
+ * must agree.
  *
  * ⚠️ Deliberately NOT persisted. This is a demonstration on a sales page: a
  * visitor who tried Paper once and came back next week to a landing they did

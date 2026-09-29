@@ -15,7 +15,8 @@
 			</div>
 			<div class="e-nav-right">
 				<!-- The appearance control, reachable from anywhere on the page —
-				     the same one the Looks section opens out in full, sharing its
+				     the only full panel on the page (the Looks section is a teaser
+				     whose button opens this one), sharing its
 				     state through `useLandingAppearance`. A visitor who wants to
 				     see Paper should not have to scroll to a section to find it. -->
 				<div ref="apRef" class="e-ap-wrap">
@@ -110,7 +111,7 @@
 				<LandingAppSwitcher @tint="onTint" />
 			</div>
 			<div class="l-replace" data-anim="rise">
-				<span class="g-kicker-pill l-replace-k"><span class="g-eyebrow-dot"></span> What it replaces</span>
+				<span class="l-replace-k">What it replaces:</span>
 				<span v-for="r in replaces" :key="r" class="l-replace-item">{{ r }}</span>
 				<span class="l-replace-item l-replace-item--keep">Earnest.</span>
 			</div>
@@ -187,13 +188,12 @@
 				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Appearance</span>
 				<h2 class="e-h2" data-anim="rise">Three looks<span class="e-dot">.</span> <span class="g-accent-text">One Earnest</span><span class="e-dot">.</span></h2>
 				<p class="e-section-sub" data-anim="rise">
-					Not a colour swap. Each look changes the type, the surfaces and the weight of every rule in the app —
-					and your work looks the same underneath all three. Here is the panel itself: move any axis and this
-					page moves with it, hero and all.
+					Not a colour swap. Each look changes the type, the surfaces and the weight of every rule — your work
+					stays the same underneath all three.
 				</p>
 			</div>
 			<div data-anim="scale">
-				<LandingLooks />
+				<LandingLooks @open-panel="apOpen = true" />
 			</div>
 		</section>
 
@@ -351,8 +351,8 @@
  * instead. `data-look`, `data-palette` and `data-style` on this root are the
  * whole mechanism (the same three attributes the app writes on <html>), the
  * skins are token overrides in sellsheet-home.css, and `useLandingAppearance`
- * owns the choice so the nav popover and the panel in the Looks section are
- * one control.
+ * owns the choice so the nav popover and the Looks section's cards are one
+ * control.
  *
  * THE HOME IN THE HERO IS MARKUP, not a capture (`Landing/HomeMock.vue`): a
  * PNG is frozen in the look, palette, type and mode it was taken in, so the
@@ -398,7 +398,7 @@ function onTint(hue) {
 // on the root drive the skins in sellsheet-home.css — the same three
 // attributes the app writes on <html>, carrying the same four axes. The
 // composable owns the state (and the rule that a look pins some of it), so the
-// nav popover and the panel in the Looks section are one control.
+// nav popover and the Looks section's cards are one control.
 const { look, effectivePalette, effectiveType, isDark, toggleTheme } = useLandingAppearance();
 
 // The nav popover. Closed on an outside click and on Escape — it is a menu

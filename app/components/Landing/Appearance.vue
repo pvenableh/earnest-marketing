@@ -14,8 +14,8 @@
   this is a toy or a design system should be able to see where it draws its
   lines. `useLandingAppearance` owns the rule; this file only renders it.
 
-  Two shapes off one control: `panel` for the Looks section, `compact` for the
-  nav popover. They share state through `useState`, so moving one moves both.
+  Two shapes off one control: `compact` for the nav popover (the one the page
+  uses since the Looks section became a teaser), and the fuller `panel`. They share state through `useState`, so moving one moves both.
 -->
 <script setup lang="ts">
 import {

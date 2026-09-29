@@ -1,73 +1,58 @@
 <!--
-  LandingLooks — the appearance system, and the receipt for it.
+  LandingLooks — a teaser for the appearance system, not the system itself.
 
-  The looks are not a colour swap, and a page that argued that with a
-  screenshot carousel would be making the claim in the one medium that cannot
-  show it. So this section does not restyle a card — it hands over the app's
-  own Appearance panel and restyles THE WHOLE PAGE. Look, palette, type and
-  mode all write attributes on the landing's root, and the nav, headings,
-  cards, buttons, rules, the hero's wave field and the coded home standing in
-  front of it all change with them. The skins live in `sellsheet-home.css`;
-  `useLandingAppearance` owns the choice, so the nav popover and this panel are
-  the same control.
+  It used to hand over the whole Appearance panel (look, palette, type, mode)
+  with a capture underneath, which made a closing section the heaviest control
+  on the page. The panel still exists — it is the swatch button in the nav —
+  so this section only has to say that the looks are real and show them: the
+  three captures, side by side. Tapping one puts the page into that look; the
+  button opens the full panel in the nav.
 
-  ⚠️ THE SCREENSHOT IS STILL HERE, AND IT HAS A JOB. Everything else on this
-  page is now drawn by us, which is exactly the kind of claim a buyer should
-  want evidence for. This is the evidence: a real capture of the real app in
-  the selected look, taken on 2026-09-01, sitting directly under a page
-  wearing the same look. If the drawing and the photograph ever disagree, the
-  photograph is right and the page is wrong.
-
-  ⚠️ FONT NOTE. `--font-bauer-bodoni` is remapped to Proxima in `main.css`, so
-  Paper names 'Bauer Bodoni Pro_1 W05 Roman' directly — going through the token
-  would silently render Paper in the sans it is supposed to contrast with.
-  Clean uses the app's real DIN Pro Condensed, copied over from
-  `app/assets/css/fonts/`: uppercase condensed caps are the one thing that
-  makes Clean recognisable, and tracked-out Proxima is not them.
+  ⚠️ The captures are the receipt. Everything else on the page is drawn by us;
+  these are the app itself, photographed on 2026-09-01. If a drawing and a
+  photograph ever disagree, the photograph is right and the page is wrong.
 -->
 <script setup lang="ts">
-import { computed } from 'vue';
 import { looks } from '~/data/landing';
 import { getScreenshotSrc } from '~/data/features';
-import { useLandingAppearance } from '~/composables/useLandingAppearance';
+import { useLandingAppearance, LANDING_LOOKS } from '~/composables/useLandingAppearance';
 
-const { look } = useLandingAppearance();
-const current = computed(() => looks.find((l) => l.key === look.value) ?? looks[0]!);
+const emit = defineEmits<{ (e: 'open-panel'): void }>();
+
+const { look, setLook } = useLandingAppearance();
+const hint = (key: string) => LANDING_LOOKS.find((o) => o.key === key)?.hint ?? '';
 </script>
 
 <template>
 	<div class="l-looks">
-		<div class="l-looks-panel g-glass">
-			<LandingAppearance variant="panel" />
+		<div class="l-looks-row" role="radiogroup" aria-label="Look">
+			<button
+				v-for="l in looks"
+				:key="l.key"
+				type="button"
+				role="radio"
+				class="l-looks-card g-glass g-press"
+				:class="{ 'l-looks-card--on': look === l.key }"
+				:aria-checked="look === l.key"
+				@click="setLook(l.key)"
+			>
+				<img
+					:src="getScreenshotSrc(l.shot as any)"
+					:alt="`Earnest — the home in the ${l.label} look`"
+					class="l-looks-img"
+					loading="lazy"
+					decoding="async"
+				/>
+				<span class="l-looks-name">{{ l.label }}</span>
+				<span class="l-looks-hint">{{ hint(l.key) }}</span>
+			</button>
 		</div>
 
-		<figure class="l-looks-card g-glass">
-			<div class="e-frame">
-				<div class="e-frame-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
-				<Transition name="l-looks-fade" mode="out-in">
-					<img
-						:key="current.key"
-						:src="getScreenshotSrc(current.shot as any)"
-						:alt="`Earnest — the home in the ${current.label} look`"
-						loading="lazy"
-						decoding="async"
-						class="e-frame-img"
-					/>
-				</Transition>
-			</div>
-			<figcaption class="l-looks-cap">
-				<span class="l-looks-name">{{ current.label }} — the capture</span>
-				<span class="l-looks-blurb">
-					The app itself, photographed on 2026-09-01. The home at the top of this page is the same screen in
-					markup, which is why it turns with the page and this one does not.
-				</span>
-			</figcaption>
-		</figure>
-
 		<p class="l-looks-fine">
-			<strong>This page is wearing your picks</strong> — look, palette, type and mode, the same four axes the app
-			gives you, with the same limits: a look brings its own palette, and Paper brings its own display face. Every
-			combination is checked against a 210-pair contrast ratchet, so no look can ship a stripe you cannot read.
+			Tap one and this page wears it.
+			<button type="button" class="l-looks-more" @click="emit('open-panel')">
+				Palette, type and dark mode <UIcon name="i-lucide-arrow-up-right" />
+			</button>
 		</p>
 	</div>
 </template>
@@ -77,88 +62,93 @@ const current = computed(() => looks.find((l) => l.key === look.value) ?? looks[
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 26px;
+	gap: 22px;
 	width: 100%;
 }
 
-.l-looks-panel {
+.l-looks-row {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 16px;
 	width: 100%;
-	max-width: 980px;
-	padding: 22px clamp(18px, 3vw, 30px);
-	border-radius: 22px;
-	transition: border-radius 0.45s cubic-bezier(0.36, 0.66, 0.04, 1), background 0.45s ease, border-color 0.45s ease;
+	max-width: 1040px;
 }
 
 .l-looks-card {
-	width: 100%;
-	max-width: 980px;
-	margin: 0;
-	padding: 18px;
-	border-radius: 22px;
-	/* The card itself is what restyles — border radius, rule weight and the
-	   caption's whole voice move with the look. */
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: 10px 10px 16px;
+	border-radius: 18px;
+	font: inherit;
+	text-align: left;
+	color: inherit;
+	cursor: pointer;
 	transition:
 		border-radius 0.45s cubic-bezier(0.36, 0.66, 0.04, 1),
-		background 0.45s ease,
-		border-color 0.45s ease;
+		border-color 0.3s ease,
+		box-shadow 0.3s ease;
 }
-.l-looks-card .e-frame-img {
+.l-looks-card--on {
+	border-color: var(--g-accent);
+	box-shadow: 0 0 0 1px var(--g-accent);
+}
+.l-looks-img {
 	display: block;
 	width: 100%;
 	aspect-ratio: 16 / 10;
 	object-fit: cover;
 	object-position: center top;
-}
-
-.l-looks-cap {
-	display: flex;
-	flex-direction: column;
-	gap: 6px;
-	padding: 18px 6px 4px;
-	/* Two lines of blurb at the narrowest width — reserved so a look switch
-	   never nudges the section below it. */
-	min-height: 74px;
+	border-radius: 10px;
+	margin-bottom: 10px;
 }
 .l-looks-name {
-	font-size: 19px;
+	padding: 0 6px;
+	font-size: 17px;
 	font-weight: 700;
 	color: var(--g-ink);
-	transition: font-size 0.3s ease, letter-spacing 0.3s ease;
 }
-.l-looks-blurb {
-	font-size: 14.5px;
-	line-height: 1.55;
+.l-looks-hint {
+	padding: 0 6px;
+	font-size: 13.5px;
+	line-height: 1.5;
 	color: var(--g-ink-2);
 }
 
-/* The card's caption follows the page's look through the tokens the skins in
-   sellsheet-home.css already set — it deliberately carries no look CSS of its
-   own. An earlier pass restyled only this card, which made the switcher look
-   like a preview widget rather than the page's own control. */
-
 .l-looks-fine {
-	max-width: 46rem;
 	margin: 0;
 	text-align: center;
-	font-size: 13.5px;
+	font-size: 14px;
 	line-height: 1.6;
 	color: var(--g-ink-3);
 }
-
-.l-looks-fade-enter-active,
-.l-looks-fade-leave-active {
-	transition: opacity 0.35s ease;
+.l-looks-more {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	margin-left: 6px;
+	padding: 0;
+	border: 0;
+	background: none;
+	font: inherit;
+	font-weight: 600;
+	color: var(--g-accent-ink, var(--g-accent));
+	cursor: pointer;
 }
-.l-looks-fade-enter-from,
-.l-looks-fade-leave-to {
-	opacity: 0;
+.l-looks-more:hover {
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+	.l-looks-row {
+		grid-template-columns: 1fr;
+		max-width: 420px;
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.l-looks-card,
-	.l-looks-name,
-	.l-looks-fade-enter-active,
-	.l-looks-fade-leave-active {
+	.l-looks-card {
 		transition: none;
 	}
 }

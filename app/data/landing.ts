@@ -569,6 +569,18 @@ export interface AppTab {
 	chip: string;
 }
 
+/**
+ * Home, the rail's first entry. It gets the same Earnest column as the six
+ * apps, but no `shot`: its view is the coded home (`HomeMock.vue`), and the
+ * lens picker lives in the column rather than as a second row of tabs under
+ * the rail. The chip is the demo's first Decide item — see `mockPiles`.
+ */
+export const homeTab = {
+	title: 'Your day, already sorted',
+	desc: 'Every app’s loose ends in three piles: decide, do, know. Earnest’s drafts sit on top, waiting for your tap.',
+	chip: '5 need a decision. The first is drafted: 2 tasks on Helios — Website Build. Approve?',
+};
+
 /** The six-app switcher under the hero. */
 export const appTabs: AppTab[] = [
 	{
