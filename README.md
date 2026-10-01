@@ -67,6 +67,20 @@ DEMO_USER_PASSWORD=… DEMO_AGENCY_USER_PASSWORD=… APP_URL=http://127.0.0.1:30
 
 Use `127.0.0.1`, not `localhost` — see `reference_dev_server_ipv6.md` in the app repo's memory for the IPv6 426 gotcha.
 
+## Mockups
+
+Static HTML concepts for the landing page, for review before a port into
+`SellSheetHome.vue`. Nothing under `mockups/` is wired into the build.
+
+| Round | Folder | Open |
+| --- | --- | --- |
+| September 2026 — the grounded model and the six apps; its round 2 is the live home | `mockups/2026-09-redesign/` | `index.html` |
+| October 2026 — "Earnest everywhere": it understands the screen under you, it does the work, including in the client's portal | `mockups/2026-10-everywhere/` | `index.html` |
+
+Each folder's `README.md` carries the rationale, where every word and number
+comes from, and the porting notes. `shots/` and `fonts/` inside each are
+symlinks into `public/screenshots/latest/` and `app/assets/css/fonts/`.
+
 ## Local dev
 
 ```sh

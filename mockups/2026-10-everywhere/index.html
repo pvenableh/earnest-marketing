@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Earnest Landing Concepts — October 2026</title>
+<style>
+/* The review page: three concepts for the "Earnest everywhere" landing, each
+   leading with a different half of the same claim. */
+@font-face{font-family:'Bauer Bodoni';src:url('fonts/bauer-bodoni-roman.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Proxima Nova';src:url('fonts/proxima-nova-regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Proxima Nova';src:url('fonts/proxima-nova-light.woff2') format('woff2');font-weight:300;font-display:swap}
+:root{
+  --bg:#f7f5f1; --surface:#ffffff; --ink:#1a1916; --ink-2:#5a574f; --ink-3:#8f8a80; --line:#e3dfd6;
+  --accent:#0a84c8; --accent-soft:#e6f3fb;
+  --font-mark:'Bauer Bodoni','Bodoni MT','Didot',Georgia,serif;
+  --font-body:'Proxima Nova',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15171c;--surface:#1d2026;--ink:#eef0f4;--ink-2:#b4b9c4;--ink-3:#7f8593;--line:#2c313a;--accent:#4fb3ec;--accent-soft:#1a2b38;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15171c;--surface:#1d2026;--ink:#eef0f4;--ink-2:#b4b9c4;--ink-3:#7f8593;--line:#2c313a;--accent:#4fb3ec;--accent-soft:#1a2b38;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;padding-inline:16px}
+a{color:var(--accent)}
+img{max-width:100%;display:block}
+.wrap{max-width:1080px;margin-inline:auto;padding-block:48px 80px}
+h1,h2,h3{font-weight:300;letter-spacing:-.02em;line-height:1.1;margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,5vw,52px)}
+h2{font-size:clamp(26px,3.4vw,36px)}
+h3{font-size:20px;font-weight:400}
+p{margin:0}
+.mark{font-family:var(--font-mark);font-size:24px;color:var(--ink)}
+.mark b{color:#00bfff;font-weight:400}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+header{display:grid;gap:14px;max-width:72ch}
+header .lede{font-size:19px;color:var(--ink-2);font-weight:300;margin-top:6px}
+.concepts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
+.concept{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid;grid-template-rows:auto 1fr;min-width:0}
+.concept .im{aspect-ratio:16/10;overflow:hidden;background:#0b1020;position:relative}
+.concept .im img{width:100%;height:100%;object-fit:cover;object-position:top}
+.concept .im a{position:absolute;inset:0}
+.concept .b{padding:16px;display:grid;gap:8px;align-content:start}
+.concept h3{font-size:18px}
+.concept p{font-size:14px;color:var(--ink-2)}
+.concept .k{font-size:12px;color:var(--ink-3)}
+.concept .open{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:8px;background:var(--ink);color:var(--bg);text-decoration:none;font-size:14px;justify-self:start;margin-top:4px}
+.concept .open:hover{background:var(--accent);color:#fff}
+@media(max-width:860px){.concepts{grid-template-columns:1fr}}
+.rat{margin-top:44px;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.rat > div{display:grid;gap:10px;align-content:start}
+.rat ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px;color:var(--ink-2)}
+.rat li{padding-left:16px;position:relative}
+.rat li::before{content:"";position:absolute;left:0;top:.65em;width:8px;height:1.5px;background:var(--accent)}
+.rat li b{font-weight:400;color:var(--ink)}
+@media(max-width:760px){.rat{grid-template-columns:1fr}}
+.map{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.map .scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:620px}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:400;color:var(--ink-3);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+thead th{color:var(--ink);font-size:14px;letter-spacing:0;text-transform:none;background:var(--bg)}
+tbody th{white-space:nowrap;color:var(--ink);font-size:14px;letter-spacing:0;text-transform:none}
+tr:last-child td,tr:last-child th{border-bottom:0}
+.phones{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.phones div{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.phones img{width:100%;height:auto;max-height:420px;object-fit:cover;object-position:top}
+.phones p{padding:10px 14px;font-size:13px;color:var(--ink-3)}
+@media(max-width:760px){.phones{grid-template-columns:1fr}}
+.section{margin-top:56px;padding-top:36px;border-top:1px solid var(--line)}
+.foot{margin-top:40px;font-size:13px;color:var(--ink-3);max-width:80ch}
+code{font-size:.92em}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="mark">Earnest<b>.</b></span>
+    <span class="eyebrow">Landing page · October 2026 · Earnest everywhere</span>
+    <h1>It understands where you are. It does the work. In every room, including the client’s.</h1>
+    <p class="lede">The September home sold the grounded model and the six apps. Since then Earnest has learned every floor of every app (36 of them), every record you can open on them, four new record types, four new verbs, a reply shape built for a glance, a one-bar phone, and an opt-in Earnest for the client portal. These three concepts each lead with a different half of that and earn the rest on the way down. Each opens in one of the app’s three looks; the control in the nav shows any of them in any look.</p>
+  </header>
+
+  <div class="concepts">
+    <article class="concept"><div class="im"><img src="thumbs/concept-d.png" alt="Concept D hero: a walk through the app, the Earnest bar re-reading each floor"><a href="concept-d.html" aria-label="Open Concept D"></a></div><div class="b"><h3>D · It knows where you’re standing</h3><p>Understanding-first. The hero is a walk through the app: pick an app, a floor, a record, and watch the chip, the sentence Earnest is told and the three rows change under your feet. Then the 36 sentences, the two-channel reply, the cards, the client’s bar, the phone.</p><p class="k">Glass · dark · the most direct proof of “it knows”</p><a class="open" href="concept-d.html">Open D →</a></div></article>
+    <article class="concept"><div class="im"><img src="thumbs/concept-e.png" alt="Concept E hero: an ask becomes a card becomes a record"><a href="concept-e.html" aria-label="Open Concept E"></a></div><div class="b"><h3>E · Say it. Tap it. Done.</h3><p>Execution-first. The hero is an ask typed into the bar, the card it becomes, and the record it lands as after your tap. Then the whole catalogue of verbs by app with the held ones marked, three rooms, the reply, the client’s three verbs and the leak probe.</p><p class="k">Clean · light · the clearest answer to “but what does it do?”</p><a class="open" href="concept-e.html">Open E →</a></div></article>
+    <article class="concept"><div class="im"><img src="thumbs/concept-f.png" alt="Concept F hero: the same invoice from the studio’s side and the client’s"><a href="concept-f.html" aria-label="Open Concept F"></a></div><div class="b"><h3>F · Every room, including the client’s</h3><p>Everywhere-first. The hero is one invoice seen from both sides of the glass — your Earnest and your client’s — each seeing only its side. Then a Tuesday through six rooms with the tally, the client’s six floors, two phones, pricing with the switch as a row.</p><p class="k">Paper · light · the one that sells the portal</p><a class="open" href="concept-f.html">Open F →</a></div></article>
+  </div>
+
+  <div class="rat">
+    <div>
+      <h2>What is new since September</h2>
+      <ul>
+        <li><b>The floor is part of the address.</b> Every floor of every app has a one-sentence focus in its own verbs, sent with every ask, and three rows (Do · Decide · Know) above the composer. The chip reads <code>MONEY · Invoices</code> until a record is open, then <code>INVOICE · INV-…</code>.</li>
+        <li><b>Four record types Earnest could not see:</b> expenses, payments, appointments and approval boards — each with its own rows and server context.</li>
+        <li><b>Four new verbs:</b> record an expense, record a payment, create a lead, add a contact. Every one proposes a card; you tap. Approving creative work is deliberately not a verb.</li>
+        <li><b>The reply shape:</b> a bold line, up to four facts with the number first, the ask — under forty words — and a separate spoken line for “read replies aloud”.</li>
+        <li><b>One bar on the phone:</b> below the desktop the rail folds into the composer; the apps open from a grid button; the waiting count sits in the pill.</li>
+        <li><b>Earnest for clients:</b> an opt-in switch per studio (Organization → AI &amp; Tokens, off by default, tokens bill the studio). It answers as the studio, sees only what the client can open, and can log a request, leave a note or book time. The leak probe refuses.</li>
+        <li><b>The portal has floors now too:</b> Home · Work · Requests · Approvals · Schedule · Money, with three rows each.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>How to read them</h2>
+      <ul>
+        <li><b>Every row and sentence is the app’s own string,</b> copied from the awareness and prompt tables on <code>main</code> on 1 October. They live once, in <code>shared.js</code>, and all three concepts draw from it.</li>
+        <li><b>Every number is the demo workspace’s</b> — $12k out across 6 invoices, $9,400 of it past 90 days at Meridian Law, 22 things today, Helios West 30 days late, $286k pipeline — the same figures the live home uses. The $45 Figma charge and the $350 check are the two illustrative ones (the E6 smoke run used $12 and $350).</li>
+        <li><b>The bars are coded, not captured.</b> The September screenshots predate the floor chip and the lane rows, so the mockups draw the bar from the app’s strings instead of photographing it. A capture run against the live demo would let the real thing stand in.</li>
+        <li><b>Looks are shared.</b> One token set per look × mode in <code>shared.css</code>, switched on <code>&lt;html data-look data-mode&gt;</code> exactly as the app does. <code>#paper-dark</code> and the like deep-link.</li>
+        <li><b>Pricing, FAQ, CTA and Hue’s footer</b> are the September home’s, so any of the three ports into <code>SellSheetHome.vue</code> without touching <code>landing.ts</code>’s plans or compare rows.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="map"><div class="scroll">
+    <table>
+      <thead><tr><th scope="col">Claim</th><th scope="col">D proves it with</th><th scope="col">E proves it with</th><th scope="col">F proves it with</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">It understands the screen</th><td>The walk in the hero; the 36-sentence band</td><td>“Three rooms” — the rows following the floor and the record</td><td>The chip at every stop of the Tuesday</td></tr>
+        <tr><th scope="row">It executes</th><td>Two cards from two rows (one held)</td><td>The hero flow; the catalogue of verbs</td><td>Six cards, six taps, the tally</td></tr>
+        <tr><th scope="row">The guardrail</th><td>The held email; “approving is the client’s tap”</td><td>“held” on every row that reaches a client; the Never column</td><td>2 held of 6; 0 sent without you</td></tr>
+        <tr><th scope="row">The client’s Earnest</th><td>One bar, one switch</td><td>A request card and the leak probe</td><td>The hero; six floors; the switch; the phone pair</td></tr>
+        <tr><th scope="row">The reply shape</th><td>Two replies side by side, screen and spoken</td><td>One reply</td><td>Both sides of the hero</td></tr>
+        <tr><th scope="row">The phone</th><td>One phone</td><td>—</td><td>Two phones, yours and theirs</td></tr>
+      </tbody>
+    </table>
+  </div></div>
+
+  <section class="section">
+    <span class="eyebrow">Recommendation</span>
+    <h2>Ship D’s hero on the live home, with E’s verb catalogue as its second section and F’s client split as its third.</h2>
+    <p style="margin-top:12px;max-width:72ch;color:var(--ink-2)">The walk is the one thing a competitor cannot screenshot their way past, and it is cheap to port: the data is already a table. E’s catalogue answers the “but what does it actually do” question that “AI” alone never answers, and marks the guardrail on every row rather than once. F’s two-sided invoice is the strongest single picture of the portal, and the Tuesday is the sales deck and the launch post. Keep F whole for the agency-persona landing.</p>
+  </section>
+
+  <section class="section">
+    <span class="eyebrow">At phone width</span>
+    <div class="phones">
+      <div><img src="thumbs/concept-d-phone.png" alt="Concept D at 390px wide"><p>D · the walk stacks under the copy</p></div>
+      <div><img src="thumbs/concept-e-phone.png" alt="Concept E at 390px wide"><p>E · the flow turns vertical</p></div>
+      <div><img src="thumbs/concept-f-phone.png" alt="Concept F at 390px wide"><p>F · the two sides stack</p></div>
+    </div>
+  </section>
+
+  <p class="foot">Nothing here is wired into the Nuxt build. <code>shots/</code> and <code>fonts/</code> are symlinks into <code>public/screenshots/latest/</code> and <code>app/assets/css/fonts/</code>. The September round of concepts is in <code>../2026-09-redesign/</code>; the live home is its round 2.</p>
+</div>
+</body>
+</html>

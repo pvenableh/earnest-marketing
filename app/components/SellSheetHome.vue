@@ -6,9 +6,10 @@
 				<LogoEarnest size="md" />
 			</nuxt-link>
 			<div class="e-nav-links">
+				<a href="#does" class="e-nav-link">What it does</a>
+				<a href="#clients" class="e-nav-link">Clients</a>
 				<a href="#apps" class="e-nav-link">Apps</a>
 				<a href="#brand" class="e-nav-link">Brand</a>
-				<a href="#does" class="e-nav-link">Actions</a>
 				<a href="#looks" class="e-nav-link">Looks</a>
 				<a href="#pricing" class="e-nav-link">Pricing</a>
 				<a href="#faq" class="e-nav-link">FAQ</a>
@@ -63,12 +64,11 @@
 				<div class="l-hero2-copy">
 					<span class="g-eyebrow opacity-0"><span class="g-eyebrow-dot"></span> Clients · Work · Money · Marketing · Schedule</span>
 					<h1 class="e-hero-wordmark l-hero-head opacity-0">
-						Ask anything<span class="e-hero-period">.</span><br />It already knows <span class="g-accent-text">your business</span><span class="e-hero-period">.</span>
+						It knows where <span class="g-accent-text">you’re standing</span><span class="e-hero-period">.</span>
 					</h1>
 					<p class="e-hero-tagline opacity-0">Do good work<span class="e-dot">.</span></p>
 					<p class="e-hero-sub opacity-0">
-						A real language model, grounded in <strong>your clients, projects, invoices and brand</strong>, that
-						drafts the work and waits for your tap.
+						Earnest reads the screen you’re on, <strong>drafts the next step</strong>, and waits for your tap.
 					</p>
 					<div class="e-hero-actions opacity-0">
 						<a :href="registerUrl" class="e-btn e-btn-primary g-press">Start free</a>
@@ -79,9 +79,9 @@
 					</div>
 				</div>
 
-				<!-- Focus, working. `.e-hero-shot` keeps useGlassMotion's intro reveal. -->
+				<!-- The walk. `.e-hero-shot` keeps useGlassMotion's intro reveal. -->
 				<div class="opacity-0 e-hero-shot l-hero2-focus">
-					<LandingFocusDemo />
+					<LandingWalk />
 				</div>
 			</div>
 
@@ -96,15 +96,44 @@
 			</div>
 		</div>
 
-		<!-- ─── 1. Six apps, one memory ─── -->
+		<!-- ─── 1. What it does ─── -->
+		<section id="does" class="e-section">
+			<div class="g-sec-head">
+				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> What it does</span>
+				<h2 class="e-h2" data-anim="rise">Say it<span class="e-dot">.</span> Tap it<span class="e-dot">.</span> <span class="g-accent-text">Done</span><span class="e-dot">.</span></h2>
+				<p class="e-section-sub" data-anim="rise">
+					{{ verbCount }} things Earnest can do, from any screen. Each one is a card you approve. Anything that
+					reaches a client waits for you.
+				</p>
+			</div>
+			<div data-anim="scale">
+				<LandingVerbs />
+			</div>
+		</section>
+
+		<!-- ─── 2. Your clients, too ─── -->
+		<section id="clients" class="e-section">
+			<div class="g-sec-head">
+				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Your clients, too</span>
+				<h2 class="e-h2" data-anim="rise">One invoice<span class="e-dot">.</span> <span class="g-accent-text">Two sides of the glass</span><span class="e-dot">.</span></h2>
+				<p class="e-section-sub" data-anim="rise">
+					Switch it on and your clients get Earnest in their portal. It answers as your studio and sees only
+					their side. Off by default.
+				</p>
+			</div>
+			<div data-anim="scale">
+				<LandingTwoSides />
+			</div>
+		</section>
+
+		<!-- ─── 3. Six apps, one memory ─── -->
 		<section id="apps" class="e-section">
 			<div class="g-sec-head">
 				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Six apps, one memory</span>
 				<h2 class="e-h2" data-anim="rise">It knows because <span class="g-accent-text">you run the studio here</span><span class="e-dot">.</span></h2>
 				<p class="e-section-sub" data-anim="rise">
-					Clients, work, money, marketing and schedules are the apps on the rail, not integrations. Every screen
-					feeds the same memory, and Earnest is one control away in each. Home is built, not photographed —
-					pick a lens and watch it re-rank.
+					Clients, work, money, marketing and schedules are apps on one rail, not integrations. Every screen
+					feeds the same memory. Pick a lens on Home and watch it re-rank.
 				</p>
 			</div>
 			<div data-anim="scale">
@@ -117,15 +146,15 @@
 			</div>
 		</section>
 
-		<!-- ─── 2. Brand ─── -->
+		<!-- ─── 4. Brand ─── -->
 		<section id="brand" class="e-section l-arg-section">
 			<div class="l-arg" data-anim="scale">
 				<div class="l-arg-copy">
 					<span class="g-kicker-pill"><span class="g-eyebrow-dot"></span> Brand awareness</span>
 					<h2 class="e-h2">Set the brand once<span class="e-dot">.</span> <span class="g-accent-text">Every sentence inherits it</span><span class="e-dot">.</span></h2>
 					<p class="l-arg-sub">
-						Direction, audience and voice live on your organization and on each client. Every draft Earnest
-						writes, and every document you send, reads from them.
+						Direction, audience and voice live on your organization and on each client. Every draft reads
+						from them.
 					</p>
 				</div>
 				<div class="l-arg-side l-brand">
@@ -148,48 +177,13 @@
 			</div>
 		</section>
 
-		<!-- ─── 3. AI Actions ─── -->
-		<section id="does" class="e-section l-arg-section">
-			<div class="l-arg l-arg--flip" data-anim="scale">
-				<div class="l-arg-copy">
-					<span class="g-kicker-pill"><span class="g-eyebrow-dot"></span> AI Actions</span>
-					<h2 class="e-h2">Then it does <span class="g-accent-text">the work</span><span class="e-dot">.</span></h2>
-					<p class="l-arg-sub">
-						Say what should change. Earnest lists every task, event, invoice and message it touches, and waits.
-					</p>
-					<p class="l-guard">
-						<strong>Nothing reaches a client or moves money without your tap.</strong> Everything else is a draft
-						until you say so.
-					</p>
-				</div>
-				<div class="l-arg-side l-diff g-glass" aria-label="A proposed change, waiting for approval">
-					<div class="l-diff-said">{{ actionSaid }}</div>
-					<ol class="l-diff-rows">
-						<li v-for="r in actionRows" :key="r.what" class="l-diff-row" :class="{ 'l-diff-row--held': r.held }">
-							<span class="l-diff-app">{{ r.app }}</span>
-							<span>{{ r.what }}</span>
-							<span class="l-diff-delta">{{ r.delta }}</span>
-						</li>
-					</ol>
-					<div class="l-diff-foot">
-						<small>5 changes · 1 held for you · nothing sent</small>
-						<span class="e-hero-actions" style="gap: 8px">
-							<a :href="soloDemoUrl" class="e-btn e-btn-ghost g-press">Adjust</a>
-							<a :href="soloDemoUrl" class="e-btn e-btn-primary g-press">Approve all</a>
-						</span>
-					</div>
-				</div>
-			</div>
-		</section>
-
 		<!-- ─── Looks ─── -->
 		<section id="looks" class="e-section l-looks-section">
 			<div class="g-sec-head">
 				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Appearance</span>
 				<h2 class="e-h2" data-anim="rise">Three looks<span class="e-dot">.</span> <span class="g-accent-text">One Earnest</span><span class="e-dot">.</span></h2>
 				<p class="e-section-sub" data-anim="rise">
-					Not a colour swap. Each look changes the type, the surfaces and the weight of every rule — your work
-					stays the same underneath all three.
+					Not a colour swap. Each look changes the type, the surfaces and every rule. Your work stays the same.
 				</p>
 			</div>
 			<div data-anim="scale">
@@ -202,8 +196,7 @@
 			<div class="g-sec-head">
 				<h2 class="e-h2" data-anim="rise">Every feature<span class="e-dot">.</span> <span class="g-accent-text">Every plan</span><span class="e-dot">.</span></h2>
 				<p class="e-section-sub" data-anim="rise">
-					One price, your whole team, every feature on every plan — monthly, or two months free on annual. What
-					you choose is scale.
+					One price, your whole team, every feature on every plan. What you choose is scale.
 				</p>
 			</div>
 			<div class="e-plans" data-stagger>
@@ -293,8 +286,8 @@
 				<p class="e-cta-word">Start with the pile<br />that’s bothering you<span class="e-dot">.</span></p>
 				<p class="e-cta-hand">Do good work.</p>
 				<p class="e-cta-sub">
-					A workspace takes a few minutes to set up. Bring in one client, one project or one unpaid invoice —
-					Earnest picks up your brand voice on day one and starts drafting the day with you.
+					Set up takes a few minutes. Bring in one client, one project or one unpaid invoice, and Earnest
+					starts drafting with you on day one.
 				</p>
 				<div class="e-hero-actions" style="justify-content: center">
 					<a :href="registerUrl" class="e-btn e-btn-primary g-press">Start free</a>
@@ -333,11 +326,14 @@
 /**
  * SellSheetHome — the landing page, round 2 (2026-09).
  *
- * It leads with the model: the hero is the claim on the left and Focus
- * answering it on the right (`Landing/FocusDemo.vue`), with the coded home and
- * its lenses still floating on the wave field underneath. Breadth comes next
- * as the six-app switcher (`Landing/AppSwitcher.vue`), then brand, then AI
- * Actions, then the appearance panel, pricing, FAQ, CTA and Hue's footer.
+ * It leads with understanding: the hero is the claim on the left and a walk
+ * through the app on the right (`Landing/Walk.vue`) — the Earnest bar
+ * re-reading each floor and record. Then what it does (`Landing/Verbs.vue`),
+ * the client split (`Landing/TwoSides.vue`), the six-app switcher
+ * (`Landing/AppSwitcher.vue`), brand, the appearance panel, pricing, FAQ,
+ * CTA and Hue's footer. The October 2026 round (`mockups/2026-10-everywhere`)
+ * is where the first three came from; the Focus demo (`Landing/FocusDemo.vue`)
+ * is kept for the archived landings.
  *
  * ⚠️ The copy here is bound by the app's own Voice Charter — "earn trust by
  * being right, not by being loud". Every number on the page comes from either
@@ -375,9 +371,8 @@ import {
 	replaces,
 	brandProfile,
 	brandOutputs,
-	actionSaid,
-	actionRows,
 } from '~/data/landing';
+import { verbCount } from '~/data/landing-floors';
 
 const config = useRuntimeConfig();
 const appUrl = config.public.appUrl || 'https://app.earnest.guru';

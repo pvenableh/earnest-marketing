@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en" data-look="clean" data-mode="light" data-keep-look>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Earnest — Say it. Tap it. Done.</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* Concept E — "Say it. Tap it. Done." Leads with EXECUTION: the hero is an ask
+   becoming a card becoming a record, then the whole catalogue of verbs,
+   grouped by app. Clean, light. */
+.hero{padding-block:72px 48px}
+.hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center}
+@media(max-width:960px){.hero .wrap{grid-template-columns:1fr}}
+.demo{padding:18px;display:grid;gap:14px;min-width:0}
+.demo .asks{display:flex;gap:8px;flex-wrap:wrap}
+.demo .ask-chip{font:inherit;font-size:13.5px;border:1px solid var(--line);border-radius:var(--r-chip);padding:7px 12px;background:transparent;color:var(--ink);cursor:pointer}
+.demo .ask-chip[aria-pressed="true"]{border-color:var(--pop);background:var(--pop-soft)}
+.demo .flow{display:grid;grid-template-columns:1.3fr auto 1fr;gap:12px;align-items:center}
+.demo .flow .arrow{color:var(--ink-3);font-size:22px}
+@media(max-width:620px){.demo .flow{grid-template-columns:1fr}.demo .flow .arrow{transform:rotate(90deg);justify-self:center}}
+.demo .ebar .chip-row{min-height:0}
+.demo .done{border:1px solid var(--line);border-radius:var(--r-card);padding:14px;background:var(--surface-2);font-size:14px;display:grid;gap:6px;min-width:0}
+.demo .done .t{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ok)}
+.demo .done b{font-weight:400;color:var(--ink)}
+.demo .done small{color:var(--ink-3)}
+.demo .pcard{opacity:.35;transition:opacity .3s}
+.demo .pcard.on{opacity:1}
+.demo .done{opacity:.35;transition:opacity .3s}
+.demo .done.on{opacity:1}
+.tally{display:flex;gap:28px;flex-wrap:wrap;margin-top:28px}
+.tally div{display:grid;gap:2px}
+.tally b{font-family:var(--font-display);font-weight:var(--h-weight);text-transform:var(--h-transform);font-size:calc(34px*var(--h-scale));line-height:1;color:var(--ink)}
+.tally span{font-size:13px;color:var(--ink-3)}
+
+/* the catalogue */
+.cat{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px}
+@media(max-width:900px){.cat{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.cat{grid-template-columns:1fr}}
+.cat .g{padding:16px;display:grid;gap:8px;align-content:start;min-width:0}
+.cat .g h3{font-size:calc(18px*var(--h-scale));display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.cat .g h3 small{font-family:var(--font-body);font-size:12px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-3)}
+.cat ul{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:14.5px;color:var(--ink-2)}
+.cat li{display:flex;justify-content:space-between;gap:10px;align-items:baseline;border-top:1px solid var(--line);padding-top:4px}
+.cat li code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;color:var(--ink-3)}
+.cat li.held{color:var(--ink)}
+.cat li.held::after{content:"held";font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--warn);margin-left:auto}
+.cat li.held code{display:none}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:var(--ink-3)}
+.legend b{font-weight:400;color:var(--warn);letter-spacing:.12em;text-transform:uppercase;font-size:11px}
+
+/* the walk: three rooms */
+.rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px}
+@media(max-width:900px){.rooms{grid-template-columns:1fr}}
+.room{padding:16px;display:grid;gap:12px;min-width:0;align-content:start}
+.room .ebar .lanes{flex-direction:column;align-items:stretch}
+.room .ebar .lane{justify-content:flex-start}
+.room .note{font-size:13px;color:var(--ink-3)}
+
+/* reply */
+.reply-wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+@media(max-width:900px){.reply-wrap{grid-template-columns:1fr}}
+.reply-wrap .card{padding:18px}
+
+/* portal */
+.pcards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.pcards{grid-template-columns:1fr}}
+.refuse{padding:16px;display:grid;gap:8px}
+.refuse .you{display:inline-block;justify-self:start;background:var(--surface-2);border-radius:14px;padding:6px 12px;font-size:14px;color:var(--ink-2)}
+:root[data-look="paper"] .refuse .you{border-radius:3px}
+.refuse .lede{font-size:16px}
+.refuse p{font-size:14px;color:var(--ink-2)}
+.refuse .t{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Site">
+  <div class="wrap">
+    <a href="#" class="mark">Earnest<b>.</b></a>
+    <ul><li><a href="#verbs">Verbs</a></li><li><a href="#rooms">Rooms</a></li><li><a href="#answers">Answers</a></li><li><a href="#clients">Clients</a></li><li><a href="#pricing">Pricing</a></li></ul>
+    <div class="cta">
+      <div class="theme" data-theme-control></div>
+      <a class="btn demo" href="https://app.earnest.guru/try-demo?persona=solo">Live demo</a>
+      <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <canvas id="wave" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Earnest does the work</span>
+      <h1>Say it. <span class="pop" style="white-space:nowrap">Tap it.</span><br>Done.</h1>
+      <p class="lede">Tell Earnest what should change, from whatever screen you are on. It writes the card — the email, the expense, the lead, the meeting — and <strong>waits for your tap</strong>. Then it is a real record in the right app.</p>
+      <div class="actions">
+        <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+        <a class="btn" href="https://app.earnest.guru/try-demo?persona=solo">Try the live demo</a>
+      </div>
+      <div class="tally">
+        <div><b id="verbCount">30</b><span>things it can do, from any screen</span></div>
+        <div><b>1</b><span>tap before anything is written</span></div>
+        <div><b>0</b><span>emails sent without you</span></div>
+      </div>
+    </div>
+
+    <div class="demo card" aria-label="An ask becomes a card becomes a record">
+      <div class="asks" role="tablist" aria-label="Try an ask">
+        <button class="ask-chip" role="tab" data-i="0" aria-pressed="true">Record the $45 Figma charge, bill it to Helios</button>
+        <button class="ask-chip" role="tab" data-i="1" aria-pressed="false">Dana paid 0031 by check, $350</button>
+        <button class="ask-chip" role="tab" data-i="2" aria-pressed="false">New lead: Atlas Fintech, onboarding site, ~$20k</button>
+        <button class="ask-chip" role="tab" data-i="3" aria-pressed="false">Book Meridian for 30 min Thursday afternoon</button>
+      </div>
+      <div class="ebar">
+        <div class="chip-row" id="dchip"></div>
+        <div id="dcomp"></div>
+      </div>
+      <div class="flow">
+        <div class="pcard card" id="dcard"></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="done" id="ddone"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="sec" id="verbs">
+  <div class="wrap">
+    <span class="eyebrow">The verbs</span>
+    <h2>Everything it can do, <span class="pop">and where it lands.</span></h2>
+    <p class="sub">Each verb is a tool with a name. Each one proposes, and you tap. The ones marked <strong>held</strong> reach a client or move money, so they are held for you no matter how you have Earnest set up.</p>
+    <div class="cat">
+      <div class="g card"><h3>People <small>clients · contacts · pursuits</small></h3><ul>
+        <li>Add a contact<code>add_contact</code></li><li>Create a lead<code>create_lead</code></li><li>Log a conversation<code>log_touchpoint</code></li><li>Schedule a check-in<code>schedule_touchpoint</code></li><li>Set the billing contact<code>set_billing_contact</code></li><li class="held">Email a client or contact</li><li>Move a lead’s stage<code>update_field</code></li>
+      </ul></div>
+      <div class="g card"><h3>Work <small>projects · tasks · tickets · calendar</small></h3><ul>
+        <li>Create a project<code>create_project</code></li><li>Add a task<code>add_task</code></li><li>Add a phase or event<code>add_event</code></li><li>Push a project’s dates<code>reschedule_project</code></li><li>Open a ticket<code>create_ticket</code></li><li>Find a time<code>find_a_time</code></li><li>Book, move or cancel a meeting<code>book · reschedule · cancel_meeting</code></li>
+      </ul></div>
+      <div class="g card"><h3>Money <small>invoices · payments · expenses · documents</small></h3><ul>
+        <li>Create an invoice<code>create_invoice</code></li><li>Record a payment<code>record_payment</code></li><li>Record an expense<code>record_expense</code></li><li>Connect invoices to a project<code>connect_invoices</code></li><li>Draft a proposal or contract<code>generate_documents</code></li><li>Draft a prototype<code>generate_prototype</code></li><li class="held">Send an invoice or a reminder</li>
+      </ul></div>
+      <div class="g card"><h3>Marketing <small>campaigns · studio · email</small></h3><ul>
+        <li>Create a campaign<code>create_campaign</code></li><li>Target it at a list<code>target_campaign</code></li><li class="held">Launch the campaign</li><li>Plan a month of content<code>create_content_plan</code></li><li>Draft social posts in the client’s voice<code>draft_social_posts</code></li>
+      </ul></div>
+      <div class="g card"><h3>Anywhere <small>reads, no tap needed</small></h3><ul>
+        <li>Search records<code>search_records</code></li><li>Open a record or page<code>get_record · open_page</code></li><li>List open invoices<code>list_open_invoices</code></li><li>List tasks<code>list_tasks</code></li><li>What’s coming up<code>list_upcoming_events</code></li><li>Change a field on what’s open<code>update_field</code></li>
+      </ul></div>
+      <div class="g card"><h3>Never <small>by design</small></h3><ul>
+        <li class="held" style="color:var(--ink-2)">Approve creative work for a client</li><li style="color:var(--ink-2)">Move money anywhere</li><li style="color:var(--ink-2)">Send anything you have not seen</li><li style="color:var(--ink-2)">Read another studio’s data</li><li style="color:var(--ink-2)">Train the model on yours</li>
+      </ul></div>
+    </div>
+    <p class="legend"><span><b>held</b> = reaches a client or touches money; waits for your tap, always.</span><span>Everything else can run on its own once you have dialled that in — with a full audit trail.</span></p>
+  </div>
+</section>
+
+<section class="sec band" id="rooms">
+  <div class="wrap">
+    <span class="eyebrow">From any screen</span>
+    <h2>The verbs follow <span class="pop">the room you’re in.</span></h2>
+    <p class="sub">Above the composer, three rows: a thing to <strong>Do</strong>, a thing to <strong>Decide</strong>, a thing to <strong>Know</strong>. They change with the floor, and again with the record you open. Every one names a verb that exists.</p>
+    <div class="rooms" id="roomsGrid"></div>
+  </div>
+</section>
+
+<section class="sec" id="answers">
+  <div class="wrap">
+    <div class="reply-wrap">
+      <div>
+        <span class="eyebrow">When you ask instead</span>
+        <h2>Under forty words. <span class="pop">Then two said aloud.</span></h2>
+        <p class="sub">A reply is a bold line, a few facts with the number first, and the ask. If you have replies read aloud, the voice gets its own two sentences, the way a colleague would say them — with every figure exact.</p>
+      </div>
+      <div class="card">
+        <div class="reply">
+          <span class="you">What money is at risk this month?</span>
+          <p class="lede"><span id="r1"></span></p>
+          <ul>
+            <li class="bad"><b>$9,400</b><span>Meridian Law, past 90 days</span></li>
+            <li><b>$60k</b><span>of $286k pipeline past “proposal sent”</span></li>
+            <li><b>2 milestones</b><span>ready to invoice today</span></li>
+          </ul>
+          <p class="ask">Draft both milestone invoices and the Meridian reminder?</p>
+          <div class="read"><b>Read</b><span>12 invoices</span><span>12 pursuits</span><span>cash flow 2026</span></div>
+          <div class="say"><span class="sp">Said</span><span>Billed this month is zero, and that’s the real risk. Two milestones are ready to invoice today, and Meridian still owes ninety-four hundred.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec band" id="clients">
+  <div class="wrap">
+    <span class="eyebrow">For your clients, if you switch it on</span>
+    <h2>Three verbs for the client. <span class="pop">None of yours.</span></h2>
+    <p class="sub">In the portal, Earnest answers as your studio and can do exactly three things: log a request, leave a note, book time with you. It sees only what that client can already open. Ask it anything about your side and it says it cannot see that. Off by default; tokens bill your plan.</p>
+    <div class="pcards" style="margin-top:32px">
+      <div class="pcard card">
+        <div class="kind"><span>Request · <b>create_ticket</b></span><span>Meridian Law’s portal</span></div>
+        <p class="title">“The footer is broken on mobile”</p>
+        <dl><dt>Project</dt><dd>Meridian — website care plan</dd><dt>Priority</dt><dd>High — a visitor-facing page</dd><dt>From</dt><dd>Amara Okafor, via Earnest</dd></dl>
+        <div class="foot"><small>Proposed to the client · their tap</small><span class="acts"><a class="btn sm" href="#">Edit</a><a class="btn sm primary" href="#">Log it</a></span></div>
+      </div>
+      <div class="refuse card">
+        <span class="t">The leak probe</span>
+        <span class="you">What is the agency’s margin on my project?</span>
+        <p class="lede">I can’t see that.</p>
+        <p>I only see what you can open here — your projects, requests, invoices and meetings. For anything about the studio’s side, ask your account team.</p>
+        <p><a class="btn sm" href="#">Book time with my account team</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="pricing">
+  <div class="wrap">
+    <span class="eyebrow">Pricing</span>
+    <h2>Every feature. <span class="pop">Every plan.</span></h2>
+    <p class="sub">What you choose is scale. Monthly, or two months free on annual.</p>
+    <div class="ladder"><div class="ladder-scroll">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col">Solo<span class="p">$49<small> /mo</small></span></th><th scope="col" class="feat">Studio<span class="p">$149<small> /mo</small></span></th><th scope="col">Agency<span class="p">$299<small> /mo</small></span></th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Team seats</th><td>1</td><td class="feat">8</td><td>15</td></tr>
+          <tr><th scope="row">AI tokens / month</th><td>100K</td><td class="feat">400K</td><td>1M</td></tr>
+          <tr><th scope="row">File storage</th><td>25 GB</td><td class="feat">100 GB</td><td>500 GB</td></tr>
+          <tr><th scope="row">Client-portal seats</th><td>5</td><td class="feat">15</td><td>Unlimited</td></tr>
+          <tr><th scope="row">White-label</th><td>—</td><td class="feat">—</td><td>Add-on, $19/mo</td></tr>
+          <tr><th scope="row"></th><td><a class="btn" href="https://app.earnest.guru/register">Start free</a></td><td class="feat"><a class="btn primary" href="https://app.earnest.guru/register">Start free</a></td><td><a class="btn" href="https://app.earnest.guru/register">Start free</a></td></tr>
+        </tbody>
+      </table>
+    </div></div>
+    <p class="every"><strong>Every verb on every plan.</strong> Earnest for your clients is a switch on any plan with portal seats. Extra storage $10/mo per 100 GB · more AI tokens if you run out.</p>
+  </div>
+</section>
+
+<section class="sec" id="faq" style="padding-top:0">
+  <div class="wrap">
+    <h2>Straight <span class="pop">answers.</span></h2>
+    <div class="faq">
+      <details open><summary>What happens between “say it” and “done”?</summary><p>Earnest writes a card: what it will create or change, every field filled from what it already knows. You approve, adjust or skip. Only then is anything written — as a normal record in the normal place, with “proposed by Earnest” on it.</p></details>
+      <details><summary>Will it send emails or move money on its own?</summary><p>No. Anything that reaches a client or touches money is held for your tap, always. Low-stakes, reversible work can run on its own once you dial that in, with a full audit trail.</p></details>
+      <details><summary>How is this different from ChatGPT?</summary><p>Earnest runs on a real language model, Anthropic’s Claude, but never from a blank prompt: it starts from your clients, your work, your money and your brand voice, and it can act in the app rather than hand you text to paste. Your data is never used to train the model.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="mark">Earnest<b>.</b></div>
+    <p class="tag">Do good work.</p>
+    <div class="actions">
+      <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+      <a class="btn" href="https://app.earnest.guru/try-demo?persona=solo">Try the live demo</a>
+    </div>
+  </div>
+</section>
+
+<footer data-footer></footer>
+
+<script src="shared.js"></script>
+<script>
+(function(){
+  E.wave(document.getElementById('wave'));
+
+  /* ── Hero demo: ask → card → record ── */
+  var ASKS = [
+    { ask:'Record the $45 Figma charge, bill it to Helios', chip:['Money','Expenses'], kind:'Expense', tool:'record_expense', where:'Money → Expenses', title:'$45 · Figma · Software & SaaS', kv:[['Billable','Yes — Helios Studio, Website Build'],['Receipt','From the email you forwarded'],['Date','Today']], foot:'Proposed · nothing written yet', acts:['Skip','Approve'], done:['Expense recorded','$45 · Figma · billable to Helios Studio','Money → Expenses · proposed by Earnest, approved by you'] },
+    { ask:'Dana paid 0031 by check, $350', chip:['Money','Payments'], kind:'Payment', tool:'record_payment', where:'Money → Payments', title:'$350 · check · settles INV-SOL-PIN-2026-0031', kv:[['Client','Pinecrest Clinic'],['Balance after','$0 — paid in full'],['Receipt','Emailed to Dana, in your voice']], foot:'Proposed · the receipt is held for you', acts:['Skip','Approve'], done:['Invoice paid','INV-SOL-PIN-2026-0031 · $350 · check','Money → Payments · receipt sent after your tap'] },
+    { ask:'New lead: Atlas Fintech, onboarding site, ~$20k', chip:['People','Pursuits'], kind:'Lead', tool:'create_lead', where:'People → Pursuits', title:'Atlas Fintech — onboarding site', kv:[['Value','$20,000, your estimate'],['Stage','New'],['Contact','Not yet — ask me who']], foot:'Proposed · nothing written yet', acts:['Skip','Approve'], done:['Lead created','Atlas Fintech · $20,000 · New','People → Pursuits · now in the $286k pipeline'] },
+    { ask:'Book Meridian for 30 min Thursday afternoon', chip:['Work','Calendar'], kind:'Meeting', tool:'book_meeting', where:'Work → Calendar', title:'Meridian Law — catch-up · Thu 2:00, 30 min', kv:[['With','Amara Okafor'],['Why 2:00','Your only gap after lunch; two follow-ups due that day'],['Invite','Held — reaches a client']], foot:'Proposed · the invite waits for your tap', acts:['Adjust','Send invite'], done:['Meeting booked','Thu 2:00 · video · 30 min','Work → Calendar · invite sent after your tap'] }
+  ];
+  var chips=[].slice.call(document.querySelectorAll('.ask-chip')), dchip=document.getElementById('dchip'), dcomp=document.getElementById('dcomp'), dcard=document.getElementById('dcard'), ddone=document.getElementById('ddone'), t1,t2;
+  function show(i){
+    chips.forEach(function(c,j){c.setAttribute('aria-pressed',String(i===j));});
+    var a=ASKS[i]; clearTimeout(t1); clearTimeout(t2);
+    dchip.innerHTML = E.chip(a.chip[0], a.chip[1], {fixed:true}) + '<span class="focus-line">from anywhere — the chip is where it lands</span>';
+    dcomp.innerHTML = E.composer({text:'', typed:true});
+    dcard.classList.remove('on'); ddone.classList.remove('on');
+    dcard.innerHTML = '<div class="kind"><span>'+a.kind+' · <b>'+a.tool+'</b></span><span>'+E.esc(a.where)+'</span></div><p class="title">'+E.esc(a.title)+'</p><dl>'+a.kv.map(function(k){return '<dt>'+E.esc(k[0])+'</dt><dd>'+E.esc(k[1])+'</dd>';}).join('')+'</dl><div class="foot"><small>'+E.esc(a.foot)+'</small><span class="acts"><a class="btn sm" href="#">'+a.acts[0]+'</a><a class="btn sm primary" href="#">'+a.acts[1]+'</a></span></div>';
+    ddone.innerHTML = '<span class="t">After your tap</span><b>'+E.esc(a.done[0])+'</b><span>'+E.esc(a.done[1])+'</span><small>'+E.esc(a.done[2])+'</small>';
+    var ph = dcomp.querySelector('.ph');
+    E.type(ph, a.ask, function(){ t1=setTimeout(function(){dcard.classList.add('on');}, E.reduce?0:250); t2=setTimeout(function(){ddone.classList.add('on');}, E.reduce?0:1400); });
+  }
+  chips.forEach(function(c){c.addEventListener('click',function(){show(+c.dataset.i);});});
+  show(0);
+  document.getElementById('verbCount').textContent = document.querySelectorAll('.cat .g:not(:last-child) li').length;
+
+  /* ── Three rooms ── */
+  function floorOf(app, key){ return E.APPS.filter(function(a){return a.key===app;})[0].floors.filter(function(f){return f.key===key;})[0]; }
+  var ROOMS = [
+    { app:'People', f: floorOf('clients','pursuits'), note:'On the Pursuits floor, nothing open.' },
+    { app:'Work', f: floorOf('work','approvals'), rec: floorOf('work','approvals').recs[0], note:'With a board open: the rows are the board’s.' },
+    { app:'Money', f: floorOf('money','expenses'), note:'On Expenses — a floor Earnest could not see until this month.' }
+  ];
+  document.getElementById('roomsGrid').innerHTML = ROOMS.map(function(r){
+    var chip = r.rec ? E.chip(r.rec.noun, r.rec.label) : E.chip(r.app, r.f.label, {fixed:true});
+    var rows = r.rec ? r.rec.rows : r.f.rows;
+    return '<div class="room card"><div class="ebar"><div class="chip-row">'+chip+'</div>'+E.lanes(rows,{more:false})+E.composer({})+'</div><p class="note">'+E.esc(r.note)+'</p></div>';
+  }).join('');
+
+  E.type(document.getElementById('r1'), 'Nothing billed yet this month');
+})();
+</script>
+</body>
+</html>

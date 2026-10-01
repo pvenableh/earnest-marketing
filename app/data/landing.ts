@@ -56,6 +56,18 @@ export const faqs: Faq[] = [
 			'One screen. A greeting with an honest read of the day — “22 things today, 5 need a decision” — four numbers at a glance, and then three piles: Decide (things Earnest drafted and is waiting on you for), Do (one tap each) and Know (nothing required, but worth knowing). Four lenses re-rank the same screen around money, creative work or projects.',
 	},
 	{
+		q: 'How does it know which screen I’m on?',
+		a: 'The floor is part of the address. Every floor of every app has its own sentence, and that sentence travels with every ask. Open a record and its own context goes instead. The chip above the composer shows what Earnest was told.',
+		aText:
+			'The floor is part of the address. Every floor of every app has its own sentence, and that sentence travels with every ask. Open a record and its own context goes instead. The chip above the composer shows what Earnest was told.',
+	},
+	{
+		q: 'Can my clients use Earnest?',
+		a: 'If you switch it on. In their portal, Earnest answers as your studio and sees only what that client can already open. It can log a request, leave a note or book time with you. Nothing else. Tokens bill your plan, so it is off by default.',
+		aText:
+			'If you switch it on. In their portal, Earnest answers as your studio and sees only what that client can already open. It can log a request, leave a note or book time with you. Nothing else. Tokens bill your plan, so it is off by default.',
+	},
+	{
 		q: 'How is this different from ChatGPT or a generic AI assistant?',
 		a: 'Earnest runs on a <strong>real large language model</strong> — Anthropic’s Claude — but it does not start from a blank prompt. It starts from your organization: your clients, your work, your money, your brand voice. One door, and it already knows where you are standing when you open it. Your data is never used to train the model.',
 		aText:
@@ -200,8 +212,9 @@ export const compareRows = [
 
 /** The scrolling band under the hero — each one a claim the page then earns. */
 export const marqueeItems = [
+	{ label: 'Knows the floor you’re on', icon: 'i-lucide-map-pin' },
 	{ label: 'Decide · Do · Know', icon: 'i-lucide-layers' },
-	{ label: 'One door to Earnest', icon: 'i-lucide-door-open' },
+	{ label: 'Earnest in the client portal', icon: 'i-lucide-users' },
 	{ label: 'Money sorted by certainty', icon: 'i-lucide-trending-up' },
 	{ label: 'Approvals in one press', icon: 'i-lucide-send' },
 	{ label: 'Three looks, one Earnest', icon: 'i-lucide-swatch-book' },
@@ -245,7 +258,6 @@ export const lenses: Lens[] = [
 	{
 		key: 'money',
 		label: 'Money',
-		icon: 'i-lucide-trending-up',
 		icon: 'i-lucide-banknote',
 		// var(--success) in the app.
 		hue: '142 72% 46%',

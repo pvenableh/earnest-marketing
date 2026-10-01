@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en" data-look="glass" data-mode="dark" data-keep-look>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Earnest — It knows where you're standing.</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* Concept D — "It knows where you're standing". Leads with UNDERSTANDING:
+   the hero is a walk through the app, and the Earnest bar re-reads the floor
+   and the record under your feet. Glass, dark. */
+.hero .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
+@media(max-width:960px){.hero .wrap{grid-template-columns:1fr}}
+.walk{padding:0;overflow:hidden;min-width:0}
+.walk .frame{min-height:480px}
+.walk .where{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:12px;color:var(--ink-3);letter-spacing:.12em;text-transform:uppercase}
+.walk .where span:last-child{letter-spacing:0;text-transform:none;border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--ink-2)}
+
+/* the sentences band */
+.sentences{padding-block:26px;border-block:1px solid var(--line);overflow:hidden;background:var(--paper)}
+.sentences .wrap{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:14px}
+.sentences .count{font-family:var(--font-display);font-weight:var(--h-weight);text-transform:var(--h-transform);font-size:calc(28px*var(--h-scale));line-height:1}
+.sentences .count b{color:var(--pop);font-weight:inherit}
+.sentences .note{font-size:14px;color:var(--ink-3)}
+.track{display:flex;gap:10px;width:max-content;animation:scroll 120s linear infinite}
+.track:hover{animation-play-state:paused}
+.track .s{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:var(--r-chip);padding:7px 12px 7px 9px;font-size:13.5px;color:var(--ink-2);background:var(--surface);white-space:nowrap}
+.track .s .chip{padding-block:2px}
+@keyframes scroll{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.track{animation:none;flex-wrap:wrap;width:auto}.track .dup{display:none}}
+.track .dup{display:contents}
+
+/* reply pair */
+.replies{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.replies .card{padding:18px}
+@media(max-width:820px){.replies{grid-template-columns:1fr}}
+.where-line{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:12px;color:var(--ink-3)}
+
+/* proposals */
+.props{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:820px){.props{grid-template-columns:1fr}}
+.props .from{font-size:12.5px;color:var(--ink-3);margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.props .from .lane{pointer-events:none;font-size:12.5px;padding:5px 10px 5px 8px}
+
+/* portal strip */
+.portal{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center}
+.portal>*{min-width:0}
+@media(max-width:900px){.portal{grid-template-columns:1fr}}
+.pbar{padding:16px}
+.pbar .ptop{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px;color:var(--ink-3);margin-bottom:12px}
+.pbar .ptop b{font-weight:400;color:var(--ink);letter-spacing:.1em;text-transform:uppercase;font-size:11px}
+.switch{display:flex;align-items:center;gap:12px;margin-top:18px;border:1px solid var(--line);border-radius:var(--r-card);padding:12px 14px;font-size:14px;color:var(--ink-2);background:var(--surface)}
+.switch .tog{width:38px;height:22px;border-radius:999px;background:var(--line);position:relative;flex:none}
+.switch .tog::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--ink-3)}
+.switch b{font-weight:400;color:var(--ink)}
+
+/* phone section */
+.phone-sec{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+@media(max-width:900px){.phone-sec{grid-template-columns:1fr}}
+.apps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:8px;border:1px solid var(--line);border-radius:calc(var(--r-card) - 6px);background:var(--surface-2);font-size:11px;text-align:center;color:var(--ink-2)}
+.apps-grid span{padding:8px 2px;border-radius:8px}
+.apps-grid span i{display:block;width:22px;height:22px;border-radius:7px;margin:0 auto 4px;background:var(--line)}
+.apps-grid span.on{color:var(--pop)}.apps-grid span.on i{background:var(--pop)}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Site">
+  <div class="wrap">
+    <a href="#" class="mark">Earnest<b>.</b></a>
+    <ul><li><a href="#floors">Floors</a></li><li><a href="#answers">Answers</a></li><li><a href="#does">Actions</a></li><li><a href="#clients">Clients</a></li><li><a href="#pricing">Pricing</a></li></ul>
+    <div class="cta">
+      <div class="theme" data-theme-control></div>
+      <a class="btn demo" href="https://app.earnest.guru/try-demo?persona=solo">Live demo</a>
+      <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <canvas id="wave" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Earnest, everywhere in the app</span>
+      <h1>It knows where <span class="pop">you’re standing.</span></h1>
+      <p class="lede">Open any floor of any app and Earnest already knows which one — what it is for, what is on it, and <strong>the three things worth doing next</strong>. Open a record, and it knows that too.</p>
+      <div class="actions">
+        <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+        <a class="btn" href="https://app.earnest.guru/try-demo?persona=solo">Try the live demo</a>
+      </div>
+      <p class="fine">14-day trial, no card · Solo $49/mo · every feature on every plan · your data is never used to train the model</p>
+    </div>
+
+    <div class="walk card" aria-label="A walk through the app; the Earnest bar re-reads each floor and record">
+      <div class="where"><span>The app</span><span id="where">Money → Invoices</span></div>
+      <div class="frame" id="frame"></div>
+    </div>
+  </div>
+</header>
+
+<section class="sentences" id="floors" aria-label="Every floor, in one sentence">
+  <div class="wrap">
+    <span class="count"><b id="floorCount">36</b> floors.</span>
+    <span class="note">One sentence each, in the floor’s own verbs, sent with every ask. Hover to pause.</span>
+  </div>
+  <div class="track" id="track" aria-hidden="true"></div>
+</section>
+
+<section class="sec" id="answers">
+  <div class="wrap">
+    <span class="eyebrow">Then it answers</span>
+    <h2>Like a colleague <span class="pop">across the desk.</span></h2>
+    <p class="sub">One reply, two channels. The <strong>screen</strong> gets a bold line, up to four facts with the number first, and the ask — under forty words. The <strong>voice</strong> gets two sentences a person would actually say. Neither repeats the other.</p>
+    <div class="replies" style="margin-top:32px">
+      <div class="card">
+        <div class="where-line"><span class="chip"><span class="noun">Money</span><span>Invoices</span></span><span>a Know row, tapped</span></div>
+        <div class="reply">
+          <span class="you">Who owes me, and for how long?</span>
+          <p class="lede"><span id="r1"></span></p>
+          <ul>
+            <li class="bad"><b>$9,400</b><span>Meridian Law, past 90 days</span></li>
+            <li><b>$2,600</b><span>Helios Studio, due in 14 days</span></li>
+            <li><b>6 invoices</b><span>open in all</span></li>
+          </ul>
+          <p class="ask">Want the Meridian reminder drafted?</p>
+          <div class="read"><b>Read</b><span>12 invoices</span><span>AR aging</span><span>2 clients</span></div>
+          <div class="say"><span class="sp">Said</span><span>Twelve thousand is out. Ninety-four hundred of it is Meridian Law, three months late. Want me to draft the reminder?</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="where-line"><span class="chip"><span class="noun">Project</span><span>Helios West Hotel Launch</span></span><span>a record, open</span></div>
+        <div class="reply">
+          <span class="you">What’s blocking progress on this project?</span>
+          <p class="lede"><span id="r2"></span></p>
+          <ul>
+            <li class="bad"><b>30 days</b><span>past the deadline</span></li>
+            <li class="bad"><b>Round 2</b><span>hero image, 9 days with Dana</span></li>
+            <li><b>2 of 7</b><span>launch tasks done</span></li>
+          </ul>
+          <p class="ask">Nudge Dana, or push the launch two weeks?</p>
+          <div class="read"><b>Read</b><span>7 tasks</span><span>1 approval</span><span>client history</span></div>
+          <div class="say"><span class="sp">Said</span><span>It’s a month late, and the hero image has sat with Dana for nine days. We can nudge her, or push the whole launch two weeks.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec band" id="does">
+  <div class="wrap">
+    <div class="arg">
+      <div class="copy">
+        <span class="eyebrow">Then it does the work</span>
+        <h2>A row is a verb. <span class="pop">A verb waits for your tap.</span></h2>
+        <p class="sub">Every Do row names a thing Earnest can actually do — draft the email, record the expense, book the meeting, create the lead. Each one lands as a card you approve, adjust or skip.</p>
+        <p class="guard"><strong>Nothing reaches a client or moves money without your tap.</strong> The card for an email is held until you say so. Approving creative work is not even a verb Earnest has: that tap is the client’s, by design.</p>
+      </div>
+      <div class="props">
+        <div>
+          <div class="from"><span class="lane" data-lane="do"><span class="k">Do</span><span>Draft a reminder for my oldest overdue invoice</span></span></div>
+          <div class="pcard card held">
+            <div class="kind"><span>Email · <b>send_email</b></span><span>reaches a client</span></div>
+            <p class="title">To Amara Okafor, Meridian Law</p>
+            <dl><dt>Subject</dt><dd>Invoice 0042 — just checking it didn’t get lost</dd><dt>Voice</dt><dd>Warm, direct, first names. Your brand direction.</dd><dt>Attach</dt><dd>INV-SOL-MER-2026-0042 · $6,400 · pay link</dd></dl>
+            <div class="foot"><small>Drafted · not sent</small><span class="acts"><a class="btn sm" href="#">Adjust</a><a class="btn sm primary" href="#">Send</a></span></div>
+          </div>
+        </div>
+        <div>
+          <div class="from"><span class="lane" data-lane="do"><span class="k">Do</span><span>Record an expense</span></span></div>
+          <div class="pcard card">
+            <div class="kind"><span>Expense · <b>record_expense</b></span><span>Money → Expenses</span></div>
+            <p class="title">$45 · Figma · Software &amp; SaaS</p>
+            <dl><dt>Billable</dt><dd>Yes — Helios Studio, Website Build</dd><dt>Receipt</dt><dd>From the email you forwarded</dd><dt>Date</dt><dd>Today</dd></dl>
+            <div class="foot"><small>Proposed · nothing written yet</small><span class="acts"><a class="btn sm" href="#">Skip</a><a class="btn sm primary" href="#">Approve</a></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="clients">
+  <div class="wrap">
+    <div class="portal">
+      <div>
+        <span class="eyebrow">Including your client’s</span>
+        <h2>Your clients get one too — <span class="pop">if you switch it on.</span></h2>
+        <p class="sub">In the portal, Earnest answers as your studio, sees only what that client can already open, and can log a request, leave a note or book time with you. Nothing else. Ask it your margin and it says it cannot see that.</p>
+        <div class="switch"><span class="tog" aria-hidden="true"></span><span><b>Earnest for your clients</b> · off by default · tokens bill your plan · Organization → AI &amp; Tokens</span></div>
+      </div>
+      <div class="pbar card">
+        <div class="ptop"><b>Client portal</b><span>Meridian Law · as your studio</span></div>
+        <div class="ebar">
+          <div class="chip-row" id="pchip"></div>
+          <div id="plane"></div>
+          <div id="pcomp"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec band">
+  <div class="wrap">
+    <div class="phone-sec">
+      <div class="phone" aria-label="The app on a phone: one bar">
+        <div class="ph-top"><span>9:41</span><span>Money → Invoices</span></div>
+        <div class="ph-body" id="phbody"></div>
+        <div class="ph-bar" id="phbar"></div>
+      </div>
+      <div>
+        <span class="eyebrow">On a phone</span>
+        <h2>One bar. <span class="pop">Every room behind it.</span></h2>
+        <p class="sub">Below the desktop the rail folds into the composer: the apps open from the grid button, the waiting count sits in the pill, and the chip still reads the floor. The same Earnest, one thumb away.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="pricing">
+  <div class="wrap">
+    <span class="eyebrow">Pricing</span>
+    <h2>Every feature. <span class="pop">Every plan.</span></h2>
+    <p class="sub">What you choose is scale. Monthly, or two months free on annual.</p>
+    <div class="ladder"><div class="ladder-scroll">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col">Solo<span class="p">$49<small> /mo</small></span></th><th scope="col" class="feat">Studio<span class="p">$149<small> /mo</small></span></th><th scope="col">Agency<span class="p">$299<small> /mo</small></span></th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Team seats</th><td>1</td><td class="feat">8</td><td>15</td></tr>
+          <tr><th scope="row">AI tokens / month</th><td>100K</td><td class="feat">400K</td><td>1M</td></tr>
+          <tr><th scope="row">File storage</th><td>25 GB</td><td class="feat">100 GB</td><td>500 GB</td></tr>
+          <tr><th scope="row">Client-portal seats</th><td>5</td><td class="feat">15</td><td>Unlimited</td></tr>
+          <tr><th scope="row">White-label</th><td>—</td><td class="feat">—</td><td>Add-on, $19/mo</td></tr>
+          <tr><th scope="row"></th><td><a class="btn" href="https://app.earnest.guru/register">Start free</a></td><td class="feat"><a class="btn primary" href="https://app.earnest.guru/register">Start free</a></td><td><a class="btn" href="https://app.earnest.guru/register">Start free</a></td></tr>
+        </tbody>
+      </table>
+    </div></div>
+    <p class="every"><strong>All six apps, the Boardroom, Creative Approvals and Earnest on every plan — on every floor.</strong> Earnest for your clients is a switch, not a tier. Extra storage $10/mo per 100 GB · more AI tokens if you run out.</p>
+  </div>
+</section>
+
+<section class="sec" id="faq" style="padding-top:0">
+  <div class="wrap">
+    <h2>Straight <span class="pop">answers.</span></h2>
+    <div class="faq">
+      <details open><summary>How does it know which floor I’m on?</summary><p>The floor is part of the address. Every floor of every app has its own sentence, written in that floor’s verbs, and that sentence travels with every ask. Open a record and the record’s own context goes instead. The chip above the composer shows you exactly what Earnest was told.</p></details>
+      <details><summary>Is it a different Earnest in every app?</summary><p>No. One Earnest, one memory, one conversation per app. Switching floors changes what it suggests and what it knows about the screen, not who you are talking to.</p></details>
+      <details><summary>Will it send emails or move money on its own?</summary><p>No. Earnest drafts, ranks and proposes. Anything that reaches a client or touches money waits for your tap, and approving creative work is the client’s tap, not Earnest’s.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="mark">Earnest<b>.</b></div>
+    <p class="tag">Do good work.</p>
+    <div class="actions">
+      <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+      <a class="btn" href="https://app.earnest.guru/try-demo?persona=solo">Try the live demo</a>
+    </div>
+  </div>
+</section>
+
+<footer data-footer></footer>
+
+<script src="shared.js"></script>
+<script>
+(function(){
+  E.wave(document.getElementById('wave'));
+  document.getElementById('floorCount').textContent = E.floorCount;
+
+  /* ── The walk ── */
+  var frame = document.getElementById('frame'), whereEl = document.getElementById('where');
+  var st = { app: 'money', floor: 'invoices', rec: null };
+  var userTouched = false, tourT = null;
+  function app(){ return E.APPS.filter(function(a){return a.key===st.app;})[0]; }
+  function floor(){ return app().floors.filter(function(f){return f.key===st.floor;})[0]; }
+  function render(){
+    var a = app(), f = floor(), rec = st.rec!=null ? f.recs[st.rec] : null;
+    whereEl.textContent = a.label + ' → ' + f.label + (rec ? ' → ' + rec.label : '');
+    var rail = '<div class="rail" role="tablist" aria-label="Apps">' + E.APPS.map(function(x){ return '<button role="tab" aria-selected="'+(x.key===st.app)+'" data-app="'+x.key+'"><span class="dot"></span>'+x.label+'</button>'; }).join('') + '</div>';
+    var floors = '<div class="floors" role="tablist" aria-label="Floors">' + a.floors.map(function(x){ return '<button role="tab" aria-selected="'+(x.key===st.floor)+'" data-floor="'+x.key+'">'+x.label+'</button>'; }).join('') + '<span class="fl-head">'+a.label+'</span></div>';
+    var body = '<div class="body"><div class="head"><b>'+E.esc(a.label)+': '+E.esc(f.label)+'</b><span>'+(f.recs.length? 'open a record' : 'nothing open')+'</span></div>' +
+      (f.recs.length ? f.recs.map(function(x,i){ return '<button class="rec" type="button" data-rec="'+i+'" aria-pressed="'+(st.rec===i)+'"><span>'+E.esc(x.label)+'<small>'+E.esc(x.sub)+'</small></span><span class="v'+(x.bad?' bad':'')+'">'+E.esc(x.v)+'</span></button>'; }).join('')
+        : '<p style="font-size:13px;color:var(--ink-3);padding:6px 4px">' + E.esc(f.focus.replace(/^the \w+ app, /, '').replace(/ floor — /, ': ')) + '</p>') + '</div>';
+    var chip = rec && rec.rows ? E.chip(rec.noun, rec.label) : E.chip(a.label, f.label, {fixed:true});
+    var focus = rec && rec.rows ? 'the ' + rec.noun + ' “' + rec.label + '”' : f.focus;
+    var rows = rec && rec.rows ? rec.rows : f.rows;
+    var bar = '<div class="bar"><div class="ebar"><div class="chip-row">'+chip+'<span class="focus-line">Earnest is told: <i>'+E.esc(focus)+'</i></span></div>'+E.lanes(rows)+E.composer({})+'</div></div>';
+    frame.innerHTML = rail + floors + body + bar;
+  }
+  frame.addEventListener('click', function(e){
+    var b = e.target.closest('[data-app],[data-floor],[data-rec]'); if(!b) return;
+    userTouched = true; clearTimeout(tourT);
+    if (b.dataset.app){ st.app=b.dataset.app; st.floor=app().floors[0].key; st.rec=null; }
+    else if (b.dataset.floor){ st.floor=b.dataset.floor; st.rec=null; }
+    else { var i=+b.dataset.rec; st.rec = (st.rec===i || !floor().recs[i].rows) ? null : i; }
+    render();
+  });
+  render();
+  // The tour: a walk the page takes on its own until the visitor touches it.
+  var TOUR=[{a:'money',f:'invoices',r:null},{r:0},{a:'work',f:'projects',r:null},{r:0},{a:'clients',f:'pursuits',r:null},{r:0},{a:'work',f:'calendar',r:null},{r:0},{a:'marketing',f:'studio',r:null},{a:'money',f:'expenses',r:null},{r:0},{a:'organization',f:'ai',r:null},{a:'clients',f:'clients',r:null},{r:0}];
+  var ti=0;
+  function step(){ if(userTouched) return; var s=TOUR[ti%TOUR.length]; ti++; if(s.a){st.app=s.a;} if(s.f){st.floor=s.f;} st.rec = s.r===undefined ? st.rec : s.r; render(); tourT=setTimeout(step, 3200); }
+  if(!E.reduce) tourT=setTimeout(step, 3200);
+
+  /* ── The sentences band ── */
+  var items = [];
+  E.APPS.forEach(function(a){ a.floors.forEach(function(f){ items.push('<span class="s">'+E.chip(a.label, f.label, {fixed:true})+'<span>'+E.esc(f.focus.replace(/^the \w+ app, [^—]+— /,''))+'</span></span>'); }); });
+  document.getElementById('track').innerHTML = items.join('') + '<span class="dup">' + items.join('') + '</span>';
+
+  /* ── Replies: the bold line types in ── */
+  E.type(document.getElementById('r1'), '$12,000 out across 6 invoices');
+  setTimeout(function(){ E.type(document.getElementById('r2'), 'Late, and waiting on one approval'); }, 600);
+
+  /* ── Portal bar ── */
+  var money = E.PORTAL.filter(function(p){return p.key==='money';})[0];
+  document.getElementById('pchip').innerHTML = E.chip('Money', 'Invoices', {fixed:true}) + '<span class="focus-line">as <i>Earnest Demo — Agency</i>, for Meridian Law</span>';
+  document.getElementById('plane').innerHTML = E.lanes(money.rows);
+  document.getElementById('pcomp').innerHTML = E.composer({text:'Ask us anything about your work with us…'});
+
+  /* ── Phone ── */
+  var inv = E.APPS[2].floors.filter(function(f){return f.key==='invoices';})[0];
+  document.getElementById('phbody').innerHTML = '<div class="head" style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink-3)"><b style="font-weight:400;color:var(--ink);letter-spacing:.08em;text-transform:uppercase">Money: Invoices</b><span>3 open</span></div>' + inv.recs.map(function(x){ return '<div class="rec" style="grid-template-columns:1fr auto"><span>'+E.esc(x.label)+'<small>'+E.esc(x.sub)+'</small></span><span class="v'+(x.bad?' bad':'')+'">'+E.esc(x.v)+'</span></div>'; }).join('');
+  document.getElementById('phbar').innerHTML = '<div class="chip-row">'+E.chip('Money','Invoices',{fixed:true})+'</div>' + E.lanes(inv.rows,{more:false}) + E.composer({grid:true, waiting:5});
+})();
+</script>
+</body>
+</html>
