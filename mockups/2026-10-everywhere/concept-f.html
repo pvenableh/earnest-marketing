@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en" data-look="paper" data-mode="light" data-keep-look>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Earnest — One Earnest. Every room. Including the client’s.</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* Concept F — "Every room, including the client's". Leads with EVERYWHERE:
+   the hero is the same invoice seen from two sides of the glass — the
+   studio's Earnest and the client's — then a Tuesday through six rooms.
+   Paper, light. */
+.hero{padding-block:64px 40px}
+.hero .top{text-align:center;max-width:62ch;margin-inline:auto}
+.hero .top .lede{margin-inline:auto;max-width:48ch}
+.hero .top .actions{justify-content:center}
+.hero .top .fine{margin-inline:auto;text-align:center}
+.glass{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:44px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow);border-radius:var(--r-card);overflow:hidden}
+@media(max-width:860px){.glass{grid-template-columns:1fr}}
+.side{padding:20px;display:grid;gap:12px;align-content:start;min-width:0}
+.side+.side{border-left:1px solid var(--line)}
+@media(max-width:860px){.side+.side{border-left:0;border-top:1px solid var(--line)}}
+.side .who{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.side .who b{font-weight:400;color:var(--ink)}
+.side .rec{border:1px solid var(--line);padding:10px 12px;font-size:14px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;background:var(--surface-2);border-radius:calc(var(--r-card) + 2px)}
+.side .rec small{display:block;color:var(--ink-3);font-size:12px}
+.side .rec .v{color:var(--bad);white-space:nowrap;font-variant-numeric:tabular-nums}
+.side .rec .v.ok{color:var(--ink-2)}
+.side .reply .lede{font-family:var(--font-display);font-size:19px}
+.side .acts{display:flex;gap:8px;flex-wrap:wrap}
+.sees{font-size:12.5px;color:var(--ink-3);border-top:1px dashed var(--line);padding-top:10px}
+.sees b{font-weight:400;color:var(--ink-2)}
+.sees .no{text-decoration:line-through;text-decoration-color:var(--pop)}
+
+/* the Tuesday */
+.day{margin-top:36px;display:grid;gap:0;border-top:1px solid var(--line)}
+.stop{display:grid;grid-template-columns:72px 1fr 1.2fr;gap:24px;padding:22px 0;border-bottom:1px solid var(--line);align-items:start}
+@media(max-width:900px){.stop{grid-template-columns:1fr;gap:12px}}
+.stop .t{font-family:var(--font-display);font-weight:var(--h-weight);text-transform:var(--h-transform);font-size:calc(22px*var(--h-scale));line-height:1;font-variant-numeric:tabular-nums}
+.stop .t small{display:block;font-family:var(--font-body);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:6px;font-weight:400}
+.stop h3{font-size:calc(21px*var(--h-scale))}
+.stop p{font-size:15px;color:var(--ink-2);margin-top:6px}
+.stop .ebar{align-content:start}
+.stop .ebar .lanes{flex-wrap:wrap}
+.stop .you-tap{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--ink-3);flex-wrap:wrap}
+.stop .you-tap b{font-weight:400;color:var(--ink);letter-spacing:.12em;text-transform:uppercase;font-size:11px}
+.stop .you-tap .btn{pointer-events:none}
+.tallyline{display:flex;gap:28px;flex-wrap:wrap;margin-top:28px;padding-top:4px}
+.tallyline div b{font-family:var(--font-display);font-weight:var(--h-weight);text-transform:var(--h-transform);font-size:calc(34px*var(--h-scale));line-height:1;display:block}
+.tallyline div span{font-size:13px;color:var(--ink-3)}
+
+/* client floors */
+.pfloors{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px}
+@media(max-width:900px){.pfloors{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.pfloors{grid-template-columns:1fr}}
+.pf{padding:14px;display:grid;gap:8px;align-content:start;min-width:0}
+.pf .ebar .lanes{flex-direction:column;align-items:stretch}
+.pf .ebar .lane{justify-content:flex-start;font-size:13px}
+.switch{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;margin-top:24px;border:1px solid var(--line);padding:14px 16px;font-size:14px;color:var(--ink-2);background:var(--surface)}
+.switch .tog{width:40px;height:22px;border-radius:999px;background:var(--line);position:relative}
+.switch .tog::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--ink-3)}
+.switch b{font-weight:400;color:var(--ink)}
+.switch small{display:block;color:var(--ink-3);font-size:12.5px;margin-top:2px}
+
+/* phone pair */
+.phones{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;max-width:700px;margin:32px auto 0}
+@media(max-width:620px){.phones{grid-template-columns:1fr}}
+.phones .cap{text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.phones .phone{min-height:460px}
+.phones .ph-body .rec{font-size:12.5px}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Site">
+  <div class="wrap">
+    <a href="#" class="mark">Earnest<b>.</b></a>
+    <ul><li><a href="#day">A Tuesday</a></li><li><a href="#clients">Clients</a></li><li><a href="#phone">Phone</a></li><li><a href="#pricing">Pricing</a></li></ul>
+    <div class="cta">
+      <div class="theme" data-theme-control></div>
+      <a class="btn demo" href="https://app.earnest.guru/try-demo?persona=agency">Live demo</a>
+      <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <canvas id="wave" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="top">
+      <span class="eyebrow">Earnest, everywhere</span>
+      <h1>One Earnest. Every room.<br><span class="pop">Including the client’s.</span></h1>
+      <p class="lede">The same Earnest on every floor of every app, reading the screen under you and ready with the next verb. And now, if you switch it on, <strong>in your client’s portal</strong> — answering as your studio, seeing only their side of the glass.</p>
+      <div class="actions">
+        <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+        <a class="btn" href="https://app.earnest.guru/try-demo?persona=agency">Try the agency demo</a>
+      </div>
+      <p class="fine">14-day trial, no card · Solo $49/mo · every feature on every plan · your data is never used to train the model</p>
+    </div>
+
+    <div class="glass" aria-label="The same invoice, from both sides">
+      <div class="side">
+        <div class="who"><span>Your side</span><b>Earnest Demo — Agency</b></div>
+        <div class="chip-row"></div>
+        <div class="rec"><span>INV-AGY-MER-2026-0042<small>Meridian Law · $6,400 · sent 92 days ago</small></span><span class="v">92 d overdue</span></div>
+        <div class="reply">
+          <span class="you">Why is this invoice overdue?</span>
+          <p class="lede" id="s1"></p>
+          <ul><li class="bad"><b>92 days</b><span>since it was sent; no reminder yet</span></li><li><b>159 days</b><span>since anyone at Meridian heard from you</span></li><li><b>0</b><span>disputes or notes on the invoice</span></li></ul>
+          <p class="ask">Draft a reminder to Amara, in your voice?</p>
+          <div class="say"><span class="sp">Said</span><span>It’s three months out and nobody has nudged them — and it’s been five since Meridian heard from you at all. Want the reminder drafted?</span></div>
+        </div>
+        <div class="acts"><a class="btn sm primary" href="#">Draft the reminder</a><a class="btn sm" href="#">Log a call instead</a></div>
+        <p class="sees"><b>Sees:</b> the invoice, its history, your notes, your brand voice, the pipeline, the other 11 invoices.</p>
+      </div>
+      <div class="side">
+        <div class="who"><span>Their side · the portal</span><b>Meridian Law</b></div>
+        <div class="chip-row" id="cchip"></div>
+        <div class="rec"><span>Invoice 0042<small>From Earnest Demo — Agency · $6,400</small></span><span class="v">due 92 days ago</span></div>
+        <div class="reply">
+          <span class="you">What do I owe right now?</span>
+          <p class="lede" id="s2"></p>
+          <ul><li class="bad"><b>$6,400</b><span>invoice 0042, due 92 days ago</span></li><li><b>1</b><span>contract waiting for your signature</span></li><li><b>0</b><span>proposals waiting on you</span></li></ul>
+          <p class="ask">Open the invoice to pay it, or book time with the team?</p>
+          <div class="say"><span class="sp">Said</span><span>One invoice, sixty-four hundred, and it’s three months past due. There’s also a contract waiting for your signature.</span></div>
+        </div>
+        <div class="acts"><a class="btn sm primary" href="#">Open the invoice</a><a class="btn sm" href="#">Book time with the team</a></div>
+        <p class="sees"><b>Sees:</b> their invoices, projects, requests, boards and meetings. <span class="no">Your notes</span> · <span class="no">your margins</span> · <span class="no">your other clients</span> · <span class="no">your pipeline</span>.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="sec" id="day">
+  <div class="wrap">
+    <span class="eyebrow">A Tuesday</span>
+    <h2>Six rooms. <span class="pop">One Earnest in each.</span></h2>
+    <p class="sub">Every stop is a floor or a record, the rows Earnest offered there, the one you tapped, and what you did with the card. Every number is the demo workspace’s.</p>
+    <div class="day" id="dayList"></div>
+    <div class="tallyline">
+      <div><b>6</b><span>rooms</span></div>
+      <div><b>6</b><span>cards proposed</span></div>
+      <div><b>6</b><span>taps, yours</span></div>
+      <div><b>2</b><span>held — they reached a client</span></div>
+      <div><b>0</b><span>sent without you</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec band" id="clients">
+  <div class="wrap">
+    <span class="eyebrow">The client’s six floors</span>
+    <h2>What your client can ask, <span class="pop">floor by floor.</span></h2>
+    <p class="sub">Home, Work, Requests, Approvals, Schedule and Money — the portal has floors now too, and Earnest reads them the same way. Three rows on each. Three verbs in all: log a request, leave a note, book time.</p>
+    <div class="pfloors" id="pfloors"></div>
+    <div class="switch">
+      <span class="tog" aria-hidden="true"></span>
+      <span><b>Earnest for your clients</b> — Organization → AI &amp; Tokens. <small>Off by default. Answers as your studio, in your brand voice. Tokens bill your plan, so you decide which clients get it and when.</small></span>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="phone">
+  <div class="wrap">
+    <div style="text-align:center;max-width:60ch;margin-inline:auto">
+      <span class="eyebrow">On a phone</span>
+      <h2>Both of you, <span class="pop">one bar each.</span></h2>
+      <p class="sub" style="margin-inline:auto">Below the desktop the rail folds into the composer, for you and for your client alike. The chip still reads the floor; the apps open from the grid button; the waiting count sits in the pill.</p>
+    </div>
+    <div class="phones">
+      <div><p class="cap">You · Money → Invoices</p><div class="phone"><div class="ph-top"><span>9:41</span><span>Earnest Demo — Agency</span></div><div class="ph-body" id="p1body"></div><div class="ph-bar" id="p1bar"></div></div></div>
+      <div><p class="cap">Meridian · Portal → Money</p><div class="phone"><div class="ph-top"><span>9:41</span><span>Client portal</span></div><div class="ph-body" id="p2body"></div><div class="ph-bar" id="p2bar"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec band" id="pricing">
+  <div class="wrap">
+    <span class="eyebrow">Pricing</span>
+    <h2>Every feature. <span class="pop">Every plan.</span></h2>
+    <p class="sub">What you choose is scale. Monthly, or two months free on annual.</p>
+    <div class="ladder"><div class="ladder-scroll">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col">Solo<span class="p">$49<small> /mo</small></span></th><th scope="col" class="feat">Studio<span class="p">$149<small> /mo</small></span></th><th scope="col">Agency<span class="p">$299<small> /mo</small></span></th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Team seats</th><td>1</td><td class="feat">8</td><td>15</td></tr>
+          <tr><th scope="row">AI tokens / month</th><td>100K</td><td class="feat">400K</td><td>1M</td></tr>
+          <tr><th scope="row">File storage</th><td>25 GB</td><td class="feat">100 GB</td><td>500 GB</td></tr>
+          <tr><th scope="row">Client-portal seats</th><td>5</td><td class="feat">15</td><td>Unlimited</td></tr>
+          <tr><th scope="row">Earnest for your clients</th><td>Switch</td><td class="feat">Switch</td><td>Switch</td></tr>
+          <tr><th scope="row">White-label</th><td>—</td><td class="feat">—</td><td>Add-on, $19/mo</td></tr>
+          <tr><th scope="row"></th><td><a class="btn" href="https://app.earnest.guru/register">Start free</a></td><td class="feat"><a class="btn primary" href="https://app.earnest.guru/register">Start free</a></td><td><a class="btn" href="https://app.earnest.guru/register">Start free</a></td></tr>
+        </tbody>
+      </table>
+    </div></div>
+    <p class="every"><strong>All six apps, the Boardroom, Creative Approvals and Earnest on every plan.</strong> Extra storage $10/mo per 100 GB · more AI tokens if you run out.</p>
+  </div>
+</section>
+
+<section class="sec" id="faq" style="padding-top:0">
+  <div class="wrap">
+    <h2>Straight <span class="pop">answers.</span></h2>
+    <div class="faq">
+      <details open><summary>What can my client’s Earnest see?</summary><p>Exactly what that client can already open in their portal: their projects, requests, approval boards, invoices, proposals, contracts and meetings. Not your notes, your hours, your rates, your margins, your pipeline or any other client. Ask it for any of those and it says it cannot see that.</p></details>
+      <details><summary>What can it do for them?</summary><p>Three things, each one a card they tap: log a request, leave a note on a project or request, book time with your team. It cannot approve work, pay an invoice or sign anything — those stay the client’s own taps, in the portal.</p></details>
+      <details><summary>Who pays for it?</summary><p>You do, out of your plan’s monthly tokens, which is why it is a switch you flip rather than something every client gets. Flip it on for the clients who would use it.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="mark">Earnest<b>.</b></div>
+    <p class="tag">Do good work.</p>
+    <div class="actions">
+      <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+      <a class="btn" href="https://app.earnest.guru/try-demo?persona=agency">Try the agency demo</a>
+    </div>
+  </div>
+</section>
+
+<footer data-footer></footer>
+
+<script src="shared.js"></script>
+<script>
+(function(){
+  E.wave(document.getElementById('wave'));
+  function floorOf(app, key){ return E.APPS.filter(function(a){return a.key===app;})[0].floors.filter(function(f){return f.key===key;})[0]; }
+
+  /* hero chips */
+  document.querySelector('.glass .side .chip-row').innerHTML = E.chip('Invoice', 'INV-AGY-MER-2026-0042');
+  document.getElementById('cchip').innerHTML = E.chip('Invoice', '0042');
+  E.type(document.getElementById('s1'), 'Nobody has asked, in 92 days');
+  setTimeout(function(){ E.type(document.getElementById('s2'), '$6,400, overdue'); }, 500);
+
+  /* the Tuesday */
+  var STOPS = [
+    { t:'8:07', app:'People', f:floorOf('clients','clients'), tap:0, h:'Who has gone quiet', p:'Four clients past 140 days. Earnest proposes a check-in with Meridian, who also holds the overdue invoice.', card:'Check-in with Amara Okafor · Thu 2:00', did:'Approve', held:false },
+    { t:'9:30', app:'Money', f:floorOf('money','invoices'), rec:floorOf('money','invoices').recs[0], tap:1, h:'The reminder, in your voice', p:'With the invoice open the rows are the invoice’s. The email is drafted warm and direct, first names, with the pay link.', card:'Email to Amara · invoice 0042 · pay link', did:'Send', held:true },
+    { t:'11:15', app:'Work', f:floorOf('work','projects'), rec:floorOf('work','projects').recs[0], tap:2, h:'Helios West, two weeks later', p:'Seven tasks and four events move in dependency order, the milestone invoice gets a new due date, and the note to Dana is held.', card:'Push 14 days · 11 items · 1 email held', did:'Approve all', held:true },
+    { t:'1:40', app:'Money', f:floorOf('money','expenses'), tap:0, h:'The Figma charge', p:'A floor Earnest could not see until this month. It reads the forwarded receipt and asks whether to bill it to Helios.', card:'$45 · Figma · billable to Helios Studio', did:'Approve', held:false },
+    { t:'3:05', app:'Marketing', f:floorOf('marketing','studio'), tap:0, h:'Pinecrest has nothing after Thursday', p:'Three posts from this month’s wins, in Pinecrest’s voice, onto the river. Drafts, not published.', card:'3 posts · Pinecrest · Fri, Mon, Wed', did:'Approve', held:false },
+    { t:'5:50', app:'Work', f:floorOf('work','calendar'), tap:1, h:'Tomorrow, booked', p:'Two follow-ups are due and there is a gap at 2. Earnest finds the time; the invite waits for your tap because it reaches a client.', card:'Helios launch review · Fri 10:00 · 60 min', did:'Send invite', held:false }
+  ];
+  document.getElementById('dayList').innerHTML = STOPS.map(function(s){
+    var chip = s.rec ? E.chip(s.rec.noun, s.rec.label) : E.chip(s.app, s.f.label, {fixed:true});
+    var rows = (s.rec ? s.rec.rows : s.f.rows).map(function(r,i){ return { lane:r.lane, t:r.t, on:i===s.tap }; });
+    var lanes = '<div class="lanes">'+rows.map(function(r){ return '<span class="lane" data-lane="'+r.lane+'" style="'+(r.on?'border-color:var(--pop);background:var(--pop-soft)':'opacity:.6')+'"><span class="k">'+{do:'Do',decide:'Decide',know:'Know'}[r.lane]+'</span><span>'+E.esc(r.t)+'</span></span>'; }).join('')+'</div>';
+    return '<div class="stop"><div class="t">'+s.t+'<small>'+E.esc(s.app)+'</small></div><div><h3>'+E.esc(s.h)+'</h3><p>'+E.esc(s.p)+'</p></div><div class="ebar"><div class="chip-row">'+chip+'</div>'+lanes+'<div class="you-tap"><b>Card</b><span>'+E.esc(s.card)+(s.held?' · <span style="color:var(--warn)">held</span>':'')+'</span><b>You</b><span class="btn sm primary">'+E.esc(s.did)+'</span></div></div></div>';
+  }).join('');
+
+  /* the client's floors */
+  document.getElementById('pfloors').innerHTML = E.PORTAL.map(function(p){
+    return '<div class="pf card"><div class="ebar"><div class="chip-row">'+E.chip('Portal', p.label, {fixed:true})+'</div>'+E.lanes(p.rows,{more:false})+'</div></div>';
+  }).join('');
+
+  /* phones */
+  var inv = floorOf('money','invoices');
+  document.getElementById('p1body').innerHTML = inv.recs.map(function(x){ return '<div class="rec" style="grid-template-columns:1fr auto"><span>'+E.esc(x.label)+'<small>'+E.esc(x.sub)+'</small></span><span class="v'+(x.bad?' bad':'')+'">'+E.esc(x.v)+'</span></div>'; }).join('');
+  document.getElementById('p1bar').innerHTML = '<div class="chip-row">'+E.chip('Money','Invoices',{fixed:true})+'</div>' + E.lanes(inv.rows,{more:false}) + E.composer({grid:true, waiting:5});
+  var pm = E.PORTAL.filter(function(p){return p.key==='money';})[0];
+  document.getElementById('p2body').innerHTML = [['Invoice 0042','$6,400 · due 92 days ago','overdue',true],['Contract — website care plan','awaiting your signature','sign',false],['Proposal — brand refresh','accepted 12 Aug','done',false]].map(function(x){ return '<div class="rec" style="grid-template-columns:1fr auto"><span>'+x[0]+'<small>'+x[1]+'</small></span><span class="v'+(x[3]?' bad':'')+'">'+x[2]+'</span></div>'; }).join('');
+  document.getElementById('p2bar').innerHTML = '<div class="chip-row">'+E.chip('Portal','Money',{fixed:true})+'</div>' + E.lanes(pm.rows,{more:false}) + E.composer({grid:true, text:'Ask us anything…'});
+})();
+</script>
+</body>
+</html>
