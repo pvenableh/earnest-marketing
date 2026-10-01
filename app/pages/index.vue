@@ -12,7 +12,7 @@ import { faqs } from '~/data/landing';
 import { features } from '~/data/features';
 
 const description =
-  "Ask anything. It already knows your business. Earnest is a real language model grounded in your clients, projects, invoices and brand, running the whole studio from six apps on one rail. It drafts the work and waits for your tap: nothing reaches a client or moves money without you.";
+  "It knows where you're standing. Earnest reads the screen you're on, drafts the next step and waits for your tap, on every floor of every app and, if you switch it on, in your client's portal. Nothing reaches a client or moves money without you.";
 
 // Built from `features.ts` rather than hand-listed, for the same reason the FAQ
 // is: a hand-kept list is a list that will describe surfaces the app no longer
@@ -25,7 +25,7 @@ const featureList = features
 const ogImage = 'https://earnest.guru/og/home.png';
 
 useHead({
-  title: 'Earnest — Ask anything. It already knows your business.',
+  title: 'Earnest — It knows where you’re standing.',
   meta: [{ name: 'description', content: description }],
   link: [{ rel: 'canonical', href: 'https://earnest.guru' }],
   script: [
@@ -69,8 +69,8 @@ useHead({
 });
 
 useSeoMeta({
-  title: 'Earnest — Ask anything. It already knows your business.',
-  ogTitle: 'Earnest — Ask anything. It already knows your business.',
+  title: 'Earnest — It knows where you’re standing.',
+  ogTitle: 'Earnest — It knows where you’re standing.',
   description,
   ogDescription: description,
   ogType: 'website',
@@ -79,10 +79,10 @@ useSeoMeta({
   ogImage,
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: 'Earnest — Focus, answering from a studio’s own data',
+  ogImageAlt: 'Earnest — the bar re-reading each floor of the app',
   robots: 'index, follow',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Earnest — Ask anything. It already knows your business.',
+  twitterTitle: 'Earnest — It knows where you’re standing.',
   twitterDescription: description,
   twitterImage: ogImage,
 });

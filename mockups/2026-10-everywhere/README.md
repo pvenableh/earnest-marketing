@@ -79,7 +79,7 @@ theirs), pricing with the switch as a row, FAQs about the client's Earnest.
 - The Tuesday is also the launch post and the sales deck.
 - Weakest on skimmability and on the solo persona, who has no portal clients.
 
-## Recommendation
+## Recommendation (ported to the live home on 2026-10-01)
 
 Ship **D's hero** on the live home, with **E's verb catalogue** as its second
 section and **F's two-sided invoice** as its third; keep F whole as the
@@ -88,6 +88,12 @@ sentence; the catalogue answers the question "AI" never answers; the split
 hero is the portal's picture. All three keep the September pricing ladder,
 FAQ shape, CTA and Hue's footer, so a port into `SellSheetHome.vue` leaves
 `landing.ts`'s plans and compare rows untouched.
+
+**As ported:** `Landing/Walk.vue` (D's hero), `Landing/Verbs.vue` (E's
+catalogue) and `Landing/TwoSides.vue` (F's split) read `app/data/
+landing-floors.ts`, the data table from `shared.js` typed. The AI Actions
+section came out, since the catalogue covers it; the copy across the page was
+cut to one idea per sentence. The Focus demo stays on the archived landings.
 
 ## Where the words and numbers come from
 
