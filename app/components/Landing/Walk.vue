@@ -168,7 +168,25 @@ onUnmounted(() => {
 	min-width: 0;
 	text-align: left;
 	display: grid;
-	grid-template-rows: auto auto auto 1fr auto;
+	grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+}
+/* ⚠️ A FIXED HEIGHT BESIDE THE COPY. The hero centres its two columns, so a
+   card that grew and shrank with each floor (two records here, three there,
+   lanes wrapping to one line or three) moved the headline up and down on
+   every step of the tour. The records area is the row that gives: it scrolls
+   if a floor ever needs more than fits. Below one column the copy sits above
+   the card, so the height can follow the content again. */
+@media (min-width: 901px) {
+	.l-walk {
+		/* Enough for three records and three wrapped lanes at the narrow end
+		   of two-up; the body scrolls only if a floor ever outgrows it. */
+		height: 650px;
+	}
+}
+@media (min-width: 1101px) {
+	.l-walk {
+		height: 608px;
+	}
 }
 .l-walk-top {
 	display: flex;
@@ -261,6 +279,8 @@ onUnmounted(() => {
 	gap: 6px;
 	align-content: start;
 	min-height: 168px;
+	min-width: 0;
+	overflow: auto;
 }
 .l-walk-head {
 	display: flex;
