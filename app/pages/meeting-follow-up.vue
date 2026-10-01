@@ -1,87 +1,105 @@
 <script setup lang="ts">
 /**
- * Daily.co "redirect on exit" landing page.
- * Where guests land after leaving a video meeting hosted inside Earnest.
- * /meeting-follow-up
+ * /meeting-follow-up — where guests land after a video call hosted in Earnest.
+ *
+ * The app sends them here itself (app/pages/meeting/[roomName].vue in the app
+ * repo), after its "How was the call?" step; `?rated=1` means they rated it.
+ * Signed-in people stay in the app and go to the recap instead.
+ *
+ * ⚠️ VOICE — same rules as app/data/landing.ts: no claim the app can't make
+ * good on today. In particular, after a call Earnest DRAFTS: the recap needs
+ * the call transcribed, action items become tasks or tickets on a tap, and a
+ * follow-up email is a draft the host sends. Nothing reaches a client without
+ * the host's tap. Never write that the pipeline moved, or that anything was
+ * sent, on its own.
  */
 
-const description = 'You just left a video meeting hosted inside Earnest — the AI-powered operating system that runs the business on the other side of that camera. Here\'s what was happening while you were talking.';
+const description =
+  'You just left a call hosted in Earnest. Here is what happens to the hour you just spent — and why the host never has to type it up.';
 
 useHead({
-  title: 'After the meeting — Earnest',
+  title: 'After the call — Earnest',
   link: [{ rel: 'canonical', href: 'https://earnest.guru/meeting-follow-up' }],
 });
 
 useSeoMeta({
-  title: 'After the meeting — Earnest',
-  ogTitle: 'After the meeting — Earnest',
+  title: 'After the call — Earnest',
+  ogTitle: 'After the call — Earnest',
   description,
   ogDescription: description,
   ogType: 'website',
   ogUrl: 'https://earnest.guru/meeting-follow-up',
   ogSiteName: 'Earnest',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'After the meeting — Earnest',
+  twitterTitle: 'After the call — Earnest',
   twitterDescription: description,
 });
 
 const config = useRuntimeConfig();
 const appUrl = config.public.appUrl || 'https://app.earnest.guru';
+const registerUrl = `${appUrl}/register`;
 const soloDemoUrl = `${appUrl}/try-demo?persona=solo`;
 
-const autoActions = [
+// The page is prerendered, so the query is read once it's in the browser.
+const route = useRoute();
+const rated = ref(false);
+onMounted(() => {
+  rated.value = route.query.rated === '1';
+});
+
+const afterTheCall = [
   {
     icon: 'i-lucide-file-text',
-    title: 'The call was logged.',
-    desc: 'Linked to the right contact and deal in the host\'s CRM — duration, attendees, recording, transcript, all attached.',
+    title: 'A recap, from what was said.',
+    desc: 'When the call is transcribed, Earnest writes the recap from the transcript, the notes taken during the call and the chat. The host reads it first.',
   },
   {
     icon: 'i-lucide-list-checks',
-    title: 'Action items were drafted.',
-    desc: 'Earnest read the transcript and drafted follow-up tasks, assigned to the right people, with sensible deadlines.',
+    title: 'Action items, one tap from real work.',
+    desc: 'Each action item Earnest pulls out becomes a task or a ticket on the right project with a tap. Nobody copies them out of a doc.',
   },
   {
-    icon: 'i-lucide-trending-up',
-    title: 'The pipeline moved.',
-    desc: 'If this was a sales call, the deal advanced a stage automatically. The next touchpoint is already on the calendar.',
+    icon: 'i-lucide-history',
+    title: 'Logged on the relationship.',
+    desc: 'The call lands on the client, project or lead it was about, next to the emails, calls and texts — so the next conversation starts where this one left off.',
   },
   {
-    icon: 'i-lucide-mail',
-    title: 'A follow-up was prepared.',
-    desc: 'A draft email is sitting in the host\'s inbox — written in their voice, referencing what you actually discussed.',
+    icon: 'i-lucide-hand',
+    title: 'Nothing goes out on its own.',
+    desc: 'Earnest can draft the follow-up email. It doesn’t send it. Nothing reaches a client and no money moves without the host’s tap.',
   },
 ];
 
 const sellPoints = [
   {
-    icon: 'i-lucide-sparkles',
-    name: 'One Earnest, on every screen.',
-    desc: 'There\'s a single Earnest, a tap away from anywhere — and it already knows what you\'re looking at: the client, the project, the invoice. No copy-paste, no re-explaining, no "let me give you the background."',
+    icon: 'i-lucide-map-pin',
+    name: 'It knows where you’re standing.',
+    desc: 'Earnest reads the screen you’re on — the client, the project, the invoice — drafts the next step, and waits for your tap.',
   },
   {
-    icon: 'i-lucide-brain-circuit',
-    name: 'A live map of the business.',
-    desc: 'The Context Broker assembles a real-time snapshot of every project, client, deal, and brand decision — then feeds it to a real language model — Anthropic\'s Claude, on no-training terms — on every call. The AI doesn\'t guess. It works from your actual business.',
+    icon: 'i-lucide-layers',
+    name: 'Say it. Tap it. Done.',
+    desc: 'Ask from any screen. Each thing Earnest does is a card you approve. Anything that reaches a client waits for you.',
   },
   {
     icon: 'i-lucide-blocks',
-    name: 'One platform. Zero tab-juggling.',
-    desc: 'Daily.co for video. Twilio for phone. Stripe for billing. Calendar, email, social, contracts, channels — all wired together. The host didn\'t open seven tabs to take this call.',
+    name: 'Six apps, one memory.',
+    desc: 'Clients, work, money, marketing and schedules are apps on one rail, not integrations. Calls live there too, so a recap sits next to the client’s invoices and the project’s tickets.',
   },
   {
-    icon: 'i-lucide-zap',
-    name: 'Instant where it counts.',
-    desc: 'A productivity engine scans tickets, projects, invoices, social, and goals and surfaces what matters next — computed in an instant, no tokens, no spinners. The language model steps in when you actually need words: a draft, a plan, a recap.',
-  },
-  {
-    icon: 'i-lucide-link-2',
-    name: 'Everything links to everything.',
-    desc: 'A meeting touches a contact, which lives in a deal, which sits in a pipeline, which feeds a goal, which trains the AI. Your data isn\'t in silos. It\'s in conversation.',
+    icon: 'i-lucide-users',
+    name: 'Your clients, too.',
+    desc: 'Switch it on and your clients get Earnest in their portal. It answers as your studio and sees only their side. Off by default.',
   },
   {
     icon: 'i-lucide-shield-check',
-    name: 'Your business, in one brain.',
-    desc: 'Stop paying for nine tools that don\'t talk to each other. Earnest replaces the CRM, the project tool, the invoicing app, the marketing dashboard, and the AI assistant — and the integration is the point.',
+    name: 'Your data stays yours.',
+    desc: 'Earnest runs on Anthropic’s Claude and starts from your organization, not a blank prompt. Your data is never used to train the model.',
+  },
+  {
+    icon: 'i-lucide-badge-check',
+    name: 'Every feature. Every plan.',
+    desc: 'Solo $49/mo, Studio $149/mo, Agency $299/mo — per workspace, not per action. What you choose is scale.',
   },
 ];
 </script>
@@ -93,24 +111,27 @@ const sellPoints = [
     <article class="mfu-article">
       <!-- Hero -->
       <header class="mfu-hero">
+        <p v-if="rated" class="mfu-thanks">
+          <UIcon name="i-lucide-star" class="mfu-thanks-ico" />
+          Thanks for rating the call — it went to the team that hosted it.
+        </p>
         <p class="mfu-kicker">After the call<span class="mfu-dot">.</span></p>
         <h1 class="mfu-title">
-          The meeting ended<span class="mfu-dot">.</span>
+          One call<span class="mfu-dot">.</span>
           <br />
-          The work started itself<span class="mfu-dot">.</span>
+          Nothing to retype<span class="mfu-dot">.</span>
         </h1>
         <p class="mfu-desc">
-          You just left a video room hosted inside <strong>Earnest</strong> — the AI-powered
-          operating system the person on the other side of that camera runs their business on.
-          While you were talking, Earnest was working.
+          You just left a call hosted in <strong>Earnest</strong> — where your host runs their studio:
+          clients, work, money and schedules in one place. Here’s what happens to the hour you just spent.
         </p>
       </header>
 
-      <!-- What just happened, automatically -->
+      <!-- What happens next, on the host's side -->
       <section class="mfu-auto">
-        <h2 class="mfu-label">What's already happened</h2>
+        <h2 class="mfu-label">What happens next, on their side</h2>
         <div class="mfu-auto-grid">
-          <div v-for="(item, i) in autoActions" :key="i" class="mfu-auto-card">
+          <div v-for="(item, i) in afterTheCall" :key="i" class="mfu-auto-card">
             <div class="mfu-auto-icon">
               <UIcon :name="item.icon" />
             </div>
@@ -121,27 +142,27 @@ const sellPoints = [
           </div>
         </div>
         <p class="mfu-auto-foot">
-          Nobody on the other side of that camera typed any of that.
-          <span class="mfu-foot-em">Earnest did.</span>
+          Nobody typed it up.
+          <span class="mfu-foot-em">Earnest drafted it. A person said yes.</span>
         </p>
       </section>
 
-      <!-- The quote / brand statement -->
+      <!-- The line -->
       <section class="mfu-pull">
         <p class="mfu-pull-text">
-          Most software watches you work<span class="mfu-dot">.</span>
+          It drafts the next step<span class="mfu-dot">.</span>
           <br />
-          <span class="mfu-pull-em">Earnest works alongside you<span class="mfu-dot">.</span></span>
+          <span class="mfu-pull-em">It waits for your tap<span class="mfu-dot">.</span></span>
         </p>
       </section>
 
       <!-- Sell points -->
       <section class="mfu-sell">
-        <h2 class="mfu-label">Why the integration is the point</h2>
+        <h2 class="mfu-label">It knows because they run the studio here</h2>
         <p class="mfu-sell-intro">
-          A video call isn't really about video. It's about everything that happens around it —
-          the relationship, the pipeline, the follow-up, the invoice that goes out three weeks later.
-          When all of that lives in one system, AI stops being a chatbot and starts being a teammate.
+          A call is never just a call. It belongs to a client, a project, an invoice that goes out three weeks
+          later. When all of that lives in one place, Earnest can draft the next step — because it already knows
+          where you’re standing.
         </p>
         <div class="mfu-sell-grid">
           <div v-for="(point, i) in sellPoints" :key="i" class="mfu-sell-card">
@@ -157,28 +178,35 @@ const sellPoints = [
       <!-- Try live CTA -->
       <section class="mfu-try-live">
         <div class="mfu-try-live-text">
-          <h2 class="mfu-try-live-title">See it from the host's seat.</h2>
-          <p class="mfu-try-live-sub">
-            Open the public demo — real data, no signup, ~2&nbsp;minutes.
-          </p>
+          <h2 class="mfu-try-live-title">See it from the host’s seat.</h2>
+          <p class="mfu-try-live-sub">The live demo runs on sample data. No sign-up.</p>
         </div>
         <a :href="soloDemoUrl" class="mfu-try-live-btn">
           <UIcon name="i-lucide-play-circle" class="mfu-try-live-ico" />
-          <span>Open the demo</span>
+          <span>Try the live demo</span>
         </a>
       </section>
 
       <!-- Final CTA -->
       <section class="mfu-cta-block">
-        <p class="mfu-cta-kicker">Run your business in one place.</p>
-        <h2 class="mfu-cta-title">Do good work<span class="mfu-cta-dot">.</span></h2>
+        <h2 class="mfu-cta-title">
+          Start with the pile
+          <br />
+          that’s bothering you<span class="mfu-cta-dot">.</span>
+        </h2>
+        <p class="mfu-cta-hand">Do good work.</p>
         <p class="mfu-cta-sub">
-          Every feature included. No per-seat AI tax. No integration spaghetti.
+          Set up takes a few minutes. Bring in one client, one project or one unpaid invoice, and Earnest starts
+          drafting with you on day one.
         </p>
         <div class="mfu-cta-actions">
-          <a :href="appUrl + '/register'" class="mfu-cta-btn-primary">Start free trial</a>
-          <nuxt-link to="/features" class="mfu-cta-btn-ghost">Browse features</nuxt-link>
+          <a :href="registerUrl" class="mfu-cta-btn-primary">Start free</a>
+          <a :href="soloDemoUrl" class="mfu-cta-btn-ghost">Try the live demo</a>
         </div>
+        <p class="mfu-cta-note">
+          14-day trial, no card · Solo $49/mo · every feature on every plan · your data is never used to train the
+          model
+        </p>
       </section>
     </article>
 
@@ -221,6 +249,19 @@ const sellPoints = [
   letter-spacing: -0.02em;
 }
 .mfu-dot { color: #00bfff; }
+.mfu-thanks {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  margin-bottom: 28px;
+  background: rgba(0, 191, 255, 0.08);
+  border: 1px solid rgba(0, 191, 255, 0.18);
+  border-radius: 100px;
+  font-size: 13px;
+  color: #0a0a0a;
+}
+.mfu-thanks-ico { width: 14px; height: 14px; color: #00bfff; }
 .mfu-desc {
   font-size: 18px;
   line-height: 1.65;
@@ -414,14 +455,6 @@ const sellPoints = [
   border-radius: 20px;
   margin: 24px 0 56px;
 }
-.mfu-cta-kicker {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.5);
-  margin-bottom: 14px;
-}
 .mfu-cta-title {
   font-family: 'Proxima Nova W01 Regular', system-ui, sans-serif;
   font-size: clamp(32px, 4.5vw, 48px);
@@ -429,6 +462,19 @@ const sellPoints = [
   letter-spacing: -0.02em;
 }
 .mfu-cta-dot { color: #00bfff; }
+.mfu-cta-hand {
+  font-size: 15px;
+  font-weight: 600;
+  color: #00bfff;
+  margin-top: 14px;
+}
+.mfu-cta-note {
+  font-size: 12px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.4);
+  max-width: 520px;
+  margin: 20px auto 0;
+}
 .mfu-cta-sub {
   font-size: 14px;
   color: rgba(255, 255, 255, 0.55);
