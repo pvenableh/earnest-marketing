@@ -67,8 +67,11 @@
 						It knows where <span class="g-accent-text">you’re standing</span><span class="e-hero-period">.</span>
 					</h1>
 					<p class="e-hero-tagline opacity-0">Do good work<span class="e-dot">.</span></p>
+					<!-- The first sentence is the plain "what is this" Google's OAuth brand review reads for. Keep it literal. -->
 					<p class="e-hero-sub opacity-0">
-						Earnest reads the screen you’re on, <strong>drafts the next step</strong>, and waits for your tap.
+						Earnest is business software for agencies, studios and freelancers: clients, projects, invoices,
+						scheduling and marketing in one app. It reads the screen you’re on, <strong>drafts the next step</strong>,
+						and waits for your tap.
 					</p>
 					<div class="e-hero-actions opacity-0">
 						<a :href="registerUrl" class="e-btn e-btn-primary g-press">Start free</a>
@@ -133,7 +136,8 @@
 				<h2 class="e-h2" data-anim="rise">It knows because <span class="g-accent-text">you run the studio here</span><span class="e-dot">.</span></h2>
 				<p class="e-section-sub" data-anim="rise">
 					Clients, work, money, marketing and schedules are apps on one rail, not integrations. Every screen
-					feeds the same memory. Pick a lens on Home and watch it re-rank.
+					feeds the same memory. Pick a lens on Home and watch it re-rank. Connect your Google or Outlook calendar
+					and clients can only book the times you’re free, and every booking lands on your calendar.
 				</p>
 			</div>
 			<div data-anim="scale">

@@ -21,7 +21,7 @@ useSeoMeta({
 	ogSiteName: 'Earnest',
 });
 
-const lastUpdated = 'September 29, 2026';
+const lastUpdated = 'October 2, 2026';
 const contactEmail = 'hello@earnest.guru';
 const businessName = 'Hue';
 const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
@@ -427,6 +427,71 @@ const websiteUrl = 'https://huestudios.com';
 					See our
 					<nuxt-link to="/data-deletion" class="text-primary hover:underline">Data Deletion Instructions</nuxt-link>
 					for step-by-step guidance.
+				</p>
+			</section>
+
+			<!-- Google API disclosure — what Google's OAuth verification reads. Keep it true to the code:
+			     today Google Calendar data feeds the scheduler only and is never sent to the AI provider. -->
+			<section id="google-user-data" class="mb-10">
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">16. Google User Data</h2>
+				<p>
+					When you connect a Google account to Earnest's Scheduler, Earnest asks Google for permission to use your
+					Google Calendar. This section explains exactly what we access and what we do with it.
+				</p>
+
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">What we access</h3>
+				<ul class="list-disc pl-6 space-y-2">
+					<li>
+						<strong>Your Google account email address,</strong> to label the connection so you can tell several
+						connected accounts apart.
+					</li>
+					<li>
+						<strong>Your calendars and their events and free/busy times,</strong> to work out when you are free so
+						people can only book open times, and to show your Google events alongside your Earnest schedule.
+					</li>
+					<li>
+						<strong>Events Earnest creates,</strong> to add each booking to the calendar you choose and to update or
+						remove it when the booking is rescheduled or cancelled.
+					</li>
+				</ul>
+
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">How we use and protect it</h3>
+				<ul class="list-disc pl-6 space-y-2">
+					<li>We use Google user data only to provide the scheduling features you turned on.</li>
+					<li>
+						We do not sell Google user data and do not use it for advertising, including personalized or retargeted
+						advertising.
+					</li>
+					<li>
+						We do not share Google user data with third parties, except as needed to run the feature (our hosting and
+						database providers, listed in Section 6), to comply with law, or as part of a merger or acquisition with
+						notice to you.
+					</li>
+					<li>
+						We do not send Google user data to our AI provider, and we do not use it to develop, improve, or train
+						generalized artificial intelligence or machine learning models, ours or anyone else's.
+					</li>
+					<li>
+						Our staff do not read your Google user data unless you ask us to for support, it is needed for security
+						purposes such as investigating abuse, or the law requires it.
+					</li>
+				</ul>
+
+				<p class="mt-4">
+					Earnest's use and transfer to any other app of information received from Google APIs will adhere to the
+					<a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener" class="text-primary hover:underline">Google API Services User Data Policy</a>,
+					including the Limited Use requirements.
+				</p>
+
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">Disconnecting and deletion</h3>
+				<p>
+					You can disconnect Google at any time in Earnest under Scheduler → Settings → Connected calendars, or from
+					your Google Account at
+					<a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener" class="text-primary hover:underline">myaccount.google.com/permissions</a>.
+					When you disconnect, we delete the stored tokens and stop reading your calendar. Events Earnest already added
+					to your calendar stay there unless you delete them. To have all of your data deleted, follow our
+					<nuxt-link to="/data-deletion" class="text-primary hover:underline">Data Deletion Instructions</nuxt-link>
+					or email <a :href="`mailto:${contactEmail}`" class="text-primary hover:underline">{{ contactEmail }}</a>.
 				</p>
 			</section>
 		</div>
