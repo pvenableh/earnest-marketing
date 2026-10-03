@@ -21,7 +21,7 @@ useSeoMeta({
 	ogSiteName: 'Earnest',
 });
 
-const lastUpdated = 'October 2, 2026';
+const lastUpdated = 'October 3, 2026';
 const contactEmail = 'hello@earnest.guru';
 const businessName = 'Hue';
 const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
@@ -430,8 +430,10 @@ const websiteUrl = 'https://huestudios.com';
 				</p>
 			</section>
 
-			<!-- Google API disclosure — what Google's OAuth verification reads. Keep it true to the code:
-			     today Google Calendar data feeds the scheduler only and is never sent to the AI provider. -->
+			<!-- Google API disclosure — what Google's OAuth verification reads. Keep it true to the code
+			     (earnest repo: server/utils/calendar/*, docs/calendar-sync-plan.md). Since calendar sync CS7
+			     (2026-10-03) Earnest keeps a copy of busy times and receives change notifications; the assistant's
+			     find-a-time tool sees open times that already exclude Google busy time, never events. -->
 			<section id="google-user-data" class="mb-10">
 				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">16. Google User Data</h2>
 				<p>
@@ -450,8 +452,36 @@ const websiteUrl = 'https://huestudios.com';
 						people can only book open times, and to show your Google events alongside your Earnest schedule.
 					</li>
 					<li>
+						<strong>Notices that a calendar changed.</strong> Google tells Earnest when something changes on a
+						calendar you connected, so a new event blocks its time within a minute instead of waiting for the next
+						check.
+					</li>
+					<li>
 						<strong>Events Earnest creates,</strong> to add each booking to the calendar you choose and to update or
-						remove it when the booking is rescheduled or cancelled.
+						remove it when the booking is rescheduled or cancelled. If you move or delete one of these events in
+						Google Calendar, Earnest notices and asks you whether to move or cancel the booking too. It never changes
+						a booking on its own.
+					</li>
+				</ul>
+
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">What we store, and for how long</h3>
+				<ul class="list-disc pl-6 space-y-2">
+					<li>
+						<strong>Access tokens,</strong> encrypted, for as long as the account stays connected.
+					</li>
+					<li>
+						<strong>Your calendar list</strong> (each calendar's name and color, and your settings for it), so you
+						can choose which calendars block your availability and which one receives bookings.
+					</li>
+					<li>
+						<strong>Busy times:</strong> the start and end of the busy events on the calendars you chose, with the
+						event's identifier — never its title, description, location or guests. We keep these so booking pages
+						load without asking Google each time. Past busy times are removed within a few days after the event
+						ends.
+					</li>
+					<li>
+						<strong>Identifiers of the events Earnest created,</strong> and the times Earnest wrote, so it can update
+						or remove them later and tell your own changes apart from its own.
 					</li>
 				</ul>
 
@@ -468,8 +498,11 @@ const websiteUrl = 'https://huestudios.com';
 						notice to you.
 					</li>
 					<li>
-						We do not send Google user data to our AI provider, and we do not use it to develop, improve, or train
-						generalized artificial intelligence or machine learning models, ours or anyone else's.
+						When you ask Earnest's assistant to find a time, it sees the open times on your booking calendar, which
+						already account for your Google busy times. It never sees your Google events, their titles or their
+						details. We do not use Google user data to develop, improve, or train generalized artificial
+						intelligence or machine learning models, ours or anyone else's, and our AI provider does not train on it
+						(see Section 4).
 					</li>
 					<li>
 						Our staff do not read your Google user data unless you ask us to for support, it is needed for security
@@ -488,8 +521,9 @@ const websiteUrl = 'https://huestudios.com';
 					You can disconnect Google at any time in Earnest under Scheduler → Settings → Connected calendars, or from
 					your Google Account at
 					<a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener" class="text-primary hover:underline">myaccount.google.com/permissions</a>.
-					When you disconnect, we delete the stored tokens and stop reading your calendar. Events Earnest already added
-					to your calendar stay there unless you delete them. To have all of your data deleted, follow our
+					When you disconnect, we stop Google's change notices, delete the stored tokens, your calendar list and the
+					busy times we kept, and stop reading your calendar. Events Earnest already added to your calendar stay there
+					unless you delete them. To have all of your data deleted, follow our
 					<nuxt-link to="/data-deletion" class="text-primary hover:underline">Data Deletion Instructions</nuxt-link>
 					or email <a :href="`mailto:${contactEmail}`" class="text-primary hover:underline">{{ contactEmail }}</a>.
 				</p>
