@@ -1,18 +1,21 @@
 <script setup lang="ts">
-// The landing page. `SellSheetLive` (the 2026-07 point-based sell sheet) is
-// archived at /live-2026-07; the older variants live at /classic, /glass,
-// /next, /director and /automation, all noindex.
+// The landing page: "Do good work." (October 2026, `GoodWork/Home.vue`).
+// The September sell sheet it replaced (`SellSheetHome`) is no longer
+// routed; the site as it stood is branch `sellsheet-2026-10-everywhere`.
+// `SellSheetLive` (2026-07) is archived at /live-2026-07; the older variants
+// live at /classic, /glass, /next, /director and /automation, all noindex.
 //
 // ⚠️ The FAQ used to be written out TWICE — once as HTML inside the landing
 // component and once, hand-copied to plain text, here for the FAQPage rich
 // result. They drifted, so the structured data kept answering questions the
-// page had already reworded. Both now read `faqs` from `~/data/landing`, which
-// carries the rendered answer and its plain-text twin side by side.
-import { faqs } from '~/data/landing';
+// page had already reworded. Both now read `homeFaqs` from `~/data/good-work`,
+// which carries the rendered answer and its plain-text twin side by side.
+import { homeFaqs } from '~/data/good-work';
 import { features } from '~/data/features';
 
+const title = 'Earnest — Do good work.';
 const description =
-  "It knows where you're standing. Earnest reads the screen you're on, drafts the next step and waits for your tap, on every floor of every app and, if you switch it on, in your client's portal. Nothing reaches a client or moves money without you.";
+  'Business software for people who mean it. Clients, projects, invoices, scheduling and marketing in one app, for agencies, firms, practices and shops. Earnest drafts the next step; nothing reaches a client or moves money without your tap.';
 
 // Built from `features.ts` rather than hand-listed, for the same reason the FAQ
 // is: a hand-kept list is a list that will describe surfaces the app no longer
@@ -22,13 +25,25 @@ const featureList = features
   .map((f) => f.name)
   .join(', ');
 
-const ogImage = 'https://earnest.guru/og/home.png';
+const ogImage = 'https://earnest.guru/og/good-work.png';
 
 useHead({
-  title: 'Earnest — It knows where you’re standing.',
+  title,
   meta: [{ name: 'description', content: description }],
   link: [{ rel: 'canonical', href: 'https://earnest.guru' }],
+  // `gw-root` lets good-work.css paint <html> itself (overscroll, the bounce
+  // above the nav) in the page colour; Nuxt removes it on the way out.
+  htmlAttrs: { class: 'gw-root' },
   script: [
+    {
+      // Light or dark before first paint, so nobody sees the wrong one flash:
+      // a `#dark` / `#light` deep link, then the visitor's own choice, then the
+      // system. GoodWork/Home.vue flips and remembers it from there.
+      key: 'gw-mode',
+      tagPosition: 'head',
+      innerHTML:
+        "(function(){var r=document.documentElement,h=location.hash.slice(1),m=null;if(h==='dark'||h==='light')m=h;else{try{m=localStorage.getItem('earnest-mode')}catch(e){}}if(m!=='dark'&&m!=='light')m=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';r.setAttribute('data-gw-mode',m)})()",
+    },
     {
       type: 'application/ld+json',
       innerHTML: JSON.stringify({
@@ -55,7 +70,7 @@ useHead({
       innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        mainEntity: faqs.map((f) => ({
+        mainEntity: homeFaqs.map((f) => ({
           '@type': 'Question',
           name: f.q,
           // The plain-text twin. Google strips markup from FAQPage answers
@@ -69,8 +84,8 @@ useHead({
 });
 
 useSeoMeta({
-  title: 'Earnest — It knows where you’re standing.',
-  ogTitle: 'Earnest — It knows where you’re standing.',
+  title,
+  ogTitle: title,
   description,
   ogDescription: description,
   ogType: 'website',
@@ -79,15 +94,15 @@ useSeoMeta({
   ogImage,
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: 'Earnest — the bar re-reading each floor of the app',
+  ogImageAlt: 'Earnest — Do good work. Business software for people who mean it.',
   robots: 'index, follow',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Earnest — It knows where you’re standing.',
+  twitterTitle: title,
   twitterDescription: description,
   twitterImage: ogImage,
 });
 </script>
 
 <template>
-  <SellSheetHome />
+  <GoodWorkHome />
 </template>
