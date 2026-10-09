@@ -24,26 +24,67 @@ import type { Faq } from './landing';
 const APP_ORIGIN = 'https://app.earnest.guru';
 
 /* ── Photography ──────────────────────────────────────────────────────────
-   The mockup hot-linked Unsplash stills and Mixkit clips as placeholders.
-   The site ships none of them: every slot below is empty until a real shoot
-   (or a licensed copy in `public/photos/`) fills it, and an empty slot
-   renders a gradient made for that place (good-work.css · Slots). Filling
-   one is a `src` here and nothing else. The README's shot list says what
-   each slot is for. */
+   Licensed copies, in `public/photos/` (1800px, and a 1000px one for phones)
+   and `public/video/` (12 s, 720p, no audio, ~0.5–0.8 MB). Downloaded
+   2026-10-09 with Peter's go-ahead; each `credit` names the source page and
+   its licence. Unsplash License and the Mixkit Stock Video Free License both
+   allow commercial use on a website without attribution; the credit is kept
+   here so a swap knows what it is replacing. A slot with `src: null` renders
+   the gradient made for that place (good-work.css · slots), so a real shoot
+   replaces each one by its `src` and nothing else. The README's shot list
+   says what each place is for.
+
+   ⚠️ Mixkit has TWO licences. The mockup's hero sunrise (26532) is under the
+   Restricted Licence — personal use only — so it is not here; 26081 is its
+   free-licence replacement. Check the item page before adding any clip. */
 export interface PhotoSlot {
 	/** A file under `public/`, e.g. `/photos/hero.jpg`. Null renders the fallback. */
 	src: string | null;
+	/** The same photograph at 1000px, for phones. */
+	small?: string;
 	alt: string;
-	/** An ambient loop under the still, e.g. `/video/hero.mp4`. Played only in view, never under reduced motion. */
+	/** An ambient loop over the still, e.g. `/video/hero.mp4`. Played only in view, never under reduced motion or Save-Data. */
 	video?: string | null;
+	credit?: string;
 }
 
 export const photos: Record<'hero' | 'client' | 'field' | 'keep' | 'close', PhotoSlot> = {
-	hero: { src: null, video: null, alt: 'Someone walking to work, early, out of focus' },
-	client: { src: null, alt: 'A client across the table, mid-sentence' },
-	field: { src: null, video: null, alt: 'A field moving in the wind' },
-	keep: { src: null, alt: 'Late light across a desk' },
-	close: { src: null, alt: 'Hands in the work, being made' },
+	hero: {
+		src: '/photos/hero.jpg',
+		small: '/photos/hero-1000.jpg',
+		video: '/video/hero.mp4',
+		alt: 'A crowd walking a city street in the morning, out of focus',
+		credit:
+			'Still: Diego Apolo, unsplash.com/photos/DpKt0-Nvi6I (Unsplash License). Loop: Mixkit 26081 “Plateau in the middle of a large meadow, aerial shot” (Mixkit Stock Video Free License).',
+	},
+	client: {
+		src: '/photos/client.jpg',
+		small: '/photos/client-1000.jpg',
+		alt: 'A small team and a client in a sunlit office, mid-conversation',
+		credit: 'Sable Flow, unsplash.com/photos/KHpjeuaWOec (Unsplash License).',
+	},
+	field: {
+		src: '/photos/field.jpg',
+		small: '/photos/field-1000.jpg',
+		video: '/video/field.mp4',
+		alt: 'A white curtain in daylight',
+		credit:
+			'Still: J Shim, unsplash.com/photos/UHhlWF-hVE4 (Unsplash License). Loop: Mixkit 1709 “Sunlight crossing the branches of trees” (Mixkit Stock Video Free License).',
+	},
+	keep: {
+		src: '/photos/keep.jpg',
+		small: '/photos/keep-1000.jpg',
+		alt: 'Low gold light across two cups on a dark table',
+		// The mockup's photograph here could not be traced to a source page, so
+		// its licence could not be checked; this one replaced it.
+		credit: 'David Grandmougin, unsplash.com/photos/qPQKd1tjdtE (Unsplash License).',
+	},
+	close: {
+		src: '/photos/close.jpg',
+		small: '/photos/close-1000.jpg',
+		alt: 'A potter shaping clay on a wheel in a workshop',
+		credit: 'Vitaly Gariev, unsplash.com/photos/xUlNEFpNIaY (Unsplash License).',
+	},
 };
 
 /* ── The app, scrubbed by scroll ──────────────────────────────────────────

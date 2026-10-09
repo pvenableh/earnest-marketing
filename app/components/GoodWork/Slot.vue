@@ -8,8 +8,17 @@
 -->
 <template>
 	<div class="gw-slot" :class="{ 'gw-slot--empty': !photo.src }" :data-slot="name" aria-hidden="true">
-		<img v-if="photo.src" :src="photo.src" :alt="photo.alt" :loading="eager ? 'eager' : 'lazy'" decoding="async" />
-		<video v-if="photo.src && photo.video" data-ambient muted loop playsinline preload="none" :poster="photo.src">
+		<img
+			v-if="photo.src"
+			:src="photo.src"
+			:srcset="photo.small ? `${photo.small} 1000w, ${photo.src} 1800w` : undefined"
+			sizes="100vw"
+			:alt="photo.alt"
+			:loading="eager ? 'eager' : 'lazy'"
+			:fetchpriority="eager ? 'high' : undefined"
+			decoding="async"
+		/>
+		<video v-if="photo.src && photo.video" data-ambient muted loop playsinline preload="none">
 			<source :src="photo.video" type="video/mp4" />
 		</video>
 	</div>

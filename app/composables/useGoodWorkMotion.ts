@@ -6,7 +6,7 @@
  *
  * Everything respects prefers-reduced-motion: nothing slides, the creed is a
  * plain list, and videos never start (the still or the gradient under them
- * is the whole picture).
+ * is the whole picture). Save-Data keeps the videos off too.
  *
  * No GSAP. `useGlassMotion` drives the archived landings; this page needs
  * three scroll handlers and an IntersectionObserver, and a hidden document
@@ -85,7 +85,9 @@ export function useGoodWorkMotion(root: Ref<HTMLElement | null>) {
 		/* Ambient video — fetched only near the viewport, played only in it,
 		   faded in once it is actually playing. */
 		const vids = [...el.querySelectorAll<HTMLVideoElement>('video[data-ambient]')];
-		if (vids.length && 'IntersectionObserver' in window) {
+		// Save-Data (and Chrome's Lite mode) asks for less; the still is the whole picture then.
+		const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true;
+		if (vids.length && !saveData && 'IntersectionObserver' in window) {
 			const io = new IntersectionObserver(
 				(entries) => {
 					for (const e of entries) {
