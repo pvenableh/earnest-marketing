@@ -13,7 +13,7 @@ export interface Feature {
   name: string;
   slug: string;
   icon: string;
-  /** Which app / pillar this feature lives under in the revamped 7-app shell. */
+  /** Which app / pillar this feature lives under in the revamped shell (six apps on the rail). */
   pillar: PillarKey;
   desc: string;
   keywords: string[];
@@ -61,7 +61,7 @@ export interface Pillar {
   path: string;
   /** Floor tabs shown for this app in the revamped shell. */
   tabs: string[];
-  /** Whether this pillar is one of the seven rail apps (shown in the tour). */
+  /** Whether this pillar is one of the six rail apps (shown in the tour). */
   nav: boolean;
 }
 
@@ -213,13 +213,13 @@ export const features: Feature[] = [
     slug: 'productivity-engine',
     icon: 'i-lucide-layout-dashboard',
     pillar: 'home',
-    desc: 'Your home opens on a greeting with an honest read of the day — “22 things today — 5 need a decision, 13 are one tap each, 4 are just worth knowing” — then sorts everything into three piles. Decide holds what Earnest drafted and is waiting on you for. Do is one tap each. Know needs nothing, and is there so nothing surprises you later. The ranking is pure computation across tickets, projects, tasks, invoices, channels, approvals and deals: it loads instantly and spends no AI tokens. Only the greeting line is written by Claude, and it falls back to an instant one when you would rather it did not.',
+    desc: 'Home shows what is waiting for your yes, what is one tap, and what is just worth knowing, on one page you read from top to bottom. The line under the greeting only cites numbers the page already holds: “12 tasks closed this week. Further down: 6 one tap each, 2 worth considering, 3 just worth knowing.” Next come widgets you arrange yourself: Needs you is always there, and Money, Calendar, Schedule, People, client approvals, goals and charts are yours to add, move and resize. Then the decisions. Waiting for you is what Earnest drafted and cannot do without your yes, with Approve on each card; Recent is what it did this week, with Undo on anything reversible. Below that, Do is one tap each and Know needs nothing from you. Sorting all of it is plain computation across your tickets, projects, tasks, invoices, channels and deals, so the page spends no AI tokens to load. The one exception is the greeting, which Claude can write from those same numbers; switch personalised greetings off in Account and you get a plain “Good morning” instead.',
     keywords: ['home', 'decide do know', 'daily priorities', 'task prioritization', 'business dashboard'],
     benefits: [
-      'Three piles instead of a dashboard: Decide, Do, Know',
-      'Ranked instantly across every app — zero AI tokens',
-      'Four glance tiles: score, unpaid, pipeline, unread',
-      'Hold to arrange it — widgets jiggle, and a gallery holds the rest',
+      'Waiting for you: every drafted action, each one waiting for your yes',
+      'Do and Know below it, worked out without spending AI tokens',
+      'Widgets for Needs you, Money, Calendar, People, approvals and charts',
+      'Edit Home to drag, resize and add widgets, saved to your account',
     ],
   },
   {
@@ -227,13 +227,13 @@ export const features: Feature[] = [
     slug: 'home-lenses',
     icon: 'i-lucide-layers',
     pillar: 'home',
-    desc: 'One page, five ways of reading it. Everything shows it all; Money, Work, Clients and Creative narrow the glance tiles, the widgets, the Do and Know stacks and what is waiting for you down to one concern. The choice is remembered on the device you made it on. Behind it all sits an animated ambient background, which you can turn off in Appearance.',
+    desc: 'One page, five ways of reading it. Everything shows it all; Money, Work, Clients and Creative narrow the widgets, the glance tiles, the Do and Know stacks, and both Waiting for you and Recent down to one concern. The row of lenses only appears once at least two of them have something in them, and your choice is remembered on the device you made it on. Behind the page sits a slow animated background — waves or orbs — which you can switch off in Appearance.',
     keywords: ['lenses', 'home filters', 'ambient background', 'dashboard filters', 'dashboard views'],
     benefits: [
       'Everything · Money · Work · Clients · Creative over one page',
-      'Tiles, widgets and stacks narrow to one concern together',
-      'What is waiting for you narrows with them',
-      'Remembered per device; the ambient background is a switch',
+      'Widgets, tiles and stacks narrow to one concern together',
+      'Waiting for you and Recent narrow with them',
+      'Remembered per device; the animated background is a switch',
     ],
   },
   {
@@ -241,13 +241,13 @@ export const features: Feature[] = [
     slug: 'earnest-score',
     icon: 'i-lucide-trophy',
     pillar: 'home',
-    desc: 'The Earnest Score tracks six dimensions of performance — follow-through, consistency, responsiveness, proactivity, depth, and CRM activity — and distills them into a single daily score with a team leaderboard. Levels, streaks, and unlockable badges turn good habits into visible momentum.',
-    keywords: ['gamification', 'team score', 'badges', 'streaks', 'leaderboard', 'productivity'],
+    desc: 'An optional score that stays off until your organization turns it on in its settings. Switched on, each person gets a daily score built from six dimensions — follow-through, consistency, responsiveness, proactivity, depth and CRM activity — with Earnest Points, levels, streaks, badges and daily and weekly quests on top. It shows as one tile on Home, a line in your avatar menu, and a full page in Account with your trend and where you stand in the team. It stays out of your conversations with Earnest.',
+    keywords: ['gamification', 'productivity score', 'badges', 'streaks', 'quests', 'productivity'],
     benefits: [
-      'Six-dimension scoring: Follow-Through, Consistency, Responsiveness, Proactivity, Depth, CRM',
-      'Levels from Spark upward with EP-based progression',
-      'Badges celebrating milestones like long streaks and first deal closed',
-      'Team leaderboard and daily history charts for trend visibility',
+      'Opt-in per organization, and off by default',
+      'Six dimensions: follow-through, consistency, responsiveness, proactivity, depth, CRM',
+      'Earnest Points and levels from Spark upward, streaks, badges and quests',
+      'One tile on Home; the full breakdown, trend and team standing in Account',
     ],
   },
   {
@@ -283,12 +283,12 @@ export const features: Feature[] = [
     slug: 'goal-suggestions',
     icon: 'i-lucide-graduation-cap',
     pillar: 'home',
-    desc: 'Set what you are making time to get better at, and Earnest keeps it in front of you with a one-tap timer on the home. It can suggest goals from your real data — financial, networking, performance or marketing — and your progress feeds back into how the day is ranked.',
+    desc: 'Set what you are making time to get better at, and Earnest keeps it in front of you: a learning row on Home starts the timer toward it in one tap, and a Goals widget shows the hours you put in this week. It can suggest goals from your real data — revenue, growth, retention, learning, wellbeing or delivery — and your progress feeds back into how the day is ranked.',
     keywords: ['goal tracking', 'learning goals', 'OKRs', 'business goals', 'skill development'],
     benefits: [
-      'A goal widget on the home with a one-tap timer',
+      'One tap on Home starts the timer toward a goal',
       'Earnest suggests goals from your real business data',
-      'Financial, networking, performance and marketing categories',
+      'Revenue, growth, retention, learning, wellbeing and delivery goals',
       'Progress feeds back into how your day gets ranked',
     ],
   },
@@ -302,7 +302,7 @@ export const features: Feature[] = [
     desc: 'Clients, contacts, leads, and networking connections in one People app. Filter by Active, Prospects, Inactive, or Archived; switch between table and board; and drill into any record without losing your place. Brand context, goals, services, and the full history of every conversation and project travel with each person.',
     keywords: ['CRM', 'contact management', 'client management', 'people', 'business contacts'],
     benefits: [
-      'Clients, Contacts, Leads, Card Desk, and Intelligence in one app',
+      'Clients, Contacts, Pursuits, Card Desk, and Intelligence in one app',
       'Active / Prospects / Inactive / Archived filters with table + board views',
       'Full conversation and project history per record',
       'Brand context and goals attached to every client',
@@ -401,11 +401,11 @@ export const features: Feature[] = [
     slug: 'workspaces',
     icon: 'i-lucide-app-window',
     pillar: 'work',
-    desc: 'Every client and project gets a full workspace with parity tabs — Overview, Conversations, Tasks, Tickets, Time, Documents, Billing, Activity. An Earnest Notices banner flags what is overdue or off-track, and slide-over panels stack push/pop so you can drill from a list to a project to a contact without losing your place.',
+    desc: 'Every client and project gets a full workspace with the same five tabs — Overview, Work, Money, Files, People. Open one and the Earnest column is already scoped to that record, and slide-over panels stack push/pop so you can drill from a list to a project to a contact without losing your place.',
     keywords: ['workspaces', 'client workspace', 'project workspace', 'slide-over', 'tabs'],
     benefits: [
       'Tab parity for clients and projects — same structure, predictable everywhere',
-      'Earnest Notices flag overdue and off-track work up top',
+      'Earnest beside it already knows which record you are on',
       'Push/pop slide-over panels with iOS-style spring animations',
       'URL-bound stack — every slide-over is shareable and deep-linkable',
     ],
@@ -486,13 +486,13 @@ export const features: Feature[] = [
     slug: 'meeting-ai-recap',
     icon: 'i-lucide-mic',
     pillar: 'work',
-    desc: 'Every Earnest meeting room auto-records and transcribes live the moment the host joins — and the same Earnest is right there in the room, following the conversation as it happens. After the meeting it writes a recap with key decisions, action items, and a follow-up draft — promoted directly into tasks, lead activities, or a meeting note on the project. Live design review includes a Figma drawer and a shared annotation overlay.',
+    desc: 'Every Earnest meeting room auto-records and transcribes live the moment the host joins — and the same Earnest is right there in the room, following the conversation as it happens. After the meeting it writes a recap with key decisions, action items, and a follow-up draft — promoted directly into tasks, lead activities, or a meeting note on the project. For design review, everyone can mark up a shared screen together, and the host can save the screen and the marks as a snapshot on the meeting.',
     keywords: ['meeting recording', 'transcription', 'ai recap', 'meeting notes', 'design review', 'live transcript'],
     benefits: [
       'Live transcript + the same Earnest in the room, following along',
       'Recap with decisions, action items, and follow-up draft',
       'Promote recap items to tasks in one click',
-      'Live Figma drawer + shared annotation overlay for design review',
+      'Shared markup over a screen share, saved as a snapshot on the meeting',
     ],
   },
   {
@@ -500,12 +500,12 @@ export const features: Feature[] = [
     slug: 'phone-and-video',
     icon: 'i-lucide-video',
     pillar: 'work',
-    desc: 'Twilio-powered calling and Daily.co video meetings linked to your CRM pipeline. Click-to-call contacts, record calls, host team video, and auto-log meetings as lead activities — all without leaving Earnest.',
+    desc: 'Daily.co video meetings on every plan, and a business phone with the Communications add-on ($49/mo): your own numbers on Twilio, bought or ported, with a greeting, hours, a menu, voicemail and SMS. Click-to-call contacts, record calls, give a meeting a dial-in number, and auto-log meetings as lead activities — all without leaving Earnest.',
     keywords: ['phone system', 'video calls', 'VoIP', 'Twilio', 'video meetings'],
     benefits: [
-      'Click-to-call contacts directly from the CRM',
-      'Video meetings with Daily.co integration',
-      'Call recording and auto-logged activities',
+      'Video meeting rooms included on every plan',
+      'Business phone lines, SMS and voicemail with the $49/mo Communications add-on',
+      'Click-to-call, call recording and meeting dial-in with the add-on',
       'Linked to your pipeline and lead activities',
     ],
   },
@@ -583,17 +583,17 @@ export const features: Feature[] = [
     ],
   },
   {
-    name: 'Expenses & Bank Sync',
+    name: 'Expenses',
     slug: 'bank-sync',
     icon: 'i-lucide-landmark',
     pillar: 'money',
-    desc: 'Connect your business bank and credit-card accounts via Plaid and Earnest pulls transactions in automatically. Categorize expenses against projects and clients, match incoming deposits to outstanding invoices, and reconcile your books without leaving the app. The Expenses ledger keeps recurring costs like hosting and subscriptions in view.',
-    keywords: ['bank sync', 'plaid', 'expenses', 'transaction sync', 'reconciliation', 'bookkeeping'],
+    desc: 'An Expenses floor in the Money app: log what you spend by vendor, category and date, mark what is billable to a client or owed back to someone, and see the total, the billable share and what is waiting to be reimbursed at the top. The categories fit the kind of business you run. ⚠️ Bank sync through Plaid is coming soon and is not available today — expenses are entered by hand for now.',
+    keywords: ['expenses', 'expense tracking', 'billable expenses', 'reimbursements', 'bookkeeping', 'bank sync'],
     benefits: [
-      'Connect bank + credit-card accounts via Plaid — transactions pull in automatically',
-      'Expenses ledger categorizes costs against projects and clients',
-      'Match deposits to outstanding invoices for one-click reconciliation',
-      'Low-cost monthly add-on — pay only for the accounts you connect',
+      'One expenses ledger, searchable by name, vendor and category',
+      'Billable and reimbursable expenses marked and totalled',
+      'Categories that fit an agency, a firm, a practice or a shop',
+      'Bank sync through Plaid is coming soon — not available yet',
     ],
   },
   {
@@ -716,13 +716,13 @@ export const features: Feature[] = [
     slug: 'marketing-recommendations',
     icon: 'i-lucide-megaphone',
     pillar: 'marketing',
-    desc: 'Earnest watches your CRM, social, and email for signals — new leads, lapsed contacts, milestone moments — and proposes ready-to-send marketing touches as a feed of campaign cards. Push-button Do-all sends the whole sequence, with per-recipient personalization and a timeline of what is scheduled across email, LinkedIn, Instagram, and more.',
+    desc: 'Earnest watches your CRM, social, and email for signals — new leads, lapsed contacts, milestone moments — and proposes marketing touches as a feed of campaign cards, each showing roughly how many AI tokens it will take. Do all drafts and schedules every card in the feed in one press, for managers and above, with per-recipient personalization and a timeline of what is scheduled. Social posts wait in the queue until publishing to the networks arrives, which is coming soon.',
     keywords: ['marketing automation', 'campaign recommendations', 'marketing feed', 'personalization'],
     benefits: [
       'Campaign cards auto-detected from real signals — new leads, lapsed contacts, milestones',
-      'Push-button Do-all sends the whole multi-touch sequence in one tap',
+      'Do all drafts and schedules the whole feed in one press',
       'Per-recipient personalization with editable variants',
-      'Timeline view across email, LinkedIn, Instagram, and more',
+      'Each card shows its estimated token cost before you run it',
     ],
   },
   {
@@ -882,7 +882,7 @@ export const features: Feature[] = [
       'Do · Decide · Know: the top suggestion of each, ranked for where you are',
       'A scope chip shows which record Earnest can see — remove it to ask about the page',
       'Receipts first: what it read, before what it says',
-      'Files, voice and hands-free in the same box',
+      'Files, voice and hands-free in the same box — replies read in your device’s voice, or a hosted one with Custom Voice ($9/mo)',
     ],
   },
   {
@@ -946,13 +946,13 @@ export const features: Feature[] = [
     slug: 'ai-token-transparency',
     icon: 'i-lucide-gauge',
     pillar: 'ai',
-    desc: 'Every AI feature shows its token cost before you use it, and admins see usage across the team. No surprises, no metered-billing anxiety — just clear, upfront numbers on what each action costs.',
+    desc: 'AI usage is counted in tokens against a monthly allotment your plan sets, and admins see who used how much across the team. Marketing recommendation cards show an estimate before you run them, and when the month runs low you can buy more tokens yourself, with every purchase listed.',
     keywords: ['ai cost transparency', 'token cost', 'ai pricing', 'usage visibility'],
     benefits: [
-      'Token cost shown before you run any AI action',
-      'Plain-language estimates, not opaque metering',
-      'Team-wide usage visibility for admins',
-      'Self-serve refills when you need more',
+      'A monthly token allotment set by your plan',
+      'Usage per member, visible to admins',
+      'Estimated tokens on each marketing recommendation before you run it',
+      'Self-serve token packs, with a purchase history',
     ],
   },
 

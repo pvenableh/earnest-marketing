@@ -98,8 +98,8 @@ const sellPoints = [
   },
   {
     icon: 'i-lucide-badge-check',
-    name: 'Every feature. Every plan.',
-    desc: 'Solo $49/mo, Team $149/mo, Business $299/mo — per workspace, not per action. What you choose is scale.',
+    name: 'Every app. Every plan.',
+    desc: 'Solo $49/mo, Team $149/mo, Business $299/mo — per workspace, not per action. What you choose is scale; the one add-on is white-label branding, on Business.',
   },
 ];
 </script>
@@ -204,7 +204,7 @@ const sellPoints = [
           <a :href="soloDemoUrl" class="mfu-cta-btn-ghost">Try the live demo</a>
         </div>
         <p class="mfu-cta-note">
-          14-day trial, no card · Solo $49/mo · every feature on every plan · your data is never used to train the
+          14-day trial, no card · Solo $49/mo · every app on every plan · your data is never used to train the
           model
         </p>
       </section>

@@ -39,7 +39,7 @@
 						Earnest is business software for agencies, firms, practices and shops: clients, projects, invoices,
 						scheduling and marketing in one app, with an assistant that drafts the next step and waits for your tap.
 					</p>
-					<p class="gw-hero__fine">14-day trial, no card · Solo $49/mo · every feature on every plan · your data never trains the model</p>
+					<p class="gw-hero__fine">14-day trial, no card · Solo $49/mo · every app on every plan · your data never trains the model</p>
 				</div>
 			</header>
 
@@ -150,7 +150,7 @@
 			<!-- ─── Pricing ─── -->
 			<section id="pricing" class="gw-sec">
 				<div class="gw-wrap">
-					<h2>Every feature. <span class="pop">Every plan.</span></h2>
+					<h2>Every app. <span class="pop">Every plan.</span></h2>
 					<div class="gw-ladder">
 						<div class="gw-ladder__scroll">
 							<table>
@@ -172,8 +172,8 @@
 						</div>
 					</div>
 					<p class="gw-every">
-						One price, your whole team, every feature on every plan. What you choose is <strong>scale</strong>. 14-day
-						trial, no card. Annual saves two months.
+						One price for your whole team, and every feature on every plan except white-label branding, a $19/mo
+						add-on on Business. What you choose is <strong>scale</strong>. 14-day trial, no card. Annual saves two months.
 					</p>
 				</div>
 			</section>

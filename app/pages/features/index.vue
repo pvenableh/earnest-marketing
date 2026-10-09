@@ -77,7 +77,7 @@ const appUrl = config.public.appUrl || 'https://app.earnest.guru';
 
     <section class="fp-cta">
       <h2 class="fp-cta-title">Ready to do good work<span class="fp-dot">?</span></h2>
-      <p class="fp-cta-sub">Start your free trial — every feature included.</p>
+      <p class="fp-cta-sub">Start your free trial — 14 days, no card.</p>
       <a :href="appUrl + '/register'" class="fp-cta-btn">Get started</a>
     </section>
 

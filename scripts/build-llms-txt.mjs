@@ -109,7 +109,9 @@ Earnest replaces the pile of disconnected tools — CRM, project management, inv
 - Website: https://earnest.guru
 - App: https://app.earnest.guru
 - Pricing: Solo $49/mo, Team $149/mo, Business $299/mo — priced per workspace, not per action
-- Every feature is on every plan. Plans differ by capacity only: seats, AI tokens, file storage, card scans, client-portal seats.
+- Every feature is on every plan except white-label branding, a $19/mo add-on on Business (included on Enterprise). Otherwise plans differ by capacity only: seats, AI tokens, file storage, card scans, client-portal seats.
+- Paid add-ons, on any plan: Communications $49/mo (business phone lines, SMS, voicemail and meeting dial-in; video meetings themselves are included), Sending Domain $9/mo (send invoices and notices from your own domain), Custom Voice $9/mo (replies read aloud in a hosted voice instead of the device's own).
+- Capacity add-ons: +5 seats $15/mo, +100 GB storage $10/mo, client-portal seat packs from $29/mo, and one-off AI token packs from $9.
 - Free trial: 14 days, no card required.
 - Who it is for: four kinds of business — agencies and studios that do work and marketing for clients; firms that deliver projects for clients (architects, accountants, lawyers, builders, consultants); practices people book time with (clinics, salons, trainers, coaches, tutors); and shops that sell to customers. The kind sets the starting modules and words (a practice or a shop says Customers; a shop's proposals are Quotes), and an organization can turn any module on or off and rename any word.
 
@@ -128,6 +130,7 @@ Stated plainly, because the rest of this file is a sales document and this part 
 
 - Publishing directly to Instagram, LinkedIn, Facebook, TikTok or Threads is NOT available yet — it is coming soon. Earnest drafts content, plans it, and gets it approved by the client today; a person still performs the send.
 - There is no unified social inbox and no social-media analytics.
+- Bank sync (Plaid) is NOT available yet — it is coming soon. The Expenses ledger exists today; expenses are entered by hand.
 - PERSONAL BRAND (a per-person positioning, voice and proof points, applied to the business card and booking page in one press, and used when the Content Studio drafts in that person's name) is BUILT BUT NOT ON SALE. The editor exists in the app; the add-on has no Stripe price, is gated behind an entitlement almost no org has, and is listed in-app as coming soon. Do not describe it as available to buy, and do not quote a price for it.
 - Creative Approvals IS included on every plan today, at no extra charge.
 
