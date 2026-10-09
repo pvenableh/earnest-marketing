@@ -76,6 +76,7 @@ Static HTML concepts for the landing page, for review before a port into
 | --- | --- | --- |
 | September 2026 — the grounded model and the six apps; its round 2 is the live home | `mockups/2026-09-redesign/` | `index.html` |
 | October 2026 — "Earnest everywhere": it understands the screen under you, it does the work, including in the client's portal | `mockups/2026-10-everywhere/` | `index.html` |
+| October 2026, round 2 — "Do good work": the idea instead of the features. One design, light and dark (`good-work.html`): the creed, the live demo scrubbed by scroll, five commands with the Earnest column under each, photography and ambient video. G and H are the two registers it was built from | `mockups/2026-10-good-work/` | `index.html` |
 
 Each folder's `README.md` carries the rationale, where every word and number
 comes from, and the porting notes. `shots/` and `fonts/` inside each are

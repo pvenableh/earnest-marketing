@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Earnest Landing Concepts — Do good work (October 2026)</title>
+<style>
+@font-face{font-family:'Bauer Bodoni';src:url('../2026-10-everywhere/fonts/bauer-bodoni-roman.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Proxima Nova';src:url('../2026-10-everywhere/fonts/proxima-nova-regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Proxima Nova';src:url('../2026-10-everywhere/fonts/proxima-nova-light.woff2') format('woff2');font-weight:300;font-display:swap}
+:root{--bg:#f7f5f1;--surface:#fff;--ink:#1a1916;--ink-2:#5a574f;--ink-3:#8f8a80;--line:#e3dfd6;--accent:#0a84c8;--accent-soft:#e6f3fb;--font-mark:'Bauer Bodoni','Bodoni MT','Didot',Georgia,serif;--font-body:'Proxima Nova',system-ui,-apple-system,'Segoe UI',sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15171c;--surface:#1d2026;--ink:#eef0f4;--ink-2:#b4b9c4;--ink-3:#7f8593;--line:#2c313a;--accent:#4fb3ec;--accent-soft:#1a2b38;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15171c;--surface:#1d2026;--ink:#eef0f4;--ink-2:#b4b9c4;--ink-3:#7f8593;--line:#2c313a;--accent:#4fb3ec;--accent-soft:#1a2b38;color-scheme:dark}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;padding-inline:16px}
+a{color:var(--accent)}p{margin:0}
+.wrap{max-width:1080px;margin-inline:auto;padding-block:48px 80px}
+h1,h2,h3{font-weight:300;letter-spacing:-.02em;line-height:1.1;margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,5vw,52px)}h2{font-size:clamp(26px,3.4vw,36px)}h3{font-size:20px;font-weight:400}
+.mark{font-family:var(--font-mark);font-size:24px}.mark b{color:#00bfff;font-weight:400}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+header{display:grid;gap:14px;max-width:72ch}header .lede{font-size:19px;color:var(--ink-2);font-weight:300;margin-top:6px}
+.refs{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.refs div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:4px}
+.refs b{font-weight:400;font-size:18px}.refs span{font-size:13px;color:var(--ink-2)}.refs small{color:var(--ink-3);font-size:12px}
+@media(max-width:760px){.refs{grid-template-columns:1fr}}
+.concepts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.concept{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid;grid-template-rows:auto 1fr;min-width:0}
+.concept .im{aspect-ratio:16/10;display:grid;place-items:center;position:relative;text-align:center;padding:24px}
+.concept .im.g{background:#f6f1ea;color:#1c1916;font-family:'Bauer Bodoni',Georgia,serif;font-size:clamp(40px,6vw,64px);letter-spacing:-.02em}
+.concept .im.h{background:#0b1020;color:#eef2fb;font-family:var(--font-body);font-weight:300;font-size:clamp(48px,7vw,84px);letter-spacing:-.03em}
+.concept .im .d{color:#00bfff}.concept .im.g .d{color:hsl(16 42% 41%)}
+.concept .im a{position:absolute;inset:0}
+.concept .b{padding:18px;display:grid;gap:8px;align-content:start}
+.concept p{font-size:14.5px;color:var(--ink-2)}.concept .k{font-size:12px;color:var(--ink-3)}
+.concept .open{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:8px;background:var(--ink);color:var(--bg);text-decoration:none;font-size:14px;justify-self:start;margin-top:4px}
+.concept .open:hover{background:var(--accent);color:#fff}
+@media(max-width:760px){.concepts{grid-template-columns:1fr}}
+.rat{margin-top:44px;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.rat>div{display:grid;gap:10px;align-content:start}
+.rat ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px;color:var(--ink-2)}
+.rat li{padding-left:16px;position:relative}.rat li::before{content:"";position:absolute;left:0;top:.65em;width:8px;height:1.5px;background:var(--accent)}
+.rat li b{font-weight:400;color:var(--ink)}
+@media(max-width:760px){.rat{grid-template-columns:1fr}}
+.map{margin-top:36px;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.map .scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:620px}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:400;color:var(--ink-3);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+td b{font-weight:400;color:var(--ink)}
+tr:last-child td{border-bottom:0}
+.fix{margin-top:36px;border:1px solid var(--line);border-left:3px solid #d4384a;border-radius:12px;padding:16px 18px;background:var(--surface);display:grid;gap:8px}
+.fix b{font-weight:400}.fix p{font-size:14.5px;color:var(--ink-2)}
+.foot{margin-top:40px;font-size:13px;color:var(--ink-3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="mark">Earnest<b>.</b></span>
+    <span class="eyebrow">Landing concepts · October 2026, round 2</span>
+    <h1>Sell the idea, not the features.</h1>
+    <p class="lede">The live home sells what Earnest does: 36 floors, 30 verbs, six apps, three looks. This sells what it's <em>for</em>: doing good work. The line leads; the product appears as the real app scrubbing under your scroll, and as the ask you'd type and the card it becomes. One design, light and dark. The two registers it was built from, G and H, are kept below for reference.</p>
+    <div class="refs">
+      <div><b>Think different.</b><span>A stance. Who you are if you choose this.</span><small>Apple, 1997</small></div>
+      <div><b>The ultimate driving machine.</b><span>A feeling you own. Not torque or trim.</span><small>BMW, 1975</small></div>
+      <div><b>Just do it.</b><span>A command that flatters you into motion.</span><small>Nike, 1988</small></div>
+    </div>
+  </header>
+
+  <div class="concepts">
+  <div class="concept" style="grid-column:1/-1;grid-template-columns:1.2fr 1fr;grid-template-rows:auto">
+      <div class="im h" style="aspect-ratio:auto;min-height:260px;background:#fbfaf7;color:#121418;font-size:clamp(44px,6vw,80px)"><span>Do good work<span class="d" style="color:#0a7fc4">.</span></span><a href="good-work.html" aria-label="Open the one design"></a></div>
+      <div class="b">
+        <h3>The one design · <code>good-work.html</code></h3>
+        <p><b>Peter, 9 Oct: no theme system; one design that switches light and dark.</b> This folds G and H into one page: "Do good work." leads, under a sunrise; the creed; the app itself, recorded from the live demo and scrubbed by scroll; then the five commands as beats with the column under each; the photographs and the wind in a field; "Mean it. Do good work. Earnest." to close.</p>
+        <p class="k">Its own tokens (<code>one.css</code>). Light is warm white and ink, dark is near-black with the same relationships. One accent. Display type is the body face at weight 300, large and tight: the idea carries the page, not a typeface. The ☾ / ☀ in the nav switches; <code>#dark</code> and <code>#light</code> deep-link.</p>
+        <a class="open" href="good-work.html">Open the one design →</a>
+      </div>
+    </div>
+    <div class="concept">
+      <div class="im g"><span>Do good work<span class="d">.</span></span><a href="concept-g.html" aria-label="Open concept G"></a></div>
+      <div class="b">
+        <h3>G · Do good work.</h3>
+        <p><b>The creed.</b> Apple's register: six belief statements as one typographic screen, then five beats, each a belief with the column under it: one ask, one card, your tap. Paper, light.</p>
+        <p class="k">Calm. Someone whose work is in hand. Strongest on the idea; shortest page the site has had.</p>
+        <a class="open" href="concept-g.html">Open concept G →</a>
+      </div>
+    </div>
+    <div class="concept">
+      <div class="im h"><span>Mean it<span class="d">.</span></span><a href="concept-h.html" aria-label="Open concept H"></a></div>
+      <div class="b">
+        <h3>H · Mean it.</h3>
+        <p><b>The drive.</b> Nike's command and BMW's machine under it: five two-word commands, one move each. Know where you stand · Say the next move · Hear the truth · Sound like yourself · Keep your word. Glass, dark.</p>
+        <p class="k">Momentum. Someone in control of the day. Strongest feeling, and the only page that shows the September contract-to-invoice work.</p>
+        <a class="open" href="concept-h.html">Open concept H →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="rat">
+    <div>
+      <h2>What both obey</h2>
+      <ul>
+        <li><b>Earnest is an adjective first.</b> To be earnest is to mean it. The name is the positioning.</li>
+        <li><b>No in-house nouns as promises.</b> No home, door, lens, pile, floor, rail, Boardroom. "Decide · Do · Know" appears only inside the column, as the UI shows it.</li>
+        <li><b>Every number is the demo workspace's</b>, the same ones the live home uses. Every ask names a tool that ships; every "held" card is on the hold list.</li>
+        <li><b>The Voice Charter applies to the site.</b> The biggest word on either page is "good".</li>
+        <li><b>The photographs are stock placeholders</b> from Unsplash, tagged <code>stock · replace</code>, one <code>src</code> each to swap for the real shoot; the shot list is in the README.</li>
+        <li><b>The column is the real one</b>: thread above, Do · Decide · Know chips, composer at the foot with the scope chip inside it (app <code>Earnest/Column.vue</code>, October).</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Recommendation</h2>
+      <ul>
+        <li><b>Ship H's hero and beats</b> as the live home. It makes the visitor want it, which is what Nike and BMW sold.</li>
+        <li><b>Keep G's creed</b> as the six lines that open the About page and the launch post. It reads better as what the company believes than as a sales page.</li>
+        <li><b>If only one: H.</b></li>
+        <li><b>Either way, first:</b> the three corrections below, on <code>main</code>, this week.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="fix">
+    <b>Wrong on the live site now, whichever concept ships</b>
+    <p><b>The Boardroom</b> is sold in the Studio plan, the compare lead and a feature page. It was removed in the app's September rethink, with the Command Center, Focus mode and Mirror.</p>
+    <p><b>Plan names</b> are Solo · Studio · Agency on the site and Solo · Team · Business in the app since 6 October. Same keys, same prices.</p>
+    <p><b>The who</b> is "agencies, studios and freelancers". The app now signs up four shapes: agency, firm, practice, shop, each with its own words and modules.</p>
+  </div>
+
+  <div class="map">
+    <div class="scroll"><table>
+      <thead><tr><th>The quality</th><th>G says</th><th>H says</th><th>The proof (a tool that ships)</th></tr></thead>
+      <tbody>
+        <tr><td><b>Honest, motivating assistance</b></td><td>It tells you the truth, kindly.</td><td>Hear the truth.</td><td>Reply shape with the hedge line; reasoning answers for "why"; the Voice Charter</td></tr>
+        <tr><td><b>Bird's-eye view</b></td><td>See the whole thing at once.</td><td>Know where you stand.</td><td>Home greeting from records; zero-token ranking and "while you were away"</td></tr>
+        <tr><td><b>Contextual awareness</b></td><td>It knows where you're standing.</td><td>Say the next move.</td><td>Scope chip; <code>reschedule_project</code>, <code>find_a_time</code> / <code>book_meeting</code> (held); read-back after the tap</td></tr>
+        <tr><td><b>Brand voice</b></td><td>Every sentence sounds like you.</td><td>Sound like yourself.</td><td>Org and client brand direction; "Earnest knows you" profile; client-scoped lists mail as the client</td></tr>
+        <tr><td><b>Integrated effort</b></td><td>One memory, not seven tabs.</td><td>Keep your word.</td><td><code>record_payment</code> settles the invoice; signed contract builds the project; promised check-ins become follow-ups; two-way calendar sync</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <p class="foot">Rationale, the product survey and the port notes are in <a href="README.md">README.md</a>. Both pages borrow <code>../2026-10-everywhere/shared.css</code> and <code>shared.js</code>; the theme control in each nav shows either concept in any look and mode.</p>
+</div>
+</body>
+</html>

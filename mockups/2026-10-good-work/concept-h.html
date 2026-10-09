@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en" data-look="glass" data-mode="dark" data-keep-look>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Earnest — Mean it.</title>
+<link rel="stylesheet" href="../2026-10-everywhere/shared.css">
+<link rel="stylesheet" href="good-work.css">
+<link rel="preload" as="image" href="app-seq/frames/f-001.jpg">
+<style>
+/* Concept H — "Mean it." The drive. Nike's command, BMW's machine under the
+   feeling. Commands as headlines, one move under each. Glass, dark. */
+.hero{padding-block:120px 72px;min-height:72vh;display:grid;align-items:center}
+.hero h1{font-size:clamp(calc(72px*var(--h-scale)),calc(13vw*var(--h-scale)),calc(180px*var(--h-scale)));margin-top:0;letter-spacing:-.03em;line-height:.95}
+.hero h1 .dot{color:var(--pop)}
+.hero .lede{max-width:48ch;font-size:21px;margin-top:28px}
+.hero .fine{max-width:60ch}
+@media(max-width:900px){.hero{padding-block:64px 40px;min-height:0}}
+
+.cmds .beat{padding-block:88px}
+.cmds .beat:first-child{border-top:0}
+.cmds .beat .copy .n{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.cmds .beat .copy h2{font-size:clamp(calc(40px*var(--h-scale)),calc(6vw*var(--h-scale)),calc(76px*var(--h-scale)));letter-spacing:-.025em}
+.cmds .beat .copy .move{margin-top:18px;font-size:14px;color:var(--ink-3)}
+.cmds .beat .copy .move b{font-weight:400;color:var(--ink-2);letter-spacing:.12em;text-transform:uppercase;font-size:11px;margin-right:8px}
+
+/* beat 5: the word kept, as a strip */
+.kept{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-items:stretch;width:100%}
+.kept .step{padding:14px 16px;display:grid;gap:6px;align-content:start;position:relative;min-width:0}
+.kept .step .k{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--pop)}
+.kept .step .t{font-size:16px;color:var(--ink)}
+.kept .step small{color:var(--ink-3);font-size:12.5px}
+.kept .step+.step::before{content:"→";position:absolute;left:-14px;top:14px;color:var(--ink-3);font-size:16px}
+@media(max-width:900px){.kept{grid-template-columns:1fr}.kept .step+.step::before{content:"↓";left:16px;top:-16px}}
+.beat.flip .kept{grid-column:1/-1}
+
+.machine{padding-block:56px;font-size:19px}
+.cta .mark{font-size:clamp(72px,14vw,160px)}
+.cta .cmd{font-family:var(--font-display);font-weight:var(--h-weight);text-transform:var(--h-transform);letter-spacing:-.02em;font-size:clamp(calc(40px*var(--h-scale)),calc(7vw*var(--h-scale)),calc(88px*var(--h-scale)));line-height:1}
+.cta .cmd .dot{color:var(--pop)}
+.cta .tag{margin-top:14px}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Site">
+  <div class="wrap">
+    <a href="#" class="mark">Earnest<b>.</b></a>
+    <ul><li><a href="#stand">Know</a></li><li><a href="#say">Say</a></li><li><a href="#truth">Hear</a></li><li><a href="#voice">Sound</a></li><li><a href="#word">Keep</a></li><li><a href="#pricing">Pricing</a></li></ul>
+    <div class="cta">
+      <div class="theme" data-theme-control></div>
+      <a class="btn demo" href="https://app.earnest.guru/try-demo?persona=solo">Live demo</a>
+      <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-photo" data-slot="h-hero"><img src="https://images.unsplash.com/photo-1761925090143-c3b8ca186a87?auto=format&fit=crop&w=2200&q=70" alt="A blurred figure walking toward bright light"><video data-ambient muted loop playsinline autoplay preload="metadata"><source src="https://assets.mixkit.co/videos/6850/6850-720.mp4" type="video/mp4"></video><span class="ph-tag">stock · replace · sunrise over firs, mixkit 6850</span></div>
+  <canvas id="wave" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <h1>Mean it<span class="dot">.</span></h1>
+      <p class="lede">Every invoice. Every send. Every number you say out loud in a meeting. Earnest is business software that runs your studio, firm, practice or shop like you mean it: <strong>honest about where it stands, ready with the next move, waiting for your word.</strong></p>
+      <div class="actions">
+        <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+        <a class="btn" href="https://app.earnest.guru/try-demo?persona=solo">Try the live demo</a>
+      </div>
+      <div class="receipt" aria-label="This morning's line"><small>This morning</small><b>22 things today. 5 need you.</b></div>
+      <p class="fine">14-day trial, no card · Solo $49/mo · every feature on every plan · your data never trains the model</p>
+    </div>
+  </div>
+</header>
+
+<section class="scrub" data-scrub="app-seq/frames/f-{n}.jpg" data-count="100" data-pad="3" aria-label="The app, as you scroll">
+  <div class="scrub__sticky">
+    <div class="scrub__caps"><p class="scrub__cap" data-at="0"><b>Know where you <span class="pop">stand</span>.</b><span>22 things today. 5 need you. The number that's wrong comes first.</span><small>Home</small></p><p class="scrub__cap" data-at="0.35"><b>Go where the <span class="pop">money</span> is.</b><span>$12,000 out, 144 days past due. Meridian Law.</span><small>Money · Invoices</small></p><p class="scrub__cap" data-at="0.7"><b>Say the next <span class="pop">move</span>.</b><span>In plain words, from the screen you're on.</span><small>The column</small></p><p class="scrub__cap" data-at="0.93"><b>It writes the card.<br>You <span class="pop">tap</span>.</b><span>Email, money and meetings always wait for you.</span><small>Held</small></p></div>
+    <div class="scrub__stage"><canvas aria-label="Earnest, recorded from the live demo"></canvas><span class="ph-tag">live demo · recorded</span></div>
+    <p class="scrub__hint">Keep scrolling</p>
+  </div>
+</section>
+
+<div class="cmds wrap">
+
+  <!-- 1 · bird's-eye -->
+  <section class="beat" id="stand">
+    <div class="copy" data-reveal>
+      <span class="n">One screen</span>
+      <h2>Know where <span class="pop">you stand</span>.</h2>
+      <p class="sub">One honest read of the day, written from your records. Four numbers, then what needs you, what's one tap, and what you only need to know.</p>
+      <p class="move"><b>The move</b>Open it. The number that's wrong is first.</p>
+    </div>
+    <div class="ecol" data-reveal aria-label="Earnest on the home screen">
+      <div class="ecol__head"><span class="ecol__brand">Earnest<b>.</b></span><span class="ecol__tools"><span class="ecol__wait">Waiting <b>5</b></span><span class="ecol__ic">⟲</span><span class="ecol__ic">›</span></span></div>
+      <div class="ecol__thread">
+        <div class="ecol__reply">
+          <p class="lede">22 things today, 5 need a decision.</p>
+          <ul>
+            <li class="bad"><b>$12k</b> — unpaid, all past 90 days</li>
+            <li class="bad"><b>30 d</b> — Helios West past its deadline</li>
+            <li><b>$286k</b> — in play across 12 pursuits</li>
+            <li><b>5</b> — pieces out with clients</li>
+          </ul>
+          <div class="ecol__card">
+            <div class="kind"><b>Create tasks</b><span>proposed by Earnest</span></div>
+            <p class="t">2 tasks on Helios — Website Build</p>
+            <dl><dt>From</dt><dd>Friday's launch review notes</dd></dl>
+            <div class="acts"><span class="go">Approve</span><span>Adjust</span><small>Decide · 1 of 5</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="ecol__chips"><span class="ecol__chip" data-lane="do"><span class="k">Do</span>Mark Helios West in progress</span><span class="ecol__chip" data-lane="know"><span class="k">Know</span>What's coming up this week?</span></div>
+      <div class="ecol__composer"><div class="ecol__row"><span class="ph">Ask Earnest</span><span class="ic">🎙</span><span class="ic send">↑</span></div></div>
+    </div>
+  </section>
+
+  <!-- 2 · executable, contextual -->
+  <section class="beat flip" id="say">
+    <div class="copy" data-reveal>
+      <span class="n">From any screen</span>
+      <h2>Say the <span class="pop">next move</span>.</h2>
+      <p class="sub">It knows the screen you're on and the record you opened. Say what should change. It writes the card; you tap. Nothing that reaches a client or moves money goes without you.</p>
+      <p class="move"><b>Held</b>Email, invoices, payments and meetings always wait for your tap. Small reversible things can run alone, and can be undone.</p>
+    </div>
+    <div class="ecol" data-reveal aria-label="Earnest booking a meeting">
+      <div class="ecol__head"><span class="ecol__brand">Earnest<b>.</b></span><span class="ecol__tools"><span class="ecol__wait">Waiting <b>5</b></span><span class="ecol__ic">⟲</span><span class="ecol__ic">›</span></span></div>
+      <div class="ecol__thread">
+        <div class="ecol__you">Find a time with Helios Friday, 60 minutes</div>
+        <div class="ecol__reply">
+          <p class="lede">Friday 10:00 is open on both calendars.</p>
+          <div class="ecol__card">
+            <div class="kind"><b>Book meeting</b><i>held · your tap</i></div>
+            <p class="t">Helios — launch review · Fri 10:00–11:00</p>
+            <dl><dt>With</dt><dd>David Park</dd><dt>Lands on</dt><dd>your Google calendar</dd><dt>Invite</dt><dd>drafted, not sent</dd></dl>
+            <div class="acts"><span class="go">Approve</span><span>Adjust</span><span>Skip</span></div>
+          </div>
+          <div class="ecol__say"><span class="sp">Say</span>Friday at ten works for both of you. Want me to send David the invite?</div>
+        </div>
+      </div>
+      <div class="ecol__chips"><span class="ecol__chip" data-lane="do"><span class="k">Do</span>Draft an agenda</span><span class="ecol__chip" data-lane="do"><span class="k">Do</span>Draft a reminder to attendees</span></div>
+      <div class="ecol__composer"><span class="ecol__scope"><span class="cross">⌖</span><span class="noun">Client</span>Helios Studio<span class="x">×</span></span><div class="ecol__row"><span class="ph">Ask Earnest</span><span class="ic">🎙</span><span class="ic send">↑</span></div></div>
+    </div>
+  </section>
+
+  <!-- 3 · honest -->
+  <section class="beat" id="truth">
+    <div class="copy" data-reveal>
+      <span class="n">No unearned hype</span>
+      <h2>Hear <span class="pop">the truth</span>.</h2>
+      <p class="sub">When the numbers are a win it says so, loudly. When they aren't, it says so, kindly. And when it doesn't know, it says that instead of guessing.</p>
+      <p class="move"><b>The move</b>Ask why. A "why" gets a reasoned answer, not a list.</p>
+    </div>
+    <div class="ecol" data-reveal aria-label="Earnest reasoning about an invoice">
+      <div class="ecol__head"><span class="ecol__brand">Earnest<b>.</b></span><span class="ecol__tools"><span class="ecol__wait">Waiting <b>5</b></span><span class="ecol__ic">⟲</span><span class="ecol__ic">›</span></span></div>
+      <div class="ecol__thread">
+        <div class="ecol__you">Why is this invoice overdue?</div>
+        <div class="ecol__reply">
+          <p class="lede">Because nobody at Meridian has answered in 92 days.</p>
+          <p class="prose">Two reminders went out, on day 30 and day 60, both to <b>Amara Okafor</b>, who holds the billing contact. Neither got a reply, and the last real conversation with anyone there was <b>159 days</b> ago. The second invoice, 0038, is older still at <b>104 days</b>, so this isn't one slow approval; the account has gone quiet.</p>
+          <p class="hedge">No satisfaction data — only signals.</p>
+          <p class="ask">I'd call before I write a third reminder.</p>
+        </div>
+      </div>
+      <div class="ecol__chips"><span class="ecol__chip" data-lane="do"><span class="k">Do</span>Draft a payment reminder</span><span class="ecol__chip" data-lane="do"><span class="k">Do</span>Schedule a call with Amara</span></div>
+      <div class="ecol__composer"><span class="ecol__scope"><span class="cross">⌖</span><span class="noun">Invoice</span>INV-SOL-MER-2026-0042<span class="x">×</span></span><div class="ecol__row"><span class="ph">Ask Earnest</span><span class="ic">🎙</span><span class="ic send">↑</span></div></div>
+    </div>
+  </section>
+
+  <div class="photo-trio" style="padding-block:48px 0"><figure class="photo" data-slot="h-work"><img src="https://images.unsplash.com/photo-1761122912306-13d8f83892c1?auto=format&fit=crop&w=1600&q=70" alt="Someone working at a desk, head down" loading="lazy"><span class="ph-cap">Working.</span><span class="ph-tag">stock · replace</span></figure><figure class="photo" data-slot="h-room"><img src="https://images.unsplash.com/photo-1700809887584-0798672b1d48?auto=format&fit=crop&w=1600&q=70" alt="An office with a desk, chairs and a window" loading="lazy"><span class="ph-cap">The room.</span><span class="ph-tag">stock · replace</span></figure><figure class="photo" data-slot="h-present"><img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1600&q=70" alt="Someone presenting to a small group with laptops" loading="lazy"><span class="ph-cap">The presentation.</span><span class="ph-tag">stock · replace</span></figure></div>
+
+  <!-- 4 · brand voice -->
+  <section class="beat flip" id="voice">
+    <div class="copy" data-reveal>
+      <span class="n">Three voices, one memory</span>
+      <h2>Sound like <span class="pop">yourself</span>.</h2>
+      <p class="sub">Your voice on your organization. The client's on each client. And a short profile of how you talk to Earnest, written overnight. Every draft inherits all three, down to the From line: a client's newsletter mails as the client.</p>
+      <p class="move"><b>The move</b>Say "warmer", "shorter", "like the last one". It remembers which.</p>
+    </div>
+    <div class="ecol" data-reveal aria-label="Earnest redrafting a post">
+      <div class="ecol__head"><span class="ecol__brand">Earnest<b>.</b></span><span class="ecol__tools"><span class="ecol__wait">Waiting <b>5</b></span><span class="ecol__ic">⟲</span><span class="ecol__ic">›</span></span></div>
+      <div class="ecol__thread">
+        <div class="ecol__you">Rewrite this warmer</div>
+        <div class="ecol__reply">
+          <p class="lede">Warmer, same three points.</p>
+          <div class="ecol__card">
+            <div class="kind"><b>Redraft</b><span>Pinecrest Clinic · LinkedIn · Thu 9:00</span></div>
+            <p class="t">"We changed three things on the Pinecrest site this month. Each one came from something a patient told us at the front desk."</p>
+            <div class="acts"><span class="go">Use this</span><span>Again</span><small>scheduled · not published</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="ecol__chips"><span class="ecol__chip" data-lane="do"><span class="k">Do</span>Draft two more like it</span><span class="ecol__chip" data-lane="know"><span class="k">Know</span>What else is queued this week?</span></div>
+      <div class="ecol__composer"><span class="ecol__scope"><span class="cross">⌖</span><span class="noun">Post</span>Three things we changed on the Pinecrest site<span class="x">×</span></span><div class="ecol__row"><span class="ph">Ask Earnest</span><span class="ic">🎙</span><span class="ic send">↑</span></div></div>
+    </div>
+  </section>
+
+  <div class="photo-band wide" style="padding-block:40px 0"><figure class="photo" data-slot="h-palm"><img src="https://images.unsplash.com/photo-1787108171541-53bda43637c2?auto=format&fit=crop&w=1800&q=70" alt="Shadows of palm fronds on a white wall" loading="lazy"><video data-ambient muted loop playsinline autoplay preload="metadata"><source src="https://assets.mixkit.co/videos/44501/44501-720.mp4" type="video/mp4"></video><span class="ph-word">Quiet.</span><span class="ph-tag">stock · replace · palm frond, mixkit 44501</span></figure></div>
+
+  <!-- 5 · integrated: keep your word -->
+  <section class="beat flip" id="word" style="grid-template-columns:1fr">
+    <div class="copy" data-reveal style="order:0;max-width:60ch">
+      <span class="n">One app, so the promise travels</span>
+      <h2>Keep <span class="pop">your word</span>.</h2>
+      <p class="sub">A promise made in one place is kept in another. The check-in you said you'd do in a meeting is on the calendar. The signed contract is already a project. The payment plan in the PDF you dropped is the invoice schedule.</p>
+      <p class="move"><b>The move</b>Sign it. The rest is one press each.</p>
+    </div>
+    <div class="kept" aria-label="A signed contract becomes a project becomes an invoice">
+      <div class="step card"><span class="k">Signed</span><span class="t">Helios — booking site, three phases</span><small>$18,500 · e-signed in the portal · Tuesday</small></div>
+      <div class="step card"><span class="k">Project</span><span class="t">Helios — Website Build</span><small>3 phases from the contract · dates from the PDF · booking flow QA last</small></div>
+      <div class="step card"><span class="k">Billed</span><span class="t">Milestone 1 · $6,200</span><small>one press · Stripe · lands on cash flow</small></div>
+    </div>
+  </section>
+
+</div>
+
+<div class="wrap photo-band abstract"><figure class="photo" data-slot="h-abstract"><img src="https://images.unsplash.com/photo-1785331546632-3cf4dcb827f8?auto=format&fit=crop&w=1800&q=70" alt="Golden light and shadow on a dark surface" loading="lazy"><span class="ph-tag">stock · replace</span></figure></div>
+
+<section class="machine band">
+  <div class="wrap">
+    <p>Runs on <strong>Anthropic's Claude</strong>, on no-training terms.</p>
+    <p>Reads your records. From your calendar, <strong>open times only</strong>, never event details.</p>
+    <p>Says so at <strong>80%</strong> of your AI budget. Checks every action landed.</p>
+  </div>
+</section>
+
+<section class="sec pricing" id="pricing">
+  <div class="wrap">
+    <h2>Every feature. <span class="pop">Every plan.</span></h2>
+    <div class="ladder"><div class="ladder-scroll"><table>
+      <thead><tr><th></th><th>Solo<span class="p">$49<small>/mo</small></span></th><th class="feat">Team<span class="p">$149<small>/mo</small></span></th><th>Business<span class="p">$299<small>/mo</small></span></th></tr></thead>
+      <tbody>
+        <tr><th>Team seats</th><td>1</td><td class="feat">8</td><td>15</td></tr>
+        <tr><th>AI tokens / month</th><td>100K</td><td class="feat">400K</td><td>1M</td></tr>
+        <tr><th>File storage</th><td>25 GB</td><td class="feat">100 GB</td><td>500 GB</td></tr>
+        <tr><th>Client-portal seats</th><td>5</td><td class="feat">15</td><td>Unlimited</td></tr>
+      </tbody>
+    </table></div></div>
+    <p class="every">One price, your whole team, every feature on every plan. What you choose is <strong>scale</strong>. 14-day trial, no card. Annual saves two months.</p>
+  </div>
+</section>
+
+<section class="sec band" id="faq">
+  <div class="wrap">
+    <h2>Good questions, <span class="pop">straight answers</span>.</h2>
+    <div class="faq">
+      <details open><summary>Will it send emails or move money on its own?</summary><p>No. Email, invoices, payments, meetings and campaign launches always wait for your tap. Small reversible things like a task or a ticket can run on their own if you switch that on, with an audit trail and an Undo.</p></details>
+      <details><summary>Can my clients use it?</summary><p>If you switch it on. In their portal Earnest answers as your studio and sees only what that client can already open. It can log a request, leave a note or book time with you. Nothing else.</p></details>
+      <details><summary>Who can see my data?</summary><p>Only the members you invite. Your workspace is isolated from every other organization, we never sell your data, and Earnest reads it only to produce your own results. It runs on Anthropic's Claude, on no-training terms.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="cta-photo" data-slot="h-close"><img src="https://images.unsplash.com/photo-1758691736545-5c33b6255dca?auto=format&fit=crop&w=2200&q=70" alt="A woman presenting a chart to a room" loading="lazy"><span class="ph-tag">stock · replace</span></div>
+  <div class="wrap">
+    <p class="cmd">Mean it<span class="dot">.</span></p>
+    <p class="tag">Do good work.</p>
+    <p class="mark" style="margin-top:18px">Earnest<b>.</b></p>
+    <div class="actions">
+      <a class="btn primary" href="https://app.earnest.guru/register">Start free</a>
+      <a class="btn" href="https://app.earnest.guru/try-demo?persona=solo">Try the live demo</a>
+    </div>
+  </div>
+</section>
+
+<footer data-footer></footer>
+
+<script src="../2026-10-everywhere/shared.js"></script>
+<script src="motion.js"></script>
+<script>E.wave(document.getElementById('wave'));</script>
+</body>
+</html>

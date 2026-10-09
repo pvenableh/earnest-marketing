@@ -1,0 +1,204 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   ONE design, two modes. No look system: these tokens override the Glass
+   defaults in ../2026-10-everywhere/shared.css (loaded first for the nav,
+   ladder, FAQ, CTA and footer components), and good-work.css reads the same
+   variable names for the column, the photo slots and the motion.
+
+   Light is a warm white with ink; dark is near-black with the same ink
+   relationships inverted. One accent. Display type is the body face at
+   weight 300, large, tight — the idea carries the page, not a typeface.
+   ───────────────────────────────────────────────────────────────────────── */
+:root{
+  color-scheme:light;
+  --bg:#fbfaf7; --surface:#ffffff; --surface-2:#f1efea; --paper:#f5f3ee; --solid:#ffffff;
+  --ink:#121418; --ink-2:#4c525c; --ink-3:#8a9099; --line:#e4e1da;
+  --pop:#0a7fc4; --pop-ink:#ffffff; --pop-soft:#e5f2fa;
+  --ok:#1f8f5f; --warn:#b36b00; --bad:#cf3a4a;
+  --shadow:0 24px 60px rgba(20,24,30,.10); --blur:none;
+  --r-card:16px; --r-btn:999px; --r-chip:999px;
+  --font-body:'Proxima Nova',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-display:'Proxima Nova',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mark:'Bauer Bodoni','Bodoni MT','Didot',Georgia,serif;
+  --font-note:'Proxima Nova',system-ui,sans-serif;
+  --h-weight:300; --h-transform:none; --h-tracking:-.025em; --h-lh:1.02; --h-scale:1;
+  --measure:1120px;
+}
+:root[data-mode="dark"]{
+  color-scheme:dark;
+  --bg:#0b0d12; --surface:#12151c; --surface-2:#1a1e27; --paper:#10131a; --solid:#12151c;
+  --ink:#f2f3f5; --ink-2:#aeb4bf; --ink-3:#6f7683; --line:#242934;
+  --pop:#4fb3ec; --pop-ink:#0b0d12; --pop-soft:#13293a;
+  --ok:#5fd39a; --warn:#f0b35a; --bad:#f07b86;
+  --shadow:0 30px 80px rgba(0,0,0,.5);
+}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{font-size:17px}
+.btn{border-color:var(--ink);background:transparent}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+:root[data-mode="dark"] .btn.primary{background:var(--ink);color:var(--bg)}
+.btn:hover{transform:none;background:var(--surface-2)}
+.btn.primary:hover{background:var(--pop);border-color:var(--pop);color:var(--pop-ink)}
+.card{box-shadow:none}
+.nav{background:color-mix(in srgb,var(--bg) 86%,transparent)}
+.nav ul{font-size:14.5px}
+.nav .cta{gap:8px}
+.mode-btn{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink-2);cursor:pointer;font-size:15px}
+.mode-btn:hover{color:var(--ink);border-color:var(--ink)}
+.mode-btn .sun,.mode-btn .moon{display:none}
+:root[data-mode="light"] .mode-btn .moon{display:block}
+:root[data-mode="dark"] .mode-btn .sun{display:block}
+
+/* hero */
+.hero{padding-block:120px 72px;min-height:78vh;display:grid;align-items:center;text-align:center}
+.hero h1{font-size:clamp(60px,10vw,148px);margin-top:0;letter-spacing:-.035em;line-height:.95;font-weight:300}
+.hero h1 .dot{color:var(--pop)}
+.hero .lede{margin-inline:auto;max-width:46ch;font-size:21px;margin-top:28px;line-height:1.5}
+.hero .actions{justify-content:center}
+.hero .fine{margin-inline:auto;text-align:center;max-width:60ch}
+.hero .receipt{margin-top:26px}
+.hero .hero-photo::after{background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 50%,transparent) 0%,color-mix(in srgb,var(--bg) 72%,transparent) 60%,var(--bg) 100%)}
+:root[data-mode="dark"] .hero .hero-photo::after{background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 42%,transparent) 0%,color-mix(in srgb,var(--bg) 66%,transparent) 60%,var(--bg) 100%)}
+.hero .hero-photo img,.hero .hero-photo video{filter:saturate(.7)}
+:root[data-mode="dark"] .hero .hero-photo img,:root[data-mode="dark"] .hero .hero-photo video{filter:saturate(.6) brightness(.7)}
+@media(max-width:900px){.hero{padding-block:64px 40px;min-height:0}}
+
+/* beats */
+.beat{padding-block:96px}
+.beat .copy .n{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px}
+.beat .copy h2{font-size:clamp(40px,5.6vw,72px);letter-spacing:-.03em;font-weight:300}
+.beat .copy .sub{font-size:19px;max-width:44ch}
+.beat .copy .move{margin-top:18px;font-size:14px;color:var(--ink-3);max-width:44ch}
+.beat .copy .move b{font-weight:400;color:var(--ink-2);letter-spacing:.12em;text-transform:uppercase;font-size:11px;margin-right:8px}
+.ecol{box-shadow:var(--shadow)}
+@media(max-width:900px){.beat{padding-block:56px}}
+
+/* keep your word */
+.kept{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;margin-top:40px}
+.kept .step{padding:18px;display:grid;gap:6px;align-content:start;position:relative;min-width:0;border:1px solid var(--line);border-radius:var(--r-card);background:var(--surface)}
+.kept .step .k{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--pop)}
+.kept .step .t{font-size:17px;color:var(--ink)}
+.kept .step small{color:var(--ink-3);font-size:13px}
+.kept .step+.step::before{content:"→";position:absolute;left:-15px;top:16px;color:var(--ink-3)}
+@media(max-width:900px){.kept{grid-template-columns:1fr}.kept .step+.step::before{content:"↓";left:18px;top:-18px}}
+
+/* bands */
+.never{justify-content:center;padding-block:48px;font-size:17px}
+.machine{padding-block:56px;font-size:19px}
+.sec h2{font-weight:300;letter-spacing:-.03em}
+.pricing h2,.faqs h2{text-align:center}
+.pricing .every{text-align:center}
+.ladder{box-shadow:none}
+.ladder thead th .p{font-weight:300}
+.faq summary{font-weight:400}
+
+/* closing */
+section.cta{padding-block:120px}
+.cta .cmd{font-weight:300;letter-spacing:-.03em;font-size:clamp(44px,8vw,104px);line-height:1}
+.cta .cmd .dot{color:var(--pop)}
+.cta .tag{font-family:var(--font-body);font-style:italic;font-weight:300;font-size:24px;color:var(--pop);margin-top:14px;letter-spacing:0}
+.cta .mark{font-size:clamp(56px,9vw,112px);margin-top:22px}
+.cta .sub{margin-top:18px}
+footer .maker a{color:var(--ink-3)}
+
+/* ── Round 3 feedback (Peter, 9 Oct) ──
+   uppercase nav · sticky creed · no rules between sections, alternating
+   gradients with inner shadow, copy sticks on md+ · the client photograph
+   as the backdrop for two beats · the kept cards animate in. */
+.nav ul{text-transform:uppercase;letter-spacing:.14em;font-size:12px}
+.nav ul a{color:var(--ink-2)}.nav ul a:hover{color:var(--ink)}
+
+/* the creed: "Good work" holds; each line is a whole sentence whose own
+   "Good work" is invisible but takes up space, so the predicate sits on the
+   same first line and wraps underneath the subject like prose. */
+.creed{position:relative;height:420vh;padding:0;text-align:left}
+.creed__sticky{position:sticky;top:0;height:100vh;display:grid;align-items:center;max-width:var(--measure);margin-inline:auto;padding-inline:24px}
+.creed__stage{position:relative;display:grid;font-weight:300;letter-spacing:-.03em;line-height:1.06;font-size:clamp(40px,6.4vw,92px);min-height:3.3em}
+.creed__subject{grid-area:1/1;align-self:start;margin:0;color:var(--ink);z-index:2;transition:opacity .4s}
+.creed.turn-on .creed__subject{opacity:0}
+.creed__lines{grid-area:1/1;list-style:none;margin:0;padding:0;display:grid}
+.creed__lines li{grid-area:1/1;align-self:start;color:var(--ink);opacity:0;transform:translateY(26px);transition:opacity .5s ease,transform .5s ease;pointer-events:none}
+.creed__lines li .s{visibility:hidden}
+.creed__lines li.seen{opacity:0;transform:translateY(-26px)}
+.creed__lines li.on{opacity:1;transform:none}
+.creed__lines li em{font-style:normal;color:var(--pop)}
+.creed__lines li.turn{color:var(--pop)}
+.creed__k{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);transition:opacity .4s}
+.creed.done .creed__k{opacity:0}
+@media(max-width:900px){.creed{height:360vh}.creed__sticky{padding-inline:16px}.creed__stage{font-size:clamp(32px,9vw,46px);min-height:4.4em}}
+@media(prefers-reduced-motion:reduce){.creed{height:auto;padding-block:80px}.creed__sticky{position:static;height:auto}.creed__stage{min-height:0}.creed__subject{display:none}.creed__lines{gap:10px}.creed__lines li{grid-area:auto;opacity:1;transform:none}.creed__lines li .s{visibility:visible}.creed__k{display:none}}
+
+/* beats: full-bleed sections, no rules, alternating gradients, inner shadow */
+.beat{border-top:0;display:block;padding-block:0}
+.beat__grid{display:grid;grid-template-columns:1.1fr minmax(300px,360px);gap:56px;align-items:start;max-width:var(--measure);margin-inline:auto;padding:14vh 24px}
+.beat__grid>*{min-width:0}
+.beat.flip .beat__grid{grid-template-columns:minmax(300px,360px) 1.1fr}
+.beat.flip .beat__grid .copy{order:2}
+.beat.tone{background:linear-gradient(180deg,var(--surface-2) 0%,var(--bg) 100%);box-shadow:inset 0 40px 80px -60px rgba(0,0,0,.12),inset 0 -40px 80px -60px rgba(0,0,0,.08)}
+:root[data-mode="dark"] .beat.tone{background:linear-gradient(180deg,#141822 0%,var(--bg) 100%);box-shadow:inset 0 40px 80px -60px rgba(0,0,0,.6),inset 0 -40px 80px -60px rgba(0,0,0,.4)}
+.beat .ecol{justify-self:center}
+@media(min-width:901px){.beat__grid{min-height:96vh}.beat .copy{position:sticky;top:22vh}.beat .ecol{margin-top:22vh}}
+@media(max-width:900px){.beat__grid,.beat.flip .beat__grid{grid-template-columns:1fr;gap:28px;padding:56px 16px}.beat.flip .beat__grid .copy{order:0}}
+.beat .copy .more{display:inline-flex;align-items:center;gap:6px;margin-top:22px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent}
+.beat .copy .more:hover{color:var(--pop);border-color:var(--pop)}
+.beat .copy .more::after{content:"→"}
+
+/* two beats on the client photograph */
+.over-photo{position:relative;isolation:isolate;overflow:clip;color:#fff;
+  --ink:#ffffff;--ink-2:rgba(255,255,255,.8);--ink-3:rgba(255,255,255,.58);--line:rgba(255,255,255,.18);
+  --surface:rgba(10,12,18,.62);--surface-2:rgba(255,255,255,.08);--paper:rgba(10,12,18,.5);--bg:#0b0d12;--pop:#7fd0ff;--blur:blur(14px);--shadow:0 30px 80px rgba(0,0,0,.45)}
+.over-photo__bg{position:absolute;inset:0;z-index:-1}
+.over-photo__bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;filter:saturate(.7) brightness(.72)}
+.over-photo__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,14,.35) 0%,rgba(8,10,14,.55) 50%,rgba(8,10,14,.8) 100%)}
+.over-photo__bg .ph-tag{position:absolute;right:14px;top:14px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.25);padding:3px 8px;border-radius:999px;background:rgba(0,0,0,.35)}
+.over-photo .ecol{backdrop-filter:var(--blur);background:var(--surface)}
+.over-photo .ecol__card{background:rgba(255,255,255,.06)}
+.over-photo .ecol__composer{background:rgba(255,255,255,.04)}
+.over-photo .ecol__row{background:rgba(255,255,255,.06)}
+.over-photo .ecol__you{background:rgba(255,255,255,.12)}
+.over-photo .beat.tone{background:none;box-shadow:none}
+.over-photo__lead{max-width:var(--measure);margin-inline:auto;padding:16vh 24px 0;text-align:center}
+.over-photo__lead p{font-weight:300;letter-spacing:-.03em;line-height:1.05;font-size:clamp(36px,6vw,84px);color:#fff}
+.over-photo__lead small{display:block;margin-top:14px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+@media(max-width:900px){.over-photo__lead{padding:64px 16px 0}}
+
+/* keep your word: the cards arrive one after another */
+.kept .step[data-reveal]{transition-delay:var(--d,0s)}
+.kept .step:nth-child(2){--d:.25s}.kept .step:nth-child(3){--d:.5s}
+.kept .step+.step::before{opacity:0;transition:opacity .5s ease var(--d,0s)}
+.kept .step.in+.step::before,.kept .step.in::before{opacity:1}
+
+.beat .photo-band{padding:0}
+
+/* ── Feedback pass 2 ──
+   the photograph holds while the section scrolls over it (a sticky layer,
+   not background-attachment, so phones get it too) · "Steady." is a
+   full-bleed wind section with a line under it · "Keep your word" sits on a
+   photograph · the features FAQ has a visible link · uppercase footer. */
+.over-photo__bg{position:sticky;top:0;height:100vh;z-index:-1}
+.over-photo__content{margin-top:-100vh;position:relative}
+.over-photo--short .over-photo__bg{position:absolute;inset:0;height:auto}
+.over-photo--short .over-photo__content{margin-top:0}
+.over-photo--short .over-photo__bg img{object-position:center 50%;filter:saturate(.8) brightness(.6)}
+.over-photo--short .over-photo__bg::after{background:linear-gradient(180deg,rgba(8,10,14,.5),rgba(8,10,14,.7))}
+.over-photo--short .beat__grid{min-height:0;padding-block:16vh}
+.over-photo--short .copy{position:static!important}
+.over-photo .kept .step{background:var(--surface);backdrop-filter:var(--blur);border-color:var(--line)}
+.over-photo .kept .step .t{color:#fff}
+
+/* the wind */
+.wind{position:relative;isolation:isolate;overflow:hidden;min-height:78vh;display:grid;place-items:center;text-align:center;color:#fff;padding:18vh 24px}
+.wind__bg{position:absolute;inset:0;z-index:-1}
+.wind__bg img,.wind__bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.wind__bg img{filter:saturate(.7) brightness(.75)}
+.wind__bg video{opacity:0;transition:opacity 1.2s ease;filter:saturate(.75) brightness(.72)}
+.wind__bg video.on{opacity:1}
+.wind__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,14,.25),rgba(8,10,14,.35) 60%,rgba(8,10,14,.6))}
+.wind__bg .ph-tag{position:absolute;right:14px;bottom:14px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.25);padding:3px 8px;border-radius:999px;background:rgba(0,0,0,.35)}
+.wind h2{font-weight:300;letter-spacing:-.035em;line-height:1;font-size:clamp(56px,10vw,140px);color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+.wind p{margin:18px auto 0;max-width:36ch;font-size:clamp(18px,2.2vw,24px);font-weight:300;color:rgba(255,255,255,.88);text-shadow:0 1px 16px rgba(0,0,0,.4)}
+.wind small{display:block;margin-top:22px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+
+/* faq link, footer */
+.faq .btn.sm{margin-top:14px;font-size:13px}
+footer .flinks{text-transform:uppercase;letter-spacing:.14em;font-size:11px}
