@@ -69,7 +69,7 @@
 					<p class="e-hero-tagline opacity-0">Do good work<span class="e-dot">.</span></p>
 					<!-- The first sentence is the plain "what is this" Google's OAuth brand review reads for. Keep it literal. -->
 					<p class="e-hero-sub opacity-0">
-						Earnest is business software for agencies, studios and freelancers: clients, projects, invoices,
+						Earnest is business software for agencies, firms, practices and shops: clients, projects, invoices,
 						scheduling and marketing in one app. It reads the screen you’re on, <strong>drafts the next step</strong>,
 						and waits for your tap.
 					</p>
@@ -219,7 +219,7 @@
 			<div class="l-compare" data-anim="scale">
 				<p class="l-compare-lead">
 					<UIcon name="i-lucide-check-check" class="l-compare-lead-ic" />
-					Every feature — all six apps, the Boardroom, Creative Approvals and context-aware Earnest — is
+					Every feature — all six apps, Creative Approvals and context-aware Earnest — is
 					included on <strong>every</strong> plan. What changes is scale.
 				</p>
 				<div class="l-compare-scroll">
@@ -228,8 +228,8 @@
 							<tr>
 								<th class="l-compare-rowhead" scope="col"><span class="l-compare-sr">Feature</span></th>
 								<th scope="col">Solo</th>
-								<th scope="col" class="l-compare-col--feat">Studio</th>
-								<th scope="col">Agency</th>
+								<th scope="col" class="l-compare-col--feat">Team</th>
+								<th scope="col">Business</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -245,7 +245,7 @@
 				<p class="l-addons">
 					<strong>Creative Approvals</strong> is included on every plan today ·
 					<strong>Extra storage</strong> $10/mo per 100 GB ·
-					<strong>White-label</strong> $19/mo on Agency ·
+					<strong>White-label</strong> $19/mo on Business ·
 					more AI tokens available if you run out
 					<br />
 					<span class="l-addons-soon">

@@ -11,9 +11,8 @@
 				</span>
 			</nuxt-link>
 			<div class="e-nav-links">
-				<a href="#focus" class="e-nav-link">Focus</a>
+				<a href="#focus" class="e-nav-link">Earnest</a>
 				<a href="#learns" class="e-nav-link">Learns you</a>
-				<a href="#office" class="e-nav-link">The Office</a>
 				<a href="#pricing" class="e-nav-link">Pricing</a>
 				<a href="#faq" class="e-nav-link">FAQ</a>
 			</div>
@@ -35,7 +34,7 @@
 			</p>
 			<div class="e-hero-actions opacity-0">
 				<button class="e-btn e-btn-primary g-press" @click="openEarlyAccess()">Start for free</button>
-				<a href="#office" class="e-btn e-btn-ghost g-press">See the Office</a>
+				<a href="#focus" class="e-btn e-btn-ghost g-press">See it at work</a>
 			</div>
 			<div class="e-hero-demos opacity-0">
 				<a :href="soloDemoUrl" class="e-hero-demo"><UIcon name="i-lucide-play-circle" /> Try the live demo</a>
@@ -53,7 +52,7 @@
 			<figure class="e-hero-shot opacity-0">
 				<div class="e-frame g-hero-frame">
 					<div class="e-frame-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
-					<img :src="heroScreenshotSrc" alt="Earnest — the Command Center, your daily greeting and the one thing that needs you" loading="eager" decoding="async" class="e-frame-img" />
+					<img :src="heroScreenshotSrc" alt="Earnest — Home: your greeting, and what needs you today" loading="eager" decoding="async" class="e-frame-img" />
 				</div>
 				<div class="g-float g-float-score g-glass" data-parallax="0.14" aria-hidden="true">
 					<span class="g-float-ring">
@@ -63,7 +62,7 @@
 				</div>
 				<div class="g-float g-float-streak g-glass" data-parallax="0.22" aria-hidden="true"><span class="g-streak">🔥 12-day streak</span></div>
 				<div class="g-float g-float-dec g-glass" data-parallax="0.3" aria-hidden="true"><UIcon name="i-lucide-gavel" style="color:var(--g-accent)" /> 3 decisions ready</div>
-				<figcaption class="e-hero-shot-caption">The live app — your real Command Center, not a mockup.</figcaption>
+				<figcaption class="e-hero-shot-caption">The live app — your real workspace, not a mockup.</figcaption>
 			</figure>
 		</header>
 
@@ -76,24 +75,25 @@
 			</div>
 		</div>
 
-		<!-- ─── Focus — the calm, full-screen space ─── -->
+		<!-- ─── Earnest beside every screen (was Focus, retired in the app's
+		     rethink S8 — the id stays `focus` so old anchors still land) ─── -->
 		<section id="focus" class="e-section">
 			<div class="g-sec-head">
-				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Focus</span>
-				<h2 class="e-h2" data-anim="rise">When it’s a lot, <span class="g-accent-text">there’s Focus</span><span class="e-dot">.</span></h2>
-				<p class="e-section-sub" data-anim="rise">Some days carry more than a dashboard should. Step into Focus and Earnest sits with you — a calm, full-screen space to take it one thing at a time. No noise, no rush.</p>
+				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> Beside every screen</span>
+				<h2 class="e-h2" data-anim="rise">When it’s a lot, <span class="g-accent-text">Earnest is right there</span><span class="e-dot">.</span></h2>
+				<p class="e-section-sub" data-anim="rise">Some days carry more than a dashboard should. Earnest sits in a column beside every screen — one thing to do, one to decide, one to know for where you are, and a box that already knows which record you are on.</p>
 			</div>
 
 			<div class="g-focus" data-anim="scale">
 				<div class="g-focus-aura" aria-hidden="true"><span></span><span></span></div>
 				<div class="g-focus-inner">
 					<span class="g-focus-mark">E<span class="g-focus-dot">.</span></span>
-					<p class="g-focus-greet">I’m here. No rush.<br>What’s the honest version of how things are&nbsp;right&nbsp;now?</p>
+					<p class="g-focus-greet">Ask about anything here, or say what to&nbsp;do.</p>
 					<div class="g-focus-chips">
 						<span v-for="c in focusChips" :key="c" class="g-focus-chip g-press">{{ c }}</span>
 					</div>
 					<div class="g-focus-composer">
-						<span class="g-focus-ph">Tell Earnest what’s on your mind…</span>
+						<span class="g-focus-ph">Ask Earnest, or say what to do…</span>
 						<span class="g-focus-send"><UIcon name="i-lucide-arrow-up" /></span>
 					</div>
 				</div>
@@ -105,7 +105,7 @@
 			<div class="g-sec-head">
 				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> It learns how you work</span>
 				<h2 class="e-h2" data-anim="rise">The more it’s right, <span class="g-accent-text">the more it carries</span><span class="e-dot">.</span></h2>
-				<p class="e-section-sub" data-anim="rise">Earnest pays attention. It learns your voice, your rhythm, the calls you always make and the ones you never would — and as it proves itself, you can hand it more. Trust you can dial, earned by being right.</p>
+				<p class="e-section-sub" data-anim="rise">Earnest pays attention. It learns your voice, your rhythm, the calls you always make and the ones you never would — and when you are ready, one switch hands it the small, reversible things. Trust earned by being right.</p>
 			</div>
 
 			<div class="g-learn" data-anim="scale">
@@ -240,8 +240,10 @@
 			</div>
 		</section>
 
-		<!-- ─── The Director's Office — glass briefing deck ─── -->
-		<section id="office" class="e-section">
+		<!-- ─── The Director's Office — glass briefing deck. HIDDEN 2026-10: the
+		     Boardroom it showed went in the app's rethink S8. Kept in the file
+		     like the gallery below, not deleted, so the archive stays diffable. ─── -->
+		<section v-if="false" id="office" class="e-section">
 			<div class="g-sec-head">
 				<span class="g-kicker-pill" data-anim="scale"><span class="g-eyebrow-dot"></span> The Director’s Office</span>
 				<h2 class="e-h2" data-anim="rise">Your whole organization, <span class="g-accent-text">presented to you</span><span class="e-dot">.</span></h2>
@@ -478,7 +480,7 @@
 		<section id="pricing" class="e-section">
 			<div class="g-sec-head">
 				<h2 class="e-h2" data-anim="rise"><em>Simple</em> pricing<span class="e-dot">.</span> No surprises<span class="e-dot">.</span></h2>
-				<p class="e-section-sub" data-anim="rise">One price. Your whole team. The Director’s Office is included on every plan.</p>
+				<p class="e-section-sub" data-anim="rise">One price. Your whole team. Every feature is included on every plan.</p>
 			</div>
 			<div class="e-plans" data-stagger>
 				<div v-for="(plan, index) in plans" :key="index" class="e-plan g-glass g-lift" :class="{ 'e-plan-featured': plan.featured }">
@@ -617,7 +619,7 @@ const config = useRuntimeConfig();
 const appUrl = config.public.appUrl || 'https://app.earnest.guru';
 const registerUrl = `${appUrl}/register`;
 const soloDemoUrl = `${appUrl}/try-demo?persona=solo`;
-const heroScreenshotSrc = '/screenshots/latest/command-center.png';
+const heroScreenshotSrc = '/screenshots/latest/home-v2.png';
 
 const heroChips = [
 	{ label: 'Home', icon: 'i-lucide-layout-dashboard', tint: '#00cfff' },
@@ -630,12 +632,13 @@ const heroChips = [
 	{ label: 'Me', icon: 'i-lucide-circle-user', tint: '#274366' },
 ];
 
-// Focus — the four opener chips mirror the real in-app Focus screen.
+// The column's Do · Decide · Know chips on the People → Clients floor — the
+// app's own strings (`FLOOR_ROWS`, useEarnestPrompts.ts), as landing-floors.ts
+// records them. Focus and its four openers went in the app's rethink S8.
 const focusChips = [
-	'I’m stretched thin — where do I start?',
-	'Help me plan my next hour',
-	'What can wait?',
-	'What did I do well today?',
+	'Schedule a check-in with a quiet client',
+	'Which clients have gone quiet?',
+	'What does each client owe right now?',
 ];
 
 // Learns / earned trust — what Earnest picks up, and the autonomy you can dial.
@@ -645,24 +648,24 @@ const learned = [
 	'You clear the Helios account first thing — so it’s <b>waiting at the top</b> each morning.',
 	'You reconcile payments the same way every time — so it just <b>does that one</b>.',
 ];
+// The app's autonomy is ONE switch since rethink S10 (shared/ai-autonomy.ts);
+// the three-stop dial this used to draw is gone. Both states lit = switch on.
 const trustTiers = [
-	{ name: 'Suggests', desc: 'Earnest drafts; you decide everything.' },
-	{ name: 'Assists', desc: 'It handles the small, reversible chores on its own.' },
-	{ name: 'Runs ahead', desc: 'It takes the routine work end-to-end, with a full trail.' },
+	{ name: 'Asks first', desc: 'Earnest drafts; you decide everything.' },
+	{ name: 'Handles the small things', desc: 'One switch lets it do small, reversible chores on its own, each one on the record.' },
 ];
-// Two tiers lit — "you're comfortable letting it assist, not yet run ahead".
 const trustLevel = 1;
 
 const marqueeItems = [
 	{ label: 'Organizational overview', icon: 'i-lucide-building-2' },
-	{ label: 'The morning briefing', icon: 'i-lucide-presentation' },
+	{ label: 'The day, sorted', icon: 'i-lucide-presentation' },
 	{ label: 'Grounded, not generic', icon: 'i-lucide-shield-check' },
 	{ label: 'Knows your context', icon: 'i-lucide-eye' },
 	{ label: 'Earnest Score & streaks', icon: 'i-lucide-trophy' },
 	{ label: 'Learns how you work', icon: 'i-lucide-sparkles' },
 	{ label: 'Acts when sure, holds when unsure', icon: 'i-lucide-hand' },
 	{ label: 'Cash flow & AR aging', icon: 'i-lucide-trending-up' },
-	{ label: 'Focus — one thing at a time', icon: 'i-lucide-target' },
+	{ label: 'Earnest beside every screen', icon: 'i-lucide-target' },
 	{ label: 'One approval, whole change', icon: 'i-lucide-check-check' },
 ];
 
@@ -776,9 +779,9 @@ const coldDeals = [
 const activeCold = ref(0);
 
 const proofShots = [
-	{ slug: 'director-presentation', label: 'The Director’s Office', icon: 'i-lucide-building-2' },
-	{ slug: 'command-center', label: 'Command Center', icon: 'i-lucide-zap' },
-	{ slug: 'ai-sidebar', label: 'Context-aware Earnest', icon: 'i-lucide-sparkles' },
+	{ slug: 'home-v2', label: 'Home', icon: 'i-lucide-layout-dashboard' },
+	{ slug: 'shell-dock', label: 'The shell', icon: 'i-lucide-layout-grid' },
+	{ slug: 'project-workspace', label: 'Project workspace', icon: 'i-lucide-folder-kanban' },
 	{ slug: 'financials-overview', label: 'Money · Cash Flow', icon: 'i-lucide-trending-up' },
 	{ slug: 'people-dashboard', label: 'People & CRM', icon: 'i-lucide-users' },
 	{ slug: 'marketing-overview', label: 'Marketing Pulse', icon: 'i-lucide-radar' },
@@ -792,19 +795,19 @@ function lightboxPrev() { lightboxIndex.value = (lightboxIndex.value - 1 + proof
 function lightboxNext() { lightboxIndex.value = (lightboxIndex.value + 1) % proofShots.length; }
 
 const plans = [
-	{ name: 'Solo', price: '49', desc: 'For the one-person shop doing serious work.', featured: false, features: ['1 team seat', 'The Director’s Office included', 'All seven apps included', 'People CRM, projects & invoicing', 'Context-aware Earnest AI', 'Earnest Score & CardDesk', '5 client portal seats', '100K AI tokens/month'], cta: { label: 'Get started' } },
-	{ name: 'Studio', price: '149', desc: 'For the team that means business.', featured: true, features: ['8 team seats', 'Everything in Solo', 'Team channels & video', 'Director mode & token management', 'Whitelabel & branded email', '15 client portal seats', '400K AI tokens/month', '$408/yr if billed annually'], cta: { label: 'Start free trial' } },
-	{ name: 'Agency', price: '299', desc: 'For the business that has grown into something real.', featured: false, features: ['15 team seats', 'Everything in Studio', 'Unlimited client portal seats', 'Bank sync & expenses', 'Priority support + onboarding', '1M AI tokens/month', '$2,491/yr if billed annually'], cta: { label: 'Talk to us' } },
+	{ name: 'Solo', price: '49', desc: 'For the one-person shop doing serious work.', featured: false, features: ['1 team seat', 'Every feature included', 'Every app included', 'People CRM, projects & invoicing', 'Context-aware Earnest AI', 'Earnest Score & CardDesk', '5 client portal seats', '100K AI tokens/month'], cta: { label: 'Get started' } },
+	{ name: 'Team', price: '149', desc: 'For the team that means business.', featured: true, features: ['8 team seats', 'Everything in Solo', 'Team channels & video', 'AI token management', 'Branded email', '15 client portal seats', '400K AI tokens/month', '$408/yr if billed annually'], cta: { label: 'Start free trial' } },
+	{ name: 'Business', price: '299', desc: 'For the business that has grown into something real.', featured: false, features: ['15 team seats', 'Everything in Team', 'Unlimited client portal seats', 'Bank sync & expenses', 'Priority support + onboarding', '1M AI tokens/month', '$2,491/yr if billed annually'], cta: { label: 'Talk to us' } },
 ];
 
 // FAQ — grounded in the site's own copy (guardrails, pricing, context-awareness).
 const faqs = [
 	{ q: 'How is Earnest different from ChatGPT or generic AI assistants?', a: 'Earnest runs on a <strong>real large language model</strong> — Anthropic’s Claude, on no-training terms, the same class of AI as ChatGPT — but instead of starting from a blank prompt, it works from your <strong>actual organization</strong>: your goals, brand, clients and live data across every app, and drafts the day’s decisions in your voice. Because it works from real context, it acts on what it understands, proposes when it matters, and asks when it’s missing something instead of guessing.' },
-	{ q: 'What is Focus mode?', a: 'Focus is a calm, full-screen space where Earnest sits with you — one honest read on where things stand, and room to take the day <strong>one thing at a time</strong> instead of scanning a dashboard. Step in when it’s a lot; it’s the same Earnest, just quieter and one-on-one.' },
-	{ q: 'Does Earnest really learn how I work?', a: 'Yes. It learns your voice, your rhythm, the calls you always make and the ones you never would — so its drafts sound like you and its priorities match yours. As it proves itself accurate you can <strong>dial up how much it handles</strong> on its own, from suggesting to assisting to running routine work end to end. There’s a hard floor it never crosses: money and client-facing sends always wait for your tap.' },
+	{ q: 'Where does Earnest sit in the app?', a: 'In a column on the right of every screen — the conversation above, one thing to do, one to decide and one to know for where you are, and the box you type into at its foot. A chip in that box shows which record Earnest can see, so asking from an invoice is <strong>asking about that invoice</strong>. On a phone it is one bar at the foot of the page.' },
+	{ q: 'Does Earnest really learn how I work?', a: 'Yes. It learns your voice, your rhythm, the calls you always make and the ones you never would — so its drafts sound like you and its priorities match yours. When you are ready, <strong>one switch</strong> lets it do small, reversible things without asking. There’s a hard floor it never crosses: money and client-facing sends always wait for your tap.' },
 	{ q: 'Will Earnest send emails or move money on its own?', a: 'No. Low-stakes, reversible work — reconciling a payment, summarizing a meeting, enriching a contact — can run automatically with a full audit trail. But <strong>nothing reaches a client or moves money without your tap</strong>. Client-facing and financial actions are always drafted for your approval first.' },
-	{ q: 'What does it cost?', a: 'Three plans: <strong>Solo $49/mo</strong>, <strong>Studio $149/mo</strong>, and <strong>Agency $299/mo</strong> — priced per workspace, not per action. The Director’s Office and all seven apps are included on every plan, so there are no usage surprises.' },
-	{ q: 'Is Earnest for solo operators or bigger agencies?', a: 'Both. Solo is built for the one-person shop doing serious work; Studio and Agency add seats, team channels and director tooling as you grow. The same daily rhythm scales from one person to a full team.' },
+	{ q: 'What does it cost?', a: 'Three plans: <strong>Solo $49/mo</strong>, <strong>Team $149/mo</strong>, and <strong>Business $299/mo</strong> — priced per workspace, not per action. Every app and every feature is included on every plan, so there are no usage surprises.' },
+	{ q: 'Is Earnest for solo operators or bigger teams?', a: 'Both. Solo is built for the one-person shop doing serious work; Team and Business add seats, client-portal seats and AI capacity as you grow. The same daily rhythm scales from one person to a full team.' },
 	{ q: 'What happens when Earnest doesn’t have enough context?', a: 'It stops and asks. If it’s thin on your brand, your goals, or a client’s voice, Earnest tells you what it’s missing instead of guessing or filling in generic text. It only acts on what it actually understands — real context over generic confidence.' },
 	{ q: 'Do I have to replace all my tools at once?', a: 'No. Earnest brings People, Work, Money and Marketing into one place, but you can start where it hurts most — chasing invoices, running a project, re-engaging leads — and let it earn the rest. Everything’s included, so there’s nothing extra to buy as you expand.' },
 	{ q: 'Can I track proposals that go cold or get rejected?', a: 'Yes — that’s the point. Earnest keeps the <strong>whole life of every proposal</strong>, including the ones that went quiet or got a no, attached to the lead or client and its contact. Cold and lost deals stay on the record so you can see your real win rate, learn why work slips, and pick a deal back up later instead of losing the history.' },

@@ -43,7 +43,7 @@
 			<figure class="e-hero-shot opacity-0">
 				<div class="e-frame g-hero-frame">
 					<div class="e-frame-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
-					<img :src="heroScreenshotSrc" alt="Earnest — context-aware AI" loading="eager" decoding="async" class="e-frame-img" />
+					<img :src="heroScreenshotSrc" alt="Earnest — a project workspace, the context Earnest reads" loading="eager" decoding="async" class="e-frame-img" />
 				</div>
 				<div class="g-float g-float-score g-glass" data-parallax="0.16" aria-hidden="true">
 					<UIcon name="i-lucide-target" style="color:var(--g-accent)" />
@@ -306,7 +306,7 @@ const config = useRuntimeConfig();
 const appUrl = config.public.appUrl || 'https://app.earnest.guru';
 const registerUrl = `${appUrl}/register`;
 const soloDemoUrl = `${appUrl}/try-demo?persona=solo`;
-const heroScreenshotSrc = '/screenshots/latest/ai-sidebar.png';
+const heroScreenshotSrc = '/screenshots/latest/project-workspace.png';
 
 const heroChips = [
 	{ label: 'Home', icon: 'i-lucide-layout-dashboard', tint: '#00cfff' },
@@ -377,13 +377,12 @@ const completeness = [
 ];
 
 const proofShots = [
-	{ slug: 'ai-sidebar', label: 'Context-aware Earnest', icon: 'i-lucide-sparkles' },
 	{ slug: 'project-workspace', label: 'Projects & Tasks', icon: 'i-lucide-folder-kanban' },
 	{ slug: 'marketing-recommendations', label: 'Marketing Recs', icon: 'i-lucide-megaphone' },
 	{ slug: 'organization-branding', label: 'Brand Context', icon: 'i-lucide-palette' },
 	{ slug: 'leads-pipeline', label: 'CRM Pipeline', icon: 'i-lucide-scan-search' },
 	{ slug: 'financials-overview', label: 'Money · Cash Flow', icon: 'i-lucide-trending-up' },
-	{ slug: 'command-center', label: 'Command Center', icon: 'i-lucide-zap' },
+	{ slug: 'home-v2', label: 'Home', icon: 'i-lucide-layout-dashboard' },
 	{ slug: 'proposals-composer', label: 'Proposal Drafter', icon: 'i-lucide-wand-2' },
 ];
 const lightboxOpen = ref(false);
@@ -396,8 +395,8 @@ function lightboxNext() { lightboxIndex.value = (lightboxIndex.value + 1) % proo
 
 const plans = [
 	{ name: 'Solo', price: '49', desc: 'For the one-person shop doing serious work.', featured: false, features: ['1 team seat', 'Context-aware automation', 'All seven apps included', 'People CRM, projects & invoicing', 'Brand & goal grounding', 'Earnest Score & CardDesk', '5 client portal seats', '100K AI tokens/month'], cta: { label: 'Get started' } },
-	{ name: 'Studio', price: '149', desc: 'For the team that means business.', featured: true, features: ['8 team seats', 'Everything in Solo', 'Team channels & video', 'Director mode & token management', 'Whitelabel & branded email', '15 client portal seats', '400K AI tokens/month', '$408/yr if billed annually'], cta: { label: 'Start free trial' } },
-	{ name: 'Agency', price: '299', desc: 'For the business that has grown into something real.', featured: false, features: ['15 team seats', 'Everything in Studio', 'Unlimited client portal seats', 'Bank sync & expenses', 'Priority support + onboarding', '1M AI tokens/month', '$2,491/yr if billed annually'], cta: { label: 'Talk to us' } },
+	{ name: 'Team', price: '149', desc: 'For the team that means business.', featured: true, features: ['8 team seats', 'Everything in Solo', 'Team channels & video', 'AI token management', 'Branded email', '15 client portal seats', '400K AI tokens/month', '$408/yr if billed annually'], cta: { label: 'Start free trial' } },
+	{ name: 'Business', price: '299', desc: 'For the business that has grown into something real.', featured: false, features: ['15 team seats', 'Everything in Team', 'Unlimited client portal seats', 'Bank sync & expenses', 'Priority support + onboarding', '1M AI tokens/month', '$2,491/yr if billed annually'], cta: { label: 'Talk to us' } },
 ];
 
 const navScrolled = ref(false);

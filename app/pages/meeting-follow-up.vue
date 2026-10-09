@@ -89,7 +89,7 @@ const sellPoints = [
   {
     icon: 'i-lucide-users',
     name: 'Your clients, too.',
-    desc: 'Switch it on and your clients get Earnest in their portal. It answers as your studio and sees only their side. Off by default.',
+    desc: 'Switch it on and your clients get Earnest in their portal. It answers as your business and sees only their side. Off by default.',
   },
   {
     icon: 'i-lucide-shield-check',
@@ -99,7 +99,7 @@ const sellPoints = [
   {
     icon: 'i-lucide-badge-check',
     name: 'Every feature. Every plan.',
-    desc: 'Solo $49/mo, Studio $149/mo, Agency $299/mo — per workspace, not per action. What you choose is scale.',
+    desc: 'Solo $49/mo, Team $149/mo, Business $299/mo — per workspace, not per action. What you choose is scale.',
   },
 ];
 </script>
@@ -122,7 +122,7 @@ const sellPoints = [
           Nothing to retype<span class="mfu-dot">.</span>
         </h1>
         <p class="mfu-desc">
-          You just left a call hosted in <strong>Earnest</strong> — where your host runs their studio:
+          You just left a call hosted in <strong>Earnest</strong> — where your host runs their business:
           clients, work, money and schedules in one place. Here’s what happens to the hour you just spent.
         </p>
       </header>
@@ -158,7 +158,7 @@ const sellPoints = [
 
       <!-- Sell points -->
       <section class="mfu-sell">
-        <h2 class="mfu-label">It knows because they run the studio here</h2>
+        <h2 class="mfu-label">It knows because they run the business here</h2>
         <p class="mfu-sell-intro">
           A call is never just a call. It belongs to a client, a project, an invoice that goes out three weeks
           later. When all of that lives in one place, Earnest can draft the next step — because it already knows

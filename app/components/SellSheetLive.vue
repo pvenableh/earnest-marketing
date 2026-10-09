@@ -30,7 +30,7 @@
 			<h1 class="e-hero-wordmark opacity-0">Earnest<span class="e-hero-period">.</span></h1>
 			<p class="e-hero-tagline opacity-0">Do good work<span class="e-dot">.</span></p>
 			<p class="e-hero-sub opacity-0">
-				One place to run your whole studio — people, work, money and marketing — with an AI that reads it all, drafts the day <strong>in your voice</strong>, and moves nothing without your tap. Set up in minutes.
+				One place to run your whole business — people, work, money and marketing — with an AI that reads it all, drafts the day <strong>in your voice</strong>, and moves nothing without your tap. Set up in minutes.
 			</p>
 			<div class="e-hero-actions opacity-0">
 				<a :href="registerUrl" class="e-btn e-btn-primary g-press">Start free</a>
@@ -74,11 +74,11 @@
 				</div>
 			</div>
 
-			<!-- Hero shot — the live Command Center -->
+			<!-- Hero shot — the live Home -->
 			<figure class="e-hero-shot opacity-0">
 				<div class="e-frame g-hero-frame">
 					<div class="e-frame-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
-					<img :src="heroScreenshotSrc" alt="Earnest — the Command Center, your daily greeting and the one thing that needs you" loading="eager" decoding="async" class="e-frame-img" />
+					<img :src="heroScreenshotSrc" alt="Earnest — Home: your greeting, and what needs you today" loading="eager" decoding="async" class="e-frame-img" />
 				</div>
 				<div class="g-float g-float-score g-glass" data-parallax="0.14" aria-hidden="true">
 					<span class="g-float-ring">
@@ -88,7 +88,7 @@
 				</div>
 				<div class="g-float g-float-streak g-glass" data-parallax="0.22" aria-hidden="true"><span class="g-streak">🔥 12-day streak</span></div>
 				<div class="g-float g-float-dec g-glass" data-parallax="0.3" aria-hidden="true"><UIcon name="i-lucide-gavel" style="color:var(--g-accent)" /> 3 decisions ready</div>
-				<figcaption class="e-hero-shot-caption">The live app — your real Command Center, not a mockup.</figcaption>
+				<figcaption class="e-hero-shot-caption">The live app — your real workspace, not a mockup.</figcaption>
 			</figure>
 		</header>
 
@@ -164,15 +164,15 @@
 			<!-- Capacity ladder — every feature is on every plan; the tiers differ
 			     only by scale. Scrolls horizontally on narrow screens. -->
 			<div class="l-compare" data-anim="scale">
-				<p class="l-compare-lead"><UIcon name="i-lucide-check-check" class="l-compare-lead-ic" /> Every feature — all apps, the Boardroom, and context-aware AI — is included on <strong>every</strong> plan. What changes is scale.</p>
+				<p class="l-compare-lead"><UIcon name="i-lucide-check-check" class="l-compare-lead-ic" /> Every feature — all apps and context-aware AI — is included on <strong>every</strong> plan. What changes is scale.</p>
 				<div class="l-compare-scroll">
 					<table class="l-compare-table">
 						<thead>
 							<tr>
 								<th class="l-compare-rowhead" scope="col"><span class="l-compare-sr">Feature</span></th>
 								<th scope="col">Solo</th>
-								<th scope="col" class="l-compare-col--feat">Studio</th>
-								<th scope="col">Agency</th>
+								<th scope="col" class="l-compare-col--feat">Team</th>
+								<th scope="col">Business</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -250,14 +250,14 @@ const config = useRuntimeConfig();
 const appUrl = config.public.appUrl || 'https://app.earnest.guru';
 const registerUrl = `${appUrl}/register`;
 const soloDemoUrl = `${appUrl}/try-demo?persona=solo`;
-const heroScreenshotSrc = '/screenshots/latest/command-center.png';
+const heroScreenshotSrc = '/screenshots/latest/home-v2.png';
 
 // The app rail — each entry is both a dock chip and a spotlight "slide".
 const apps = [
-	{ label: 'Home', name: 'Presence Home', icon: 'i-lucide-layout-dashboard', tint: '#00cfff', pitch: 'Your AI-first home — the one thing that needs you, and the day drafted with you.' },
+	{ label: 'Home', name: 'Home', icon: 'i-lucide-layout-dashboard', tint: '#00cfff', pitch: 'Your AI-first home — the one thing that needs you, and the day drafted with you.' },
 	{ label: 'People', name: 'People & CRM', icon: 'i-lucide-users', tint: '#09b0dd', pitch: 'Every client, lead and contact — enriched, deduped, and remembered in context.' },
 	{ label: 'Work', name: 'Work & Projects', icon: 'i-lucide-square-kanban', tint: '#0da0cc', pitch: 'Projects, tasks and tickets on one honest timeline that keeps itself current.' },
-	{ label: 'Chat', name: 'Team & Boardroom', icon: 'i-lucide-messages-square', tint: '#1191bb', pitch: 'Channels, calls and the live Boardroom where the team works a decision together.' },
+	{ label: 'Chat', name: 'Team chat', icon: 'i-lucide-messages-square', tint: '#1191bb', pitch: 'Channels for the team — open to everyone or to invited people only, searchable to the last message.' },
 	{ label: 'Money', name: 'Money', icon: 'i-lucide-trending-up', tint: '#1681aa', pitch: 'Invoices, payments and cash flow — sorted by how certain each dollar is.' },
 	{ label: 'Mktg', name: 'Marketing', icon: 'i-lucide-megaphone', tint: '#1a7299', pitch: 'On-brand posts and campaigns, drafted and scheduled, held for your yes.' },
 	{ label: 'Org', name: 'Organization', icon: 'i-lucide-building-2', tint: '#235377', pitch: 'Teams, roles and white-label branding — your studio, exactly your way.' },
@@ -286,7 +286,7 @@ function resumeApps() { appPaused = false; }
 
 const marqueeItems = [
 	{ label: 'One place for the whole business', icon: 'i-lucide-building-2' },
-	{ label: 'The morning briefing', icon: 'i-lucide-presentation' },
+	{ label: 'The day, sorted', icon: 'i-lucide-presentation' },
 	{ label: 'Acts only when it understands', icon: 'i-lucide-shield-check' },
 	{ label: 'Money sorted by certainty', icon: 'i-lucide-trending-up' },
 	{ label: 'White-label client portal', icon: 'i-lucide-panel-right' },
@@ -308,19 +308,19 @@ const args = [
 	},
 	{
 		key: 'briefing',
-		kicker: 'The morning briefing',
+		kicker: 'The day, sorted',
 		title: 'An AI that', accent: 'runs the day with you',
-		sub: 'Every morning Earnest reads across every app and hands you a briefing — what needs a decision today, ranked, each one already drafted. You start from the answer, not a blank dashboard.',
-		shot: 'director-presentation',
-		alt: 'Earnest — the Director’s Office morning briefing',
+		sub: 'Earnest reads across every app and sorts the day — what is waiting for your OK, already drafted; what is one tap; what is just worth knowing. You start from the answer, not a blank dashboard.',
+		shot: 'home-v2-money',
+		alt: 'Earnest — Home, with the day sorted and money first',
 	},
 	{
 		key: 'understands',
 		kicker: 'Grounded, not generic',
 		title: 'It only acts when', accent: 'it understands',
 		sub: 'Earnest works from your real context — your clients, your brand, your data — so it acts when it’s sure, proposes when it matters, and asks when it’s missing something. And nothing reaches a client or moves money without your tap.',
-		shot: 'ai-actions',
-		alt: 'Earnest — AI actions held for your approval',
+		shot: 'project-workspace',
+		alt: 'Earnest — a project workspace, the context Earnest works from',
 	},
 	{
 		key: 'money',
@@ -350,7 +350,7 @@ const args = [
 
 // ─── Breadth carousel — the rest of the toolkit, all included on every plan. ───
 const more = [
-	{ icon: 'i-lucide-presentation', title: 'The Boardroom', desc: 'A live, multiplayer strategy room where the team works a decision together, in real time.' },
+	{ icon: 'i-lucide-messages-square', title: 'Team channels', desc: 'Channels for the team — open to everyone or to invited people only, with search across every message.' },
 	{ icon: 'i-lucide-receipt', title: 'Invoicing & payments', desc: 'Send invoices, take deposits and get paid with Stripe — payments reconciled automatically.' },
 	{ icon: 'i-lucide-file-signature', title: 'Proposals & contracts', desc: 'Draft, send and e-sign — every proposal tracked from open to won, or flagged when it goes cold.' },
 	{ icon: 'i-lucide-calendar-clock', title: 'Scheduler & booking', desc: 'Share your availability; booked meetings land on the calendar and turn into tasks.' },
@@ -379,19 +379,19 @@ const compareRows = [
 // ─── Pricing — the live wizard's plans; CTAs go straight to /register. ───
 const plans = [
 	{ name: 'Solo', price: '49', desc: 'For the one-person shop doing serious work.', featured: false, features: ['1 team seat', 'Every feature included', 'People, work, money & marketing', 'Context-aware Earnest AI', '5 client portal seats', 'Monthly or annual (2 months free)'], cta: 'Start free', href: registerUrl },
-	{ name: 'Studio', price: '149', desc: 'For the team that means business.', featured: true, features: ['8 team seats', 'Everything in Solo', 'Team channels & the Boardroom', 'Director mode & AI management', '15 client portal seats', '2 months free on annual'], cta: 'Start free', href: registerUrl },
-	{ name: 'Agency', price: '299', desc: 'For the studio that’s grown into something real.', featured: false, features: ['15 team seats', 'Everything in Studio', 'White-label add-on available', 'Unlimited client portal seats', 'Bank sync & expenses', 'Priority support + onboarding'], cta: 'Start free', href: registerUrl },
+	{ name: 'Team', price: '149', desc: 'For the team that means business.', featured: true, features: ['8 team seats', 'Everything in Solo', 'Team channels', 'AI token management', '15 client portal seats', '2 months free on annual'], cta: 'Start free', href: registerUrl },
+	{ name: 'Business', price: '299', desc: 'For the business that’s grown into something real.', featured: false, features: ['15 team seats', 'Everything in Team', 'White-label add-on available', 'Unlimited client portal seats', 'Bank sync & expenses', 'Priority support + onboarding'], cta: 'Start free', href: registerUrl },
 ];
 
 // ─── FAQ — tightened to the essentials, all reframed to "it's live now". ───
 const faqs = [
 	{ q: 'Is Earnest actually live?', a: 'Yes. Earnest is live in production — sign up at <a href="' + registerUrl + '">app.earnest.guru</a>, create your workspace in a few minutes, and start today. You can also explore the <strong>live demo</strong> with real sample data first, no sign-up required.' },
 	{ q: 'How is it different from ChatGPT or generic AI assistants?', a: 'Earnest runs on a <strong>real large language model</strong> — Anthropic’s Claude, on no-training terms — but instead of a blank prompt, it works from your <strong>actual organization</strong>: your goals, brand, clients and live data across every app, and drafts the day in your voice. Real context, not generic confidence.' },
-	{ q: 'Does Earnest really learn how I work?', a: 'Yes. It learns your voice, your rhythm, the calls you always make and the ones you never would — so its drafts sound like you and its priorities match yours. As it proves itself accurate you can dial up how much it handles on its own, from suggesting to assisting to running routine work end to end. There is a hard floor it never crosses: <strong>money and client-facing sends always wait for your tap</strong>.' },
+	{ q: 'Does Earnest really learn how I work?', a: 'Yes. It learns your voice, your rhythm, the calls you always make and the ones you never would — so its drafts sound like you and its priorities match yours. When you are ready, one switch lets it do small, reversible things without asking. There is a hard floor it never crosses: <strong>money and client-facing sends always wait for your tap</strong>.' },
 	{ q: 'What happens when Earnest doesn’t have enough context?', a: 'It stops and asks. If it’s thin on your brand, your goals, or a client’s voice, Earnest tells you what it’s missing instead of guessing or filling in generic text. It only acts on what it actually understands — real context over generic confidence.' },
 	{ q: 'Will Earnest send emails or move money on its own?', a: 'No. Low-stakes, reversible work — reconciling a payment, summarizing a meeting, enriching a contact — can run automatically with a full audit trail. But <strong>nothing reaches a client or moves money without your tap</strong>.' },
-	{ q: 'What does it cost?', a: 'Three plans: <strong>Solo $49/mo</strong>, <strong>Studio $149/mo</strong>, and <strong>Agency $299/mo</strong> — priced per workspace, not per action, with every feature included. Choose monthly or save two months on annual.' },
-	{ q: 'Is Earnest for solo operators or bigger agencies?', a: 'Both. Solo is built for the one-person shop doing serious work; Studio and Agency add seats, team channels and director tooling as you grow. The same daily rhythm scales from one person to a full team.' },
+	{ q: 'What does it cost?', a: 'Three plans: <strong>Solo $49/mo</strong>, <strong>Team $149/mo</strong>, and <strong>Business $299/mo</strong> — priced per workspace, not per action, with every feature included. Choose monthly or save two months on annual.' },
+	{ q: 'Is Earnest for solo operators or bigger teams?', a: 'Both. Solo is built for the one-person shop doing serious work; Team and Business add seats, client-portal seats and AI capacity as you grow. The same daily rhythm scales from one person to a full team.' },
 	{ q: 'Do I have to replace all my tools at once?', a: 'No. Earnest brings people, work, money and marketing into one place, but you can start where it hurts most — chasing invoices, running a project, re-engaging leads — and let it earn the rest.' },
 	{ q: 'Who can see my data?', a: 'Your workspace is private to your organization — only members you invite can see it, and we never sell your data or share one customer’s with another. Earnest’s AI reads your data only to generate your own results, under no-training terms. Full detail is in our <a href="/privacy-policy">privacy policy</a>.' },
 ];
@@ -628,7 +628,7 @@ onUnmounted(() => {
 .l-compare-table tbody tr:last-child td { border-bottom: 0; }
 .l-compare-rowhead { text-align: left; color: var(--g-ink-2); font-weight: 600; white-space: nowrap; }
 .l-compare-table tbody td { color: var(--g-ink); font-weight: 600; font-variant-numeric: tabular-nums; }
-/* Highlight the featured (Studio) column so it ties back to the plan card. */
+/* Highlight the featured (Team) column so it ties back to the plan card. */
 .l-compare-col--feat { background: var(--g-accent-soft); }
 .l-compare-table thead th.l-compare-col--feat { color: var(--g-accent-ink); border-bottom-color: var(--g-accent-line); }
 .l-compare-table tbody tr:first-child .l-compare-col--feat { border-top-left-radius: 12px; border-top-right-radius: 12px; }

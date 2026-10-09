@@ -1,6 +1,6 @@
 # Earnest
 
-> Everything a creative studio runs on — clients, projects, invoices, proposals, client approvals and content — in one place, with an AI that reads across all of it and tells you what needs you today.
+> One workspace for an agency, a firm, a practice or a shop — clients, work, bookings, invoices, proposals, approvals and marketing — with an AI that reads across all of it and tells you what needs you today.
 
 Earnest replaces the pile of disconnected tools — CRM, project management, invoicing, proposals and contracts, client approvals, scheduling, team chat, content planning — with one workspace. It runs on a real large language model (Anthropic's Claude, under no-training terms) grounded in your own organization rather than a blank prompt.
 
@@ -8,17 +8,19 @@ Earnest replaces the pile of disconnected tools — CRM, project management, inv
 
 - Website: https://earnest.guru
 - App: https://app.earnest.guru
-- Pricing: Solo $49/mo, Studio $149/mo, Agency $299/mo — priced per workspace, not per action
+- Pricing: Solo $49/mo, Team $149/mo, Business $299/mo — priced per workspace, not per action
 - Every feature is on every plan. Plans differ by capacity only: seats, AI tokens, file storage, card scans, client-portal seats.
 - Free trial: 14 days, no card required.
+- Who it is for: four kinds of business — agencies and studios that do work and marketing for clients; firms that deliver projects for clients (architects, accountants, lawyers, builders, consultants); practices people book time with (clinics, salons, trainers, coaches, tutors); and shops that sell to customers. The kind sets the starting modules and words (a practice or a shop says Customers; a shop's proposals are Quotes), and an organization can turn any module on or off and rename any word.
 
 ## How it works
 
-- The day is sorted into three piles: Decide (drafted by Earnest, waiting on you), Do (one tap each), Know (nothing required, but worth knowing).
-- Four lenses re-rank that same view: Everything, Money, Creative, Projects.
-- A single control in the header opens Earnest full screen from any page, with its opening suggestions already ranked for whatever you were looking at.
+- Earnest is a column on the right of every screen: the conversation above, three suggestions for where you are (one to do, one to decide, one to know), and the box you type into at its foot. On a phone it is one bar at the foot of the page.
+- The box shows a chip naming the record Earnest can see — ask from an invoice and you are asking about that invoice; remove the chip and it answers about the page instead.
+- Each reply starts with a line saying what Earnest read. Anything it proposes to change arrives as a card to approve, and a count of what is waiting sits in the column's header.
+- Home shows what is waiting for your OK, what is one tap, and what is just worth knowing, filtered by five lenses: Everything, Money, Work, Clients, Creative.
 - Three looks: Glass, Paper (ink on linen) and Clean (white on white, one signal blue). They are real redesigns, not colour swaps.
-- Nothing reaches a client and no money moves without an explicit human tap.
+- Nothing reaches a client and no money moves without an explicit human tap. Sending email, creating invoices, recording payments, booking meetings and launching campaigns always wait for a person, whatever the autonomy setting.
 
 ## What Earnest does not do
 
@@ -34,15 +36,15 @@ Stated plainly, because the rest of this file is a sales document and this part 
 ### Home
 
 - Home — Decide, Do, Know: Your home opens on a greeting with an honest read of the day — “22 things today — 5 need a decision, 13 are one tap each, 4 are just worth knowing” — then sorts everything into three piles
-- Lenses & the ambient field: One screen, four ways of reading it
+- Lenses & the ambient field: One page, five ways of reading it
 - Earnest Score: The Earnest Score tracks six dimensions of performance — follow-through, consistency, responsiveness, proactivity, depth, and CRM activity — and distills them into a single daily score with a team leaderboard
 - Daily digest & web push: One honest summary a day — what moved, what is waiting on you, what went quiet — and a web push only when something genuinely cannot wait for it
 - Spotlight search: One keystroke over every record you have — clients, contacts, projects, tasks, tickets, invoices, proposals, files and messages — with the result opening in place rather than navigating you somewhere and losing your context
 - Learning goals: Set what you are making time to get better at, and Earnest keeps it in front of you with a one-tap timer on the home
 
-### Earnest — the one door
+### Earnest, beside every screen
 
-- Focus — one door to Earnest: The header is three controls: search, your avatar, and “E.” — the door
+- Earnest, beside every screen: Earnest sits in a column on the right of every screen: the conversation above, one suggestion each to do, decide and know for wherever you are standing, and the box you type into at its foot
 
 ### People
 
@@ -59,7 +61,7 @@ Stated plainly, because the rest of this file is a sales document and this part 
 - Workspaces: Every client and project gets a full workspace with parity tabs — Overview, Conversations, Tasks, Tickets, Time, Documents, Billing, Activity
 - Creative Approvals: A board of work, out with a client at its own link
 - QuickSend: Send work for approval in one press
-- Project Management: Kanban boards, task lists, a timeline, tickets, file attachments, and a command-center project dashboard with stats, documents, billing, and activity feeds
+- Project Management: Kanban boards, task lists, a timeline, tickets, file attachments, and a project dashboard with stats, documents, billing, and activity feeds
 - Quick Tasks & AI To-Dos: Personal task lists with AI-powered suggestions, day and week scheduling, motivational progress tracking, and confetti celebrations
 - Calendar & Scheduling: Calendar-first scheduling with meetings, follow-ups, and lead touchpoints on one view
 - Meetings & AI Recap: Every Earnest meeting room auto-records and transcribes live the moment the host joins — and the same Earnest is right there in the room, following the conversation as it happens
@@ -89,11 +91,10 @@ Stated plainly, because the rest of this file is a sales document and this part 
 - Email Marketing AI: Block-based newsletter builder with AI-powered content generation
 - Brand Awareness AI: Set brand direction, goals, target audience, and location per client
 
-### Chat & the Boardroom
+### Chat
 
 - Channels: A comms hub built for the work — a top-level app on the Earnest rail
 - Teams & Members: Invite members, build teams, and assign clients per team so access is scoped to the people who should see it
-- The Boardroom: The same Earnest, sized up to a full room
 
 ### Organization
 
@@ -105,7 +106,7 @@ Stated plainly, because the rest of this file is a sales document and this part 
 
 ### Looks & the shell
 
-- The shell: One shell over the whole app: six circular chips on a floating rail — Dashboard, People, Work, Chat, Money, Mktg — with the Boardroom in its own footer group, and pill-segmented floor strips inside each app
+- The shell: One shell over the whole app: six circular chips on a floating rail — Dashboard, People, Work, Chat, Money, Mktg — and pill-segmented floor strips inside each app
 - Looks, type & contrast: Three looks, and they are real redesigns rather than a colour swap
 
 ## Pages

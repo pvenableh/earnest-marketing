@@ -79,7 +79,7 @@
 			<figure class="e-hero-shot opacity-0">
 				<div class="e-frame">
 					<div class="e-frame-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
-					<img :src="heroScreenshotSrc" alt="Earnest — the unified seven-app shell" loading="eager" decoding="async" class="e-frame-img" />
+					<img :src="heroScreenshotSrc" alt="Earnest — the shell: six apps on one rail" loading="eager" decoding="async" class="e-frame-img" />
 				</div>
 				<div class="e-pill-float e-pill-1" aria-hidden="true"><UIcon name="i-lucide-trophy" style="color:#f59e0b" /> Earnest Score · 87</div>
 				<div class="e-pill-float e-pill-2" aria-hidden="true"><span class="e-pill-dot" style="background:#10b981"></span> Collected · $24.8k</div>
@@ -315,7 +315,6 @@
 					<div class="e-ai-mock-head">
 						<span class="e-chip e-chip-ai"><UIcon name="i-lucide-sparkles" /></span>
 						<span class="e-ai-mock-title">Earnest</span>
-						<span class="e-ai-mock-seg"><span class="on">Earnest</span><span>Director</span></span>
 					</div>
 					<div class="e-ai-mock-body">
 						<div class="e-ai-bubble e-ai-bubble-them">Reschedule the Helios launch to start two weeks later.</div>
@@ -456,7 +455,7 @@
 				<div class="e-calc-result">
 					<div class="e-calc-cell"><span class="e-calc-rlabel">Current stack</span><span class="e-calc-amt">${{ currentStackCost }}<small>/mo</small></span></div>
 					<div class="e-calc-arrow">&rarr;</div>
-					<div class="e-calc-cell"><span class="e-calc-rlabel"><span class="e-brand">Earnest</span> Studio</span><span class="e-calc-amt e-calc-amt-accent">$149<small>/mo</small></span></div>
+					<div class="e-calc-cell"><span class="e-calc-rlabel"><span class="e-brand">Earnest</span> Team</span><span class="e-calc-amt e-calc-amt-accent">$149<small>/mo</small></span></div>
 				</div>
 				<p class="e-calc-save" v-if="savings > 0">You save <strong>${{ savings }}/mo</strong> — that's <strong>${{ savings * 12 }}/yr</strong> back in your pocket.</p>
 				<p class="e-calc-save" v-else>And you get connected <span class="e-brand">Earnest</span> intelligence that {{ toolCount }} separate tools never could.</p>
@@ -536,7 +535,7 @@ const agencyDemoUrl = `${appUrl}/try-demo?persona=agency`;
 const registerUrl = `${appUrl}/register`;
 
 // Lead with the seven-app shell — the clearest "this is the new Earnest" proof.
-const heroScreenshotSrc = '/screenshots/latest/apps-rail.png';
+const heroScreenshotSrc = '/screenshots/latest/shell-dock.png';
 
 // ── Pillars / features ──
 const tourPillars = pillars.filter((p) => p.nav);
@@ -661,13 +660,13 @@ const activeClient = computed(
 const aiCapabilities = [
 	{ title: 'Brand & goal awareness', desc: "Set each client's brand voice, goals, audience, and positioning once. Every draft — emails, posts, proposals, plans — is grounded in it, so the output sounds like your business, not a generic template." },
 	{ title: 'Earnest, in context', desc: 'Open any client, project, invoice, or lead and the same Earnest already knows the context — past conversations, open tasks, billing. Save any answer as a note.' },
-	{ title: 'The Director’s Office', desc: 'The same Earnest, sized up to an operator. It reasons across projects, clients, and revenue, proposes a plan, and executes multi-step changes on your say-so.' },
+	{ title: 'Beside every screen', desc: 'Earnest sits in a column on the right of every screen — one thing to do, one to decide and one to know for where you are — and anything it proposes waits as a card for your OK.' },
 	{ title: 'AI Actions', desc: 'Tell Earnest what to change and it does the work — reschedule a project, update a status, add a task — from one sentence, with a live confirmation of what changed.' },
 	{ title: 'Context Broker', desc: 'A live org snapshot feeds a real language model on every call, kept fresh by a 3-tier cache. Token costs are shown up front, so there are never any surprises.' },
 ];
 
 const marqueeItems = [
-	{ label: 'Command Center', icon: 'i-lucide-zap' },
+	{ label: 'Home — what needs you', icon: 'i-lucide-zap' },
 	{ label: 'People & CRM', icon: 'i-lucide-users' },
 	{ label: 'Projects & Tasks', icon: 'i-lucide-square-kanban' },
 	{ label: 'Cash Flow & AR Aging', icon: 'i-lucide-trending-up' },
@@ -681,15 +680,15 @@ const marqueeItems = [
 	{ label: 'Team Channels', icon: 'i-lucide-message-square' },
 	{ label: 'CardDesk', icon: 'i-lucide-credit-card' },
 	{ label: 'Earnest Score', icon: 'i-lucide-trophy' },
-	{ label: 'Earnest AI + Director', icon: 'i-lucide-sparkles' },
+	{ label: 'Earnest beside every screen', icon: 'i-lucide-sparkles' },
 	{ label: 'Liquid Glass UI', icon: 'i-lucide-square-stack' },
 	{ label: 'Companion Apps', icon: 'i-lucide-smartphone' },
 ];
 
 // ── Gallery ──
 const galleryShots = [
-	{ slug: 'apps-rail', label: 'The Seven-App Shell', icon: 'i-lucide-layout-grid' },
-	{ slug: 'command-center', label: 'Command Center', icon: 'i-lucide-zap' },
+	{ slug: 'shell-dock', label: 'The shell', icon: 'i-lucide-layout-grid' },
+	{ slug: 'home-v2', label: 'Home', icon: 'i-lucide-layout-dashboard' },
 	{ slug: 'people-dashboard', label: 'People', icon: 'i-lucide-users' },
 	{ slug: 'leads-pipeline', label: 'CRM Pipeline', icon: 'i-lucide-scan-search' },
 	{ slug: 'client-workspace', label: 'Client Workspace', icon: 'i-lucide-app-window' },
@@ -701,10 +700,7 @@ const galleryShots = [
 	{ slug: 'proposals-composer', label: 'Proposal Composer', icon: 'i-lucide-wand-2' },
 	{ slug: 'contracts-list', label: 'Contracts', icon: 'i-lucide-file-signature' },
 	{ slug: 'carddesk', label: 'CardDesk', icon: 'i-lucide-credit-card' },
-	{ slug: 'ai-sidebar', label: 'Context-aware Earnest', icon: 'i-lucide-sparkles' },
-	{ slug: 'ai-actions', label: 'AI Actions', icon: 'i-lucide-wand-sparkles' },
 	{ slug: 'marketing-overview', label: 'Marketing Pulse', icon: 'i-lucide-radar' },
-	{ slug: 'social-inbox', label: 'Social Inbox', icon: 'i-lucide-inbox' },
 	{ slug: 'organization-overview', label: 'Organization', icon: 'i-lucide-building-2' },
 	{ slug: 'organization-branding', label: 'Brand & Whitelabel', icon: 'i-lucide-palette' },
 	{ slug: 'documents-library', label: 'Documents Library', icon: 'i-lucide-library' },
@@ -833,13 +829,13 @@ const savings = computed(() => currentStackCost.value - 149);
 
 const plans = [
 	{ name: 'Solo', price: '49', desc: 'For the one-person shop doing serious work.', featured: false,
-		features: ['1 team seat', 'All seven apps included', 'Projects, tickets & invoicing', 'People CRM, marketing & email', 'Earnest AI & Command Center', 'CardDesk & companion apps', '5 client portal seats', '100K AI tokens/month'],
+		features: ['1 team seat', 'All seven apps included', 'Projects, tickets & invoicing', 'People CRM, marketing & email', 'Earnest AI on every screen', 'CardDesk & companion apps', '5 client portal seats', '100K AI tokens/month'],
 		cta: { label: 'Get started' } },
-	{ name: 'Studio', price: '149', desc: 'For the team that means business.', featured: true,
-		features: ['8 team seats', 'Everything in Solo', 'Team channels & video', 'Director mode & token management', 'Whitelabel & branded email', '15 client portal seats', '400K AI tokens/month', '$408/yr if billed annually'],
+	{ name: 'Team', price: '149', desc: 'For the team that means business.', featured: true,
+		features: ['8 team seats', 'Everything in Solo', 'Team channels & video', 'AI token management', 'Branded email', '15 client portal seats', '400K AI tokens/month', '$408/yr if billed annually'],
 		cta: { label: 'Start free trial' } },
-	{ name: 'Agency', price: '299', desc: 'For the business that has grown into something real.', featured: false,
-		features: ['15 team seats', 'Everything in Studio', 'Unlimited client portal seats', 'Bank sync & expenses', 'Priority support + onboarding', '1M AI tokens/month', '$2,491/yr if billed annually'],
+	{ name: 'Business', price: '299', desc: 'For the business that has grown into something real.', featured: false,
+		features: ['15 team seats', 'Everything in Team', 'Unlimited client portal seats', 'Bank sync & expenses', 'Priority support + onboarding', '1M AI tokens/month', '$2,491/yr if billed annually'],
 		cta: { label: 'Talk to us' } },
 ];
 

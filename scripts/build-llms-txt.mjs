@@ -35,12 +35,12 @@ const OUT = resolve(ROOT, 'public/llms.txt');
 /** Pillar render order and the heading each one gets. */
 const GROUPS = [
 	['home', 'Home'],
-	['earnest', 'Earnest — the one door'],
+	['earnest', 'Earnest, beside every screen'],
 	['people', 'People'],
 	['work', 'Work'],
 	['money', 'Money'],
 	['marketing', 'Marketing'],
-	['chat', 'Chat & the Boardroom'],
+	['chat', 'Chat'],
 	['org', 'Organization'],
 	['looks', 'Looks & the shell'],
 ];
@@ -100,7 +100,7 @@ function render(features) {
 
 	return `# Earnest
 
-> Everything a creative studio runs on — clients, projects, invoices, proposals, client approvals and content — in one place, with an AI that reads across all of it and tells you what needs you today.
+> One workspace for an agency, a firm, a practice or a shop — clients, work, bookings, invoices, proposals, approvals and marketing — with an AI that reads across all of it and tells you what needs you today.
 
 Earnest replaces the pile of disconnected tools — CRM, project management, invoicing, proposals and contracts, client approvals, scheduling, team chat, content planning — with one workspace. It runs on a real large language model (Anthropic's Claude, under no-training terms) grounded in your own organization rather than a blank prompt.
 
@@ -108,17 +108,19 @@ Earnest replaces the pile of disconnected tools — CRM, project management, inv
 
 - Website: https://earnest.guru
 - App: https://app.earnest.guru
-- Pricing: Solo $49/mo, Studio $149/mo, Agency $299/mo — priced per workspace, not per action
+- Pricing: Solo $49/mo, Team $149/mo, Business $299/mo — priced per workspace, not per action
 - Every feature is on every plan. Plans differ by capacity only: seats, AI tokens, file storage, card scans, client-portal seats.
 - Free trial: 14 days, no card required.
+- Who it is for: four kinds of business — agencies and studios that do work and marketing for clients; firms that deliver projects for clients (architects, accountants, lawyers, builders, consultants); practices people book time with (clinics, salons, trainers, coaches, tutors); and shops that sell to customers. The kind sets the starting modules and words (a practice or a shop says Customers; a shop's proposals are Quotes), and an organization can turn any module on or off and rename any word.
 
 ## How it works
 
-- The day is sorted into three piles: Decide (drafted by Earnest, waiting on you), Do (one tap each), Know (nothing required, but worth knowing).
-- Four lenses re-rank that same view: Everything, Money, Creative, Projects.
-- A single control in the header opens Earnest full screen from any page, with its opening suggestions already ranked for whatever you were looking at.
+- Earnest is a column on the right of every screen: the conversation above, three suggestions for where you are (one to do, one to decide, one to know), and the box you type into at its foot. On a phone it is one bar at the foot of the page.
+- The box shows a chip naming the record Earnest can see — ask from an invoice and you are asking about that invoice; remove the chip and it answers about the page instead.
+- Each reply starts with a line saying what Earnest read. Anything it proposes to change arrives as a card to approve, and a count of what is waiting sits in the column's header.
+- Home shows what is waiting for your OK, what is one tap, and what is just worth knowing, filtered by five lenses: Everything, Money, Work, Clients, Creative.
 - Three looks: Glass, Paper (ink on linen) and Clean (white on white, one signal blue). They are real redesigns, not colour swaps.
-- Nothing reaches a client and no money moves without an explicit human tap.
+- Nothing reaches a client and no money moves without an explicit human tap. Sending email, creating invoices, recording payments, booking meetings and launching campaigns always wait for a person, whatever the autonomy setting.
 
 ## What Earnest does not do
 

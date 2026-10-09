@@ -37,7 +37,7 @@
 			<figure class="e-hero-shot opacity-0">
 				<div class="e-frame">
 					<div class="e-frame-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
-					<img :src="heroScreenshotSrc" alt="Earnest — the Director's Office, a live organizational overview" loading="eager" decoding="async" class="e-frame-img" />
+					<img :src="heroScreenshotSrc" alt="Earnest — the organization overview" loading="eager" decoding="async" class="e-frame-img" />
 				</div>
 				<div class="e-pill-float e-pill-1" aria-hidden="true"><UIcon name="i-lucide-gavel" style="color:#4b47c4" /> 3 decisions need you</div>
 				<div class="e-pill-float e-pill-2" aria-hidden="true"><span class="e-pill-dot" style="background:#dc2626"></span> $12.4k overdue · 4 invoices</div>
@@ -340,7 +340,7 @@
 		<section id="pricing" class="e-section">
 			<div class="e-section-head">
 				<h2 class="e-h2 opacity-0"><em>Honest</em> pricing<span class="e-dot">.</span> No surprises<span class="e-dot">.</span></h2>
-				<p class="e-section-sub opacity-0">One price. Your whole team. The Director’s Office is included on every plan.</p>
+				<p class="e-section-sub opacity-0">One price. Your whole team. Every feature is included on every plan.</p>
 			</div>
 			<div class="e-plans">
 				<div v-for="(plan, index) in plans" :key="index" class="e-plan opacity-0" :class="{ 'e-plan-featured': plan.featured }">
@@ -531,14 +531,12 @@ const wins = [
 
 // ── Proof gallery + lightbox ──
 const proofShots = [
-	{ slug: 'organization-overview', label: 'The Director’s Office', icon: 'i-lucide-building-2' },
-	{ slug: 'command-center', label: 'Command Center', icon: 'i-lucide-zap' },
-	{ slug: 'ai-sidebar', label: 'Context-aware Earnest', icon: 'i-lucide-sparkles' },
+	{ slug: 'organization-overview', label: 'Organization', icon: 'i-lucide-building-2' },
+	{ slug: 'home-v2', label: 'Home', icon: 'i-lucide-layout-dashboard' },
 	{ slug: 'financials-overview', label: 'Money · Cash Flow', icon: 'i-lucide-trending-up' },
 	{ slug: 'people-dashboard', label: 'People & CRM', icon: 'i-lucide-users' },
 	{ slug: 'project-workspace', label: 'Project Workspace', icon: 'i-lucide-folder-kanban' },
 	{ slug: 'marketing-overview', label: 'Marketing Pulse', icon: 'i-lucide-radar' },
-	{ slug: 'ai-actions', label: 'AI Actions', icon: 'i-lucide-wand-sparkles' },
 ];
 const lightboxOpen = ref(false);
 const lightboxIndex = ref(0);
@@ -559,13 +557,13 @@ const { trackPageView } = useABTest();
 
 const plans = [
 	{ name: 'Solo', price: '49', desc: 'For the one-person shop doing serious work.', featured: false,
-		features: ['1 team seat', 'The Director’s Office included', 'All seven apps included', 'People CRM, projects & invoicing', 'Context-aware Earnest AI', 'CardDesk & companion apps', '5 client portal seats', '100K AI tokens/month'],
+		features: ['1 team seat', 'Every feature included', 'Every app included', 'People CRM, projects & invoicing', 'Context-aware Earnest AI', 'CardDesk & companion apps', '5 client portal seats', '100K AI tokens/month'],
 		cta: { label: 'Get started' } },
-	{ name: 'Studio', price: '149', desc: 'For the team that means business.', featured: true,
-		features: ['8 team seats', 'Everything in Solo', 'Team channels & video', 'Director mode & token management', 'Whitelabel & branded email', '15 client portal seats', '400K AI tokens/month', '$408/yr if billed annually'],
+	{ name: 'Team', price: '149', desc: 'For the team that means business.', featured: true,
+		features: ['8 team seats', 'Everything in Solo', 'Team channels & video', 'AI token management', 'Branded email', '15 client portal seats', '400K AI tokens/month', '$408/yr if billed annually'],
 		cta: { label: 'Start free trial' } },
-	{ name: 'Agency', price: '299', desc: 'For the business that has grown into something real.', featured: false,
-		features: ['15 team seats', 'Everything in Studio', 'Unlimited client portal seats', 'Bank sync & expenses', 'Priority support + onboarding', '1M AI tokens/month', '$2,491/yr if billed annually'],
+	{ name: 'Business', price: '299', desc: 'For the business that has grown into something real.', featured: false,
+		features: ['15 team seats', 'Everything in Team', 'Unlimited client portal seats', 'Bank sync & expenses', 'Priority support + onboarding', '1M AI tokens/month', '$2,491/yr if billed annually'],
 		cta: { label: 'Talk to us' } },
 ];
 

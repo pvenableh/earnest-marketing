@@ -112,8 +112,11 @@ export default defineNuxtConfig({
     // Feature slugs that changed identity in the 2026-09 refresh. The surfaces
     // behind them were renamed rather than removed, so these are permanent
     // redirects to the page that now covers the same ground.
-    '/features/contextual-ai-sidebar': { redirect: { to: '/features/focus', statusCode: 301 } },
-    '/features/director-mode': { redirect: { to: '/features/boardroom', statusCode: 301 } },
+    '/features/contextual-ai-sidebar': { redirect: { to: '/features/earnest-column', statusCode: 301 } },
+    // 2026-10: Focus (the full-screen takeover) went in the app's rethink S8 and
+    // Earnest became the column on the right of every screen — the same ground,
+    // so the old slug follows it.
+    '/features/focus': { redirect: { to: '/features/earnest-column', statusCode: 301 } },
     // Retired outright — the app no longer has these surfaces. Each points at
     // the nearest thing that is actually true today rather than 404-ing a URL
     // that may still be linked from an old post.
@@ -121,6 +124,10 @@ export default defineNuxtConfig({
     '/features/social-inbox': { redirect: { to: '/features/social-ai-generate', statusCode: 301 } },
     '/features/social-analytics': { redirect: { to: '/features/social-ai-generate', statusCode: 301 } },
     '/features/earnest-companion': { redirect: { to: '/features/apps-layout', statusCode: 301 } },
+    // The Boardroom and the Director layer before it (rethink S8). What is
+    // left of "ask across the whole business" is Earnest in its column.
+    '/features/boardroom': { redirect: { to: '/features/earnest-column', statusCode: 301 } },
+    '/features/director-mode': { redirect: { to: '/features/earnest-column', statusCode: 301 } },
     // The preview route the new landing was built at before it was promoted.
     '/next-home': { redirect: { to: '/', statusCode: 301 } },
     '/next-glass': { redirect: { to: '/', statusCode: 301 } },

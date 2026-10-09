@@ -57,21 +57,21 @@ export const faqs: Faq[] = [
 	},
 	{
 		q: 'How does it know which screen I’m on?',
-		a: 'The floor is part of the address. Every floor of every app has its own sentence, and that sentence travels with every ask. Open a record and its own context goes instead. The chip above the composer shows what Earnest was told.',
+		a: 'Every screen of every app has its own sentence, and that sentence travels with every ask. Open a record and its own context goes instead. The chip in the composer shows what Earnest can see.',
 		aText:
-			'The floor is part of the address. Every floor of every app has its own sentence, and that sentence travels with every ask. Open a record and its own context goes instead. The chip above the composer shows what Earnest was told.',
+			'Every screen of every app has its own sentence, and that sentence travels with every ask. Open a record and its own context goes instead. The chip in the composer shows what Earnest can see.',
 	},
 	{
 		q: 'Can my clients use Earnest?',
-		a: 'If you switch it on. In their portal, Earnest answers as your studio and sees only what that client can already open. It can log a request, leave a note or book time with you. Nothing else. Tokens bill your plan, so it is off by default.',
+		a: 'If you switch it on. In their portal, Earnest answers as your business and sees only what that client can already open. It can log a request, leave a note or book time with you. Nothing else. Tokens bill your plan, so it is off by default.',
 		aText:
-			'If you switch it on. In their portal, Earnest answers as your studio and sees only what that client can already open. It can log a request, leave a note or book time with you. Nothing else. Tokens bill your plan, so it is off by default.',
+			'If you switch it on. In their portal, Earnest answers as your business and sees only what that client can already open. It can log a request, leave a note or book time with you. Nothing else. Tokens bill your plan, so it is off by default.',
 	},
 	{
 		q: 'How is this different from ChatGPT or a generic AI assistant?',
-		a: 'Earnest runs on a <strong>real large language model</strong> — Anthropic’s Claude — but it does not start from a blank prompt. It starts from your organization: your clients, your work, your money, your brand voice. One door, and it already knows where you are standing when you open it. Your data is never used to train the model.',
+		a: 'Earnest runs on a <strong>real large language model</strong> — Anthropic’s Claude — but it does not start from a blank prompt. It starts from your organization: your clients, your work, your money, your brand voice. It sits beside every screen, and already knows where you are standing when you ask. Your data is never used to train the model.',
 		aText:
-			'Earnest runs on a real large language model — Anthropic’s Claude — but it does not start from a blank prompt. It starts from your organization: your clients, your work, your money, your brand voice. One door, and it already knows where you are standing when you open it. Your data is never used to train the model.',
+			'Earnest runs on a real large language model — Anthropic’s Claude — but it does not start from a blank prompt. It starts from your organization: your clients, your work, your money, your brand voice. It sits beside every screen, and already knows where you are standing when you ask. Your data is never used to train the model.',
 	},
 	{
 		q: 'What happens when Earnest doesn’t have enough context?',
@@ -111,15 +111,15 @@ export const faqs: Faq[] = [
 	},
 	{
 		q: 'What does it cost?',
-		a: 'Three plans: <strong>Solo $49/mo</strong>, <strong>Studio $149/mo</strong>, <strong>Agency $299/mo</strong> — per workspace, not per action, with every feature on every plan. Annual saves two months. There is a 14-day trial with no card.',
+		a: 'Three plans: <strong>Solo $49/mo</strong>, <strong>Team $149/mo</strong>, <strong>Business $299/mo</strong> — per workspace, not per action, with every feature on every plan. Annual saves two months. There is a 14-day trial with no card.',
 		aText:
-			'Three plans: Solo $49/mo, Studio $149/mo, Agency $299/mo — per workspace, not per action, with every feature on every plan. Annual saves two months. There is a 14-day trial with no card.',
+			'Three plans: Solo $49/mo, Team $149/mo, Business $299/mo — per workspace, not per action, with every feature on every plan. Annual saves two months. There is a 14-day trial with no card.',
 	},
 	{
-		q: 'Is Earnest for solo operators or bigger studios?',
-		a: 'Both, and the daily rhythm is the same either way. Solo is the one-person shop doing serious work; Studio and Agency add seats, team channels and the Boardroom as you grow. You are choosing scale, not a feature set.',
+		q: 'Is Earnest for solo operators or bigger teams?',
+		a: 'Both, and the daily rhythm is the same either way. Solo is the one-person business doing serious work; Team and Business add seats, AI tokens, storage and client-portal seats as you grow. You are choosing scale, not a feature set.',
 		aText:
-			'Both, and the daily rhythm is the same either way. Solo is the one-person shop doing serious work; Studio and Agency add seats, team channels and the Boardroom as you grow. You are choosing scale, not a feature set.',
+			'Both, and the daily rhythm is the same either way. Solo is the one-person business doing serious work; Team and Business add seats, AI tokens, storage and client-portal seats as you grow. You are choosing scale, not a feature set.',
 	},
 	{
 		q: 'Do I have to replace all my tools at once?',
@@ -164,7 +164,7 @@ export const plans: Plan[] = [
 		href: REGISTER_URL,
 	},
 	{
-		name: 'Studio',
+		name: 'Team',
 		price: '149',
 		desc: 'A team that has outgrown the group chat.',
 		featured: true,
@@ -173,20 +173,20 @@ export const plans: Plan[] = [
 			'Everything in Solo',
 			'400K AI tokens a month',
 			'100 GB of files',
-			'Team channels and the Boardroom',
+			'Channels and calls for the whole team',
 			'15 client-portal seats',
 		],
 		cta: 'Start free',
 		href: REGISTER_URL,
 	},
 	{
-		name: 'Agency',
+		name: 'Business',
 		price: '299',
-		desc: 'A studio that has grown into something real.',
+		desc: 'A business that has grown into something real.',
 		featured: false,
 		features: [
 			'15 seats',
-			'Everything in Studio',
+			'Everything in Team',
 			'1M AI tokens a month',
 			'500 GB of files',
 			'Unlimited client-portal seats',
@@ -454,11 +454,6 @@ export interface MoreCard {
  */
 export const moreCards: MoreCard[] = [
 	{
-		icon: 'i-lucide-presentation',
-		title: 'The Boardroom',
-		desc: 'Convene the whole org on one question and work the decision together, with Earnest drafting a plan against real numbers.',
-	},
-	{
 		icon: 'i-lucide-receipt',
 		title: 'Invoicing & payments',
 		desc: 'Invoices, deposits and Stripe payments, reconciled as they land. Retainers roll into invoices on their own schedule.',
@@ -502,7 +497,7 @@ export const moreCards: MoreCard[] = [
 		icon: 'i-lucide-id-card',
 		title: 'Personal Brand',
 		soon: true,
-		desc: 'Your own positioning, voice and proof points — written once, applied to your business card and booking page in one press, and used when the Studio drafts in your name. Built and in the app; not on sale yet, and not charged for.',
+		desc: 'Your own positioning, voice and proof points — written once, applied to your business card and booking page in one press, and used when the Content Studio drafts in your name. Built and in the app; not on sale yet, and not charged for.',
 	},
 	{
 		icon: 'i-lucide-bell',
