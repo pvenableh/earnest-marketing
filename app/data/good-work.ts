@@ -35,10 +35,10 @@ const APP_ORIGIN = 'https://app.earnest.guru';
    says what each place is for.
 
    ⚠️ Mixkit has TWO licences. The mockup's hero sunrise (26532) is under the
-   Restricted Licence — personal use only — so it is not here; 3133, a sky
-   with the sun low behind cloud, is its free-licence replacement (Peter's
-   pick, after 26081, a meadow, read as less of a background). Check the item
-   page before adding any clip. */
+   Restricted Licence — personal use only — so it is not here. Peter moved
+   the hero off skies altogether (sun and cloud read "heavenly", not
+   motivating): it is a working office now, sped up. Check the item page
+   before adding any clip. */
 export interface PhotoSlot {
 	/** A file under `public/`, e.g. `/photos/hero.jpg`. Null renders the fallback. */
 	src: string | null;
@@ -57,7 +57,7 @@ export const photos: Record<'hero' | 'client' | 'field' | 'keep' | 'close', Phot
 		video: '/video/hero.mp4',
 		alt: 'A crowd walking a city street in the morning, out of focus',
 		credit:
-			'Still: Diego Apolo, unsplash.com/photos/DpKt0-Nvi6I (Unsplash License). Loop: Mixkit 3133 “The sun hiding on the horizon” (Mixkit Stock Video Free License; shot portrait, 720×1280, so desktop shows a centre band of it).',
+			'Still: Diego Apolo, unsplash.com/photos/DpKt0-Nvi6I (Unsplash License). Loop: Mixkit 914 “Open office space” (Mixkit Stock Video Free License), played at 1.5× speed.',
 	},
 	client: {
 		src: '/photos/client.jpg',
