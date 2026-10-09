@@ -9,31 +9,40 @@ The app itself lives in a separate repo at `~/Sites/earnest/earnest`. This repo 
 ```
 app/
   pages/                  # Routes
-    index.vue             # Homepage (renders SellSheetModern)
+    index.vue             # Homepage: SEO, the FAQPage JSON-LD, the light/dark head script; renders GoodWork/Home
     features/             # /features index + /features/[slug] detail
     blog/                 # /blog index + /blog/[slug] detail (content from Directus CMS)
-    privacy-policy.vue
-    terms-of-service.vue
+    meeting-follow-up.vue # The page guests land on after a meeting
+    privacy-policy.vue · terms-of-service.vue · data-deletion.vue
   components/
-    SiteNav.vue           # Top nav
-    SiteFooter.vue        # Footer
-    SellSheetModern.vue   # Homepage hero + sections + feature accordion
-    Logo.vue              # Wordmark
+    GoodWork/             # The homepage: Home, Column (Earnest's column, as a picture), Slot (a photo place), Scrub (the scroll-scrubbed app sequence, off until re-recorded)
+    SiteNav.vue · SiteFooter.vue  # Nav and footer for the feature, blog and follow-up pages
+  composables/
+    useGoodWorkMotion.ts  # Reveal, the creed, ambient video (no GSAP)
   data/
-    features.ts           # Feature definitions consumed by /features and SellSheetModern
+    good-work.ts          # Homepage copy, the claim map, the photo places, the FAQ
+    landing.ts            # Plans and the capacity ladder
+    features.ts           # Feature definitions consumed by /features (and llms.txt)
+  assets/css/
+    good-work.css         # The homepage, one design, light and dark (everything under .gw)
 public/
+  photos/ · video/        # Homepage photography and ambient loops (licensed; credits in good-work.ts)
   screenshots/            # Product screenshots — see "Screenshot pipeline" below
-  llms.txt                # Opt-in directives for LLM crawlers
-nuxt.config.ts            # Prerender list is built from features.ts at config time
+  og/good-work.png        # The homepage share image
+  llms.txt                # Generated: node scripts/build-llms-txt.mjs
+nuxt.config.ts            # Prerender list is built from features.ts at config time; redirects for retired routes
+ARCHIVE.md                # What left the tree (the old landings, the Looks switch) and how to restore it
 ```
 
 ## Where content lives
 
 | Surface | File / system |
 | --- | --- |
+| Homepage copy, columns, FAQ, photo places | [`app/data/good-work.ts`](app/data/good-work.ts) |
+| Plans and the capacity ladder | [`app/data/landing.ts`](app/data/landing.ts) |
+| Homepage `<meta>`, JSON-LD (`featureList`, FAQPage) | [`app/pages/index.vue`](app/pages/index.vue) |
 | Feature copy | [`app/data/features.ts`](app/data/features.ts) |
-| Homepage hero, sections, AI chip cycler | [`app/components/SellSheetModern.vue`](app/components/SellSheetModern.vue) |
-| Homepage `<meta>` + Schema.org `featureList` | [`app/pages/index.vue`](app/pages/index.vue) |
+| `llms.txt` | Generated from `features.ts` plus the prose in [`scripts/build-llms-txt.mjs`](scripts/build-llms-txt.mjs) |
 | Blog posts | Directus CMS → [admin.earnest.guru](https://admin.earnest.guru), `posts` collection |
 | Privacy / Terms | [`app/pages/privacy-policy.vue`](app/pages/privacy-policy.vue), [`app/pages/terms-of-service.vue`](app/pages/terms-of-service.vue) |
 | Screenshots | `public/screenshots/` (captured by the app repo — see below) |
@@ -41,11 +50,10 @@ nuxt.config.ts            # Prerender list is built from features.ts at config t
 ## Adding or editing a feature
 
 1. Add the entry to `app/data/features.ts`. Required fields: `name`, `slug`, `icon` (Lucide), `desc`, `keywords`, `benefits`.
-2. If a screenshot exists in `public/screenshots/latest/`, wire it via the `DemoShot` union and the `FEATURE_DEMO_MAP` at the bottom of `features.ts`. Features without a dedicated shot fall back to `command-center`.
-3. Update the homepage Schema.org `featureList` in `app/pages/index.vue` to include the new name.
-4. Optional: add a contextual phrase to the AI chip cycler array in `SellSheetModern.vue` (search for `aiChipTexts`).
+2. If a screenshot exists in `public/screenshots/latest/`, wire it via the `DemoShot` union and the `FEATURE_DEMO_MAP` at the bottom of `features.ts`. Features without a dedicated shot fall back to `DEFAULT_DEMO`.
+3. Run `node scripts/build-llms-txt.mjs` to regenerate `llms.txt` (`--check` fails if it is stale).
 
-`features.length` powers the count copy in `SellSheetModern.vue` and `app/pages/features/index.vue` automatically — no number to update by hand. Prerender routes are also built from `features.ts` in `nuxt.config.ts`, so a new feature gets its own prerendered `/features/<slug>` page on next build.
+`features.length` powers the count copy on `app/pages/features/index.vue`, and the homepage's Schema.org `featureList` is built from the same list — no number or name to update by hand. Prerender routes are also built from `features.ts` in `nuxt.config.ts`, so a new feature gets its own prerendered `/features/<slug>` page on next build.
 
 ## Screenshot pipeline
 
@@ -69,8 +77,10 @@ Use `127.0.0.1`, not `localhost` — see `reference_dev_server_ipv6.md` in the a
 
 ## Mockups
 
-Static HTML concepts for the landing page, for review before a port into
-`SellSheetHome.vue`. Nothing under `mockups/` is wired into the build.
+Static HTML concepts for the landing page, for review before a port. Nothing
+under `mockups/` is wired into the build. "Do good work" (October, round 2) is
+the live homepage, ported to `app/components/GoodWork/`; its folder also holds
+the plan to re-record the app sequence (`app-seq/RERECORD-PLAN.md`).
 
 | Round | Folder | Open |
 | --- | --- | --- |
@@ -103,7 +113,7 @@ Auto-deploys to Vercel on push to `main`. The Vercel project is linked to this r
 ## SEO
 
 - Per-feature pages at `/features/[slug]` include their own `useSeoMeta` block in `app/pages/features/[slug].vue`.
-- Homepage Schema.org JSON-LD is in `app/pages/index.vue` — keep `featureList` in sync with `features.ts` when adding features.
+- Homepage Schema.org JSON-LD is in `app/pages/index.vue`: `featureList` is built from `features.ts`, and the FAQPage reads `homeFaqs` in `good-work.ts`, the same list the page shows.
 - Sitemap is generated by `@nuxtjs/sitemap` from the prerender list at build time.
 
 ## Related repos

@@ -271,9 +271,8 @@ import { useGoodWorkMotion } from '~/composables/useGoodWorkMotion';
 
 const year = new Date().getFullYear();
 
-/** The capacity ladder: the plan names and prices from `plans`, the rows from `compareRows`. Keys never change; names do. */
-const planKeys = ['solo', 'studio', 'agency'] as const;
-const ladder = planKeys.map((key, i) => ({ key, name: plans[i]!.name, price: plans[i]!.price, featured: plans[i]!.featured }));
+/** The capacity ladder: names and prices from `plans`, rows from `compareRows`, both keyed by the app's plan keys. */
+const ladder = plans;
 
 const scrubCaptions = [
 	{ at: 0, title: 'Open it.', text: 'What’s waiting on you, and the number that’s wrong, come first.', where: 'Home' },

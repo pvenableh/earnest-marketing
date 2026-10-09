@@ -84,12 +84,10 @@ export default defineNuxtConfig({
 
   nitro: {
     prerender: {
-      // `/` and the feature pages are the live site. The archived landings
-      // (/classic, /glass, /next, /director, /automation, /live-2026-07) are
-      // deliberately NOT prerendered: they are noindex, nothing links to them,
-      // and prerendering six full sell sheets on every build to serve nobody is
-      // pure build time. The static host falls back to the SPA shell for them,
-      // so the routes still resolve for anyone holding an old link.
+      // `/` is server-rendered; the legal, feature and blog pages are
+      // prerendered. The old landings (/classic, /glass, /next, /director,
+      // /automation, /live-2026-07) were archived in October 2026 — see
+      // ARCHIVE.md — and their routes now 301 to `/` (routeRules below).
       routes: ['/privacy-policy', '/terms-of-service', '/features', '/blog', ...featureRoutes],
     },
   },
@@ -99,12 +97,6 @@ export default defineNuxtConfig({
   // sitemap.xml unless it is excluded here. Every archived landing is listed.
   sitemap: {
     exclude: [
-      '/classic',
-      '/glass',
-      '/next',
-      '/director',
-      '/automation',
-      '/live-2026-07',
       '/meeting-follow-up',
     ],
   },
@@ -132,5 +124,14 @@ export default defineNuxtConfig({
     // The preview route the new landing was built at before it was promoted.
     '/next-home': { redirect: { to: '/', statusCode: 301 } },
     '/next-glass': { redirect: { to: '/', statusCode: 301 } },
+    // The alternate landings, archived 2026-10 (ARCHIVE.md, tag
+    // `archive/landings-2026-10`). Noindex and unlinked, but an old share
+    // link should land on the homepage rather than a 404.
+    '/classic': { redirect: { to: '/', statusCode: 301 } },
+    '/glass': { redirect: { to: '/', statusCode: 301 } },
+    '/next': { redirect: { to: '/', statusCode: 301 } },
+    '/director': { redirect: { to: '/', statusCode: 301 } },
+    '/automation': { redirect: { to: '/', statusCode: 301 } },
+    '/live-2026-07': { redirect: { to: '/', statusCode: 301 } },
   },
 });
