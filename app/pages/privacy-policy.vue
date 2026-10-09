@@ -21,7 +21,7 @@ useSeoMeta({
 	ogSiteName: 'Earnest',
 });
 
-const lastUpdated = 'October 3, 2026';
+const lastUpdated = 'October 9, 2026';
 const contactEmail = 'hello@earnest.guru';
 const businessName = 'Hue';
 const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
@@ -64,11 +64,91 @@ const websiteUrl = 'https://huestudios.com';
 				</p>
 			</section>
 
+			<!-- Email lists — where the "Privacy policy" link in a marketing email lands (#email-lists).
+			     Keep it true to the code (earnest repo: server/utils/contact-unsubscribes.ts,
+			     server/utils/list-membership.ts, server/utils/sendgrid-event-store.ts, app/pages/unsubscribe.vue). -->
+			<section id="email-lists" class="mb-10">
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">2. Email Lists and Newsletters</h2>
+				<p>
+					This section is for anyone who receives marketing email sent through Earnest, such as a newsletter or a
+					campaign, whether or not you have an Earnest account.
+				</p>
+
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">Who is sending</h3>
+				<ul class="list-disc pl-6 space-y-2">
+					<li>
+						<strong>A business that uses Earnest.</strong> Its email comes from that business (or from one of its
+						clients, when it runs that client's email). The sender decides who is on its lists and is responsible
+						for having your permission to email you. Earnest sends the email and keeps the list on the sender's
+						behalf, as described in Section 1.
+					</li>
+					<li>
+						<strong>Hue.</strong> Email from us about Earnest or Hue Studios is our own, and we are responsible for
+						it.
+					</li>
+				</ul>
+
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">What is kept about you</h3>
+				<ul class="list-disc pl-6 space-y-2">
+					<li>Your email address, and your name if you gave it.</li>
+					<li>
+						Which of the sender's lists you are on, when you joined and when you left, and how you joined (a sign-up
+						form, added by the sender, or a list moved from another email service, with the sender's note on where
+						you signed up).
+					</li>
+					<li>Which emails were sent to you.</li>
+					<li>
+						What happened to each email, as reported by our email provider, SendGrid: delivered, delayed, bounced,
+						not sent, opened, clicked, or reported as spam. Open and click reports include the time, the link that
+						was clicked, and the IP address and browser or mail app that SendGrid saw.
+					</li>
+				</ul>
+
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">Opens and clicks</h3>
+				<p>
+					Marketing email sent through Earnest records when it is opened and which links are clicked, so the sender
+					can see what was read. Opens are counted with a small image in the email, and links pass through SendGrid
+					on the way to their destination. Open counts are approximate: if your mail app blocks images, an open is
+					not recorded, and some mail apps load images on their own, which can record an open you never made.
+				</p>
+
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">Unsubscribing</h3>
+				<ul class="list-disc pl-6 space-y-2">
+					<li>
+						Every marketing email has an <strong>Unsubscribe</strong> link at the bottom. One click takes you off that
+						sender's lists. You do not need to sign in or confirm anything. If the email was sent for one of a
+						business's clients, you leave that client's lists only. The unsubscribe button that Gmail, Yahoo and
+						Apple Mail show does the same.
+					</li>
+					<li>
+						For a business's own email, the page you land on also offers to stop all email sent through that
+						business, including the email it sends for its clients.
+					</li>
+					<li>
+						Reporting an email as spam takes you off that sender's lists too. If an email bounces because your address
+						no longer exists, that sender's email to it stops.
+					</li>
+					<li>
+						We keep a record that you left, so that the sender cannot add you back, by hand or by importing a list.
+						Only you can rejoin, by signing up again and confirming from the email that follows.
+					</li>
+				</ul>
+
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">Questions and requests about a list</h3>
+				<p>
+					For a copy of what a business holds about you, a correction, or deletion, please contact the business that
+					sent the email first: it decides what happens to its list. If you write to us at
+					<a :href="`mailto:${contactEmail}`" class="text-primary hover:underline">{{ contactEmail }}</a>
+					about a list that belongs to one of our customers, we will pass your request to that customer (see Section
+					10). For email from Hue itself, write to us directly.
+				</p>
+			</section>
+
 			<!-- Information We Collect -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">2. Information We Collect</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">3. Information We Collect</h2>
 
-				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">2.1 Information You Provide</h3>
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">3.1 Information You Provide</h3>
 				<ul class="list-disc pl-6 space-y-2">
 					<li>
 						<strong>Account &amp; Organization Information:</strong>
@@ -93,7 +173,7 @@ const websiteUrl = 'https://huestudios.com';
 					</li>
 				</ul>
 
-				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">2.2 Information From Integrations</h3>
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">3.2 Information From Integrations</h3>
 				<p>
 					When you connect a third-party account (for example, a calendar, bank, payment, or social media
 					service):
@@ -123,7 +203,7 @@ const websiteUrl = 'https://huestudios.com';
 					</li>
 				</ul>
 
-				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">2.3 Automatically Collected Information</h3>
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">3.3 Automatically Collected Information</h3>
 				<ul class="list-disc pl-6 space-y-2">
 					<li>
 						<strong>Log Data:</strong>
@@ -142,7 +222,7 @@ const websiteUrl = 'https://huestudios.com';
 
 			<!-- How We Use Your Information -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">3. How We Use Your Information</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">4. How We Use Your Information</h2>
 				<p>We use the information we collect to:</p>
 				<ul class="list-disc pl-6 space-y-2">
 					<li>Provide, maintain, and improve the Earnest platform and its features</li>
@@ -158,7 +238,7 @@ const websiteUrl = 'https://huestudios.com';
 
 			<!-- AI Features -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">4. AI Features and How Your Data Is Processed</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">5. AI Features and How Your Data Is Processed</h2>
 				<p>
 					Earnest uses artificial intelligence to read across your workspace and draft suggestions, decisions, and
 					content for you. Here is how that works and what it means for your data:
@@ -194,7 +274,7 @@ const websiteUrl = 'https://huestudios.com';
 
 			<!-- Data Storage and Security -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">5. Data Storage and Security</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">6. Data Storage and Security</h2>
 				<p>We implement industry-standard security measures to protect your data:</p>
 				<ul class="list-disc pl-6 space-y-2">
 					<li>
@@ -224,7 +304,7 @@ const websiteUrl = 'https://huestudios.com';
 
 			<!-- Third-Party Services -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">6. Third-Party Services and Sub-processors</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">7. Third-Party Services and Sub-processors</h2>
 				<p>
 					We rely on trusted third parties to operate Earnest. They process data only as needed to provide their
 					service to us and are bound by confidentiality and data-protection obligations. These include categories such
@@ -234,7 +314,7 @@ const websiteUrl = 'https://huestudios.com';
 					<li><strong>Cloud hosting and infrastructure</strong> (Vercel and DigitalOcean) — to run the platform and store your data (United States).</li>
 					<li><strong>AI / large language model provider</strong> (Anthropic) — to generate AI output, under no-training business terms.</li>
 					<li><strong>Payment processing and bank sync</strong> (Stripe) — to process subscription and other payments and, if you enable it, retrieve bank transaction data. We do not store full card numbers.</li>
-					<li><strong>Email delivery</strong> (SendGrid) — to send transactional and notification emails.</li>
+					<li><strong>Email delivery</strong> (SendGrid) — to send transactional, notification and marketing emails, including marketing email our customers send to their own lists, and to report delivery, opens and clicks.</li>
 					<li><strong>Social and calendar integrations</strong> you choose to connect (such as Instagram/Meta, TikTok, Google) — to power those specific features.</li>
 				</ul>
 				<p class="mt-4">
@@ -247,7 +327,7 @@ const websiteUrl = 'https://huestudios.com';
 
 			<!-- Data Sharing -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">7. How We Share Your Information</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">8. How We Share Your Information</h2>
 				<p>We do not sell your personal information. We may share information only in these circumstances:</p>
 				<ul class="list-disc pl-6 space-y-2">
 					<li>
@@ -280,7 +360,7 @@ const websiteUrl = 'https://huestudios.com';
 
 			<!-- Data Retention -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">8. Data Retention</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">9. Data Retention</h2>
 				<p>
 					We retain your information for as long as your account is active or as needed to provide the service.
 					Specifically:
@@ -311,7 +391,7 @@ const websiteUrl = 'https://huestudios.com';
 
 			<!-- Your Rights -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">9. Your Rights and Choices</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">10. Your Rights and Choices</h2>
 				<p>Depending on your location, you may have the right to:</p>
 				<ul class="list-disc pl-6 space-y-2">
 					<li><strong>Access</strong> a copy of the personal information we hold about you</li>
@@ -331,7 +411,7 @@ const websiteUrl = 'https://huestudios.com';
 
 			<!-- California Privacy Rights -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">10. California Privacy Rights (CCPA)</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">11. California Privacy Rights (CCPA)</h2>
 				<p>If you are a California resident, you have additional rights under the California Consumer Privacy Act (CCPA):</p>
 				<ul class="list-disc pl-6 space-y-2">
 					<li>The right to know what personal information we collect, use, and disclose</li>
@@ -348,7 +428,7 @@ const websiteUrl = 'https://huestudios.com';
 
 			<!-- International Transfers -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">11. International Data Transfers</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">12. International Data Transfers</h2>
 				<p>
 					Our servers are located in the United States. If you access Earnest from outside the United States, your
 					information may be transferred to, stored, and processed in the United States. By using Earnest, you consent
@@ -358,7 +438,7 @@ const websiteUrl = 'https://huestudios.com';
 
 			<!-- Children's Privacy -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">12. Children's Privacy</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">13. Children's Privacy</h2>
 				<p>
 					Earnest is a business tool intended for use by individuals aged 18 and over. We do not knowingly collect
 					personal information from children. If we learn that we have collected personal information from a child under
@@ -368,7 +448,7 @@ const websiteUrl = 'https://huestudios.com';
 
 			<!-- Changes -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">13. Changes to This Privacy Policy</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">14. Changes to This Privacy Policy</h2>
 				<p>
 					We may update this Privacy Policy from time to time. We will post the updated policy on this page and revise
 					the "Last updated" date. For material changes, we will provide additional notice, such as an email
@@ -379,7 +459,7 @@ const websiteUrl = 'https://huestudios.com';
 
 			<!-- Contact -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">14. Contact Us</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">15. Contact Us</h2>
 				<p>If you have questions about this Privacy Policy or our data practices, please contact us:</p>
 				<div class="mt-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
 					<p class="font-medium text-gray-900 dark:text-white">{{ businessName }}</p>
@@ -395,7 +475,7 @@ const websiteUrl = 'https://huestudios.com';
 
 			<!-- Platform-Specific Disclosures -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">15. Social Media Integration Disclosures</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">16. Social Media Integration Disclosures</h2>
 				<p>
 					Earnest's Marketing features let you connect social media accounts to schedule and publish content and view
 					analytics. When you connect these accounts, your use is also subject to the connected platform's own terms
@@ -435,7 +515,7 @@ const websiteUrl = 'https://huestudios.com';
 			     (2026-10-03) Earnest keeps a copy of busy times and receives change notifications; the assistant's
 			     find-a-time tool sees open times that already exclude Google busy time, never events. -->
 			<section id="google-user-data" class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">16. Google User Data</h2>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">17. Google User Data</h2>
 				<p>
 					When you connect a Google account to Earnest's Scheduler, Earnest asks Google for permission to use your
 					Google Calendar. This section explains exactly what we access and what we do with it.
@@ -494,7 +574,7 @@ const websiteUrl = 'https://huestudios.com';
 					</li>
 					<li>
 						We do not share Google user data with third parties, except as needed to run the feature (our hosting and
-						database providers, listed in Section 6), to comply with law, or as part of a merger or acquisition with
+						database providers, listed in Section 7), to comply with law, or as part of a merger or acquisition with
 						notice to you.
 					</li>
 					<li>
@@ -502,7 +582,7 @@ const websiteUrl = 'https://huestudios.com';
 						already account for your Google busy times. It never sees your Google events, their titles or their
 						details. We do not use Google user data to develop, improve, or train generalized artificial
 						intelligence or machine learning models, ours or anyone else's, and our AI provider does not train on it
-						(see Section 4).
+						(see Section 5).
 					</li>
 					<li>
 						Our staff do not read your Google user data unless you ask us to for support, it is needed for security
