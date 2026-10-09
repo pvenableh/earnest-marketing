@@ -40,10 +40,9 @@ const websiteUrl = 'https://huestudios.com';
 			<section class="mb-10">
 				<p>
 					{{ businessName }} (doing business as Hue Studios; "we," "our," or "us") operates Earnest, a business management platform that helps
-					agencies, studios, freelancers, and small businesses run their operations in one place — including customer
-					relationships (CRM), projects and tasks, invoicing and payments, proposals and contracts, marketing, and an
-					AI assistant ("Earnest", including the board-level briefing we call "the Boardroom") that reads across your
-					workspace to draft and automate work. This
+					agencies, firms, practices, shops and other small businesses run their operations in one place — including
+					customer relationships (CRM), projects and tasks, invoicing and payments, proposals and contracts, marketing,
+					and an AI assistant ("Earnest") that reads across your workspace to draft and automate work. This
 					Privacy Policy explains how we collect, use, disclose, and safeguard information when you use Earnest.
 				</p>
 				<p>
