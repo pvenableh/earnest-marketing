@@ -324,12 +324,14 @@ html[data-gw-mode='dark'] .gw-hero .gw-slot--empty {
 	content: '';
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(
-		180deg,
-		color-mix(in srgb, var(--bg) 50%, transparent) 0%,
-		color-mix(in srgb, var(--bg) 72%, transparent) 60%,
-		var(--bg) 100%
-	);
+	background:
+		radial-gradient(48% 42% at 50% 52%, color-mix(in srgb, var(--bg) 62%, transparent) 0%, transparent 100%),
+		linear-gradient(
+			180deg,
+			color-mix(in srgb, var(--bg) 50%, transparent) 0%,
+			color-mix(in srgb, var(--bg) 72%, transparent) 60%,
+			var(--bg) 100%
+		);
 }
 .gw-hero .gw-slot--empty::after {
 	background: linear-gradient(180deg, transparent 70%, var(--bg) 100%);
@@ -342,6 +344,16 @@ html[data-gw-mode='dark'] .gw-hero .gw-slot--empty {
 html[data-gw-mode='dark'] .gw-hero .gw-slot img,
 html[data-gw-mode='dark'] .gw-hero .gw-slot video {
 	filter: saturate(0.6) brightness(0.7);
+}
+/* The loop is a busy room (an office at work), so it is softened a touch and
+   washed harder behind the type: it should read as movement, not as detail
+   competing with the lede. The scale hides the blur's soft edge. */
+.gw-hero .gw-slot video {
+	filter: saturate(0.65) blur(2px);
+	transform: scale(1.04);
+}
+html[data-gw-mode='dark'] .gw-hero .gw-slot video {
+	filter: saturate(0.55) brightness(0.7) blur(2px);
 }
 .gw-hero h1 {
 	font-size: clamp(60px, 10vw, 148px);
