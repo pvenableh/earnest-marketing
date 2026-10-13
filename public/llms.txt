@@ -7,6 +7,7 @@ Earnest replaces the pile of disconnected tools — CRM, project management, inv
 ## Key information
 
 - Website: https://earnest.guru
+- Line: "Move fast. Mean it." Earnest drafts the next step quickly; a person approves anything that reaches a client or moves money. Signed off "Do good work."
 - App: https://app.earnest.guru
 - Pricing: Solo $49/mo, Team $149/mo, Business $299/mo — priced per workspace, not per action
 - Every feature is on every plan except white-label branding, a $19/mo add-on on Business (included on Enterprise). Otherwise plans differ by capacity only: seats, AI tokens, file storage, card scans, client-portal seats.

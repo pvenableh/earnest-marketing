@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Move fast. Mean it. — animatic</title>
+<meta name="robots" content="noindex">
+<script>
+	// Mode before first paint: the visitor's choice if they made one, else the system's.
+	(function () {
+		var m = null;
+		try { m = localStorage.getItem('mf-mode'); } catch (e) {}
+		if (!m) m = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+		document.documentElement.dataset.mode = m;
+	})();
+</script>
+<style>
+/* ─────────────────────────────────────────────────────────────────────────
+   "Move fast. Mean it." — the animatic, and the reference for bringing it
+   to earnest.guru (October 2026).
+
+   The page uses the live homepage's tokens (app/assets/css/good-work.css):
+   warm white / near-black, one blue accent, Proxima at weight 300, the
+   Bauer Bodoni wordmark. The stage is a film frame, so it is always dark.
+
+   The assets are symlinks into public/ and app/assets/css/fonts/, so this
+   page shows exactly the licensed files the site serves.
+   ───────────────────────────────────────────────────────────────────────── */
+@font-face{font-family:'PN Light';src:url('assets/fonts/proxima-nova-light.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'PN';src:url('assets/fonts/proxima-nova-regular.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Bodoni';src:url('assets/fonts/bauer-bodoni-roman.woff2') format('woff2');font-display:swap}
+
+:root{
+	color-scheme:light;
+	--bg:#fbfaf7;--surface:#fff;--surface-2:#f1efea;--paper:#f5f3ee;
+	--ink:#121418;--ink-2:#4c525c;--ink-3:#7c828c;--line:#e4e1da;
+	--pop:#0a7fc4;--pop-ink:#fff;--pop-soft:#e5f2fa;
+	--ok:#1f8f5f;--warn:#a66300;--bad:#cf3a4a;
+	--f-body:'PN',system-ui,-apple-system,'Segoe UI',sans-serif;
+	--f-light:'PN Light',system-ui,-apple-system,'Segoe UI',sans-serif;
+	--f-mark:'Bodoni','Bodoni MT',Didot,Georgia,serif;
+	--measure:1120px;
+}
+:root[data-mode="dark"]{
+	color-scheme:dark;
+	--bg:#0b0d12;--surface:#12151c;--surface-2:#1a1e27;--paper:#10131a;
+	--ink:#f2f3f5;--ink-2:#aeb4bf;--ink-3:#7d8491;--line:#242934;
+	--pop:#4fb3ec;--pop-ink:#0b0d12;--pop-soft:#13293a;
+	--ok:#5fd39a;--warn:#f0b35a;--bad:#f07b86;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip;transition:background .25s,color .25s}
+.wrap{max-width:var(--measure);margin-inline:auto;padding-inline:24px}
+@media(max-width:640px){.wrap{padding-inline:16px}}
+a{color:inherit}
+h1,h2,h3{font-family:var(--f-light);font-weight:300;letter-spacing:-.03em;line-height:1.02;margin:0}
+.pop{color:var(--pop)}
+.dot{color:var(--pop)}
+.k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+
+/* ── top bar ── */
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:16px;height:56px}
+.mark{font-family:var(--f-mark);font-size:22px;text-decoration:none;color:var(--ink)}
+.mark b{color:var(--pop);font-weight:400}
+.bar nav{display:flex;gap:18px;margin-left:auto;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.bar nav a{text-decoration:none;color:var(--ink-2)}
+.bar nav a:hover{color:var(--ink)}
+.mode{width:34px;height:34px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink-2);cursor:pointer;display:grid;place-items:center}
+.mode:hover{color:var(--ink);border-color:var(--ink)}
+.mode .sun{display:none}:root[data-mode="dark"] .mode .sun{display:block}:root[data-mode="dark"] .mode .moon{display:none}
+@media(max-width:760px){.bar nav{display:none}.mode{margin-left:auto}}
+
+/* ── intro ── */
+.intro{padding-block:72px 32px;text-align:center}
+.intro h1{font-size:clamp(52px,9vw,128px);letter-spacing:-.04em;line-height:.95}
+.intro h1 .mean{color:var(--pop)}
+.intro p{max-width:56ch;margin:22px auto 0;font-size:19px;color:var(--ink-2)}
+.intro p b{font-weight:400;color:var(--ink)}
+@media(max-width:640px){.intro{padding-block:44px 20px}.intro p{font-size:17px}}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   THE STAGE. A film frame (16:9, or 9:16 for social). Sizes are container
+   units so the frame reads the same at any width. The column is the live
+   homepage's Column at its real 360px, scaled by --k (set from JS).
+   ───────────────────────────────────────────────────────────────────────── */
+.player{padding-block:8px 24px}
+.stage{
+	--ink:#f2f3f5;--ink-2:#aeb4bf;--ink-3:#7d8491;--line:#2a303c;
+	--surface:#12151c;--surface-2:#1a1e27;--paper:#10131a;
+	--pop:#4fb3ec;--pop-ink:#0b0d12;--pop-soft:#13293a;
+	--ok:#5fd39a;--warn:#f0b35a;--bad:#f07b86;
+	position:relative;width:100%;aspect-ratio:16/9;margin-inline:auto;
+	container-type:size;overflow:hidden;border-radius:18px;background:#07090c;color:var(--ink);
+	box-shadow:0 30px 80px rgba(10,14,20,.28);isolation:isolate;
+}
+.stage[data-aspect="v"]{aspect-ratio:9/16;width:min(100%,calc(78vh * 9 / 16))}
+.stage .bg,.stage .bg2{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.stage .bg{filter:saturate(.6) brightness(.48)}
+.stage .bg2{opacity:0;filter:saturate(.75) brightness(.62);transform:scale(var(--ps,1.1));transform-origin:60% 50%}
+.stage .shade{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.55) 100%),linear-gradient(90deg,rgba(7,9,12,.55),transparent 55%)}
+.stage[data-aspect="v"] .shade{background:radial-gradient(120% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.55) 100%),linear-gradient(180deg,rgba(7,9,12,.6),transparent 45%)}
+.stage .black{position:absolute;inset:0;background:#0b0d12;opacity:0}
+/* the tap freeze: everything Earnest does is sped up — your tap never is */
+.stage .rt{position:absolute;top:3.2cqh;right:2.6cqw;z-index:5;font-size:max(9px,.95cqw);letter-spacing:.18em;text-transform:uppercase;color:#fff;opacity:0;transition:opacity .12s;display:flex;align-items:center;gap:.6em}
+.stage .rt::before{content:"";width:.7em;height:.7em;border-radius:50%;background:var(--warn)}
+.stage.hold .rt{opacity:.9}
+.stage.hold .bg{filter:saturate(.35) brightness(.38)}
+.stage .slate{position:absolute;left:2.6cqw;top:3.2cqh;z-index:5;font-size:max(9px,.95cqw);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+
+.shot{position:absolute;inset:0;z-index:3;visibility:hidden;opacity:0}
+.shot.on{visibility:visible;opacity:1}
+
+/* kinetic word */
+.word{position:absolute;left:6cqw;top:50%;max-width:48cqw;margin:0;font-family:var(--f-light);font-weight:300;letter-spacing:-.04em;line-height:.92;color:#fff;font-size:8.6cqw;
+	transform:translateY(-50%) translateX(calc(var(--whip,0) * -6cqw));filter:blur(calc(var(--whip,0) * 8px));opacity:calc(1 - var(--whip,0))}
+.word small{display:block;margin-top:1.6cqw;font-family:var(--f-body);font-size:max(10px,1.15cqw);letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.stage[data-aspect="v"] .word{left:7cqw;right:7cqw;top:9cqh;max-width:none;font-size:15cqw;transform:translateY(calc(var(--whip,0) * -4cqh));}
+.stage[data-aspect="v"] .word small{font-size:max(10px,2.6cqw);margin-top:3cqw}
+
+/* the column, as it ships (GoodWork/Column.vue · good-work.css .gw-col) */
+.colwrap{position:absolute;right:6cqw;top:50%;width:360px;transform-origin:right center;
+	transform:translateY(-50%) translateX(calc(var(--whip,0) * 140px)) scale(var(--k,1));
+	filter:blur(calc(var(--whip,0) * 6px));opacity:calc(1 - var(--whip,0))}
+.stage[data-aspect="v"] .colwrap{right:auto;left:50%;top:auto;bottom:7cqh;transform-origin:center bottom;
+	transform:translateX(-50%) translateY(calc(var(--whip,0) * 120px)) scale(var(--k,1))}
+.col{display:grid;border:1px solid var(--line);border-radius:16px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 30px 80px rgba(0,0,0,.5);overflow:hidden;font-size:14px;line-height:1.45;text-align:left;min-height:330px;grid-template-rows:auto 1fr auto}
+.col__head{display:flex;align-items:center;justify-content:space-between;padding:10px 12px 10px 14px;border-bottom:1px solid var(--line);font-size:13px;color:var(--ink-2)}
+.col__brand{font-family:var(--f-mark);font-size:18px;color:var(--ink)}
+.col__brand b{color:var(--pop);font-weight:400}
+.col__wait{border:1px solid var(--line);border-radius:999px;padding:2px 8px;font-size:12px}
+.col__wait b{font-weight:400;color:var(--warn)}
+.col__thread{padding:14px;display:grid;gap:10px;align-content:end}
+.col__you{justify-self:end;max-width:88%;background:var(--surface-2);border-radius:14px 14px 3px 14px;padding:7px 12px;color:var(--ink);min-height:1.45em}
+.col__you.caret::after{content:"";display:inline-block;width:1.5px;height:1em;margin-left:2px;vertical-align:-2px;background:var(--pop)}
+.col__lede{margin:0;font-size:15px;color:var(--ink)}
+.col ul{list-style:none;margin:0;padding:0;display:grid;gap:4px;color:var(--ink-2)}
+.col li b{font-weight:400;color:var(--ink);font-variant-numeric:tabular-nums}
+.col li.bad b{color:var(--bad)}
+.card{border:1px solid var(--line);border-radius:10px;background:var(--paper);padding:11px 12px;display:grid;gap:7px;font-size:13.5px}
+.card__kind{display:flex;justify-content:space-between;gap:8px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.card__kind b{font-weight:400;color:var(--pop)}
+.card__kind i{font-style:normal;color:var(--warn)}
+.card__t{margin:0;font-size:15px;color:var(--ink);line-height:1.3}
+.card dl{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;margin:0;font-size:13px}
+.card dt{color:var(--ink-3)}.card dd{margin:0;color:var(--ink)}
+.acts{display:flex;gap:6px;align-items:center;padding-top:6px;border-top:1px solid var(--line)}
+.acts span{border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:12.5px;color:var(--ink)}
+.acts span.go{position:relative;background:var(--pop);color:var(--pop-ink);border-color:var(--pop);transition:background .15s,border-color .15s}
+.acts span.go.press{box-shadow:0 0 0 4px color-mix(in srgb,var(--pop) 35%,transparent),0 0 0 12px color-mix(in srgb,var(--pop) 12%,transparent)}
+.acts span.go.done{background:var(--ok);border-color:var(--ok);color:#07120c}
+.chain{display:grid;gap:6px}
+.chain div{display:grid;grid-template-columns:62px 1fr;gap:8px;font-size:13px;color:var(--ink-2)}
+.chain div span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--pop);padding-top:2px}
+.col__composer{padding:10px 12px 12px;border-top:1px solid var(--line);display:grid;gap:7px;background:color-mix(in srgb,var(--paper) 60%,transparent)}
+.scope{justify-self:start;display:inline-flex;gap:6px;align-items:center;border:1px solid var(--line);border-radius:999px;padding:3px 9px 3px 8px;font-size:12px;background:var(--surface-2)}
+.scope .noun{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--pop)}
+.row{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:8px 8px 8px 14px;background:var(--surface)}
+.row .ph{flex:1;color:var(--ink-3)}
+.row .send{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--pop-soft);color:var(--pop);font-size:13px}
+.stamp{position:absolute;left:50%;bottom:-18px;transform:translateX(-50%) scale(.9);white-space:nowrap;background:var(--ok);color:#07120c;border-radius:999px;padding:7px 16px;font-size:13.5px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.stamp.in{transform:translateX(-50%) scale(1)}
+
+/* things that arrive inside a shot */
+[data-at]{opacity:0;transform:translateY(6px);transition:opacity .16s ease,transform .16s ease}
+[data-at].in{opacity:1;transform:none}
+.stamp[data-at]{transform:translateX(-50%) scale(.85)}
+.stamp[data-at].in{transform:translateX(-50%) scale(1)}
+
+/* the open, the fast, the ramp, the end */
+.center{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:0 6cqw}
+.open-line{font-family:var(--f-light);font-weight:300;letter-spacing:-.035em;font-size:6cqw;color:#fff;margin:0}
+.open-line small{display:block;font-family:var(--f-body);font-size:max(10px,1.15cqw);letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:1.4cqw}
+.fast-line{font-family:var(--f-light);font-weight:300;letter-spacing:-.045em;line-height:.9;color:#fff;font-size:15cqw;margin:0}
+.receipts{display:flex;flex-wrap:wrap;justify-content:center;gap:.8cqw;margin-top:3cqw}
+.receipts span{background:rgba(95,211,154,.14);border:1px solid rgba(95,211,154,.5);color:#bff0d6;border-radius:999px;padding:.45cqw 1.2cqw;font-size:max(10px,1.3cqw)}
+.mean-line{font-family:var(--f-light);font-weight:300;letter-spacing:-.045em;line-height:.9;color:#fff;font-size:15cqw;margin:0}
+.mean-line span{display:inline-block;opacity:0;transform:translateY(.12em);transition:opacity .5s ease,transform .7s ease}
+.mean-line span.in{opacity:1;transform:none}
+.mean-line .dot{color:var(--pop)}
+.mean-sub{font-size:max(12px,1.9cqw);color:rgba(255,255,255,.82);margin:2.4cqw 0 0;transition-duration:.6s}
+.end-mark{font-family:var(--f-mark);font-size:9cqw;color:#fff;margin:0;line-height:1;transition-duration:.6s}
+.end-mark b{color:var(--pop);font-weight:400}
+.end-tag{font-family:var(--f-light);font-style:italic;font-size:3cqw;color:var(--pop);margin:1.4cqw 0 0;transition-duration:.6s}
+.end-fine{font-size:max(9px,1.05cqw);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin:4cqw 0 0;transition-duration:.6s}
+.stage[data-aspect="v"] .open-line{font-size:11cqw}
+.stage[data-aspect="v"] .open-line small,.stage[data-aspect="v"] .receipts span{font-size:max(10px,2.6cqw)}
+.stage[data-aspect="v"] .fast-line,.stage[data-aspect="v"] .mean-line{font-size:22cqw}
+.stage[data-aspect="v"] .mean-sub{font-size:max(12px,4cqw)}
+.stage[data-aspect="v"] .end-mark{font-size:18cqw}
+.stage[data-aspect="v"] .end-tag{font-size:6.5cqw}
+.stage[data-aspect="v"] .end-fine{font-size:max(9px,2.4cqw)}
+.stage[data-aspect="v"] .slate,.stage[data-aspect="v"] .rt{font-size:max(9px,2.2cqw)}
+
+/* ── controls ── */
+.controls{display:grid;grid-template-columns:auto auto 1fr auto;gap:10px 14px;align-items:center;margin-top:16px}
+.btn{font:inherit;font-size:13.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 14px;cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink);min-width:84px}
+.btn[aria-pressed="true"]{background:var(--pop-soft);border-color:var(--pop);color:var(--ink)}
+.tc{font-variant-numeric:tabular-nums;font-size:13px;color:var(--ink-2)}
+.opts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.scrub{grid-column:1/-1;position:relative;padding-bottom:30px}
+.scrub input{width:100%;margin:0;accent-color:var(--pop)}
+.marks{position:absolute;left:0;right:0;top:22px;height:24px;pointer-events:none}
+.marks span{position:absolute;top:0;font-size:10.5px;letter-spacing:.06em;color:var(--ink-3);white-space:nowrap;padding-left:5px;border-left:1px solid var(--line);line-height:1.1;height:22px}
+.now{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:6px;font-size:14px;color:var(--ink-2)}
+.now b{font-weight:400;color:var(--ink)}
+.beats{display:flex;gap:5px}
+.beats i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.beats i.on{background:var(--pop)}
+@media(max-width:760px){.controls{grid-template-columns:auto auto 1fr}.opts{grid-column:1/-1;justify-content:flex-start}.marks span{font-size:0;width:1px}}
+
+/* ── reference sections ── */
+.sec{padding-block:72px;border-top:1px solid var(--line)}
+.sec h2{font-size:clamp(34px,4.6vw,56px)}
+.sec .lead{font-size:19px;color:var(--ink-2);max-width:62ch;margin:16px 0 0}
+.sec .lead b{font-weight:400;color:var(--ink)}
+@media(max-width:640px){.sec{padding-block:48px}}
+
+.idea{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+.half{border:1px solid var(--line);border-radius:16px;padding:26px;background:var(--surface)}
+.half h3{font-size:clamp(32px,4vw,48px)}
+.half p{margin:12px 0 0;color:var(--ink-2)}
+.half .k{display:block;margin-bottom:10px}
+@media(max-width:760px){.idea{grid-template-columns:1fr}}
+
+.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:36px}
+.scene{border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--surface);cursor:pointer;text-align:left;font:inherit;color:inherit;display:grid;gap:8px;align-content:start;transition:border-color .15s,background .15s}
+.scene:hover{border-color:var(--ink-3)}
+.scene.on{border-color:var(--pop);background:color-mix(in srgb,var(--pop-soft) 55%,var(--surface))}
+.scene .tcode{font-size:11px;letter-spacing:.12em;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.scene h3{font-size:26px;letter-spacing:-.02em}
+.scene dl{margin:0;display:grid;gap:6px;font-size:13.5px}
+.scene dt{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.scene dd{margin:0;color:var(--ink-2)}
+
+.rules{list-style:none;margin:36px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;counter-reset:r}
+.rules li{counter-increment:r;border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--surface)}
+.rules li::before{content:counter(r,decimal-leading-zero);display:block;font-size:11px;letter-spacing:.14em;color:var(--pop);margin-bottom:8px}
+.rules b{display:block;font-weight:400;font-size:19px;color:var(--ink);margin-bottom:6px;line-height:1.3}
+.rules span{color:var(--ink-2);font-size:15px}
+.rules code{font-size:13px;background:var(--surface-2);padding:1px 6px;border-radius:6px}
+
+.bank{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-top:36px}
+.bank .col-l,.bank .col-r{border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--surface)}
+.bank ul{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:10px}
+.bank li{font-size:18px;line-height:1.35}
+.bank li small{display:block;font-size:13.5px;color:var(--ink-3);margin-top:2px}
+.bank .avoid li{color:var(--ink-2);text-decoration:line-through;text-decoration-color:var(--bad);text-decoration-thickness:1px}
+.bank .avoid li small{text-decoration:none;display:block}
+.bank .head{font-size:clamp(30px,3.6vw,44px);font-family:var(--f-light);letter-spacing:-.03em;line-height:1.05;margin:0}
+@media(max-width:760px){.bank{grid-template-columns:1fr}}
+
+.map{margin-top:36px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface)}
+.map table{width:100%;border-collapse:collapse;font-size:15px}
+.map th,.map td{text-align:left;vertical-align:top;padding:14px 16px;border-bottom:1px solid var(--line)}
+.map tr:last-child td{border-bottom:0}
+.map thead th{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:400;background:var(--surface-2)}
+.map td:first-child{color:var(--ink);white-space:nowrap}
+.map td{color:var(--ink-2)}
+.map td b{font-weight:400;color:var(--ink)}
+.map .eff{font-size:11px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.map .eff.s{color:var(--ok)}.map .eff.m{color:var(--pop)}.map .eff.l{color:var(--warn)}
+.map .flag{color:var(--bad)}
+@media(max-width:760px){.map{overflow-x:auto}.map table{min-width:720px}}
+
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:36px}
+.phase{border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--surface)}
+.phase .k{color:var(--pop)}
+.phase h3{font-size:24px;margin:8px 0 10px;letter-spacing:-.02em}
+.phase p{margin:0;color:var(--ink-2);font-size:15px}
+.phase code{font-size:12.5px;background:var(--surface-2);padding:1px 5px;border-radius:5px}
+@media(max-width:900px){.phases{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.phases{grid-template-columns:1fr}}
+
+.decide{margin:36px 0 0;padding:0;list-style:none;display:grid;gap:12px}
+.decide li{border:1px solid var(--line);border-left:3px solid var(--warn);border-radius:12px;padding:18px 20px;background:var(--surface)}
+.decide b{font-weight:400;color:var(--ink);font-size:18px}
+.decide p{margin:6px 0 0;color:var(--ink-2);font-size:15px}
+.decide em{font-style:normal;color:var(--ink)}
+
+footer{padding-block:48px 64px;border-top:1px solid var(--line);color:var(--ink-3);font-size:13.5px}
+footer p{margin:4px 0}
+footer code{font-size:12.5px}
+</style>
+</head>
+<body>
+
+<header class="bar">
+	<div class="wrap">
+		<a class="mark" href="#top">Earnest<b>.</b></a>
+		<nav aria-label="On this page">
+			<a href="#film">Animatic</a>
+			<a href="#board">Storyboard</a>
+			<a href="#grammar">Motion</a>
+			<a href="#words">Words</a>
+			<a href="#site">On the site</a>
+		</nav>
+		<button class="mode" type="button" aria-label="Switch between light and dark">
+			<svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+			<svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>
+		</button>
+	</div>
+</header>
+
+<main id="top">
+	<section class="intro wrap">
+		<span class="k">Campaign animatic · October 2026</span>
+		<h1 style="margin-top:14px">Move fast<span class="dot">.</span> <span class="mean">Mean it.</span></h1>
+		<p>A :23 animatic for the campaign line, and the reference for bringing it to earnest.guru. <b>Earnest does the fast part. You do the meaning-it part.</b> Every cut shows the work sped up, and your tap at real speed.</p>
+	</section>
+
+	<!-- ═══════════════════════════ THE FILM ═══════════════════════════ -->
+	<section id="film" class="player wrap" aria-label="Animatic">
+		<div class="stage" data-aspect="h" role="img" aria-label="Animatic: a fast montage of Earnest drafting, booking, chasing and billing, each waiting for a tap, then slowing into a client meeting. Move fast. Mean it. Earnest. Do good work.">
+			<video class="bg" src="assets/video/hero.mp4" muted loop playsinline preload="auto" poster="assets/photos/hero-1000.jpg"></video>
+			<img class="bg2" src="assets/photos/client.jpg" alt="">
+			<div class="shade"></div>
+			<div class="black"></div>
+			<div class="slate">Earnest · “Move fast” · :23</div>
+			<div class="rt">Real time · your tap</div>
+
+			<!-- 0:00 — open -->
+			<div class="shot" data-id="open" data-start="0" data-end="2000">
+				<div class="center">
+					<p class="open-line" data-at="250">Monday<span class="dot">.</span><small data-at="900">Everything, all at once</small></p>
+				</div>
+			</div>
+
+			<!-- 0:02 — cut 1 · know it -->
+			<div class="shot cut" data-id="know" data-start="2000" data-end="4000">
+				<p class="word">Know it<span class="dot">.</span><small>Where you stand</small></p>
+				<div class="colwrap">
+					<div class="col">
+						<div class="col__head"><span class="col__brand">Earnest<b>.</b></span><span class="col__wait">Waiting <b>5</b></span></div>
+						<div class="col__thread">
+							<div class="col__you" data-type="120" data-type-end="520">Read my day</div>
+							<p class="col__lede" data-at="620">5 waiting on you. Two are urgent.</p>
+							<ul>
+								<li class="bad" data-at="760"><b>$12k</b> — unpaid, all past 90 days</li>
+								<li class="bad" data-at="860"><b>30 d</b> — Helios West past its deadline</li>
+								<li data-at="960"><b>$286k</b> — in play across 12 pursuits</li>
+							</ul>
+						</div>
+						<div class="col__composer"><div class="row"><span class="ph">Ask Earnest</span><span class="send">↑</span></div></div>
+					</div>
+					<div class="stamp" data-at="1350">✓ Read, from your records</div>
+				</div>
+			</div>
+
+			<!-- 0:04 — cut 2 · book it -->
+			<div class="shot cut" data-id="book" data-start="4000" data-end="6000">
+				<p class="word">Book it<span class="dot">.</span><small>Friday, 10:00</small></p>
+				<div class="colwrap">
+					<div class="col">
+						<div class="col__head"><span class="col__brand">Earnest<b>.</b></span><span class="col__wait">Waiting <b>5</b></span></div>
+						<div class="col__thread">
+							<div class="col__you" data-type="120" data-type-end="560">Find a time with Helios Friday, 60 minutes</div>
+							<p class="col__lede" data-at="640">Friday 10:00 is open on both calendars.</p>
+							<div class="card" data-at="760">
+								<div class="card__kind"><b>Book meeting</b><i>held · your tap</i></div>
+								<p class="card__t">Helios — launch review · Fri 10:00–11:00</p>
+								<dl><dt>With</dt><dd>David Park</dd><dt>Invite</dt><dd>drafted, not sent</dd></dl>
+								<div class="acts"><span class="go" data-tap="1050" data-done-text="✓ Approved">Approve</span><span>Adjust</span><span>Skip</span></div>
+							</div>
+						</div>
+						<div class="col__composer"><span class="scope"><span class="noun">Client</span>Helios Studio</span><div class="row"><span class="ph">Ask Earnest</span><span class="send">↑</span></div></div>
+					</div>
+					<div class="stamp" data-at="1500">✓ Booked · invite sent</div>
+				</div>
+			</div>
+
+			<!-- 0:06 — cut 3 · chase it -->
+			<div class="shot cut" data-id="chase" data-start="6000" data-end="8000">
+				<p class="word">Chase it<span class="dot">.</span><small>Kindly</small></p>
+				<div class="colwrap">
+					<div class="col">
+						<div class="col__head"><span class="col__brand">Earnest<b>.</b></span><span class="col__wait">Waiting <b>4</b></span></div>
+						<div class="col__thread">
+							<div class="col__you" data-type="120" data-type-end="520">Draft a payment reminder</div>
+							<p class="col__lede" data-at="620">To Amara, in your voice. Third one, so warmer.</p>
+							<div class="card" data-at="740">
+								<div class="card__kind"><b>Send email</b><i>held · your tap</i></div>
+								<p class="card__t">“Amara — checking in on 0042 before the month closes…”</p>
+								<dl><dt>To</dt><dd>Amara Okafor · Meridian</dd><dt>Invoice</dt><dd>0042 · 92 days</dd></dl>
+								<div class="acts"><span class="go" data-tap="1050" data-done-text="✓ Approved">Approve</span><span>Adjust</span></div>
+							</div>
+						</div>
+						<div class="col__composer"><span class="scope"><span class="noun">Invoice</span>INV-SOL-MER-2026-0042</span><div class="row"><span class="ph">Ask Earnest</span><span class="send">↑</span></div></div>
+					</div>
+					<div class="stamp" data-at="1500">✓ Sent, after you said so</div>
+				</div>
+			</div>
+
+			<!-- 0:08 — cut 4 · say it like you -->
+			<div class="shot cut" data-id="voice" data-start="8000" data-end="10000">
+				<p class="word">Say it like you<span class="dot">.</span><small>Warmer, same three points</small></p>
+				<div class="colwrap">
+					<div class="col">
+						<div class="col__head"><span class="col__brand">Earnest<b>.</b></span><span class="col__wait">Waiting <b>3</b></span></div>
+						<div class="col__thread">
+							<div class="col__you" data-type="120" data-type-end="460">Rewrite this warmer</div>
+							<p class="col__lede" data-at="560">Warmer, same three points.</p>
+							<div class="card" data-at="680">
+								<div class="card__kind"><b>Redraft</b><span>LinkedIn · Thu 9:00</span></div>
+								<p class="card__t">“We changed three things on the Pinecrest site this month. Each one came from something a patient told us at the front desk.”</p>
+								<div class="acts"><span class="go" data-tap="1050" data-done-text="✓ Using this">Use this</span><span>Again</span></div>
+							</div>
+						</div>
+						<div class="col__composer"><span class="scope"><span class="noun">Post</span>Three things we changed</span><div class="row"><span class="ph">Ask Earnest</span><span class="send">↑</span></div></div>
+					</div>
+					<div class="stamp" data-at="1500">✓ Scheduled · not published</div>
+				</div>
+			</div>
+
+			<!-- 0:10 — cut 5 · bill it -->
+			<div class="shot cut" data-id="bill" data-start="10000" data-end="12000">
+				<p class="word">Bill it<span class="dot">.</span><small>Signed Tuesday</small></p>
+				<div class="colwrap">
+					<div class="col">
+						<div class="col__head"><span class="col__brand">Earnest<b>.</b></span><span class="col__wait">Waiting <b>2</b></span></div>
+						<div class="col__thread">
+							<div class="col__you" data-type="120" data-type-end="500">Bill Helios, milestone one</div>
+							<div class="chain">
+								<div data-at="580"><span>Signed</span>Booking site, three phases · $18,500</div>
+								<div data-at="660"><span>Project</span>3 phases, dates from the PDF</div>
+							</div>
+							<div class="card" data-at="760">
+								<div class="card__kind"><b>Create invoice</b><i>held · your tap</i></div>
+								<p class="card__t">Milestone 1 · $6,200</p>
+								<dl><dt>Via</dt><dd>Stripe · lands on cash flow</dd></dl>
+								<div class="acts"><span class="go" data-tap="1050" data-done-text="✓ Approved">Approve</span><span>Adjust</span></div>
+							</div>
+						</div>
+						<div class="col__composer"><span class="scope"><span class="noun">Project</span>Helios — Website Build</span><div class="row"><span class="ph">Ask Earnest</span><span class="send">↑</span></div></div>
+					</div>
+					<div class="stamp" data-at="1500">✓ Billed</div>
+				</div>
+			</div>
+
+			<!-- 0:12 — move fast -->
+			<div class="shot" data-id="fast" data-start="12000" data-end="14500">
+				<div class="center">
+					<p class="fast-line" data-at="80">Move fast<span class="dot">.</span></p>
+					<div class="receipts">
+						<span data-at="500">✓ Read</span><span data-at="590">✓ Booked</span><span data-at="680">✓ Sent</span><span data-at="770">✓ Scheduled</span><span data-at="860">✓ Billed</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- 0:14.5 — the ramp: mean it -->
+			<div class="shot" data-id="mean" data-start="14500" data-end="18500">
+				<div class="center">
+					<p class="mean-line" aria-label="Mean it."><span data-l="1500">Mean</span> <span data-l="1900">it</span><span class="dot" data-l="2300">.</span></p>
+					<p class="mean-sub" data-at="2800">Nothing goes out without you.</p>
+				</div>
+			</div>
+
+			<!-- 0:18.5 — end card -->
+			<div class="shot" data-id="end" data-start="18500" data-end="23000">
+				<div class="center">
+					<p class="end-mark" data-at="400">Earnest<b>.</b></p>
+					<p class="end-tag" data-at="1000">Do good work.</p>
+					<p class="end-fine" data-at="1700">Runs on Anthropic’s Claude, on no-training terms · earnest.guru</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="controls">
+			<button class="btn primary" type="button" data-act="play">Pause</button>
+			<button class="btn" type="button" data-act="restart">Restart</button>
+			<span class="tc" aria-live="off"><span data-tc>0:00.0</span> / 0:23.0</span>
+			<div class="opts">
+				<button class="btn" type="button" data-speed="0.25" aria-pressed="false">¼×</button>
+				<button class="btn" type="button" data-speed="0.5" aria-pressed="false">½×</button>
+				<button class="btn" type="button" data-speed="1" aria-pressed="true">1×</button>
+				<button class="btn" type="button" data-act="aspect" aria-pressed="false">9:16</button>
+				<button class="btn" type="button" data-act="sound" aria-pressed="false">Click track</button>
+			</div>
+			<div class="scrub">
+				<input type="range" min="0" max="23000" step="10" value="0" aria-label="Scrub the animatic">
+				<div class="marks"></div>
+			</div>
+		</div>
+		<div class="now"><span class="k">Now</span><b data-now>Open</b><span class="beats" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span data-note></span></div>
+	</section>
+
+	<!-- ═══════════════════════════ THE IDEA ═══════════════════════════ -->
+	<section class="sec wrap" id="idea">
+		<span class="k">The idea</span>
+		<h2 style="margin-top:12px">Two halves, <span class="pop">one sentence.</span></h2>
+		<p class="lead">The line isn’t a slogan on top of the product. It describes how the product works, and that’s why it’s safe to say loudly. <b>The speed is Earnest’s; the yes is yours.</b> It also replaces “hustle”: it keeps the energy without the grind.</p>
+		<div class="idea">
+			<div class="half">
+				<span class="k">Earnest’s half</span>
+				<h3>Move fast<span class="dot">.</span></h3>
+				<p>Reads the day, drafts the email, finds the time, writes the invoice, redrafts the post. One plain sentence in, a finished card out. On screen this part is always <b>sped up</b>, cut on the beat.</p>
+			</div>
+			<div class="half">
+				<span class="k">Your half</span>
+				<h3 class="pop">Mean it.</h3>
+				<p>Email, invoices, payments and meetings wait for your tap. That’s a rule in the app (<code>shared/ai-autonomy.ts</code>), not a setting. On screen this part is <b>never</b> sped up: the frame holds, and the tap plays in real time.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- ═══════════════════════════ STORYBOARD ═══════════════════════════ -->
+	<section class="sec wrap" id="board">
+		<span class="k">Storyboard</span>
+		<h2 style="margin-top:12px">Nine shots, <span class="pop">twenty-three seconds.</span></h2>
+		<p class="lead">Click a shot to jump the animatic to it. To make a :15, drop cuts 4 and 5 and halve each cut to two beats. For a :06 bumper, use the open, “Move fast.”, “Mean it.” and the end card. Every number comes from the homepage’s claim map (<code>app/data/good-work.ts</code>): the seeded demo workspace, with the $6,200 milestone marked as illustrative.</p>
+		<div class="board" data-board></div>
+	</section>
+
+	<!-- ═══════════════════════════ MOTION GRAMMAR ═══════════════════════════ -->
+	<section class="sec wrap" id="grammar">
+		<span class="k">Motion grammar</span>
+		<h2 style="margin-top:12px">Rules for anything <span class="pop">that moves.</span></h2>
+		<p class="lead">Use these for the site, the film, social cuts and anything later. Each one is in the animatic’s code, so this page is the working example.</p>
+		<ol class="rules">
+			<li><b>Earnest’s work is sped up. Your tap never is.</b><span>Before every held action the frame holds for 400ms, the background slows to near-still, and a “Real time · your tap” tag appears. This is the visual form of “Mean it.” Never show a send, a payment or a meeting going out without it.</span></li>
+			<li><b>Cut on the beat.</b><span>120 bpm, so a beat is 500ms. In the :23 a cut lasts four beats (2s). In a :15 it lasts two. Transitions are a 140ms whip with motion blur. Never use a dissolve inside the montage.</span></li>
+			<li><b>One verb per cut, said to the person.</b><span>Know it. Book it. Chase it. Say it like you. Bill it. Use the customer’s own verb, never a product noun (no “Home”, no “column”, no “lanes”).</span></li>
+			<li><b>Every fast run ends in stillness.</b><span>The montage always ramps down (background 3× → 0.35× over 1.8s, eased) into a held photograph of people. Never end on speed. The live “Steady.” section is this stillness.</span></li>
+			<li><b>Each cut runs in the same order.</b><span>Ask types in (≈28ms per character) → reply snaps in, staggered 100ms → card → tap → green ✓ stamp. The ✓ copy says what really happened: “Sent, after you said so”, “Scheduled · not published”.</span></li>
+			<li><b>Speed shows in the edit, not in numbers.</b><span>Don’t show clocks, “in seconds” or “10×”. We can’t back a time-saved figure yet, so the pace of the cuts carries the claim.</span></li>
+			<li><b>Type is the hero.</b><span>Proxima Light, tight tracking (−.04em), huge. The only colour is the blue full stop and “Mean it.” Bodoni appears only in the wordmark.</span></li>
+			<li><b>Footage is people working, not skies.</b><span>The office loop (Mixkit 914) carries the montage and a person across the table carries the stillness. No sunrises, no oceans: those read “heavenly” (your note, 9 Oct).</span></li>
+		</ol>
+	</section>
+
+	<!-- ═══════════════════════════ LANGUAGE ═══════════════════════════ -->
+	<section class="sec wrap" id="words">
+		<span class="k">Language bank</span>
+		<h2 style="margin-top:12px">What it says, <span class="pop">and what it won’t.</span></h2>
+		<div class="bank">
+			<div class="col-l">
+				<p class="head">Move fast. <span class="pop">Mean it.</span></p>
+				<p style="margin:6px 0 0;color:var(--ink-3);font-size:14px">Campaign line. Signed off, every time, with <em>Earnest. Do good work.</em></p>
+				<ul>
+					<li>Nothing goes out without you.<small>The proof line under “Mean it.” True for email, invoices, payments and meetings.</small></li>
+					<li>It drafts. You decide.<small>The mechanism in four words. Good for the hero lede or the FAQ.</small></li>
+					<li>Fast hands. Your say.<small>For social, short.</small></li>
+					<li>Know it. Book it. Chase it. Say it like you. Bill it.<small>The montage verbs. They also work as eyebrows on the homepage beats.</small></li>
+					<li>Good work moves fast — and means it.<small>A possible turn for the creed, in place of or after “It needs a better Tuesday.”</small></li>
+					<li>Fast is never careless.<small>Heading for the “What it never does” list.</small></li>
+				</ul>
+			</div>
+			<div class="col-r avoid">
+				<p class="k">Retired or off-limits</p>
+				<ul>
+					<li>Imagine the hustle with ease<small>“Imagine” makes it hypothetical, and “hustle” means grind. “Move fast” keeps the energy.</small></li>
+					<li>Not faster work<small>Now in the live hero lede, and it contradicts the campaign. See the hero row below.</small></li>
+					<li>Autopilot · set and forget<small>False: the held list exists.</small></li>
+					<li>In seconds · 10× · save X hours<small>No measured figure to back it yet.</small></li>
+					<li>#1 anything<small>Earn trust by being right, not by being loud.</small></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- ═══════════════════════════ ON THE SITE ═══════════════════════════ -->
+	<section class="sec wrap" id="site">
+		<span class="k">Bringing it to earnest.guru</span>
+		<h2 style="margin-top:12px">Section by section, <span class="pop">on the live homepage.</span></h2>
+		<p class="lead">Rows follow the order of <code>app/components/GoodWork/Home.vue</code>. The page keeps its structure. The campaign changes the hero, adds one moving section, and gives the motion grammar to what’s already there.</p>
+		<div class="map">
+			<table>
+				<thead><tr><th>Section</th><th>Now</th><th>With “Move fast. Mean it.”</th><th>Effort</th></tr></thead>
+				<tbody>
+					<tr><td>Hero</td><td>“Do good work.” / <span class="flag">“Not more work. Not faster work.”</span> over the sped-up office loop.</td><td><b>H1 “Move fast. Mean it.”</b>, lede “It drafts. You decide.”, and “Do good work.” moves to the sign-off. Over the loop, one column cycles four asks on the beat, each with the real-time tap. Reduced motion shows one still column. <i>The “Not faster work” line has to change either way.</i></td><td class="eff s">S · copy + M · loop</td></tr>
+					<tr><td>Creed</td><td>Six “Good work…” lines, then “It needs a better Tuesday.”</td><td>Keep it. Optionally add a seventh line, “Good work moves fast — and means it.”, before the Tuesday turn. The creed is the slow, thoughtful register; the campaign can stay out of it.</td><td class="eff s">S</td></tr>
+					<tr><td>App scrub</td><td>Parked (<code>appSequence = null</code>): the demo recording disagrees with the page.</td><td><b>Replace with the montage, built from HTML columns rather than video.</b> A pinned section where scroll drives the timeline from this animatic: five cuts, the ✓ receipts, then “Move fast.” It’s always truthful, sharp at any size, works in light and dark, and doesn’t depend on re-recording the demo.</td><td class="eff l">L · new component</td></tr>
+					<tr><td>Know / Say beats</td><td>Static column beside each beat.</td><td>Each column plays its own micro-cut once on entering view: ask types → card → tap → ✓. Eyebrows become the verbs (“Know it”, “Book it”).</td><td class="eff m">M</td></tr>
+					<tr><td>Client photo beats</td><td>Hear the truth / Sound like yourself.</td><td>Unchanged in copy. These are the “Mean it” beats (honesty and voice). Their columns play at real speed with no whips, the counterpoint to the montage.</td><td class="eff s">S</td></tr>
+					<tr><td>Steady.</td><td>Field loop, “Not busy. Not loud.”</td><td><b>This section becomes the speed ramp.</b> The loop slows from 2× to 0.35× as it scrolls into view, so the page itself does what the film does: fast, then still.</td><td class="eff m">M</td></tr>
+					<tr><td>Keep your word</td><td>Signed → Project → Billed cards animate in.</td><td>Stagger the three on the beat (500ms) and finish with a ✓ “Billed” stamp on the last. Same data.</td><td class="eff s">S</td></tr>
+					<tr><td>What it never does</td><td>Five “It won’t…” lines.</td><td>Give it a heading, <b>“Fast is never careless.”</b> This list is the “Mean it” proof.</td><td class="eff s">S</td></tr>
+					<tr><td>Closing</td><td>“Mean it.” / “Do good work.”</td><td><b>“Move fast.”</b> in ink-3, then <b>“Mean it.”</b> lights up in blue, then the wordmark and “Do good work.”, the animatic’s end card. It bookends the hero.</td><td class="eff s">S</td></tr>
+					<tr><td>Beyond the page</td><td>—</td><td>OG image = the end card. A 9:16 cut for Reels, Shorts and LinkedIn (toggle above). Email sign-off “Move fast. Mean it.” A :06 YouTube bumper.</td><td class="eff m">M</td></tr>
+				</tbody>
+			</table>
+		</div>
+
+		<h3 style="font-size:32px;margin-top:56px">Build path</h3>
+		<div class="phases">
+			<div class="phase"><span class="k">Phase 1 · copy</span><h3>The words</h3><p>New hero H1 and lede, the “Fast is never careless.” heading, the closing bookend, and an updated <code>llms.txt</code>. Under an hour, with no motion.</p></div>
+			<div class="phase"><span class="k">Phase 2 · engine</span><h3>Montage.vue</h3><p>Port this page’s timeline (<code>data-at</code> / <code>data-type</code> / <code>data-tap</code>) into a component driven by scroll or by clock, reusing <code>GoodWork/Column.vue</code>. It takes the parked scrub’s place.</p></div>
+			<div class="phase"><span class="k">Phase 3 · page</span><h3>The rhythm</h3><p>Micro-cuts on the beat columns, the Steady speed ramp, the kept cards on the beat, and a hero loop of four asks.</p></div>
+			<div class="phase"><span class="k">Phase 4 · film</span><h3>The spot</h3><p>Record this stage to MP4 with Playwright at 1080p in both aspects, add a real sound bed, and post it. Then a :15 and a :06.</p></div>
+		</div>
+
+		<h3 style="font-size:32px;margin-top:56px">Decisions for you</h3>
+		<ol class="decide">
+			<li><b>Hero headline: “Move fast. Mean it.” or keep “Do good work.”?</b><p>Recommendation: <em>“Move fast. Mean it.” as the H1</em>, with “Do good work.” as the sign-off on every ending, the way a campaign line sits under a brand line. The alternative is to keep the H1 and use “Move fast. Mean it.” as the lede.</p></li>
+			<li><b>Is the montage built from HTML or from re-recorded app video?</b><p>Recommendation: <em>HTML</em>. It’s the column you already ship, so it can’t disagree with the page, and the re-record plan’s three open decisions stop blocking the homepage.</p></li>
+			<li><b>Is the film made?</b><p>The animatic is enough to brief an editor, or to record directly. Sound would be a dry percussion bed at 120 bpm that drops out at “Mean it.” Turn on the click track above to hear the tempo.</p></li>
+		</ol>
+	</section>
+</main>
+
+<footer>
+	<div class="wrap">
+		<p>Mockup · not linked from the site · <code>mockups/2026-10-move-fast/move-fast.html</code></p>
+		<p>Footage: Mixkit 914 “Open office space” (Mixkit Stock Video Free License). Still: Sable Flow on Unsplash (Unsplash License). These are the same licensed files as <code>public/</code>, linked by symlink.</p>
+		<p>Inspired by the Claudeforce launch (Salesforce × Anthropic, Aug 2026): the fast edit, the jobs named as verbs, and a “two halves” logic. We didn’t borrow its superlatives.</p>
+	</div>
+</footer>
+
+<script>
+/* ─────────────────────────────────────────────────────────────────────────
+   The timeline engine. One clock (t, in ms), and the stage is a pure
+   function of it, so play, pause, scrub and seek all draw the same frame.
+
+   Inside each .shot (data-start / data-end), times are local:
+     data-at="ms"          → .in from then on (fade-up)
+     data-type="a" data-type-end="b" → the text types in between a and b
+     data-tap="ms"         → .press for HOLD ms (the real-time tap), then .done
+     data-l="ms"           → (Mean it.) a slow letter-group reveal
+   This is the part to port to a Vue component (Phase 2).
+   ───────────────────────────────────────────────────────────────────────── */
+(function () {
+	const DUR = 23000, BEAT = 500, HOLD = 400;
+	const SCENES = [
+		{ id: 'open', label: 'Open', start: 0, end: 2000, key: 1400,
+			picture: 'The office loop at 2×, darkened. People crossing and working.', type: '“Monday.” — Everything, all at once', sound: 'Bed starts dry on the downbeat.', claim: '—' },
+		{ id: 'know', label: 'Know it', start: 2000, end: 4000, key: 1700,
+			picture: 'Whip in. Column: “Read my day” types, and the number-first facts snap in.', type: 'Know it. — Where you stand', sound: 'Hat on every beat.', claim: 'Seeded demo: 5 waiting · $12k · 30 d · $286k' },
+		{ id: 'book', label: 'Book it', start: 4000, end: 6000, key: 1150,
+			picture: 'Book meeting card, held. The frame holds and the tap plays in real time. ✓', type: 'Book it. — Friday, 10:00', sound: 'The bed ducks for the tap: one soft click.', claim: 'Book meeting is on the hold list' },
+		{ id: 'chase', label: 'Chase it', start: 6000, end: 8000, key: 1150,
+			picture: 'Payment reminder to Amara, held → tap → “Sent, after you said so.”', type: 'Chase it. — Kindly', sound: 'Same.', claim: 'Email is held · invoice 0042 · 92 days' },
+		{ id: 'voice', label: 'Say it like you', start: 8000, end: 10000, key: 1700,
+			picture: 'Redraft of the Pinecrest post, warmer. Use this → scheduled, not published.', type: 'Say it like you.', sound: 'Same.', claim: 'Pinecrest post · Thu 9:00' },
+		{ id: 'bill', label: 'Bill it', start: 10000, end: 12000, key: 1150,
+			picture: 'Signed → Project → Create invoice, held → tap → ✓ Billed.', type: 'Bill it. — Signed Tuesday', sound: 'Same.', claim: '$18,500 contract · $6,200 milestone (illustrative)' },
+		{ id: 'fast', label: 'Move fast.', start: 12000, end: 14500, key: 1400,
+			picture: 'The background at 3×. Huge type. The five ✓ receipts stack in on the beat.', type: 'Move fast.', sound: 'Peak. A full kit for one bar.', claim: '—' },
+		{ id: 'mean', label: 'Mean it.', start: 14500, end: 18500, key: 3600,
+			picture: 'Speed ramp 3× → 0.35×. Dissolve to a client across the table, with a slow push.', type: 'Mean it. — Nothing goes out without you.', sound: 'The bed drops out. Room tone only.', claim: 'Held list: email, invoices, payments, meetings' },
+		{ id: 'end', label: 'End card', start: 18500, end: 23000, key: 3000,
+			picture: 'Near-black. Wordmark, then the tag.', type: 'Earnest. Do good work.', sound: 'Silence, or one soft note.', claim: 'Runs on Anthropic’s Claude, no-training terms' },
+	];
+
+	const stage = document.querySelector('.stage');
+	const video = stage.querySelector('.bg');
+	const photo = stage.querySelector('.bg2');
+	const black = stage.querySelector('.black');
+	const range = document.querySelector('.scrub input');
+	const tcEl = document.querySelector('[data-tc]');
+	const nowEl = document.querySelector('[data-now]');
+	const noteEl = document.querySelector('[data-note]');
+	const beatDots = [...document.querySelectorAll('.beats i')];
+	const playBtn = document.querySelector('[data-act="play"]');
+
+	const shots = [...stage.querySelectorAll('.shot')].map((el) => {
+		const items = [...el.querySelectorAll('[data-at],[data-type],[data-tap],[data-l]')];
+		items.forEach((i) => { if (i.dataset.type || i.dataset.tap) i.dataset.full = i.textContent; });
+		return { el, id: el.dataset.id, start: +el.dataset.start, end: +el.dataset.end, items, cut: el.classList.contains('cut') };
+	});
+
+	const clamp = (v) => Math.max(0, Math.min(1, v));
+	const easeOut = (p) => 1 - Math.pow(1 - p, 3);
+	const fmt = (ms) => { const s = ms / 1000; return Math.floor(s / 60) + ':' + (s % 60).toFixed(1).padStart(4, '0'); };
+
+	let t = 0, playing = false, speed = 1, last = 0, rate = 0;
+	const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	function setRate(r) {
+		if (Math.abs(r - rate) < 0.02) return;
+		rate = r;
+		try { video.playbackRate = Math.max(0.0625, r * speed); } catch (e) {}
+	}
+
+	function render() {
+		let hold = false, current = SCENES[0];
+		for (const s of SCENES) if (t >= s.start) current = s;
+		for (const s of shots) {
+			const on = t >= s.start && (t < s.end || (s.id === 'end' && t >= s.end));
+			s.el.classList.toggle('on', on);
+			if (!on) continue;
+			const lt = t - s.start;
+			if (s.cut) s.el.style.setProperty('--whip', (1 - easeOut(clamp(lt / 140))).toFixed(3));
+			for (const el of s.items) {
+				const d = el.dataset;
+				if (d.type) {
+					const p = clamp((lt - +d.type) / (+d.typeEnd - +d.type));
+					el.textContent = d.full.slice(0, Math.round(d.full.length * p));
+					el.classList.toggle('caret', p > 0 && p < 1);
+				}
+				if (d.at) el.classList.toggle('in', lt >= +d.at);
+				if (d.l) el.classList.toggle('in', lt >= +d.l);
+				if (d.tap) {
+					const a = +d.tap, press = lt >= a && lt < a + HOLD, done = lt >= a + HOLD;
+					el.classList.toggle('press', press);
+					el.classList.toggle('done', done);
+					el.textContent = done ? d.doneText : d.full;
+					if (press) hold = true;
+				}
+			}
+		}
+		stage.classList.toggle('hold', hold);
+
+		// the background: fast through the montage, ramping to still for "Mean it."
+		const M = SCENES[7], E = SCENES[8];
+		let r = t < 2000 ? 2 : t < 12000 ? 2.5 : t < M.start ? 3 : 3 + (0.35 - 3) * easeOut(clamp((t - M.start) / 1800));
+		if (hold) r = 0.08;
+		setRate(r);
+		const ml = t - M.start;
+		photo.style.opacity = t < M.start ? 0 : clamp((ml - 700) / 1500).toFixed(3);
+		photo.style.setProperty('--ps', (1.1 - 0.1 * clamp(ml / 4000)).toFixed(4));
+		black.style.opacity = t < E.start ? 0 : (0.92 * clamp((t - E.start) / 500)).toFixed(3);
+
+		// readouts
+		range.value = Math.round(t);
+		tcEl.textContent = fmt(t);
+		nowEl.textContent = current.label;
+		noteEl.textContent = hold ? '· held: the frame waits for the tap' : '';
+		const b = Math.floor(t / BEAT) % 4;
+		beatDots.forEach((d, i) => d.classList.toggle('on', i === b && t < M.start));
+		document.querySelectorAll('.scene').forEach((c) => c.classList.toggle('on', c.dataset.id === current.id));
+	}
+
+	/* the click track — tempo, the tap, and the drop-out at "Mean it." */
+	let ac = null, sound = false, lastBeat = -1, lastTapAt = -1;
+	function blip(kind) {
+		if (!ac) return;
+		const o = ac.currentTime, g = ac.createGain();
+		g.connect(ac.destination);
+		if (kind === 'kick') {
+			const s = ac.createOscillator(); s.frequency.setValueAtTime(140, o); s.frequency.exponentialRampToValueAtTime(45, o + 0.12);
+			g.gain.setValueAtTime(0.5, o); g.gain.exponentialRampToValueAtTime(0.001, o + 0.16); s.connect(g); s.start(o); s.stop(o + 0.17);
+		} else {
+			const len = kind === 'tap' ? 0.03 : 0.025, buf = ac.createBuffer(1, ac.sampleRate * len, ac.sampleRate), ch = buf.getChannelData(0);
+			for (let i = 0; i < ch.length; i++) ch[i] = (Math.random() * 2 - 1) * (1 - i / ch.length);
+			const src = ac.createBufferSource(), f = ac.createBiquadFilter();
+			src.buffer = buf; f.type = kind === 'tap' ? 'bandpass' : 'highpass'; f.frequency.value = kind === 'tap' ? 2200 : 7000;
+			g.gain.value = kind === 'tap' ? 0.6 : 0.18; src.connect(f); f.connect(g); src.start(o);
+		}
+	}
+	function audio(prev) {
+		if (!sound || !playing) return;
+		const beat = Math.floor(t / BEAT);
+		if (beat !== lastBeat && t < SCENES[7].start && !stage.classList.contains('hold')) {
+			lastBeat = beat; blip('hat'); if (beat % 2 === 0) blip('kick');
+		}
+		for (const s of shots) for (const el of s.items) if (el.dataset.tap) {
+			const at = s.start + +el.dataset.tap;
+			if (prev < at && t >= at && lastTapAt !== at) { lastTapAt = at; blip('tap'); }
+		}
+	}
+
+	function frame(now) {
+		if (!playing) return;
+		const dt = Math.min(64, now - last); last = now;
+		const prev = t;
+		t += dt * speed;
+		if (t >= DUR) { t = DUR; playing = false; video.pause(); playBtn.textContent = 'Replay'; }
+		render(); audio(prev);
+		if (playing) requestAnimationFrame(frame);
+	}
+	function play() {
+		if (t >= DUR) { t = 0; lastBeat = -1; lastTapAt = -1; }
+		playing = true; playBtn.textContent = 'Pause'; last = performance.now();
+		video.play().catch(() => {}); requestAnimationFrame(frame);
+	}
+	function pause() { playing = false; playBtn.textContent = 'Play'; video.pause(); }
+	function seek(ms) { t = Math.max(0, Math.min(DUR, ms)); lastBeat = Math.floor(t / BEAT); render(); }
+
+	playBtn.addEventListener('click', () => (playing ? pause() : play()));
+	document.querySelector('[data-act="restart"]').addEventListener('click', () => { seek(0); play(); });
+	range.addEventListener('input', () => { pause(); seek(+range.value); });
+	document.querySelectorAll('[data-speed]').forEach((b) => b.addEventListener('click', () => {
+		speed = +b.dataset.speed; rate = 0;
+		document.querySelectorAll('[data-speed]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+		render();
+	}));
+	const aspectBtn = document.querySelector('[data-act="aspect"]');
+	aspectBtn.addEventListener('click', () => {
+		const v = stage.dataset.aspect !== 'v';
+		stage.dataset.aspect = v ? 'v' : 'h';
+		aspectBtn.setAttribute('aria-pressed', String(v));
+		aspectBtn.textContent = v ? '16:9' : '9:16';
+		fit();
+	});
+	const soundBtn = document.querySelector('[data-act="sound"]');
+	soundBtn.addEventListener('click', () => {
+		sound = !sound; soundBtn.setAttribute('aria-pressed', String(sound));
+		if (sound && !ac) { try { ac = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} }
+		if (ac && ac.state === 'suspended') ac.resume();
+	});
+	document.addEventListener('keydown', (e) => {
+		if (e.target.closest('input,button,textarea')) return;
+		if (e.code === 'Space') { e.preventDefault(); playing ? pause() : play(); }
+		if (e.code === 'ArrowRight') { pause(); seek(t + 100); }
+		if (e.code === 'ArrowLeft') { pause(); seek(t - 100); }
+	});
+
+	// the column at its real 360px, scaled to the frame
+	function fit() {
+		const w = stage.clientWidth;
+		stage.style.setProperty('--k', ((stage.dataset.aspect === 'v' ? w * 0.86 : w * 0.36) / 360).toFixed(4));
+	}
+	new ResizeObserver(fit).observe(stage);
+	// phones open on the 9:16 cut — it's the one they'd watch
+	if (matchMedia('(max-width: 640px)').matches) aspectBtn.click(); else fit();
+
+	// scene markers on the scrubber, and the storyboard cards
+	const marks = document.querySelector('.marks');
+	const board = document.querySelector('[data-board]');
+	SCENES.forEach((s, i) => {
+		const m = document.createElement('span');
+		m.style.left = (s.start / DUR * 100) + '%';
+		m.textContent = s.label;
+		marks.appendChild(m);
+		const c = document.createElement('button');
+		c.type = 'button'; c.className = 'scene'; c.dataset.id = s.id;
+		c.innerHTML = '<span class="tcode">' + String(i + 1).padStart(2, '0') + ' · ' + fmt(s.start) + '–' + fmt(s.end) + '</span>' +
+			'<h3>' + s.label + '</h3><dl>' +
+			'<div><dt>Picture</dt><dd>' + s.picture + '</dd></div>' +
+			'<div><dt>Type</dt><dd>' + s.type + '</dd></div>' +
+			'<div><dt>Sound</dt><dd>' + s.sound + '</dd></div>' +
+			'<div><dt>Claim</dt><dd>' + s.claim + '</dd></div></dl>';
+		c.addEventListener('click', () => { pause(); seek(s.start + s.key); document.getElementById('film').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); });
+		board.appendChild(c);
+	});
+
+	// light / dark
+	document.querySelector('.mode').addEventListener('click', () => {
+		const m = document.documentElement.dataset.mode === 'dark' ? 'light' : 'dark';
+		document.documentElement.dataset.mode = m;
+		try { localStorage.setItem('mf-mode', m); } catch (e) {}
+	});
+
+	// reduced motion: hold on a representative frame, never autoplay
+	if (reduce) { seek(SCENES[2].start + SCENES[2].key); pause(); }
+	else { seek(0); play(); }
+})();
+</script>
+</body>
+</html>

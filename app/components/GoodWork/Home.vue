@@ -26,8 +26,11 @@
 			<header class="gw-hero">
 				<GoodWorkSlot name="hero" :photo="photos.hero" eager />
 				<div class="gw-wrap">
-					<h1>Do good work<span class="dot">.</span></h1>
-					<p class="gw-hero__lede">Not more work. Not faster work.<br />Business software for people who <strong>mean it</strong>.</p>
+					<!-- The campaign line (2026-10-13). "Do good work." is the brand line and
+					     signs off the closing; the reference for both, and for the motion still
+					     to come, is mockups/2026-10-move-fast/move-fast.html. -->
+					<h1><span class="gw-hero__l">Move fast<span class="dot">.</span></span> <span class="gw-hero__l">Mean it<span class="dot">.</span></span></h1>
+					<p class="gw-hero__lede">It drafts. <strong>You decide.</strong><br />Nothing reaches a client or moves money without your tap.</p>
 					<div class="gw-actions">
 						<a class="gw-btn gw-btn--primary" :href="links.register">Start free</a>
 						<a class="gw-btn" :href="links.demo">Try the live demo</a>
@@ -136,7 +139,8 @@
 			</section>
 
 			<!-- ─── What it never does · the machine ─── -->
-			<div class="gw-wrap">
+			<div class="gw-wrap gw-never-wrap">
+				<h2 class="gw-never__head">Fast is never careless<span class="dot">.</span></h2>
 				<ul class="gw-never" aria-label="What it never does">
 					<li v-for="n in never" :key="n">{{ n }}</li>
 				</ul>
@@ -196,7 +200,7 @@
 			<section class="gw-cta">
 				<GoodWorkSlot name="close" :photo="photos.close" />
 				<div class="gw-wrap">
-					<p class="gw-cta__cmd">Mean it<span class="dot">.</span></p>
+					<p class="gw-cta__cmd"><span class="gw-cta__fast">Move fast<span class="dot">.</span></span> Mean it<span class="dot">.</span></p>
 					<p class="gw-cta__tag">Do good work.</p>
 					<p class="gw-mark">Earnest<b>.</b></p>
 					<p class="gw-cta__sub">
@@ -239,7 +243,10 @@
 
 <script setup lang="ts">
 /**
- * GoodWork/Home — the homepage, "Do good work." (October 2026).
+ * GoodWork/Home — the homepage, "Do good work." (October 2026), carrying the
+ * campaign line "Move fast. Mean it." since 2026-10-13: the hero says it, the
+ * closing answers it. Move fast is Earnest's half (it drafts); Mean it is the
+ * visitor's (the tap every send, invoice, payment and meeting waits for).
  *
  * Ported from `mockups/2026-10-good-work/good-work.html`; the copy lives in
  * `data/good-work.ts` (its header has the claim map), the styles in

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Move fast — share image</title>
+<meta name="robots" content="noindex">
+<!--
+  The homepage share image, 1200×630. Render to public/og/move-fast.png:
+  open at a 1200×630 viewport and screenshot (the move-fast README has the
+  one-liner). Same ground and type as the "Do good work." card it replaced.
+-->
+<style>
+@font-face{font-family:'PN Light';src:url('assets/fonts/proxima-nova-light.woff2') format('woff2')}
+@font-face{font-family:'PN';src:url('assets/fonts/proxima-nova-regular.woff2') format('woff2')}
+@font-face{font-family:'Bodoni';src:url('assets/fonts/bauer-bodoni-roman.woff2') format('woff2')}
+html,body{margin:0}
+body{width:1200px;height:630px;overflow:hidden;position:relative;color:#121418;font-family:'PN',sans-serif;-webkit-font-smoothing:antialiased;
+	background:radial-gradient(60% 55% at 50% 100%,rgba(247,207,159,.5) 0%,transparent 70%),#fbfaf7}
+h1{position:absolute;left:0;right:0;top:150px;margin:0;text-align:center;font-family:'PN Light',sans-serif;font-weight:300;font-size:132px;letter-spacing:-.04em;line-height:1}
+.dot{color:#0a7fc4}
+p{position:absolute;left:0;right:0;top:330px;margin:0;text-align:center;font-family:'PN Light',sans-serif;font-size:34px;color:#4c525c}
+p b{font-family:'PN',sans-serif;font-weight:400;color:#121418}
+.mark{position:absolute;left:64px;bottom:58px;font-family:'Bodoni',serif;font-size:40px}
+.tag{position:absolute;right:64px;bottom:66px;font-family:'PN Light',sans-serif;font-style:italic;font-size:26px;color:#0a7fc4}
+</style>
+</head>
+<body>
+	<h1>Move fast<span class="dot">.</span> Mean it<span class="dot">.</span></h1>
+	<p>It drafts. <b>You decide.</b></p>
+	<div class="mark">Earnest<span class="dot">.</span></div>
+	<div class="tag">Do good work.</div>
+</body>
+</html>

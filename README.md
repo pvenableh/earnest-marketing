@@ -28,7 +28,7 @@ app/
 public/
   photos/ · video/        # Homepage photography and ambient loops (licensed; credits in good-work.ts)
   screenshots/            # Product screenshots — see "Screenshot pipeline" below
-  og/good-work.png        # The homepage share image
+  og/move-fast.png        # The homepage share image (source: mockups/2026-10-move-fast/og.html)
   llms.txt                # Generated: node scripts/build-llms-txt.mjs
 nuxt.config.ts            # Prerender list is built from features.ts at config time; redirects for retired routes
 ARCHIVE.md                # What left the tree (the old landings, the Looks switch) and how to restore it

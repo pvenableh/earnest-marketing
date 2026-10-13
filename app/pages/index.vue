@@ -1,5 +1,6 @@
 <script setup lang="ts">
-// The landing page: "Do good work." (October 2026, `GoodWork/Home.vue`).
+// The landing page: "Do good work." (October 2026, `GoodWork/Home.vue`),
+// leading with the campaign line "Move fast. Mean it." since 2026-10-13.
 // The September sell sheet it replaced (`SellSheetHome`) is no longer
 // routed; the site as it stood is branch `sellsheet-2026-10-everywhere`.
 // `SellSheetLive` (2026-07) is archived at /live-2026-07; the older variants
@@ -13,9 +14,9 @@
 import { homeFaqs } from '~/data/good-work';
 import { features } from '~/data/features';
 
-const title = 'Earnest — Do good work.';
+const title = 'Earnest — Move fast. Mean it.';
 const description =
-  'Business software for people who mean it. Clients, projects, invoices, scheduling and marketing in one app, for agencies, firms, practices and shops. Earnest drafts the next step; nothing reaches a client or moves money without your tap.';
+  'Move fast. Mean it. Clients, projects, invoices, scheduling and marketing in one app, for agencies, firms, practices and shops. Earnest drafts the next step; nothing reaches a client or moves money without your tap.';
 
 // Built from `features.ts` rather than hand-listed, for the same reason the FAQ
 // is: a hand-kept list is a list that will describe surfaces the app no longer
@@ -25,7 +26,7 @@ const featureList = features
   .map((f) => f.name)
   .join(', ');
 
-const ogImage = 'https://earnest.guru/og/good-work.png';
+const ogImage = 'https://earnest.guru/og/move-fast.png';
 
 useHead({
   title,
@@ -94,7 +95,7 @@ useSeoMeta({
   ogImage,
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: 'Earnest — Do good work. Business software for people who mean it.',
+  ogImageAlt: 'Earnest — Move fast. Mean it. It drafts; you decide.',
   robots: 'index, follow',
   twitterCard: 'summary_large_image',
   twitterTitle: title,

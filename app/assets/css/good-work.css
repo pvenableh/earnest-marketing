@@ -363,6 +363,12 @@ html[data-gw-mode='dark'] .gw-hero .gw-slot video {
 .gw-hero h1 .dot {
 	color: var(--pop);
 }
+/* "Move fast." / "Mean it." — each half stays whole; they stack when the
+   pair won't fit one line, never break mid-phrase. */
+.gw-hero__l {
+	display: inline-block;
+	white-space: nowrap;
+}
 .gw-hero__lede {
 	margin: 28px auto 0;
 	max-width: 46ch;
@@ -1231,6 +1237,22 @@ html[data-gw-mode='dark'] .gw-beat--tone {
 }
 
 /* ── the never list, the machine band ── */
+.gw-never__head {
+	margin: 0;
+	padding-top: 56px;
+	text-align: center;
+	font-family: var(--f-light);
+	font-weight: 300;
+	letter-spacing: -0.03em;
+	font-size: clamp(30px, 4vw, 48px);
+	line-height: 1.05;
+}
+.gw-never__head .dot {
+	color: var(--pop);
+}
+.gw-never-wrap .gw-never {
+	padding-top: 24px;
+}
 .gw-never {
 	display: flex;
 	flex-wrap: wrap;
@@ -1477,6 +1499,11 @@ html[data-gw-mode='dark'] .gw-cta .gw-slot--empty {
 }
 .gw-cta__cmd .dot {
 	color: var(--pop);
+}
+/* the hero's first half, answered: "Move fast." recedes, "Mean it." stands */
+.gw-cta__fast {
+	color: var(--ink-3);
+	white-space: nowrap;
 }
 .gw-cta__tag {
 	font-family: var(--f-light);
