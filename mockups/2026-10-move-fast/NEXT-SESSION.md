@@ -26,26 +26,20 @@ sign-off. Read these first, in this order:
   `move-fast-{24,15,06}-{16x9,9x16}.mp4` (1080p30, H.264, AAC at −14 LUFS).
   `out/` is gitignored, so the files exist only on Peter's Mac: if it's
   empty, re-render (README, ~25 min for all six).
-- Sound: the six files carry the animatic's own synth bed. Licensed
-  alternatives were cut for Peter to audition, from three Mixkit tracks
-  (Stock Music Free License: social video posts, online ads and YouTube are
-  allowed; TV/radio, music-only remixes and Content ID registration are not):
-  `out/move-fast-24-16x9-{tech-house,hazy,deep-urban}.mp4`, sent to Peter
-  on 14 Oct. **Ask which bed he chose** before anything is posted. To put
-  one on all six files (the MP3s are in `out/tracks/`; re-download from
-  Mixkit if `out/` was cleared), run `record.mjs --remux` with:
-  - Tech House vibes (Mixkit 130, 122 bpm):
-    `--bed out/tracks/tech-house-vibes.mp3 --bpm 122 --from 16.307`
-  - Hazy After Hours (Mixkit 132, 121 bpm):
-    `--bed out/tracks/hazy-after-hours.mp3 --bpm 121 --from 16.936`
-  - Deep Urban (Mixkit 623, 124 bpm):
-    `--bed out/tracks/deep-urban.mp3 --bpm 123.98 --from 16.488`
-  (no `--tag`, so the files keep their plain names). `--from` is a kick in
-  the source, checked against the film's 0.5s grid. The synth files are at
-  about −19 LUFS (their loudness is all transients); the licensed mixes at
-  −14. The licence text asks for no credit; it forbids registering the
-  music with any rights-management service (Content ID), and says to
-  forward any claim to team@mixkit.co.
+- Sound (Peter chose 14 Oct): **Tech House vibes** (Mixkit 130, by
+  Alejandro Magaña) on all six, retimed 122 → 120 bpm, starting on a kick,
+  dipped 10 dB under each tap, cut dead at "Mean it." to room tone; −14 LUFS.
+  Mixkit Stock Music Free License: social video posts, online ads and
+  YouTube are allowed; TV/radio, music-only remixes and registering it with
+  any rights-management service (Content ID) are not; the licence asks for
+  no credit; forward any claim to team@mixkit.co. To redo it (the MP3 is in
+  `out/tracks/`; re-download from Mixkit if `out/` was cleared):
+  `record.mjs --remux --bed out/tracks/tech-house-vibes.mp3 --bpm 122 --from 16.307`
+  (`--from` is a kick in the source, checked against the film's 0.5 s grid).
+- After Effects kit: `out/ae-elements/` (`elements.mjs`, README there): the
+  :24 taken apart — plate, an alpha clip per element, stems, timing,
+  `build-comp.jsx`. Peter may cut his own version from it; if he does, post
+  his, not ours.
 - Still Peter's to decide (don't change them unasked): the Know/Say eyebrows
   ("Know it" / "Book it"; recommendation: keep "One screen" / "From any
   screen"); a seventh creed line (recommendation: no); "Hear the truth" says

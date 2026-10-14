@@ -32,6 +32,10 @@ PLAYWRIGHT_MODULE=/Users/peterhoffman/Sites/earnest/earnest/node_modules/playwri
   node mockups/2026-10-move-fast/record.mjs            # all six files, synth sound
 ```
 
+The spot's bed is **Tech House vibes** (Mixkit 130, Stock Music Free
+License; never register it with Content ID), put on after rendering with
+`record.mjs --remux --bed out/tracks/tech-house-vibes.mp3 --bpm 122 --from 16.307`.
+
 - Output: `out/move-fast-{24,15,06}-{16x9,9x16}.mp4` — 1080p, 30 fps, H.264
   yuv420p CRF 18, faststart, AAC at −14 LUFS. `out/` is gitignored: video
   doesn't go in the repo.

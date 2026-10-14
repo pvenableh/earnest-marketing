@@ -224,6 +224,9 @@ for (const [bed, bpm, from] of BEDS) {
 	await ffmpeg(['-i', raw, '-af', `volume=${(-14 - +m.input_i).toFixed(2)}dB,alimiter=limit=0.84:level=false`, path.join(KIT, 'audio', `bed-${bed}-120bpm.wav`)]);
 	fs.rmSync(raw);
 }
+// the spot's own sound (the chosen bed, ducked and cut, with the taps and room tone), if record.mjs has made it
+const spot = path.join(HERE, 'out', 'move-fast-24-16x9.wav');
+if (fs.existsSync(spot)) fs.copyFileSync(spot, path.join(KIT, 'audio', 'spot-mix.wav'));
 fs.copyFileSync(path.join(SITE, 'public', 'video', 'hero.mp4'), path.join(KIT, 'sources', 'office-loop-mixkit-914.mp4'));
 fs.copyFileSync(path.join(SITE, 'public', 'photos', 'client.jpg'), path.join(KIT, 'sources', 'client-across-the-table.jpg'));
 
@@ -240,7 +243,7 @@ const jsxData = {
 	taps: timing.taps.map((t) => [t.in, +(t.out - t.in).toFixed(4)]),
 	bedOut: timing.bedOut,
 	comps: Object.entries(timing.aspects).map(([name, a]) => ({ name, width: a.width, height: a.height, layers: [...a.layers.filter((l) => !l.top), ...a.layers.filter((l) => l.top)].map((l) => [l.name, l.file, l.in, l.alpha ? 1 : 0]) })),
-	audio: fs.readdirSync(path.join(KIT, 'audio')).filter((f) => f.endsWith('.wav')).sort((a, b) => (a === 'synth-mix.wav' ? -1 : b === 'synth-mix.wav' ? 1 : a.localeCompare(b))),
+	audio: (() => { const first = ['spot-mix.wav', 'synth-mix.wav'], rank = (f) => (first.includes(f) ? first.indexOf(f) : first.length); return fs.readdirSync(path.join(KIT, 'audio')).filter((f) => f.endsWith('.wav')).sort((a, b) => rank(a) - rank(b) || a.localeCompare(b)); })(),
 };
 fs.writeFileSync(path.join(KIT, 'build-comp.jsx'), `\ufeff// Move fast. Mean it. — builds the :24 from these elements.
 // After Effects: File → Scripts → Run Script File… and pick this file.
@@ -280,7 +283,7 @@ fs.writeFileSync(path.join(KIT, 'build-comp.jsx'), `\ufeff// Move fast. Mean it.
 			if (!sounds[s]) continue;
 			var au = comp.layers.add(sounds[s]);
 			au.moveToEnd();
-			if (s > 0) au.audioEnabled = false; // the synth mix plays; the rest are there to swap in
+			if (s > 0) au.audioEnabled = false; // the spot's mix plays; the rest are there to swap in
 		}
 		for (var k = 0; k < D.shots.length; k++) mark(comp, D.shots[k][0], D.shots[k][1]);
 		for (var t = 0; t < D.taps.length; t++) mark(comp, D.taps[t][0], 'Tap — real time, never sped up', D.taps[t][1]);
@@ -297,8 +300,8 @@ START HERE
   After Effects → File → Scripts → Run Script File… → build-comp.jsx (leave it in
   this folder). It builds "Move fast :24 16x9" and "Move fast :24 9x16": every
   clip at its in-point, back to front, alpha set to straight, markers on each
-  shot, each tap and the bed's drop-out. The synth mix plays; the stems and the
-  licensed beds are in the comp, muted, ready to swap in.
+  shot, each tap and the bed's drop-out. The spot's sound plays; the stems and
+  the other beds are in the comp, muted, ready to swap in.
 
 WHAT'S HERE
   16x9/, 9x16/   00-plate.mov — ProRes 422 HQ, 24 s: the office footage (graded,
@@ -312,11 +315,13 @@ WHAT'S HERE
                    "Mean it." and the end card, split so each can move alone
                    rt-N              the "Real time · your tap" tag, one per tap
                  stills/ — each element (and the plate) at rest, PNG with alpha.
-  audio/         synth-mix.wav (the spot's bed) and its stems — synth-kit,
-                 synth-taps, room-tone — which sum exactly to it. bed-*.wav: the
-                 three licensed tracks retimed to 120 bpm with a kick on 0:00,
-                 full length and uncut (the spot cuts them at "Mean it." and
-                 dips them 10 dB under each tap).
+  audio/         spot-mix.wav — the spot's sound: Tech House vibes at 120 bpm,
+                 dipped 10 dB under each tap and cut at "Mean it.", with the
+                 tap clicks and room tone (−14 LUFS). bed-*.wav: the licensed
+                 tracks retimed to 120 bpm with a kick on 0:00, full length and
+                 uncut, for your own cut. synth-mix.wav: the animatic's synth,
+                 with stems — synth-kit, synth-taps, room-tone — that sum
+                 exactly to it.
   sources/       the untouched footage (960×540, 24 fps, 13.75 s loop) and photo.
   timing.json    shots, taps, whips, beats, and per frame the plate's recipe:
                  footage time (for a Time Remap rebuild from sources/), photo
