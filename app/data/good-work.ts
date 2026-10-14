@@ -197,7 +197,7 @@ export const beatsOpen: Beat[] = [
 	{
 		eyebrow: 'From any screen',
 		title: ['Say the ', 'next move', '.'],
-		sub: 'It knows the screen you’re on and the record you opened. Say what should change. It writes the card; you tap.',
+		sub: 'It knows the screen you’re on and the record you opened. Say what should change, typed or out loud. It writes the card, and you still tap.',
 		move: {
 			k: 'Held',
 			text: 'Email, invoices, payments and meetings always wait for your tap. Small reversible things can run alone, and can be undone.',
@@ -331,6 +331,12 @@ export const homeFaqs: (Faq & { more?: { to: string; label: string } })[] = [
 		a: 'No. Email, invoices, payments, meetings and campaign launches always wait for your tap. Small reversible things like a task or a ticket can run on their own if you switch that on, with an audit trail and an Undo.',
 		aText:
 			'No. Email, invoices, payments, meetings and campaign launches always wait for your tap. Small reversible things like a task or a ticket can run on their own if you switch that on, with an audit trail and an Undo.',
+	},
+	{
+		q: 'Can I just talk to it?',
+		a: 'Yes, on every plan. Tap the microphone and say what you need, and it can read its replies aloud. Switch on Hands-free and start with “Hey Earnest” to ask without touching anything, and some suggestions can be approved with a spoken yes. Email, invoices, payments and meetings never can: <strong>your voice gets them moving, your tap makes them real</strong>. Your browser does the listening (Chrome and Safari; Firefox has no speech recognition), and Custom Voice ($9/mo) reads replies in a hosted voice. Who hears what is in our <a href="/privacy-policy#voice">privacy policy</a>.',
+		aText:
+			'Yes, on every plan. Tap the microphone and say what you need, and it can read its replies aloud. Switch on Hands-free and start with “Hey Earnest” to ask without touching anything, and some suggestions can be approved with a spoken yes. Email, invoices, payments and meetings never can: your voice gets them moving, your tap makes them real. Your browser does the listening (Chrome and Safari; Firefox has no speech recognition), and Custom Voice ($9/mo) reads replies in a hosted voice. Who hears what is in our privacy policy.',
 	},
 	{
 		q: 'Can my clients use it?',
