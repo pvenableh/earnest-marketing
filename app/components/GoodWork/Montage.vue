@@ -10,6 +10,8 @@
   scroll on each tap, so the frame holds there. The tap itself never follows
   the scroll: once `t` reaches it, it plays on a real clock, 400ms, with the
   footage slowed nearly to still. Earnest's half is sped up; yours never is.
+  Each cut's plan, its frame and the tap come from useCutTimeline, which the
+  beat columns and the hero loop play too; this file owns the scroll map.
 
   The server render, a visitor without JS and reduced motion all get the
   still version: the five verbs with what really happened, beside the last
@@ -68,54 +70,23 @@
 </template>
 
 <script setup lang="ts">
-import { montage, photos, type ColumnFrame, type MontageCut } from '~/data/good-work';
+import { montage, photos, type MontageCut } from '~/data/good-work';
+import { HOLD, planCut, useCutTimeline, type CutPlan } from '~/composables/useCutTimeline';
 
 const last = montage[montage.length - 1]!;
 
-/* ── The timeline (ms), as in the animatic: 120 bpm, a cut is four beats,
-   the voice cut six. Every time inside a cut is local to it. ── */
-const HOLD = 400;
+/* ── The timeline (ms), as in the animatic: one cut after another, each
+   planned by useCutTimeline (every time inside a cut is local to it), then
+   the end on "Move fast.". ── */
 const END = 2500;
-interface Plan {
-	c: MontageCut;
-	start: number;
-	dur: number;
-	listen?: [number, number];
-	ask: [number, number];
-	lede: number;
-	facts: number[];
-	card: number;
-	say: [number, number];
-	tap: number | null;
-	stamp: number;
-}
+type Plan = CutPlan & { c: MontageCut; start: number };
 const plans: Plan[] = [];
 {
 	let start = 0;
 	for (const c of montage) {
-		const col = c.column;
-		const voice = !!col.heard;
-		const ask: [number, number] = voice ? [1050, 1050] : [120, 520];
-		const lede = voice ? 1200 : 620;
-		const facts = (col.facts ?? []).map((_, i) => lede + 140 + i * 100);
-		const card = col.card ? (facts.length ? facts[facts.length - 1]! + 120 : lede + 120) : Infinity;
-		const say: [number, number] = col.say ? (voice ? [1500, 2150] : [card + 160, card + 160]) : [Infinity, Infinity];
-		const tap = col.card ? (voice ? 2250 : 1050) : null;
-		const dur = voice ? 3000 : 2000;
-		plans.push({
-			c,
-			start,
-			dur,
-			listen: voice ? [100, 1000] : undefined,
-			ask,
-			lede,
-			facts,
-			card,
-			say,
-			tap,
-			stamp: tap == null ? 1350 : tap + HOLD + 100,
-		});
-		start += dur;
+		const p = planCut(c.id, c.column);
+		plans.push({ ...p, c, start });
+		start += p.dur;
 	}
 }
 const CUTS_END = plans.reduce((n, p) => n + p.dur, 0);
@@ -163,41 +134,8 @@ const cut = computed(() => plans.find((p) => t.value >= p.start && t.value < p.s
 const lt = computed(() => (cut.value ? t.value - cut.value.start : 0));
 const endT = computed(() => t.value - CUTS_END);
 
-/* The tap: started by the scroll, played by the clock. */
-const tapState = ref<'idle' | 'press' | 'done'>('idle');
-const tapping = computed(() => tapState.value === 'press');
-let tapFor: string | null = null;
-let tapTimer: ReturnType<typeof setTimeout> | undefined;
-watch([cut, lt], ([p, l]) => {
-	const at = p?.tap;
-	if (!p || at == null || l < at) {
-		clearTimeout(tapTimer);
-		tapFor = null;
-		tapState.value = 'idle';
-		return;
-	}
-	if (tapFor === p.c.id) return;
-	tapFor = p.c.id;
-	tapState.value = 'press';
-	tapTimer = setTimeout(() => (tapState.value = 'done'), HOLD);
-});
-
-const frame = computed<ColumnFrame | undefined>(() => {
-	const p = cut.value;
-	if (!p) return undefined;
-	const l = lt.value;
-	const span = (r: [number, number]) => (l < r[0] ? 0 : r[1] <= r[0] ? 1 : clamp((l - r[0]) / (r[1] - r[0])));
-	return {
-		ask: span(p.ask),
-		listening: p.listen && l >= p.listen[0] && l < p.listen[1] ? clamp((l - 250) / (900 - 250)) : null,
-		lede: l >= p.lede,
-		facts: p.facts.filter((f) => l >= f).length,
-		card: l >= p.card,
-		say: span(p.say),
-		tap: tapState.value,
-	};
-});
-const stampIn = computed(() => !!cut.value && lt.value >= cut.value.stamp && (cut.value.tap == null || tapState.value === 'done'));
+/* The tap plays on its own clock, whatever the scroll does. */
+const { tapping, frame, stampIn } = useCutTimeline(cut, lt);
 
 /** "Say it. Tap it." → each full stop in the accent. */
 function dotted(s: string) {
@@ -254,7 +192,6 @@ onBeforeUnmount(() => {
 	removeEventListener('scroll', onScroll);
 	removeEventListener('resize', onScroll);
 	cancelAnimationFrame(raf);
-	clearTimeout(tapTimer);
 	io?.disconnect();
 });
 </script>
