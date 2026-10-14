@@ -4,7 +4,7 @@ The campaign animatic and the reference for bringing the line to earnest.guru.
 
 - **Page:** `move-fast.html` — preview with the `mockups` launch config →
   http://localhost:4173/2026-10-move-fast/move-fast.html
-- **What's on it:** a :23 animatic (scrubbable, ¼×/½×, 9:16 toggle, click
+- **What's on it:** a :24 animatic (scrubbable, ¼×/½×, 9:16 toggle, click
   track), the storyboard, the motion grammar, the language bank, a
   section-by-section map onto `app/components/GoodWork/Home.vue`, a build
   path and the open decisions.

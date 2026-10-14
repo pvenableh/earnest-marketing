@@ -159,6 +159,17 @@ h1,h2,h3{font-family:var(--f-light);font-weight:300;letter-spacing:-.03em;line-h
 .row{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:8px 8px 8px 14px;background:var(--surface)}
 .row .ph{flex:1;color:var(--ink-3)}
 .row .send{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--pop-soft);color:var(--pop);font-size:13px}
+/* voice: the composer listening, the spoken ask, the line read aloud */
+.row .mic{display:none;width:8px;height:8px;border-radius:50%;background:var(--bad);flex:none}
+.row .heard{display:none;flex:1;color:var(--ink)}
+.row.live{border-color:var(--pop);box-shadow:0 0 0 3px color-mix(in srgb,var(--pop) 22%,transparent)}
+.row.live .mic{display:block;animation:mic 1s ease-in-out infinite}
+.row.live .ph{display:none}.row.live .heard{display:block}
+@keyframes mic{50%{opacity:.35}}
+.col__you.voice{display:flex;align-items:center;gap:6px}
+.col__you.voice svg{color:var(--pop);flex:none}
+.col__say{display:grid;grid-template-columns:auto 1fr;gap:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:13px;color:var(--ink-2);font-style:italic}
+.col__say .sp{font-style:normal;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--pop);padding-top:3px}
 .stamp{position:absolute;left:50%;bottom:-18px;transform:translateX(-50%) scale(.9);white-space:nowrap;background:var(--ok);color:#07120c;border-radius:999px;padding:7px 16px;font-size:13.5px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
 .stamp.in{transform:translateX(-50%) scale(1)}
 
@@ -309,17 +320,17 @@ footer code{font-size:12.5px}
 	<section class="intro wrap">
 		<span class="k">Campaign animatic · October 2026</span>
 		<h1 style="margin-top:14px">Move fast<span class="dot">.</span> <span class="mean">Mean it.</span></h1>
-		<p>A :23 animatic for the campaign line, and the reference for bringing it to earnest.guru. <b>Earnest does the fast part. You do the meaning-it part.</b> Every cut shows the work sped up, and your tap at real speed.</p>
+		<p>A :24 animatic for the campaign line, and the reference for bringing it to earnest.guru. <b>Earnest does the fast part. You do the meaning-it part.</b> Every cut shows the work sped up, and your tap at real speed.</p>
 	</section>
 
 	<!-- ═══════════════════════════ THE FILM ═══════════════════════════ -->
 	<section id="film" class="player wrap" aria-label="Animatic">
-		<div class="stage" data-aspect="h" role="img" aria-label="Animatic: a fast montage of Earnest drafting, booking, chasing and billing, each waiting for a tap, then slowing into a client meeting. Move fast. Mean it. Earnest. Do good work.">
+		<div class="stage" data-aspect="h" role="img" aria-label="Animatic: a fast montage of Earnest reading the day, booking, redrafting and billing, then a payment reminder asked for out loud and read back, each held thing waiting for a tap, then slowing into a client meeting. Move fast. Mean it. Earnest. Do good work.">
 			<video class="bg" src="assets/video/hero.mp4" muted loop playsinline preload="auto" poster="assets/photos/hero-1000.jpg"></video>
 			<img class="bg2" src="assets/photos/client.jpg" alt="">
 			<div class="shade"></div>
 			<div class="black"></div>
-			<div class="slate">Earnest · “Move fast” · :23</div>
+			<div class="slate">Earnest · “Move fast” · :24</div>
 			<div class="rt">Real time · your tap</div>
 
 			<!-- 0:00 — open -->
@@ -372,34 +383,12 @@ footer code{font-size:12.5px}
 				</div>
 			</div>
 
-			<!-- 0:06 — cut 3 · chase it -->
-			<div class="shot cut" data-id="chase" data-start="6000" data-end="8000">
-				<p class="word">Chase it<span class="dot">.</span><small>Kindly</small></p>
-				<div class="colwrap">
-					<div class="col">
-						<div class="col__head"><span class="col__brand">Earnest<b>.</b></span><span class="col__wait">Waiting <b>4</b></span></div>
-						<div class="col__thread">
-							<div class="col__you" data-type="120" data-type-end="520">Draft a payment reminder</div>
-							<p class="col__lede" data-at="620">To Amara, in your voice. Third one, so warmer.</p>
-							<div class="card" data-at="740">
-								<div class="card__kind"><b>Send email</b><i>held · your tap</i></div>
-								<p class="card__t">“Amara — checking in on 0042 before the month closes…”</p>
-								<dl><dt>To</dt><dd>Amara Okafor · Meridian</dd><dt>Invoice</dt><dd>0042 · 92 days</dd></dl>
-								<div class="acts"><span class="go" data-tap="1050" data-done-text="✓ Approved">Approve</span><span>Adjust</span></div>
-							</div>
-						</div>
-						<div class="col__composer"><span class="scope"><span class="noun">Invoice</span>INV-SOL-MER-2026-0042</span><div class="row"><span class="ph">Ask Earnest</span><span class="send">↑</span></div></div>
-					</div>
-					<div class="stamp" data-at="1500">✓ Sent, after you said so</div>
-				</div>
-			</div>
-
-			<!-- 0:08 — cut 4 · say it like you -->
-			<div class="shot cut" data-id="voice" data-start="8000" data-end="10000">
+			<!-- 0:06 — cut 3 · say it like you -->
+			<div class="shot cut" data-id="voice" data-start="6000" data-end="8000">
 				<p class="word">Say it like you<span class="dot">.</span><small>Warmer, same three points</small></p>
 				<div class="colwrap">
 					<div class="col">
-						<div class="col__head"><span class="col__brand">Earnest<b>.</b></span><span class="col__wait">Waiting <b>3</b></span></div>
+						<div class="col__head"><span class="col__brand">Earnest<b>.</b></span><span class="col__wait">Waiting <b>4</b></span></div>
 						<div class="col__thread">
 							<div class="col__you" data-type="120" data-type-end="460">Rewrite this warmer</div>
 							<p class="col__lede" data-at="560">Warmer, same three points.</p>
@@ -415,12 +404,12 @@ footer code{font-size:12.5px}
 				</div>
 			</div>
 
-			<!-- 0:10 — cut 5 · bill it -->
-			<div class="shot cut" data-id="bill" data-start="10000" data-end="12000">
+			<!-- 0:08 — cut 4 · bill it -->
+			<div class="shot cut" data-id="bill" data-start="8000" data-end="10000">
 				<p class="word">Bill it<span class="dot">.</span><small>Signed Tuesday</small></p>
 				<div class="colwrap">
 					<div class="col">
-						<div class="col__head"><span class="col__brand">Earnest<b>.</b></span><span class="col__wait">Waiting <b>2</b></span></div>
+						<div class="col__head"><span class="col__brand">Earnest<b>.</b></span><span class="col__wait">Waiting <b>3</b></span></div>
 						<div class="col__thread">
 							<div class="col__you" data-type="120" data-type-end="500">Bill Helios, milestone one</div>
 							<div class="chain">
@@ -440,26 +429,53 @@ footer code{font-size:12.5px}
 				</div>
 			</div>
 
-			<!-- 0:12 — move fast -->
-			<div class="shot" data-id="fast" data-start="12000" data-end="14500">
+			<!-- 0:10 — cut 5 · say it, tap it. Hands-free: the ask arrives by voice
+			     ("Hey Earnest" is stripped, so the thread shows what was meant), the
+			     card is read aloud with the app's own words for a held one
+			     (useHandsFree offer: "… This one needs a tap."), then the tap.
+			     Six beats, not four: the spoken line needs time to be heard. -->
+			<div class="shot cut" data-id="saytap" data-start="10000" data-end="13000">
+				<p class="word">Say it<span class="dot">.</span> Tap it<span class="dot">.</span><small>Chase Meridian, out loud</small></p>
+				<div class="colwrap">
+					<div class="col">
+						<div class="col__head"><span class="col__brand">Earnest<b>.</b></span><span class="col__wait">Waiting <b>2</b></span></div>
+						<div class="col__thread">
+							<div class="col__you voice" data-at="1050"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Chase Meridian</div>
+							<p class="col__lede" data-at="1200">Third reminder to Amara, warmer. 0042 is at 92 days.</p>
+							<div class="card" data-at="1320">
+								<div class="card__kind"><b>Send email</b><i>held · your tap</i></div>
+								<p class="card__t">“Amara — checking in on 0042 before the month closes…”</p>
+								<dl><dt>To</dt><dd>Amara Okafor · Meridian</dd></dl>
+								<div class="acts"><span class="go" data-tap="2250" data-done-text="✓ Approved">Approve</span><span>Adjust</span></div>
+							</div>
+							<div class="col__say" data-at="1450"><span class="sp">Says</span><span data-type="1500" data-type-end="2150">Earnest proposes: send Amara a payment reminder. This one needs a tap.</span></div>
+						</div>
+						<div class="col__composer"><span class="scope"><span class="noun">Invoice</span>INV-SOL-MER-2026-0042</span><div class="row" data-live="100-1000"><span class="mic" aria-hidden="true"></span><span class="ph">Ask Earnest</span><span class="heard" data-type="250" data-type-end="900">Hey Earnest, chase Meridian</span><span class="send">↑</span></div></div>
+					</div>
+					<div class="stamp" data-at="2750">✓ Sent, after your tap</div>
+				</div>
+			</div>
+
+			<!-- 0:13 — move fast -->
+			<div class="shot" data-id="fast" data-start="13000" data-end="15500">
 				<div class="center">
 					<p class="fast-line" data-at="80">Move fast<span class="dot">.</span></p>
 					<div class="receipts">
-						<span data-at="500">✓ Read</span><span data-at="590">✓ Booked</span><span data-at="680">✓ Sent</span><span data-at="770">✓ Scheduled</span><span data-at="860">✓ Billed</span>
+						<span data-at="500">✓ Read</span><span data-at="590">✓ Booked</span><span data-at="680">✓ Scheduled</span><span data-at="770">✓ Billed</span><span data-at="860">✓ Sent</span>
 					</div>
 				</div>
 			</div>
 
-			<!-- 0:14.5 — the ramp: mean it -->
-			<div class="shot" data-id="mean" data-start="14500" data-end="18500">
+			<!-- 0:15.5 — the ramp: mean it -->
+			<div class="shot" data-id="mean" data-start="15500" data-end="19500">
 				<div class="center">
 					<p class="mean-line" aria-label="Mean it."><span data-l="1500">Mean</span> <span data-l="1900">it</span><span class="dot" data-l="2300">.</span></p>
 					<p class="mean-sub" data-at="2800">Nothing goes out without you.</p>
 				</div>
 			</div>
 
-			<!-- 0:18.5 — end card -->
-			<div class="shot" data-id="end" data-start="18500" data-end="23000">
+			<!-- 0:19.5 — end card -->
+			<div class="shot" data-id="end" data-start="19500" data-end="24000">
 				<div class="center">
 					<p class="end-mark" data-at="400">Earnest<b>.</b></p>
 					<p class="end-tag" data-at="1000">Do good work.</p>
@@ -471,7 +487,7 @@ footer code{font-size:12.5px}
 		<div class="controls">
 			<button class="btn primary" type="button" data-act="play">Pause</button>
 			<button class="btn" type="button" data-act="restart">Restart</button>
-			<span class="tc" aria-live="off"><span data-tc>0:00.0</span> / 0:23.0</span>
+			<span class="tc" aria-live="off"><span data-tc>0:00.0</span> / 0:24.0</span>
 			<div class="opts">
 				<button class="btn" type="button" data-speed="0.25" aria-pressed="false">¼×</button>
 				<button class="btn" type="button" data-speed="0.5" aria-pressed="false">½×</button>
@@ -480,7 +496,7 @@ footer code{font-size:12.5px}
 				<button class="btn" type="button" data-act="sound" aria-pressed="false">Click track</button>
 			</div>
 			<div class="scrub">
-				<input type="range" min="0" max="23000" step="10" value="0" aria-label="Scrub the animatic">
+				<input type="range" min="0" max="24000" step="10" value="0" aria-label="Scrub the animatic">
 				<div class="marks"></div>
 			</div>
 		</div>
@@ -509,8 +525,8 @@ footer code{font-size:12.5px}
 	<!-- ═══════════════════════════ STORYBOARD ═══════════════════════════ -->
 	<section class="sec wrap" id="board">
 		<span class="k">Storyboard</span>
-		<h2 style="margin-top:12px">Nine shots, <span class="pop">twenty-three seconds.</span></h2>
-		<p class="lead">Click a shot to jump the animatic to it. To make a :15, drop cuts 4 and 5 and halve each cut to two beats. For a :06 bumper, use the open, “Move fast.”, “Mean it.” and the end card. Every number comes from the homepage’s claim map (<code>app/data/good-work.ts</code>): the seeded demo workspace, with the $6,200 milestone marked as illustrative.</p>
+		<h2 style="margin-top:12px">Nine shots, <span class="pop">twenty-four seconds.</span></h2>
+		<p class="lead">Click a shot to jump the animatic to it. To make a :15, drop cuts 3 and 4 and halve each cut to two beats (keep “Say it. Tap it.” at four: the tap is the point). For a :06 bumper, use the open, “Move fast.”, “Mean it.” and the end card. Every number comes from the homepage’s claim map (<code>app/data/good-work.ts</code>): the seeded demo workspace, with the $6,200 milestone marked as illustrative.</p>
 		<div class="board" data-board></div>
 	</section>
 
@@ -521,10 +537,10 @@ footer code{font-size:12.5px}
 		<p class="lead">Use these for the site, the film, social cuts and anything later. Each one is in the animatic’s code, so this page is the working example.</p>
 		<ol class="rules">
 			<li><b>Earnest’s work is sped up. Your tap never is.</b><span>Before every held action the frame holds for 400ms, the background slows to near-still, and a “Real time · your tap” tag appears. This is the visual form of “Mean it.” Never show a send, a payment or a meeting going out without it.</span></li>
-			<li><b>Cut on the beat.</b><span>120 bpm, so a beat is 500ms. In the :23 a cut lasts four beats (2s). In a :15 it lasts two. Transitions are a 140ms whip with motion blur. Never use a dissolve inside the montage.</span></li>
-			<li><b>One verb per cut, said to the person.</b><span>Know it. Book it. Chase it. Say it like you. Bill it. Use the customer’s own verb, never a product noun (no “Home”, no “column”, no “lanes”).</span></li>
+			<li><b>Cut on the beat.</b><span>120 bpm, so a beat is 500ms. In the :24 a cut lasts four beats (2s); “Say it. Tap it.” takes six, because the spoken line has to be heard. In a :15 they halve. Transitions are a 140ms whip with motion blur. Never use a dissolve inside the montage.</span></li>
+			<li><b>One verb per cut, said to the person.</b><span>Know it. Book it. Say it like you. Bill it. Then the one cut with two: <i>Say it. Tap it.</i>, the campaign in miniature (your voice gets it moving, your hand makes it real). Use the customer’s own verb, never a product noun (no “Home”, no “column”, no “lanes”).</span></li>
 			<li><b>Every fast run ends in stillness.</b><span>The montage always ramps down (background 3× → 0.35× over 1.8s, eased) into a held photograph of people. Never end on speed. The live “Steady.” section is this stillness.</span></li>
-			<li><b>Each cut runs in the same order.</b><span>Ask types in (≈28ms per character) → reply snaps in, staggered 100ms → card → tap → green ✓ stamp. The ✓ copy says what really happened: “Sent, after you said so”, “Scheduled · not published”.</span></li>
+			<li><b>Each cut runs in the same order.</b><span>Ask types in (≈28ms per character) → reply snaps in, staggered 100ms → card → tap → green ✓ stamp. The ✓ copy says what really happened: “Sent, after your tap”, “Scheduled · not published”. A voice cut adds two steps: the composer listens, and the card is read back.</span></li>
 			<li><b>Speed shows in the edit, not in numbers.</b><span>Don’t show clocks, “in seconds” or “10×”. We can’t back a time-saved figure yet, so the pace of the cuts carries the claim.</span></li>
 			<li><b>Type is the hero.</b><span>Proxima Light, tight tracking (−.04em), huge. The only colour is the blue full stop and “Mean it.” Bodoni appears only in the wordmark.</span></li>
 			<li><b>Footage is people working, not skies.</b><span>The office loop (Mixkit 914) carries the montage and a person across the table carries the stillness. No sunrises, no oceans: those read “heavenly” (your note, 9 Oct).</span></li>
@@ -543,7 +559,8 @@ footer code{font-size:12.5px}
 					<li>Nothing goes out without you.<small>The proof line under “Mean it.” True for email, invoices, payments and meetings.</small></li>
 					<li>It drafts. You decide.<small>The mechanism in four words. Good for the hero lede or the FAQ.</small></li>
 					<li>Fast hands. Your say.<small>For social, short.</small></li>
-					<li>Know it. Book it. Chase it. Say it like you. Bill it.<small>The montage verbs. They also work as eyebrows on the homepage beats.</small></li>
+					<li>Know it. Book it. Say it like you. Bill it.<small>The montage verbs. They also work as eyebrows on the homepage beats.</small></li>
+					<li>Say it. Tap it.<small>Voice in one line: ask out loud, and email, invoices, payments and meetings still wait for your hand. Never “just say yes”: a spoken yes can’t approve those.</small></li>
 					<li>Good work moves fast — and means it.<small>A possible turn for the creed, in place of or after “It needs a better Tuesday.”</small></li>
 					<li>Fast is never careless.<small>Heading for the “What it never does” list.</small></li>
 				</ul>
@@ -619,10 +636,11 @@ footer code{font-size:12.5px}
      data-type="a" data-type-end="b" → the text types in between a and b
      data-tap="ms"         → .press for HOLD ms (the real-time tap), then .done
      data-l="ms"           → (Mean it.) a slow letter-group reveal
+     data-live="a-b"       → .live between a and b (the composer listening)
    This is the part to port to a Vue component (Phase 2).
    ───────────────────────────────────────────────────────────────────────── */
 (function () {
-	const DUR = 23000, BEAT = 500, HOLD = 400;
+	const DUR = 24000, BEAT = 500, HOLD = 400;
 	const SCENES = [
 		{ id: 'open', label: 'Open', start: 0, end: 2000, key: 1400,
 			picture: 'The office loop at 2×, darkened. People crossing and working.', type: '“Monday.” — Everything, all at once', sound: 'Bed starts dry on the downbeat.', claim: '—' },
@@ -630,19 +648,21 @@ footer code{font-size:12.5px}
 			picture: 'Whip in. Column: “Read my day” types, and the number-first facts snap in.', type: 'Know it. — Where you stand', sound: 'Hat on every beat.', claim: 'Seeded demo: 5 waiting · $12k · 30 d · $286k' },
 		{ id: 'book', label: 'Book it', start: 4000, end: 6000, key: 1150,
 			picture: 'Book meeting card, held. The frame holds and the tap plays in real time. ✓', type: 'Book it. — Friday, 10:00', sound: 'The bed ducks for the tap: one soft click.', claim: 'Book meeting is on the hold list' },
-		{ id: 'chase', label: 'Chase it', start: 6000, end: 8000, key: 1150,
-			picture: 'Payment reminder to Amara, held → tap → “Sent, after you said so.”', type: 'Chase it. — Kindly', sound: 'Same.', claim: 'Email is held · invoice 0042 · 92 days' },
-		{ id: 'voice', label: 'Say it like you', start: 8000, end: 10000, key: 1700,
+		{ id: 'voice', label: 'Say it like you', start: 6000, end: 8000, key: 1700,
 			picture: 'Redraft of the Pinecrest post, warmer. Use this → scheduled, not published.', type: 'Say it like you.', sound: 'Same.', claim: 'Pinecrest post · Thu 9:00' },
-		{ id: 'bill', label: 'Bill it', start: 10000, end: 12000, key: 1150,
+		{ id: 'bill', label: 'Bill it', start: 8000, end: 10000, key: 1150,
 			picture: 'Signed → Project → Create invoice, held → tap → ✓ Billed.', type: 'Bill it. — Signed Tuesday', sound: 'Same.', claim: '$18,500 contract · $6,200 milestone (illustrative)' },
-		{ id: 'fast', label: 'Move fast.', start: 12000, end: 14500, key: 1400,
-			picture: 'The background at 3×. Huge type. The five ✓ receipts stack in on the beat.', type: 'Move fast.', sound: 'Peak. A full kit for one bar.', claim: '—' },
-		{ id: 'mean', label: 'Mean it.', start: 14500, end: 18500, key: 3600,
+		{ id: 'saytap', label: 'Say it. Tap it.', start: 10000, end: 13000, key: 2350,
+			picture: 'Hands-free. The composer listens: “Hey Earnest, chase Meridian” streams in. Reminder to Amara, held. Earnest reads it back: “This one needs a tap.” The frame holds; the tap in real time. ✓', type: 'Say it. Tap it. — Chase Meridian, out loud', sound: 'The bed thins under the spoken line, then the click of the tap.', claim: 'Hands-free on every plan · email can’t be approved by voice (AUTONOMY_SAFETY_FLOOR) · the spoken line is useHandsFree’s own' },
+		{ id: 'fast', label: 'Move fast.', start: 13000, end: 15500, key: 1400,
+			picture: 'The background at 3×. Huge type. The five ✓ receipts stack in on the beat, ending on “Sent”.', type: 'Move fast.', sound: 'Peak. A full kit for one bar.', claim: '—' },
+		{ id: 'mean', label: 'Mean it.', start: 15500, end: 19500, key: 3600,
 			picture: 'Speed ramp 3× → 0.35×. Dissolve to a client across the table, with a slow push.', type: 'Mean it. — Nothing goes out without you.', sound: 'The bed drops out. Room tone only.', claim: 'Held list: email, invoices, payments, meetings' },
-		{ id: 'end', label: 'End card', start: 18500, end: 23000, key: 3000,
+		{ id: 'end', label: 'End card', start: 19500, end: 24000, key: 3000,
 			picture: 'Near-black. Wordmark, then the tag.', type: 'Earnest. Do good work.', sound: 'Silence, or one soft note.', claim: 'Runs on Anthropic’s Claude, no-training terms' },
 	];
+
+	const byId = Object.fromEntries(SCENES.map((s) => [s.id, s]));
 
 	const stage = document.querySelector('.stage');
 	const video = stage.querySelector('.bg');
@@ -656,7 +676,7 @@ footer code{font-size:12.5px}
 	const playBtn = document.querySelector('[data-act="play"]');
 
 	const shots = [...stage.querySelectorAll('.shot')].map((el) => {
-		const items = [...el.querySelectorAll('[data-at],[data-type],[data-tap],[data-l]')];
+		const items = [...el.querySelectorAll('[data-at],[data-type],[data-tap],[data-l],[data-live]')];
 		items.forEach((i) => { if (i.dataset.type || i.dataset.tap) i.dataset.full = i.textContent; });
 		return { el, id: el.dataset.id, start: +el.dataset.start, end: +el.dataset.end, items, cut: el.classList.contains('cut') };
 	});
@@ -692,6 +712,7 @@ footer code{font-size:12.5px}
 				}
 				if (d.at) el.classList.toggle('in', lt >= +d.at);
 				if (d.l) el.classList.toggle('in', lt >= +d.l);
+				if (d.live) { const [a, b] = d.live.split('-').map(Number); el.classList.toggle('live', lt >= a && lt < b); }
 				if (d.tap) {
 					const a = +d.tap, press = lt >= a && lt < a + HOLD, done = lt >= a + HOLD;
 					el.classList.toggle('press', press);
@@ -704,8 +725,8 @@ footer code{font-size:12.5px}
 		stage.classList.toggle('hold', hold);
 
 		// the background: fast through the montage, ramping to still for "Mean it."
-		const M = SCENES[7], E = SCENES[8];
-		let r = t < 2000 ? 2 : t < 12000 ? 2.5 : t < M.start ? 3 : 3 + (0.35 - 3) * easeOut(clamp((t - M.start) / 1800));
+		const F = byId.fast, M = byId.mean, E = byId.end;
+		let r = t < 2000 ? 2 : t < F.start ? 2.5 : t < M.start ? 3 : 3 + (0.35 - 3) * easeOut(clamp((t - M.start) / 1800));
 		if (hold) r = 0.08;
 		setRate(r);
 		const ml = t - M.start;
@@ -743,7 +764,7 @@ footer code{font-size:12.5px}
 	function audio(prev) {
 		if (!sound || !playing) return;
 		const beat = Math.floor(t / BEAT);
-		if (beat !== lastBeat && t < SCENES[7].start && !stage.classList.contains('hold')) {
+		if (beat !== lastBeat && t < byId.mean.start && !stage.classList.contains('hold')) {
 			lastBeat = beat; blip('hat'); if (beat % 2 === 0) blip('kick');
 		}
 		for (const s of shots) for (const el of s.items) if (el.dataset.tap) {
