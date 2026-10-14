@@ -431,6 +431,88 @@ html[data-gw-mode='dark'] .gw-hero .gw-slot video {
 	}
 }
 
+/* the hero loop (GoodWork/HeroLoop.vue): from 901px up the hero is two
+   columns, the copy on the left and one Earnest column cycling four asks on
+   the right. A phone keeps the centred hero, with no column. */
+.gw-loop {
+	display: none;
+}
+@media (min-width: 901px) {
+	.gw-hero .gw-wrap {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 360px;
+		gap: 56px;
+		align-items: center;
+		text-align: left;
+	}
+	.gw-hero h1 {
+		font-size: clamp(64px, 8.4vw, 124px);
+	}
+	.gw-hero__lede,
+	.gw-hero__what,
+	.gw-hero__fine {
+		margin-left: 0;
+	}
+	.gw-hero .gw-actions {
+		justify-content: flex-start;
+	}
+	.gw-loop {
+		display: grid;
+		gap: 12px;
+	}
+}
+.gw-loop__top {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 12px;
+	font-size: 12px;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--ink-2);
+}
+.gw-loop__top .dot {
+	color: var(--pop);
+}
+.gw-loop__rt {
+	display: flex;
+	align-items: center;
+	gap: 0.6em;
+	font-size: 11px;
+	letter-spacing: 0.18em;
+	color: var(--ink-2);
+	opacity: 0;
+	transition: opacity 0.12s;
+}
+.gw-loop__rt::before {
+	content: '';
+	width: 0.7em;
+	height: 0.7em;
+	border-radius: 50%;
+	background: var(--warn);
+}
+.gw-loop.hold .gw-loop__rt {
+	opacity: 1;
+}
+/* one height for all four, so the hero never jumps; the thread keeps its foot */
+.gw-loop .gw-col {
+	height: min(500px, calc(100svh - 230px));
+	min-height: 0;
+}
+.gw-loop .gw-col__thread {
+	overflow: hidden;
+	-webkit-mask-image: linear-gradient(180deg, transparent 0, #000 28px);
+	mask-image: linear-gradient(180deg, transparent 0, #000 28px);
+}
+.gw-loop__cut.whip {
+	animation: gw-whip-r 0.14s ease-out both;
+}
+/* the tap: the room all but stops (HeroLoop also slows the footage) */
+.gw-hero:has(.gw-loop.hold) .gw-slot video,
+.gw-hero:has(.gw-loop.hold) .gw-slot img {
+	filter: saturate(0.2) blur(2px);
+}
+
 /* ── the creed ──
    Without motion (the server render, reduced motion, no JS) it is a list.
    With it, "Good work" holds on a sticky stage and each line is a whole

@@ -26,23 +26,27 @@
 			<header class="gw-hero">
 				<GoodWorkSlot name="hero" :photo="photos.hero" eager />
 				<div class="gw-wrap">
-					<!-- The campaign line (2026-10-13). "Do good work." is the brand line and
-					     signs off the closing; the reference for both, and for the motion still
-					     to come, is mockups/2026-10-move-fast/move-fast.html. -->
-					<h1><span class="gw-hero__l">Move fast<span class="dot">.</span></span> <span class="gw-hero__l">Mean it<span class="dot">.</span></span></h1>
-					<p class="gw-hero__lede">It drafts. <strong>You decide.</strong><br />Nothing reaches a client or moves money without your tap.</p>
-					<div class="gw-actions">
-						<a class="gw-btn gw-btn--primary" :href="links.register">Start free</a>
-						<a class="gw-btn" :href="links.demo">Try the live demo</a>
+					<div class="gw-hero__copy">
+						<!-- The campaign line (2026-10-13). "Do good work." is the brand line and
+						     signs off the closing; the reference for both, and for the motion still
+						     to come, is mockups/2026-10-move-fast/move-fast.html. -->
+						<h1><span class="gw-hero__l">Move fast<span class="dot">.</span></span> <span class="gw-hero__l">Mean it<span class="dot">.</span></span></h1>
+						<p class="gw-hero__lede">It drafts. <strong>You decide.</strong><br />Nothing reaches a client or moves money without your tap.</p>
+						<div class="gw-actions">
+							<a class="gw-btn gw-btn--primary" :href="links.register">Start free</a>
+							<a class="gw-btn" :href="links.demo">Try the live demo</a>
+						</div>
+						<div class="gw-receipt"><small>This morning</small><b>5 waiting on a yes. 13 one tap each.</b></div>
+						<!-- The plain "what is this" — Google's OAuth brand review reads the
+						     homepage for it, and so does anyone who arrives cold. Keep it literal. -->
+						<p class="gw-hero__what">
+							Earnest is business software for agencies, firms, practices and shops: clients, projects, invoices,
+							scheduling and marketing in one app, with an assistant that drafts the next step and waits for your tap.
+						</p>
+						<p class="gw-hero__fine">14-day trial, no card · Solo $49/mo · every app on every plan · your data never trains the model</p>
 					</div>
-					<div class="gw-receipt"><small>This morning</small><b>5 waiting on a yes. 13 one tap each.</b></div>
-					<!-- The plain "what is this" — Google's OAuth brand review reads the
-					     homepage for it, and so does anyone who arrives cold. Keep it literal. -->
-					<p class="gw-hero__what">
-						Earnest is business software for agencies, firms, practices and shops: clients, projects, invoices,
-						scheduling and marketing in one app, with an assistant that drafts the next step and waits for your tap.
-					</p>
-					<p class="gw-hero__fine">14-day trial, no card · Solo $49/mo · every app on every plan · your data never trains the model</p>
+					<!-- From 901px up: one column cycling four asks, each with the real-time tap. -->
+					<GoodWorkHeroLoop />
 				</div>
 			</header>
 
