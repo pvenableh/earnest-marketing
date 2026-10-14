@@ -21,7 +21,7 @@ useSeoMeta({
 	ogSiteName: 'Earnest',
 });
 
-const lastUpdated = 'September 29, 2026';
+const lastUpdated = 'October 14, 2026';
 const contactEmail = 'hello@earnest.guru';
 const businessName = 'Hue';
 const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
@@ -46,40 +46,68 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 					information we hold about you.
 				</p>
 				<p>
-					You can delete your data at any time. The instructions below cover self-service options inside Earnest and
-					direct deletion requests by email.
+					You can delete your data at any time. The instructions below cover what you can do inside Earnest and what
+					we do for you when you email us.
 				</p>
 			</section>
 
-			<!-- Option 1: Delete Account -->
+			<!-- Option 1: Close an organization. There is no self-service delete for a
+			     personal account (app, 2026-10-14): an owner archives the organization,
+			     which the app keeps 90 days (shared/org-retention.ts) and then purges
+			     (server/utils/purge-org.ts). What the purge leaves is listed honestly. -->
 			<section class="mb-10">
-				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">1. Delete Your Earnest Account</h2>
-				<p>To permanently delete your Earnest account and its associated workspace data:</p>
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">1. Close Your Organization</h2>
+				<p>
+					Your workspace belongs to an organization. Its owner closes it by archiving it, and it is permanently
+					deleted 90 days later:
+				</p>
 				<ol class="list-decimal pl-6 space-y-2">
-					<li>Sign in to your Earnest account.</li>
+					<li>Sign in to Earnest as the organization's owner.</li>
 					<li>
 						Go to
-						<strong>Settings &rarr; Account &rarr; Delete Account</strong>
+						<strong>Organization &rarr; Settings</strong>
+						and, under
+						<strong>Danger zone</strong>
+						, choose
+						<strong>Archive organization</strong>
 						.
 					</li>
-					<li>Read the deletion notice, then confirm by entering your password.</li>
-					<li>
-						Click
-						<strong>Permanently Delete Account</strong>
-						.
-					</li>
+					<li>Confirm.</li>
 				</ol>
-				<p class="mt-4">When you delete your account, we will:</p>
+				<p class="mt-4">What happens next:</p>
 				<ul class="list-disc pl-6 space-y-2">
-					<li>Delete your profile, account information, and stored credentials.</li>
-					<li>Delete your workspace data — contacts, projects, invoices, proposals, messages, notes, and uploaded files.</li>
-					<li>Revoke and remove authentication tokens for any connected integrations.</li>
-					<li>Delete or anonymize activity logs within 30 days, except where retention is required by law.</li>
+					<li>
+						<strong>Right away,</strong> your subscription is set to end with the current billing period and the
+						workspace becomes read-only.
+					</li>
+					<li>
+						<strong>For 90 days,</strong> everything is kept so you can change your mind. The owner can restore the
+						organization from the same screen.
+					</li>
+					<li>
+						<strong>After 90 days,</strong> the organization's workspace data is permanently deleted: clients,
+						contacts, leads, projects, tasks, tickets, invoices, payments, proposals, messages, campaigns and mailing
+						lists, and its members' access.
+					</li>
+					<li>
+						<strong>Recordings</strong> of calls, voicemails and meetings are deleted sooner; see Section 18 of our
+						<nuxt-link to="/privacy-policy#voice" class="text-primary hover:underline">Privacy Policy</nuxt-link>.
+					</li>
+				</ul>
+				<p class="mt-4">Some things are not deleted with the organization. Email us (Section 5) and we will delete them:</p>
+				<ul class="list-disc pl-6 space-y-2">
+					<li>Your personal account: your sign-in and profile. Earnest does not yet have a button for this.</li>
+					<li>Uploaded files, call and meeting logs, and the log of what Earnest did. These are detached from the organization rather than deleted.</li>
+					<li>Business phone numbers, if you have the Communications add-on. Ask us to release them.</li>
 				</ul>
 				<p class="mt-4">
-					If you are a member of an organization you do not own, deleting your personal account removes you from that
-					organization; the organization's shared data remains with its owner. If you own an organization with other
-					members, you may need to transfer or remove them before deletion.
+					Billing records held by our payment processor, Stripe, are kept as tax and accounting law requires. If you
+					unsubscribed from our emails, your address stays on our email provider's suppression list, so it is never
+					emailed again.
+				</p>
+				<p class="mt-4">
+					If you are a member of an organization you do not own, ask its owner to remove you, or email us to delete
+					your personal account. The organization's shared data stays with its owner.
 				</p>
 			</section>
 
@@ -179,8 +207,8 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 			<section class="mb-10">
 				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">5. Request Deletion by Email</h2>
 				<p>
-					If you cannot access your account or prefer to request deletion manually, email us and we will process the
-					request on your behalf.
+					To delete your personal account, anything left after an organization is closed, or anything else we hold
+					about you (including if you cannot sign in), email us and we will do it for you.
 				</p>
 				<ol class="list-decimal pl-6 space-y-2">
 					<li>

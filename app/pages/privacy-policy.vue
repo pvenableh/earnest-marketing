@@ -21,7 +21,7 @@ useSeoMeta({
 	ogSiteName: 'Earnest',
 });
 
-const lastUpdated = 'October 13, 2026';
+const lastUpdated = 'October 14, 2026';
 const contactEmail = 'hello@earnest.guru';
 const businessName = 'Hue';
 const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
@@ -381,7 +381,8 @@ const websiteUrl = 'https://huestudios.com';
 				<ul class="list-disc pl-6 space-y-2">
 					<li>
 						<strong>Workspace &amp; Account Data:</strong>
-						Retained until you delete the item, or until you delete your account.
+						Retained until you delete the item, or until the organization is archived and its 90 days have passed
+						(see below).
 					</li>
 					<li>
 						<strong>Integration Tokens:</strong>
@@ -401,9 +402,22 @@ const websiteUrl = 'https://huestudios.com';
 						Twilio or Daily; see Section 18.
 					</li>
 				</ul>
-				<p class="mt-4">
-					Upon account deletion, we will delete or anonymize your personal information within 30 days, except where
-					retention is required by law.
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">Closing an organization</h3>
+				<p>
+					An organization's owner closes it by archiving it in Earnest (Organization &rarr; Settings &rarr; Archive
+					organization). The subscription ends with the current billing period and the workspace becomes read-only.
+					We keep it for 90 days so it can be restored, then permanently delete its workspace data. A few records are
+					not deleted with it: your personal account, uploaded files and call, meeting and activity logs (which are
+					detached from the organization), and the billing records our payment processor keeps. We delete those on
+					request. Our <nuxt-link to="/data-deletion" class="text-primary hover:underline">Data Deletion</nuxt-link>
+					page has the details.
+				</p>
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">Deleting your personal account</h3>
+				<p>
+					Earnest does not yet have a button to delete your personal account. Email
+					<a :href="`mailto:${contactEmail}`" class="text-primary hover:underline">{{ contactEmail }}</a>
+					and we will delete or anonymize your personal information within 30 days of your request, except where
+					retention is required by law. The same applies to anything left after an organization is closed.
 				</p>
 			</section>
 
