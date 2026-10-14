@@ -632,8 +632,10 @@ const websiteUrl = 'https://huestudios.com';
 			     server/api/ai/speech.post.ts + server/utils/hosted-voice.ts (ElevenLabs, Custom Voice),
 			     server/utils/daily.ts + meeting-defaults.ts + api/video/webhook.post.ts (Daily, Deepgram, recaps),
 			     server/api/twilio/* + server/utils/phone-*.ts (Twilio, voicemail, recording, notifications).
-			     ⚠️ "Deleting recordings" below: server/utils/purge-org.ts does NOT delete recordings at Twilio or
-			     Daily today. The paragraph promises deletion on request — confirm before shipping, or fix purge-org. -->
+			     "Keeping and deleting recordings": server/utils/purge-recordings.ts (run by purge-org.ts and by
+			     POST /api/platform/purge-recordings for requests) and server/api/org/cleanup-archived.ts, which
+			     deletes an archived org's recordings at RECORDINGS_RETENTION_DAYS (shared/org-retention.ts, 23).
+			     The 30-day promise depends on that cron — change the two together. -->
 			<section id="voice" class="mb-10">
 				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">18. Voice, Phone Calls and Video Meetings</h2>
 				<p>
@@ -730,11 +732,20 @@ const websiteUrl = 'https://huestudios.com';
 				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">Keeping and deleting recordings</h3>
 				<p>
 					Transcripts and voicemail text are part of your workspace and are kept and deleted like the rest of it
-					(Section 9). Call, voicemail and meeting recordings are held by Twilio and Daily and played back through
-					Earnest. To have recordings deleted, including when you close your account, email
-					<a :href="`mailto:${contactEmail}`" class="text-primary hover:underline">{{ contactEmail }}</a>
-					and we will delete them from Twilio and Daily within 30 days.
+					(Section 9). Call, voicemail and meeting recordings, and the transcripts Twilio and Daily keep with them,
+					are held by Twilio and Daily and played back through Earnest.
 				</p>
+				<ul class="list-disc pl-6 space-y-2 mt-4">
+					<li>
+						<strong>When you close your account,</strong> its recordings are deleted from Twilio and Daily within
+						30 days. They cannot be brought back if you reopen the account after that.
+					</li>
+					<li>
+						<strong>At any other time,</strong> email
+						<a :href="`mailto:${contactEmail}`" class="text-primary hover:underline">{{ contactEmail }}</a>
+						and we will delete your organization's recordings from Twilio and Daily within 30 days.
+					</li>
+				</ul>
 			</section>
 		</div>
 
