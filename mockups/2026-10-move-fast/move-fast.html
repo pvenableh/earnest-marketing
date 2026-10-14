@@ -12,6 +12,8 @@
 		try { m = localStorage.getItem('mf-mode'); } catch (e) {}
 		if (!m) m = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 		document.documentElement.dataset.mode = m;
+		// ?record: the stage alone, filling the window, for record.mjs
+		if (new URLSearchParams(location.search).has('record')) document.documentElement.classList.add('rec');
 	})();
 </script>
 <style>
@@ -202,7 +204,14 @@ h1,h2,h3{font-family:var(--f-light);font-weight:300;letter-spacing:-.03em;line-h
 .stage[data-aspect="v"] .end-mark{font-size:18cqw}
 .stage[data-aspect="v"] .end-tag{font-size:6.5cqw}
 .stage[data-aspect="v"] .end-fine{font-size:max(9px,2.4cqw)}
+.stage[data-aspect="v"] .end-fine .sep{display:none}
+.stage[data-aspect="v"] .end-fine .url{display:block;margin-top:.7em}
 .stage[data-aspect="v"] .slate,.stage[data-aspect="v"] .rt{font-size:max(9px,2.2cqw)}
+
+/* ── ?record: the stage is the whole window, with no slate (record.mjs) ── */
+html.rec,html.rec body{background:#000;overflow:hidden}
+html.rec .bar,html.rec .intro,html.rec .controls,html.rec .now,html.rec .sec,html.rec footer,html.rec .stage .slate{display:none}
+html.rec .stage{position:fixed;inset:0;width:100vw;height:100vh;aspect-ratio:auto;border-radius:0;box-shadow:none}
 
 /* ── controls ── */
 .controls{display:grid;grid-template-columns:auto auto 1fr auto;gap:10px 14px;align-items:center;margin-top:16px}
@@ -241,6 +250,8 @@ h1,h2,h3{font-family:var(--f-light);font-weight:300;letter-spacing:-.03em;line-h
 .scene{border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--surface);cursor:pointer;text-align:left;font:inherit;color:inherit;display:grid;gap:8px;align-content:start;transition:border-color .15s,background .15s}
 .scene:hover{border-color:var(--ink-3)}
 .scene.on{border-color:var(--pop);background:color-mix(in srgb,var(--pop-soft) 55%,var(--surface))}
+.scene[disabled]{opacity:.45;cursor:default}
+.scene[disabled]:hover{border-color:var(--line)}
 .scene .tcode{font-size:11px;letter-spacing:.12em;color:var(--ink-3);font-variant-numeric:tabular-nums}
 .scene h3{font-size:26px;letter-spacing:-.02em}
 .scene dl{margin:0;display:grid;gap:6px;font-size:13.5px}
@@ -332,7 +343,7 @@ footer code{font-size:12.5px}
 			<img class="bg2" src="assets/photos/client.jpg" alt="">
 			<div class="shade"></div>
 			<div class="black"></div>
-			<div class="slate">Earnest · “Move fast” · :24</div>
+			<div class="slate">Earnest · “Move fast” · <span data-slate>:24</span></div>
 			<div class="rt">Real time · your tap</div>
 
 			<!-- 0:00 — open -->
@@ -463,7 +474,7 @@ footer code{font-size:12.5px}
 				<div class="center">
 					<p class="fast-line" data-at="80">Move fast<span class="dot">.</span></p>
 					<div class="receipts">
-						<span data-at="500">✓ Read</span><span data-at="590">✓ Booked</span><span data-at="680">✓ Scheduled</span><span data-at="770">✓ Billed</span><span data-at="860">✓ Sent</span>
+						<span data-at="500" data-from="know">✓ Read</span><span data-at="590" data-from="book">✓ Booked</span><span data-at="680" data-from="voice">✓ Scheduled</span><span data-at="770" data-from="bill">✓ Billed</span><span data-at="860" data-from="saytap">✓ Sent</span>
 					</div>
 				</div>
 			</div>
@@ -481,7 +492,7 @@ footer code{font-size:12.5px}
 				<div class="center">
 					<p class="end-mark" data-at="400">Earnest<b>.</b></p>
 					<p class="end-tag" data-at="1000">Do good work.</p>
-					<p class="end-fine" data-at="1700">Runs on Anthropic’s Claude, on no-training terms · earnest.guru</p>
+					<p class="end-fine" data-at="1700">Runs on Anthropic’s Claude, on no-training terms<span class="sep"> · </span><span class="url">earnest.guru</span></p>
 				</div>
 			</div>
 		</div>
@@ -489,7 +500,7 @@ footer code{font-size:12.5px}
 		<div class="controls">
 			<button class="btn primary" type="button" data-act="play">Pause</button>
 			<button class="btn" type="button" data-act="restart">Restart</button>
-			<span class="tc" aria-live="off"><span data-tc>0:00.0</span> / 0:24.0</span>
+			<span class="tc" aria-live="off"><span data-tc>0:00.0</span> / <span data-dur>0:24.0</span></span>
 			<div class="opts">
 				<button class="btn" type="button" data-speed="0.25" aria-pressed="false">¼×</button>
 				<button class="btn" type="button" data-speed="0.5" aria-pressed="false">½×</button>
@@ -528,7 +539,7 @@ footer code{font-size:12.5px}
 	<section class="sec wrap" id="board">
 		<span class="k">Storyboard</span>
 		<h2 style="margin-top:12px">Nine shots, <span class="pop">twenty-four seconds.</span></h2>
-		<p class="lead">Click a shot to jump the animatic to it. To make a :15, drop cuts 3 and 4 and halve each cut to two beats (keep “Say it. Tap it.” at four: the tap is the point). For a :06 bumper, use the open, “Move fast.”, “Mean it.” and the end card. Every number comes from the homepage’s claim map (<code>app/data/good-work.ts</code>): the seeded demo workspace, with the $6,200 milestone marked as illustrative.</p>
+		<p class="lead">Click a shot to jump the animatic to it. To make a :15, drop cuts 3 and 4 and halve each cut to two beats (keep “Say it. Tap it.” at four: the tap is the point). For a :06 bumper, use the open, “Move fast.”, “Mean it.” and the end card. Both are built: play the <a href="?cut=15">:15</a> or the <a href="?cut=6">:06</a> (the <a href="?">:24</a>). In every cut, a tap keeps its real 400ms and a whip its 140ms; only Earnest’s work is compressed. Every number comes from the homepage’s claim map (<code>app/data/good-work.ts</code>): the seeded demo workspace, with the $6,200 milestone marked as illustrative.</p>
 		<div class="board" data-board></div>
 	</section>
 
@@ -599,7 +610,7 @@ footer code{font-size:12.5px}
 					<tr><td>Keep your word</td><td>Signed → Project → Billed cards animate in.</td><td>Stagger the three on the beat (500ms) and finish with a ✓ “Billed” stamp on the last. Same data.</td><td class="eff s">S<span class="st ok">✓ Built 14 Oct</span></td></tr>
 					<tr><td>What it never does</td><td>Five “It won’t…” lines.</td><td>Give it a heading, <b>“Fast is never careless.”</b> This list is the “Mean it” proof.</td><td class="eff s">S<span class="st ok">✓ Live 13 Oct</span></td></tr>
 					<tr><td>Closing</td><td>“Mean it.” / “Do good work.”</td><td><b>“Move fast.”</b> in ink-3, then <b>“Mean it.”</b> lights up in blue, then the wordmark and “Do good work.”, the animatic’s end card. It bookends the hero.</td><td class="eff s">S<span class="st ok">✓ Live 13 Oct</span></td></tr>
-					<tr><td>Beyond the page</td><td>—</td><td>OG image = the end card. A 9:16 cut for Reels, Shorts and LinkedIn (toggle above). Email sign-off “Move fast. Mean it.” A :06 YouTube bumper.</td><td class="eff m">M<span class="st ok">OG ✓ live</span><span class="st">Rest · Phase 4</span></td></tr>
+					<tr><td>Beyond the page</td><td>—</td><td>OG image = the end card. A 9:16 cut for Reels, Shorts and LinkedIn (toggle above). Email sign-off “Move fast. Mean it.” A :06 YouTube bumper. <i>Rendered: the :24, :15 and :06, each in 16:9 and 9:16 at 1080p, by <code>record.mjs</code> into <code>out/</code> (not in git).</i></td><td class="eff m">M<span class="st ok">OG ✓ live</span><span class="st ok">Spot ✓ rendered 14 Oct</span><span class="st">Posting · Phase 5</span></td></tr>
 				</tbody>
 			</table>
 		</div>
@@ -608,15 +619,15 @@ footer code{font-size:12.5px}
 		<div class="phases">
 			<div class="phase"><span class="k">Phase 1 · copy</span><h3>The words</h3><p>New hero H1 and lede, the “Fast is never careless.” heading, the closing bookend, and an updated <code>llms.txt</code>. Under an hour, with no motion.</p><span class="st ok">✓ Live 13 Oct · 5cc4be8</span></div>
 			<div class="phase"><span class="k">Phase 2 · engine</span><h3>Montage.vue</h3><p>Port this page’s timeline (<code>data-at</code> / <code>data-type</code> / <code>data-tap</code>) into a component driven by scroll or by clock, reusing <code>GoodWork/Column.vue</code>. It takes the parked scrub’s place.</p><span class="st ok">✓ Built 14 Oct · scroll-driven</span></div>
-			<div class="phase"><span class="k">Phase 3 · page</span><h3>The rhythm</h3><p>Micro-cuts on the beat columns, the Steady speed ramp, the kept cards on the beat, and a hero loop of four asks. One engine for all of it: <code>useCutTimeline</code>.</p><span class="st ok">✓ Built 14 Oct · not yet pushed</span></div>
-			<div class="phase"><span class="k">Phase 4 · film</span><h3>The spot</h3><p>Record this stage to MP4 with Playwright at 1080p in both aspects, add a real sound bed, and post it. Then a :15 and a :06.</p><span class="st">Next</span></div>
+			<div class="phase"><span class="k">Phase 3 · page</span><h3>The rhythm</h3><p>Micro-cuts on the beat columns, the Steady speed ramp, the kept cards on the beat, and a hero loop of four asks. One engine for all of it: <code>useCutTimeline</code>.</p><span class="st ok">✓ Live 14 Oct · f61bc88</span></div>
+			<div class="phase"><span class="k">Phase 4 · film</span><h3>The spot</h3><p>This stage, rendered frame by frame at 1080p in both aspects (<code>record.mjs</code>, never screen-recorded), with the sound bed. Then a :15 and a :06 from the same stage (<code>?cut=15</code>, <code>?cut=6</code>). Posting is Phase 5.</p><span class="st ok">✓ Rendered 14 Oct</span></div>
 		</div>
 
 		<h3 style="font-size:32px;margin-top:56px">Decisions <span style="color:var(--ink-3)">(the first two made 13 Oct, as recommended)</span></h3>
 		<ol class="decide">
 			<li><b>Hero headline: “Move fast. Mean it.” or keep “Do good work.”?</b><p>Recommendation: <em>“Move fast. Mean it.” as the H1</em>, with “Do good work.” as the sign-off on every ending, the way a campaign line sits under a brand line. The alternative is to keep the H1 and use “Move fast. Mean it.” as the lede.</p></li>
 			<li><b>Is the montage built from HTML or from re-recorded app video?</b><p>Recommendation: <em>HTML</em>. It’s the column you already ship, so it can’t disagree with the page, and the re-record plan’s three open decisions stop blocking the homepage.</p></li>
-			<li><b>Is the film made?</b><p>The animatic is enough to brief an editor, or to record directly. Sound would be a dry percussion bed at 120 bpm that drops out at “Mean it.” Turn on the click track above to hear the tempo.</p></li>
+			<li><b>Is the film made?</b><p>Yes, from this stage, 14 Oct: <code>record.mjs</code> draws each frame exactly (no screen recording) and lays the sound on the frame. The bed is this page’s own synth for now, a dry 120 bpm kit that drops to room tone at “Mean it.”; a licensed track can replace it with <code>--remux</code>, without re-rendering the picture.</p></li>
 		</ol>
 	</section>
 </main>
@@ -640,10 +651,14 @@ footer code{font-size:12.5px}
      data-tap="ms"         → .press for HOLD ms (the real-time tap), then .done
      data-l="ms"           → (Mean it.) a slow letter-group reveal
      data-live="a-b"       → .live between a and b (the composer listening)
-   This is the part to port to a Vue component (Phase 2).
+   Ported to the site as app/composables/useCutTimeline.ts (Phases 2–3).
+   ?cut=15 / ?cut=6 play the cut-downs (CUTS below); ?record exposes
+   window.__animatic for record.mjs, which renders the spot frame by frame.
    ───────────────────────────────────────────────────────────────────────── */
 (function () {
-	const DUR = 24000, BEAT = 500, HOLD = 400;
+	const BEAT = 500, HOLD = 400, WHIP = 140;
+	const query = new URLSearchParams(location.search);
+	const RECORD = query.has('record');
 	const SCENES = [
 		{ id: 'open', label: 'Open', start: 0, end: 2000, key: 1400,
 			picture: 'The office loop at 2×, darkened. People crossing and working.', type: '“Monday.” — Everything, all at once', sound: 'Bed starts dry on the downbeat.', claim: '—' },
@@ -662,10 +677,26 @@ footer code{font-size:12.5px}
 		{ id: 'mean', label: 'Mean it.', start: 15500, end: 19500, key: 3600,
 			picture: 'Speed ramp 3× → 0.35×. Dissolve to a client across the table, with a slow push.', type: 'Mean it. — Nothing goes out without you.', sound: 'The bed drops out. Room tone only.', claim: 'Held list: email, invoices, payments, meetings' },
 		{ id: 'end', label: 'End card', start: 19500, end: 24000, key: 3000,
-			picture: 'Near-black. Wordmark, then the tag.', type: 'Earnest. Do good work.', sound: 'Silence, or one soft note.', claim: 'Runs on Anthropic’s Claude, no-training terms' },
+			picture: 'Near-black. Wordmark, then the tag.', type: 'Earnest. Do good work.', sound: 'Silence, or one soft note.', claim: 'Runs on Anthropic’s Claude, on no-training terms' },
 	];
 
-	const byId = Object.fromEntries(SCENES.map((s) => [s.id, s]));
+	/* The cut-downs (?cut=15, ?cut=6). The :24 is the markup as written. A
+	   shorter cut keeps some shots and gives each a new length (dur). Inside a
+	   shot, Earnest's work is compressed evenly by c (worked out to fit the
+	   length unless given; a given c with a shorter length trims the tail),
+	   but every tap keeps its real 400ms and every whip its 140ms. Earnest's
+	   half gets faster; yours never does.
+	   :15 — drop cuts 3 and 4, halve each cut to two beats, keep "Say it.
+	         Tap it." at four: the tap is the point.
+	   :06 — the open, "Move fast.", "Mean it." and the end card. No receipts:
+	         they'd claim sends the film never shows being tapped. */
+	const CUTS = {
+		24: { open: {}, know: {}, book: {}, voice: {}, bill: {}, saytap: {}, fast: {}, mean: {}, end: {} },
+		15: { open: { dur: 1500 }, know: { dur: 1000 }, book: { dur: 1000 }, saytap: { dur: 2000 }, fast: { dur: 2000 }, mean: {}, end: { dur: 3500, c: 1 } },
+		6: { open: { dur: 1000 }, fast: { dur: 1000, c: 0.6 }, mean: { dur: 2400, c: 0.5 }, end: { dur: 1600, c: 0.5 } },
+	};
+	const CUT = CUTS[query.get('cut')] ? query.get('cut') : '24';
+	const PLAN = CUTS[CUT];
 
 	const stage = document.querySelector('.stage');
 	const video = stage.querySelector('.bg');
@@ -678,15 +709,63 @@ footer code{font-size:12.5px}
 	const beatDots = [...document.querySelectorAll('.beats i')];
 	const playBtn = document.querySelector('[data-act="play"]');
 
-	const shots = [...stage.querySelectorAll('.shot')].map((el) => {
-		const items = [...el.querySelectorAll('[data-at],[data-type],[data-tap],[data-l],[data-live]')];
-		items.forEach((i) => { if (i.dataset.type || i.dataset.tap) i.dataset.full = i.textContent; });
-		return { el, id: el.dataset.id, start: +el.dataset.start, end: +el.dataset.end, items, cut: el.classList.contains('cut') };
-	});
-
 	const clamp = (v) => Math.max(0, Math.min(1, v));
 	const easeOut = (p) => 1 - Math.pow(1 - p, 3);
 	const fmt = (ms) => { const s = ms / 1000; return Math.floor(s / 60) + ':' + (s % 60).toFixed(1).padStart(4, '0'); };
+
+	// Each kept shot gets its place in this cut and a warp from its own time
+	// (lt, real) to the markup's time (st). Segments: compressed work, real taps.
+	let DUR = 0, heldSoFar = 0;
+	const waitBase = +stage.querySelector('.col__wait b').textContent;
+	const shots = [...stage.querySelectorAll('.shot')].filter((el) => PLAN[el.dataset.id]).map((el) => {
+		const id = el.dataset.id, o = PLAN[id], L = +el.dataset.end - +el.dataset.start;
+		// the Waiting badge counts down one per held thing tapped before it
+		const wait = el.querySelector('.col__wait b');
+		if (wait) wait.textContent = waitBase - heldSoFar;
+		const items = [...el.querySelectorAll('[data-at],[data-type],[data-tap],[data-l],[data-live]')];
+		items.forEach((i) => { if (i.dataset.type || i.dataset.tap) i.dataset.full = i.textContent; });
+		const taps = items.filter((i) => i.dataset.tap).map((i) => +i.dataset.tap).sort((a, b) => a - b);
+		if (taps.length) heldSoFar++;
+		const dur = o.dur ?? L;
+		const c = o.c ?? (dur - taps.length * HOLD) / (L - taps.length * HOLD);
+		const segs = [];
+		let src = 0, out = 0;
+		for (const a of [...taps, L]) {
+			segs.push({ out, src, k: c }); out += (a - src) * c; src = a;
+			if (a < L) { segs.push({ out, src, k: 1 }); out += HOLD; src += HOLD; }
+		}
+		const warp = (lt) => { let g = segs[0]; for (const s of segs) if (lt >= s.out) g = s; return g.src + (lt - g.out) / g.k; };
+		const unwarp = (st) => { let g = segs[0]; for (const s of segs) if (st >= s.src) g = s; return g.out + (st - g.src) * g.k; };
+		const shot = { el, id, start: DUR, end: DUR + dur, srcLen: L, items, cut: el.classList.contains('cut'), warp, unwarp, taps };
+		DUR += dur;
+		return shot;
+	});
+	const LAST = shots[shots.length - 1];
+	const MEAN = shots.find((s) => s.id === 'mean');
+	const FAST = shots.find((s) => s.id === 'fast');
+	const HOLDS = shots.flatMap((s) => s.taps.map((a) => { const at = s.start + s.unwarp(a); return [at, at + HOLD]; }));
+	stage.querySelectorAll('.shot').forEach((el) => { if (!PLAN[el.dataset.id]) el.classList.remove('on'); });
+
+	// receipts only for the cuts this film shows, restaggered on the same step
+	const receipts = [...stage.querySelectorAll('.receipts [data-from]')];
+	receipts.filter((r) => !PLAN[r.dataset.from]).forEach((r) => { r.hidden = true; r.removeAttribute('data-at'); });
+	receipts.filter((r) => PLAN[r.dataset.from]).forEach((r, i) => { r.dataset.at = 500 + 90 * i; });
+	shots.forEach((s) => { s.items = s.items.filter((i) => !i.hidden); });
+
+	const shotAt = (T) => { let cur = shots[0]; for (const s of shots) if (T >= s.start) cur = s; return cur; };
+
+	/* The background's playback rate at film time T: fast through the
+	   montage, near-still under each tap, ramping to still for "Mean it."
+	   The player sets it live; record() integrates it to place the footage. */
+	function rateAt(T) {
+		if (HOLDS.some(([a, b]) => T >= a && T < b)) return 0.08;
+		const s = shotAt(T);
+		if (s.id === 'open') return 2;
+		if (s.cut) return 2.5;
+		if (s.id === 'fast') return 3;
+		if (s.id === 'mean') return 3 + (0.35 - 3) * easeOut(clamp(s.warp(T - s.start) / 1800));
+		return 0.35;
+	}
 
 	let t = 0, playing = false, speed = 1, last = 0, rate = 0;
 	const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -698,26 +777,26 @@ footer code{font-size:12.5px}
 	}
 
 	function render() {
-		let hold = false, current = SCENES[0];
-		for (const s of SCENES) if (t >= s.start) current = s;
+		let hold = false;
+		const current = shotAt(t);
 		for (const s of shots) {
-			const on = t >= s.start && (t < s.end || (s.id === 'end' && t >= s.end));
+			const on = t >= s.start && (t < s.end || s === LAST);
 			s.el.classList.toggle('on', on);
 			if (!on) continue;
-			const lt = t - s.start;
-			if (s.cut) s.el.style.setProperty('--whip', (1 - easeOut(clamp(lt / 140))).toFixed(3));
+			const lt = t - s.start, st = s.warp(lt);
+			if (s.cut) s.el.style.setProperty('--whip', (1 - easeOut(clamp(lt / WHIP))).toFixed(3));
 			for (const el of s.items) {
 				const d = el.dataset;
 				if (d.type) {
-					const p = clamp((lt - +d.type) / (+d.typeEnd - +d.type));
+					const p = clamp((st - +d.type) / (+d.typeEnd - +d.type));
 					el.textContent = d.full.slice(0, Math.round(d.full.length * p));
 					el.classList.toggle('caret', p > 0 && p < 1);
 				}
-				if (d.at) el.classList.toggle('in', lt >= +d.at);
-				if (d.l) el.classList.toggle('in', lt >= +d.l);
-				if (d.live) { const [a, b] = d.live.split('-').map(Number); el.classList.toggle('live', lt >= a && lt < b); }
+				if (d.at) el.classList.toggle('in', st >= +d.at);
+				if (d.l) el.classList.toggle('in', st >= +d.l);
+				if (d.live) { const [a, b] = d.live.split('-').map(Number); el.classList.toggle('live', st >= a && st < b); }
 				if (d.tap) {
-					const a = +d.tap, press = lt >= a && lt < a + HOLD, done = lt >= a + HOLD;
+					const a = +d.tap, press = st >= a && st < a + HOLD, done = st >= a + HOLD;
 					el.classList.toggle('press', press);
 					el.classList.toggle('done', done);
 					el.textContent = done ? d.doneText : d.full;
@@ -727,53 +806,61 @@ footer code{font-size:12.5px}
 		}
 		stage.classList.toggle('hold', hold);
 
-		// the background: fast through the montage, ramping to still for "Mean it."
-		const F = byId.fast, M = byId.mean, E = byId.end;
-		let r = t < 2000 ? 2 : t < F.start ? 2.5 : t < M.start ? 3 : 3 + (0.35 - 3) * easeOut(clamp((t - M.start) / 1800));
-		if (hold) r = 0.08;
-		setRate(r);
-		const ml = t - M.start;
-		photo.style.opacity = t < M.start ? 0 : clamp((ml - 700) / 1500).toFixed(3);
+		if (!RECORD) setRate(rateAt(t));
+		const ml = t < MEAN.start ? -1 : t < MEAN.end ? MEAN.warp(t - MEAN.start) : MEAN.srcLen + (t - MEAN.end);
+		photo.style.opacity = ml < 0 ? 0 : clamp((ml - 700) / 1500).toFixed(3);
 		photo.style.setProperty('--ps', (1.1 - 0.1 * clamp(ml / 4000)).toFixed(4));
-		black.style.opacity = t < E.start ? 0 : (0.92 * clamp((t - E.start) / 500)).toFixed(3);
+		black.style.opacity = t < LAST.start || LAST.id !== 'end' ? 0 : (0.92 * clamp((t - LAST.start) / 500)).toFixed(3);
 
 		// readouts
 		range.value = Math.round(t);
 		tcEl.textContent = fmt(t);
-		nowEl.textContent = current.label;
+		nowEl.textContent = SCENES.find((s) => s.id === current.id).label;
 		noteEl.textContent = hold ? '· held: the frame waits for the tap' : '';
 		const b = Math.floor(t / BEAT) % 4;
-		beatDots.forEach((d, i) => d.classList.toggle('on', i === b && t < M.start));
+		beatDots.forEach((d, i) => d.classList.toggle('on', i === b && t < MEAN.start));
 		document.querySelectorAll('.scene').forEach((c) => c.classList.toggle('on', c.dataset.id === current.id));
 	}
 
-	/* the click track — tempo, the tap, and the drop-out at "Mean it." */
-	let ac = null, sound = false, lastBeat = -1, lastTapAt = -1;
-	function blip(kind) {
-		if (!ac) return;
-		const o = ac.currentTime, g = ac.createGain();
-		g.connect(ac.destination);
+	/* The sound — tempo, the tap, and the drop-out at "Mean it." One schedule
+	   for the live click track and the offline render: a hat on every beat and
+	   a kick on every other, from the open until "Mean it.", silent under a
+	   held tap; a snare on the off-beats under "Move fast." (the full kit for
+	   one bar); a tap sound as each tap lands. */
+	const SCHEDULE = (() => {
+		const ev = [];
+		for (let b = 0; b * BEAT < MEAN.start; b++) {
+			const at = b * BEAT;
+			if (HOLDS.some(([x, y]) => at >= x && at < y)) continue;
+			ev.push({ at, kind: 'hat' });
+			if (b % 2 === 0) ev.push({ at, kind: 'kick' });
+			else if (FAST && at >= FAST.start && at < FAST.end) ev.push({ at, kind: 'snare' });
+		}
+		HOLDS.forEach(([x]) => ev.push({ at: x, kind: 'tap' }));
+		return ev.sort((a, b) => a.at - b.at);
+	})();
+	// a seeded noise source, so the offline render is the same every time
+	let seed = 1;
+	const noise = () => { seed = (seed * 16807) % 2147483647; return (seed / 2147483647) * 2 - 1; };
+	function blip(kind, ctx, o) {
+		const g = ctx.createGain();
+		g.connect(ctx.destination);
 		if (kind === 'kick') {
-			const s = ac.createOscillator(); s.frequency.setValueAtTime(140, o); s.frequency.exponentialRampToValueAtTime(45, o + 0.12);
+			const s = ctx.createOscillator(); s.frequency.setValueAtTime(140, o); s.frequency.exponentialRampToValueAtTime(45, o + 0.12);
 			g.gain.setValueAtTime(0.5, o); g.gain.exponentialRampToValueAtTime(0.001, o + 0.16); s.connect(g); s.start(o); s.stop(o + 0.17);
 		} else {
-			const len = kind === 'tap' ? 0.03 : 0.025, buf = ac.createBuffer(1, ac.sampleRate * len, ac.sampleRate), ch = buf.getChannelData(0);
-			for (let i = 0; i < ch.length; i++) ch[i] = (Math.random() * 2 - 1) * (1 - i / ch.length);
-			const src = ac.createBufferSource(), f = ac.createBiquadFilter();
-			src.buffer = buf; f.type = kind === 'tap' ? 'bandpass' : 'highpass'; f.frequency.value = kind === 'tap' ? 2200 : 7000;
-			g.gain.value = kind === 'tap' ? 0.6 : 0.18; src.connect(f); f.connect(g); src.start(o);
+			const v = { hat: [0.025, 'highpass', 7000, 0.18, 1], tap: [0.03, 'bandpass', 2200, 0.6, 1], snare: [0.14, 'bandpass', 1800, 0.45, 3] }[kind];
+			const buf = ctx.createBuffer(1, Math.round(ctx.sampleRate * v[0]), ctx.sampleRate), ch = buf.getChannelData(0);
+			for (let i = 0; i < ch.length; i++) ch[i] = noise() * Math.pow(1 - i / ch.length, v[4]);
+			const src = ctx.createBufferSource(), f = ctx.createBiquadFilter();
+			src.buffer = buf; f.type = v[1]; f.frequency.value = v[2];
+			g.gain.value = v[3]; src.connect(f); f.connect(g); src.start(o);
 		}
 	}
+	let ac = null, sound = false;
 	function audio(prev) {
-		if (!sound || !playing) return;
-		const beat = Math.floor(t / BEAT);
-		if (beat !== lastBeat && t < byId.mean.start && !stage.classList.contains('hold')) {
-			lastBeat = beat; blip('hat'); if (beat % 2 === 0) blip('kick');
-		}
-		for (const s of shots) for (const el of s.items) if (el.dataset.tap) {
-			const at = s.start + +el.dataset.tap;
-			if (prev < at && t >= at && lastTapAt !== at) { lastTapAt = at; blip('tap'); }
-		}
+		if (!sound || !playing || !ac) return;
+		for (const e of SCHEDULE) if (prev < e.at && t >= e.at) blip(e.kind, ac, ac.currentTime);
 	}
 
 	function frame(now) {
@@ -786,12 +873,123 @@ footer code{font-size:12.5px}
 		if (playing) requestAnimationFrame(frame);
 	}
 	function play() {
-		if (t >= DUR) { t = 0; lastBeat = -1; lastTapAt = -1; }
+		if (t >= DUR) t = 0;
 		playing = true; playBtn.textContent = 'Pause'; last = performance.now();
 		video.play().catch(() => {}); requestAnimationFrame(frame);
 	}
 	function pause() { playing = false; playBtn.textContent = 'Play'; video.pause(); }
-	function seek(ms) { t = Math.max(0, Math.min(DUR, ms)); lastBeat = Math.floor(t / BEAT); render(); }
+	function seek(ms) { t = Math.max(0, Math.min(DUR, ms)); render(); }
+
+	// the column at its real 360px, scaled to the frame
+	function fit() {
+		const w = stage.clientWidth;
+		stage.style.setProperty('--k', ((stage.dataset.aspect === 'v' ? w * 0.86 : w * 0.36) / 360).toFixed(4));
+	}
+	new ResizeObserver(fit).observe(stage);
+	range.max = DUR;
+	document.querySelector('[data-dur]').textContent = fmt(DUR);
+	document.querySelector('[data-slate]').textContent = ':' + CUT.padStart(2, '0');
+
+	/* ?record — the hook record.mjs drives. frame(T) draws film time T
+	   exactly: the stage, every CSS transition at its true age (paused and set
+	   by hand, never left to the wall clock), and the footage at the integral
+	   of rateAt, so a frame is the same however long the screenshot takes. */
+	if (RECORD) {
+		// when each element last changed state, in film time, so a transition
+		// it starts can be set to its real age
+		const EDGES = new Map();
+		for (const s of shots) for (const el of s.items) {
+			const d = el.dataset, at = (v) => s.start + s.unwarp(+v);
+			if (d.at) EDGES.set(el, [at(d.at)]);
+			if (d.l) EDGES.set(el, [at(d.l)]);
+			if (d.tap) EDGES.set(el, [at(d.tap), at(d.tap) + HOLD]);
+			if (d.live) EDGES.set(el, d.live.split('-').map(at));
+		}
+		EDGES.set(stage.querySelector('.rt'), HOLDS.flat());
+		const born = new WeakMap();
+		function settle() {
+			for (const a of document.getAnimations()) {
+				if (!born.has(a)) {
+					const edges = (EDGES.get(a.effect.target) || []).filter((e) => e <= t);
+					born.set(a, edges.length ? Math.max(...edges) : t);
+				}
+				a.pause();
+				const age = t - born.get(a), end = a.effect.getComputedTiming().endTime;
+				if (age >= end) a.finish(); else a.currentTime = Math.max(0, age);
+			}
+		}
+		// footage seconds at each film millisecond
+		const FOOT = new Float64Array(DUR + 2);
+		for (let i = 0; i <= DUR; i++) FOOT[i + 1] = FOOT[i] + rateAt(i + 0.5) / 1000;
+		const FPS_SRC = 24;
+		let shown = -1;
+		const raf = () => new Promise((r) => requestAnimationFrame(() => r()));
+		async function place(T) {
+			const i = Math.min(DUR, Math.max(0, Math.floor(T))), ft = FOOT[i] + (FOOT[i + 1] - FOOT[i]) * (T - i);
+			const n = Math.floor(video.duration * FPS_SRC), f = Math.floor(ft * FPS_SRC) % n;
+			if (f === shown) return;
+			shown = f;
+			await new Promise((res) => {
+				let left = 2;
+				const done = () => { if (--left === 0) res(); };
+				const timer = setTimeout(res, 2000);
+				video.addEventListener('seeked', () => { done(); }, { once: true });
+				if (video.requestVideoFrameCallback) video.requestVideoFrameCallback(() => { clearTimeout(timer); done(); });
+				else left = 1;
+				video.currentTime = (f + 0.5) / FPS_SRC;
+			});
+		}
+		window.__animatic = {
+			DUR, CUT, HOLD, WHIP, HOLDS, SCHEDULE, MEAN_AT: MEAN.start,
+			seek,
+			setAspect(a) { stage.dataset.aspect = a; fit(); render(); },
+			ready: Promise.all([
+				document.fonts.ready,
+				new Promise((r) => (video.readyState >= 2 ? r() : video.addEventListener('loadeddata', r, { once: true }))),
+				photo.decode().catch(() => {}),
+			]).then(() => { video.pause(); }),
+			// draw film time T; returns what the frame shows, for checking
+			async frame(T) {
+				seek(T); settle(); await place(T); await raf(); await raf();
+				const s = shotAt(T);
+				return { t: T, shot: s.id, hold: stage.classList.contains('hold'), whip: s.cut ? +s.el.style.getPropertyValue('--whip') : 0 };
+			},
+			// the sound bed, rendered offline from SCHEDULE, as 16-bit stereo WAV
+			// (base64); kit = false leaves only the taps and the room tone, to lay
+			// under a licensed track (record.mjs --bed)
+			async sound(rate = 48000, kit = true) {
+				seed = 1;
+				const ctx = new OfflineAudioContext(2, Math.ceil(rate * DUR / 1000), rate);
+				for (const e of SCHEDULE) if (kit || e.kind === 'tap') blip(e.kind, ctx, e.at / 1000);
+				// room tone under everything: masked by the bed, the air that's
+				// left when it drops out at "Mean it."
+				const air = ctx.createBuffer(1, ctx.length, rate), ch = air.getChannelData(0);
+				for (let i = 0, last = 0; i < ch.length; i++) { last = (last + 0.02 * noise()) / 1.02; ch[i] = last * 3.5; }
+				const src = ctx.createBufferSource(), lo = ctx.createBiquadFilter(), hi = ctx.createBiquadFilter(), g = ctx.createGain();
+				src.buffer = air; lo.type = 'lowpass'; lo.frequency.value = 500; hi.type = 'highpass'; hi.frequency.value = 50;
+				g.gain.setValueAtTime(0, 0); g.gain.linearRampToValueAtTime(0.012, 0.4);
+				src.connect(lo); lo.connect(hi); hi.connect(g); g.connect(ctx.destination); src.start(0);
+				const buf = await ctx.startRendering();
+				const L = buf.getChannelData(0), R = buf.getChannelData(1), n = L.length;
+				const out = new DataView(new ArrayBuffer(44 + n * 4));
+				const str = (o, s) => [...s].forEach((c, i) => out.setUint8(o + i, c.charCodeAt(0)));
+				str(0, 'RIFF'); out.setUint32(4, 36 + n * 4, true); str(8, 'WAVEfmt '); out.setUint32(16, 16, true);
+				out.setUint16(20, 1, true); out.setUint16(22, 2, true); out.setUint32(24, rate, true); out.setUint32(28, rate * 4, true);
+				out.setUint16(32, 4, true); out.setUint16(34, 16, true); str(36, 'data'); out.setUint32(40, n * 4, true);
+				for (let i = 0; i < n; i++) {
+					out.setInt16(44 + i * 4, Math.max(-1, Math.min(1, L[i])) * 32767, true);
+					out.setInt16(46 + i * 4, Math.max(-1, Math.min(1, R[i])) * 32767, true);
+				}
+				let bin = '';
+				const bytes = new Uint8Array(out.buffer);
+				for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+				return btoa(bin);
+			},
+		};
+		video.pause();
+		seek(0);
+		return;
+	}
 
 	playBtn.addEventListener('click', () => (playing ? pause() : play()));
 	document.querySelector('[data-act="restart"]').addEventListener('click', () => { seek(0); play(); });
@@ -821,24 +1019,19 @@ footer code{font-size:12.5px}
 		if (e.code === 'ArrowRight') { pause(); seek(t + 100); }
 		if (e.code === 'ArrowLeft') { pause(); seek(t - 100); }
 	});
-
-	// the column at its real 360px, scaled to the frame
-	function fit() {
-		const w = stage.clientWidth;
-		stage.style.setProperty('--k', ((stage.dataset.aspect === 'v' ? w * 0.86 : w * 0.36) / 360).toFixed(4));
-	}
-	new ResizeObserver(fit).observe(stage);
 	// phones open on the 9:16 cut — it's the one they'd watch
 	if (matchMedia('(max-width: 640px)').matches) aspectBtn.click(); else fit();
 
-	// scene markers on the scrubber, and the storyboard cards
+	// scene markers on the scrubber (this cut's), and the storyboard cards (the :24's)
 	const marks = document.querySelector('.marks');
 	const board = document.querySelector('[data-board]');
-	SCENES.forEach((s, i) => {
+	shots.forEach((s) => {
 		const m = document.createElement('span');
 		m.style.left = (s.start / DUR * 100) + '%';
-		m.textContent = s.label;
+		m.textContent = SCENES.find((x) => x.id === s.id).label;
 		marks.appendChild(m);
+	});
+	SCENES.forEach((s, i) => {
 		const c = document.createElement('button');
 		c.type = 'button'; c.className = 'scene'; c.dataset.id = s.id;
 		c.innerHTML = '<span class="tcode">' + String(i + 1).padStart(2, '0') + ' · ' + fmt(s.start) + '–' + fmt(s.end) + '</span>' +
@@ -847,7 +1040,9 @@ footer code{font-size:12.5px}
 			'<div><dt>Type</dt><dd>' + s.type + '</dd></div>' +
 			'<div><dt>Sound</dt><dd>' + s.sound + '</dd></div>' +
 			'<div><dt>Claim</dt><dd>' + s.claim + '</dd></div></dl>';
-		c.addEventListener('click', () => { pause(); seek(s.start + s.key); document.getElementById('film').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); });
+		const shot = shots.find((x) => x.id === s.id);
+		if (shot) c.addEventListener('click', () => { pause(); seek(shot.start + shot.unwarp(s.key)); document.getElementById('film').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); });
+		else c.disabled = true;
 		board.appendChild(c);
 	});
 
@@ -859,7 +1054,7 @@ footer code{font-size:12.5px}
 	});
 
 	// reduced motion: hold on a representative frame, never autoplay
-	if (reduce) { seek(SCENES[2].start + SCENES[2].key); pause(); }
+	if (reduce) { const s = shots[Math.min(2, shots.length - 1)]; seek(s.start + s.unwarp(SCENES.find((x) => x.id === s.id).key)); pause(); }
 	else { seek(0); play(); }
 })();
 </script>

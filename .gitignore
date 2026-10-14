@@ -6,3 +6,5 @@ dist
 .env.*
 !.env.example
 .DS_Store
+# rendered video (mockups/2026-10-move-fast/record.mjs) stays out of git
+mockups/2026-10-move-fast/out/
