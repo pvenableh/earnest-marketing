@@ -316,6 +316,8 @@ export const kept = {
 		{ k: 'Project', t: 'Helios — Website Build', s: '3 phases from the contract · dates from the PDF · booking flow QA last' },
 		{ k: 'Billed', t: 'Milestone 1 · $6,200', s: 'one press · Stripe · lands on cash flow' },
 	],
+	/** On the last step, once the three have landed. */
+	stamp: '✓ Billed',
 };
 
 /* ── The montage: "Move fast." ───────────────────────────────────────────

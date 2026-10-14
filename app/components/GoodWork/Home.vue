@@ -131,9 +131,11 @@
 								<p class="gw-copy__move"><b>{{ kept.move.k }}</b>{{ kept.move.text }}</p>
 								<nuxt-link class="gw-copy__more" :to="kept.more.to">{{ kept.more.label }}</nuxt-link>
 							</div>
-							<ol class="gw-kept" aria-label="A signed contract becomes a project becomes an invoice">
-								<li v-for="s in kept.steps" :key="s.k" class="gw-kept__step" data-reveal>
+							<!-- On the beat: the three land 500ms apart, then the ✓ (good-work.css · reveal). -->
+							<ol class="gw-kept" data-reveal="whole" aria-label="A signed contract becomes a project becomes an invoice">
+								<li v-for="(s, i) in kept.steps" :key="s.k" class="gw-kept__step">
 									<span class="k">{{ s.k }}</span><span class="t">{{ s.t }}</span><small>{{ s.s }}</small>
+									<span v-if="i === kept.steps.length - 1" class="gw-kept__stamp" aria-hidden="true">{{ kept.stamp }}</span>
 								</li>
 							</ol>
 						</div>

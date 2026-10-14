@@ -49,13 +49,17 @@ export function useGoodWorkMotion(root: Ref<HTMLElement | null>) {
 		el.classList.add('gw--motion');
 
 		/* Reveal — position-based, so copy already above the viewport (a deep
-		   link, a jump to #faq) is in, not stuck hidden. */
+		   link, a jump to #faq) is in, not stuck hidden. `data-reveal="whole"`
+		   waits until all of it is on screen (or its top is past the middle),
+		   for a group that plays in sequence and should be seen doing it. */
 		let pending = [...el.querySelectorAll<HTMLElement>('[data-reveal]')];
 		onScroll(() => {
 			if (!pending.length) return;
 			const lim = innerHeight * 0.92;
 			pending = pending.filter((n) => {
-				if (n.getBoundingClientRect().top < lim) {
+				const r = n.getBoundingClientRect();
+				const seen = n.dataset.reveal === 'whole' ? r.bottom < innerHeight * 0.95 || r.top < innerHeight * 0.5 : r.top < lim;
+				if (seen) {
 					n.classList.add('in');
 					return false;
 				}

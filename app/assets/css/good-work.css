@@ -1229,10 +1229,24 @@ html[data-gw-mode='dark'] .gw-beat--tone {
 	color: var(--ink-3);
 }
 .gw-kept__step:nth-child(2) {
-	--d: 0.25s;
+	--d: 0.5s;
 }
 .gw-kept__step:nth-child(3) {
-	--d: 0.5s;
+	--d: 1s;
+}
+/* the ✓ on the last step: still, it is simply there; in motion it lands a
+   beat after the step (reveal, below) */
+.gw-kept__stamp {
+	position: absolute;
+	right: 14px;
+	bottom: -13px;
+	background: var(--ok);
+	color: var(--pop-ink);
+	border-radius: 999px;
+	padding: 5px 12px;
+	font-size: 12.5px;
+	white-space: nowrap;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 @media (max-width: 900px) {
 	.gw-kept {
@@ -1703,13 +1717,32 @@ html[data-gw-mode='dark'] .gw-cta .gw-slot--empty {
 	opacity: 1;
 	transform: none;
 }
-.gw--motion .gw-kept__step + .gw-kept__step::before {
-	opacity: 0;
-	transition: opacity 0.5s ease var(--d, 0s);
-}
-.gw--motion .gw-kept__step.in + .gw-kept__step::before,
-.gw--motion .gw-kept__step.in::before {
+/* "Keep your word" on the beat: the list is revealed whole, and its steps
+   land one beat (500ms) apart, then the ✓ — a snap, not a drift */
+.gw--motion .gw-kept[data-reveal] {
 	opacity: 1;
+	transform: none;
+}
+.gw--motion .gw-kept__step,
+.gw--motion .gw-kept__step + .gw-kept__step::before,
+.gw--motion .gw-kept__stamp {
+	opacity: 0;
+	transition:
+		opacity 0.18s ease var(--d, 0s),
+		transform 0.18s ease var(--d, 0s);
+}
+.gw--motion .gw-kept__step {
+	transform: translateY(10px);
+}
+.gw--motion .gw-kept__stamp {
+	--d: 1.5s;
+	transform: scale(0.85);
+}
+.gw--motion .gw-kept.in .gw-kept__step,
+.gw--motion .gw-kept.in .gw-kept__step + .gw-kept__step::before,
+.gw--motion .gw-kept.in .gw-kept__stamp {
+	opacity: 1;
+	transform: none;
 }
 
 /* ── "Move fast." — the montage (GoodWork/Montage.vue) ──
