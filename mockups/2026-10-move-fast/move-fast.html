@@ -354,7 +354,7 @@ footer code{font-size:12.5px}
 			<!-- 0:00 — open -->
 			<div class="shot" data-id="open" data-start="0" data-end="2000">
 				<div class="center">
-					<p class="open-line" data-at="250">Monday<span class="dot">.</span><small data-at="900">Everything, all at once</small></p>
+					<p class="open-line" data-at="250">First thing<span class="dot">.</span><small data-at="900">Everything, all at once</small></p>
 				</div>
 			</div>
 
@@ -579,7 +579,7 @@ footer code{font-size:12.5px}
 					<li>Fast hands. Your say.<small>For social, short.</small></li>
 					<li>Know it. Book it. Say it like you. Bill it.<small>The montage verbs. They also work as eyebrows on the homepage beats.</small></li>
 					<li>Say it. Tap it.<small>Voice in one line: ask out loud, and email, invoices, payments and meetings still wait for your hand. Never “just say yes”: a spoken yes can’t approve those.</small></li>
-					<li>Good work moves fast — and means it.<small>A possible turn for the creed, in place of or after “It needs a better Tuesday.”</small></li>
+					<li>Good work moves fast — and means it.<small>A possible line for the creed, before its turn, “It needs a smarter system.”</small></li>
 					<li>Fast is never careless.<small>Heading for the “What it never does” list.</small></li>
 				</ul>
 			</div>
@@ -606,7 +606,7 @@ footer code{font-size:12.5px}
 				<thead><tr><th>Section</th><th>Now</th><th>With “Move fast. Mean it.”</th><th>Effort</th></tr></thead>
 				<tbody>
 					<tr><td>Hero</td><td>“Do good work.” / <span class="flag">“Not more work. Not faster work.”</span> over the sped-up office loop.</td><td><b>H1 “Move fast. Mean it.”</b>, lede “It drafts. You decide.”, and “Do good work.” moves to the sign-off. Over the loop, one column cycles four asks on the beat, each with the real-time tap. Reduced motion shows one still column. <i>The “Not faster work” line has to change either way.</i> <i>Built: <code>GoodWork/HeroLoop.vue</code>, Book it → Say it like you → Bill it → Say it. Tap it., four beats’ rest on each ✓, the room slowed under each tap. From 901px the hero is two columns; phones keep the centred hero (at 390px the column would push the CTAs and the “what is this” paragraph below the fold).</i></td><td class="eff s">S · copy + M · loop<span class="st ok">Copy ✓ live 13 Oct</span><span class="st ok">Loop ✓ built 14 Oct</span></td></tr>
-					<tr><td>Creed</td><td>Six “Good work…” lines, then “It needs a better Tuesday.”</td><td>Keep it. Optionally add a seventh line, “Good work moves fast — and means it.”, before the Tuesday turn. The creed is the slow, thoughtful register; the campaign can stay out of it.</td><td class="eff s">S</td></tr>
+					<tr><td>Creed</td><td>Six “Good work…” lines, then “It needs a smarter system.” (changed 14 Oct from “a better Tuesday”)</td><td>Keep it. Optionally add a seventh line, “Good work moves fast — and means it.”, before the turn. The creed is the slow, thoughtful register; the campaign can stay out of it.</td><td class="eff s">S</td></tr>
 					<tr><td>App scrub</td><td>Parked (<code>appSequence = null</code>): the demo recording disagrees with the page.</td><td><b>Replace with the montage, built from HTML columns rather than video.</b> A pinned section where scroll drives the timeline from this animatic: five cuts, the ✓ receipts, then “Move fast.” It’s always truthful, sharp at any size, works in light and dark, and doesn’t depend on re-recording the demo. <i>Built: <code>GoodWork/Montage.vue</code>, five cuts ending on “Say it. Tap it.”, the tap on a real clock while scroll holds the frame; still list under reduced motion.</i></td><td class="eff l">L · new component<span class="st ok">✓ Built 14 Oct</span></td></tr>
 					<tr><td>Know / Say beats</td><td>Static column beside each beat.</td><td>Each column plays its own micro-cut once on entering view: ask types → card → tap → ✓. Eyebrows become the verbs (“Know it”, “Book it”). <i>“Say the next move” now says “typed or out loud”.</i> <i>Built: <code>GoodWork/Cut.vue</code>, played once by clock on <code>useCutTimeline</code>, resting tapped with its ✓. Eyebrows not yet changed: waiting on Peter.</i></td><td class="eff m">M<span class="st ok">✓ Built 14 Oct</span></td></tr>
 					<tr><td>Client photo beats</td><td>Hear the truth / Sound like yourself.</td><td>Unchanged in copy. These are the “Mean it” beats (honesty and voice). Their columns play at real speed with no whips, the counterpoint to the montage. <i>Built: <code>Cut.vue</code> at <code>pace="real"</code>.</i></td><td class="eff s">S<span class="st ok">✓ Built 14 Oct</span></td></tr>
@@ -666,7 +666,7 @@ footer code{font-size:12.5px}
 	const RECORD = query.has('record');
 	const SCENES = [
 		{ id: 'open', label: 'Open', start: 0, end: 2000, key: 1400,
-			picture: 'The office loop at 2×, darkened. People crossing and working.', type: '“Monday.” — Everything, all at once', sound: 'Bed starts dry on the downbeat.', claim: '—' },
+			picture: 'The office loop at 2×, darkened. People crossing and working.', type: '“First thing.” — Everything, all at once', sound: 'Bed starts dry on the downbeat.', claim: '—' },
 		{ id: 'know', label: 'Know it', start: 2000, end: 4000, key: 1700,
 			picture: 'Whip in. Column: “Read my day” types, and the number-first facts snap in.', type: 'Know it. — Where you stand', sound: 'Hat on every beat.', claim: 'Seeded demo: 5 waiting · $12k · 30 d · $286k' },
 		{ id: 'book', label: 'Book it', start: 4000, end: 6000, key: 1150,
