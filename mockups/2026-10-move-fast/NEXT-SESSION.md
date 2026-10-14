@@ -24,16 +24,25 @@ first, in this order:
    `Cut.vue` and `HeroLoop.vue`.
 
 **Where things stand (2026-10-14):**
-- LIVE: Phases 1–2 (hero copy, the montage, voice FAQ, deletion copy).
-- BUILT on local `main`, check whether Peter has pushed them (`git status`,
-  `git log origin/main..main`): 2922a18 one cut timeline (useCutTimeline),
-  cc899f7 Know/Say micro-cuts (`Cut.vue`), 41ae547 Keep your word on the
-  beat, 2a9b390 Steady speed ramp, 95bddc2 hero loop (`HeroLoop.vue`, ≥901px
-  only), 9537139 client-photo beats at real speed.
-- Questions put to Peter on 14 Oct (check the memory for his answers before
-  touching them): the Know/Say eyebrows → "Know it" / "Book it"; a seventh
-  creed line; the "Hear the truth" vs montage third-reminder tension; and
-  `app/pages/data-deletion.vue` §3–4 vs what the app really does.
+- LIVE: Phases 1–3. Phase 3 was pushed on 14 Oct (2922a18…f61bc88): the
+  shared cut engine (`useCutTimeline`), the Know/Say micro-cuts (`Cut.vue`),
+  Keep your word on the beat, the Steady speed ramp, the hero loop
+  (`HeroLoop.vue`, ≥901px only; phones keep the centred hero), and the
+  client-photo beats at real speed.
+- `app/pages/data-deletion.vue` §3, §4 and §6 were rewritten on 14 Oct to
+  match the app (a78dea2). Check with `git log origin/main..main` whether
+  Peter has pushed it.
+- Still Peter's to decide (don't change them unasked): the Know/Say eyebrows
+  ("Know it" / "Book it"; recommendation: keep "One screen" / "From any
+  screen"); a seventh creed line (recommendation: no); "Hear the truth" says
+  "I'd call before I write a third reminder" while the montage's last cut
+  sends the third reminder.
+- App-side gaps found on 14 Oct, for the app repo, not this one. The site
+  no longer promises any of them. There's no Meta Data Deletion Request
+  endpoint and no TikTok deauthorize endpoint. Meta and Threads
+  deauthorization keeps the revoked rows indefinitely. Disconnect revokes at
+  the provider only for Google Calendar and Stripe. Mention these to Peter
+  if Meta or TikTok app review comes up.
 
 **The one rule:** *Move fast* is Earnest's half (it drafts; on screen it's
 sped up). *Mean it* is the person's half: the tap that email, invoices,
