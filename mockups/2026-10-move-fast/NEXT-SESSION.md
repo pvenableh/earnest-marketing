@@ -1,4 +1,4 @@
-# Next session — Phase 4, the spot
+# Next session — Phase 5, posting the spot
 
 Paste everything below the line into a fresh Claude Code session opened on
 `~/Sites/earnest/earnest-marketing`.
@@ -6,116 +6,121 @@ Paste everything below the line into a fresh Claude Code session opened on
 ---
 
 We're continuing the "Move fast. Mean it." campaign on earnest.guru (Nuxt,
-deploys to Vercel from `main`). Phases 1–3 are built. This session is
-**Phase 4: the spot.** Turn the animatic into real video files: a :24 in
-16:9 and 9:16 at 1080p with a sound bed, then a :15 and a :06. Read these
-first, in this order:
+deploys to Vercel from `main`). Phases 1–4 are done. This session is
+**Phase 5: getting the spot seen.** A posting plan for Reels, Shorts,
+LinkedIn, a :06 YouTube bumper, and "Move fast. Mean it." as the email
+sign-off. Read these first, in this order:
 
-1. `mockups/2026-10-move-fast/move-fast.html`: the animatic (the stage, its
-   timeline, its click track), the eight motion rules, the storyboard, and
-   the cut-downs: *"To make a :15, drop cuts 3 and 4 and halve each cut to
-   two beats (keep 'Say it. Tap it.' at four: the tap is the point). For a
-   :06 bumper, use the open, 'Move fast.', 'Mean it.' and the end card."*
-   Preview: `.claude/launch.json` → `mockups` →
-   http://localhost:4173/2026-10-move-fast/move-fast.html
-2. `mockups/2026-10-move-fast/README.md`, and memory `move-fast-campaign-2026-10`.
-3. For the shared engine on the live site (if a cut-down needs it):
-   `app/composables/useCutTimeline.ts`, used by `GoodWork/Montage.vue`,
-   `Cut.vue` and `HeroLoop.vue`.
+1. `mockups/2026-10-move-fast/README.md`: the page, the cut-downs, and how
+   `record.mjs` renders the spot.
+2. `mockups/2026-10-move-fast/move-fast.html`: the animatic, the motion
+   rules, the language bank ("Fast hands. Your say." is the short social
+   line), and the "Beyond the page" row. Preview: `.claude/launch.json` →
+   `mockups` → http://localhost:4173/2026-10-move-fast/move-fast.html
+   (`?cut=15`, `?cut=6` for the cut-downs).
+3. Memory `move-fast-campaign-2026-10`.
 
 **Where things stand (2026-10-14):**
-- LIVE: Phases 1–3. Phase 3 was pushed on 14 Oct (2922a18…f61bc88): the
-  shared cut engine (`useCutTimeline`), the Know/Say micro-cuts (`Cut.vue`),
-  Keep your word on the beat, the Steady speed ramp, the hero loop
-  (`HeroLoop.vue`, ≥901px only; phones keep the centred hero), and the
-  client-photo beats at real speed.
-- `app/pages/data-deletion.vue` §3, §4 and §6 were rewritten on 14 Oct to
-  match the app (a78dea2). Check with `git log origin/main..main` whether
-  Peter has pushed it.
+- LIVE: Phases 1–3 on earnest.guru.
+- Phase 4 rendered: `mockups/2026-10-move-fast/out/` holds
+  `move-fast-{24,15,06}-{16x9,9x16}.mp4` (1080p30, H.264, AAC at −14 LUFS).
+  `out/` is gitignored, so the files exist only on Peter's Mac: if it's
+  empty, re-render (README, ~25 min for all six).
+- Sound: the six files carry the animatic's own synth bed. Licensed
+  alternatives were cut for Peter to audition, from three Mixkit tracks
+  (Stock Music Free License: social video posts, online ads and YouTube are
+  allowed; TV/radio, music-only remixes and Content ID registration are not):
+  `out/move-fast-24-16x9-{tech-house,hazy,deep-urban}.mp4`, sent to Peter
+  on 14 Oct. **Ask which bed he chose** before anything is posted. To put
+  one on all six files (the MP3s are in `out/tracks/`; re-download from
+  Mixkit if `out/` was cleared), run `record.mjs --remux` with:
+  - Tech House vibes (Mixkit 130, 122 bpm):
+    `--bed out/tracks/tech-house-vibes.mp3 --bpm 122 --from 16.307`
+  - Hazy After Hours (Mixkit 132, 121 bpm):
+    `--bed out/tracks/hazy-after-hours.mp3 --bpm 121 --from 16.936`
+  - Deep Urban (Mixkit 623, 124 bpm):
+    `--bed out/tracks/deep-urban.mp3 --bpm 123.98 --from 16.488`
+  (no `--tag`, so the files keep their plain names). `--from` is a kick in
+  the source, checked against the film's 0.5s grid. The synth files are at
+  about −19 LUFS (their loudness is all transients); the licensed mixes at
+  −14. The licence text asks for no credit; it forbids registering the
+  music with any rights-management service (Content ID), and says to
+  forward any claim to team@mixkit.co.
 - Still Peter's to decide (don't change them unasked): the Know/Say eyebrows
   ("Know it" / "Book it"; recommendation: keep "One screen" / "From any
   screen"); a seventh creed line (recommendation: no); "Hear the truth" says
   "I'd call before I write a third reminder" while the montage's last cut
   sends the third reminder.
-- App-side gaps found on 14 Oct, for the app repo, not this one. The site
-  no longer promises any of them. There's no Meta Data Deletion Request
-  endpoint and no TikTok deauthorize endpoint. Meta and Threads
-  deauthorization keeps the revoked rows indefinitely. Disconnect revokes at
-  the provider only for Google Calendar and Stripe. Mention these to Peter
+- App-side gaps (app repo, not this one; the site promises none of them):
+  no Meta Data Deletion Request endpoint, no TikTok deauthorize endpoint,
+  Meta/Threads deauthorization keeps revoked rows indefinitely, Disconnect
+  revokes at the provider only for Google Calendar and Stripe. Mention them
   if Meta or TikTok app review comes up.
 
 **The one rule:** *Move fast* is Earnest's half (it drafts; on screen it's
 sped up). *Mean it* is the person's half: the tap that email, invoices,
-payments and meetings always wait for, shown at real speed. Never show a held
-action going out without the tap. Speed is shown by the pace of the edit,
-never by numbers. Don't sell Earnest in its own nouns. No "hustle",
+payments and meetings always wait for, shown at real speed. Never show a
+held action going out without the tap. Speed is shown by the pace of the
+edit, never by numbers. Don't sell Earnest in its own nouns. No "hustle",
 "autopilot", "#1". Every ask, fact and card comes from the claim map
-(`app/data/good-work.ts`). No new numbers.
+(`app/data/good-work.ts`). No new numbers — in captions too.
 
-## Part A: record the stage, frame by frame
+## Part A: the plan, put to Peter before anything is posted
 
-Real-time screen recording (Playwright `recordVideo`) drops frames and is
-soft. Render deterministically instead:
+Write it as a table in `move-fast.html` (a "Posting" section after "On the
+site"), one row per placement: file, aspect, length, caption, first frame /
+thumbnail, link, and when. Check each platform's current specs on its own
+help pages (they change): length limits, safe zones, caption length, cover
+image. Things to settle with Peter:
 
-1. The animatic's script is an IIFE with `seek(ms)` and `render()` inside.
-   Expose a recording hook only when the URL has `?record`, e.g.
-   `window.__animatic = { DUR, seek, setAspect }`, and hide the page chrome
-   so the stage alone fills the viewport. Don't change how the page behaves
-   without `?record`.
-2. The background is a `<video>` whose playback rate changes along the
-   timeline (fast through the montage, ramping 3× → 0.35× into "Mean it.").
-   For a deterministic frame, compute the footage's own time as the integral
-   of that rate up to `t` and set `video.currentTime`, waiting for `seeked`
-   before each screenshot. Write that rate function once and use it for both.
-3. Playwright with `chromium.launch({ channel: 'chromium' })` (headless-shell
-   crashes on this site),
-   `PLAYWRIGHT_MODULE=/Users/peterhoffman/Sites/earnest/earnest/node_modules/playwright`.
-   Viewport 1920×1080 (16:9) and 1080×1920 (9:16), `deviceScaleFactor: 1`.
-   Seek, wait two rAFs, screenshot to PNG at 30 fps (720 frames for the :24).
-   Light and dark: the animatic has one look; use it as it is.
-4. `ffmpeg` is at `/usr/local/bin/ffmpeg` (8.1). Encode H.264, yuv420p,
-   `-crf 18`, `+faststart`. Put renders in `mockups/2026-10-move-fast/out/`
-   and gitignore that folder: video doesn't go in the repo. Send Peter the
-   files with SendUserFile.
-5. Check: the 400ms tap holds really hold (count frames: 12 at 30 fps), the
-   whips are 140ms (4 frames, never a dissolve), nothing is cut off in 9:16,
-   and the end card is clean for a thumbnail.
+- **Which accounts.** We don't know which Earnest accounts exist on
+  Instagram, YouTube and LinkedIn, or whether Peter posts as himself. Ask.
+- **Safe zones in 9:16.** Reels and Shorts lay UI over the bottom of the
+  frame (caption, buttons) and the top. In the 9:16 the column's composer
+  sits in the bottom ~10% and the "Real time · your tap" tag top-right.
+  Check stills against the platforms' safe-zone guides
+  (`record.mjs --cut 24 --aspect v --still 5200,12400`). If the tap or the
+  card falls under UI, the fix is in the 9:16 stage CSS
+  (`.stage[data-aspect="v"] .colwrap` bottom, `.rt` top), then re-render
+  the 9:16s only.
+- **Captions** in the language bank's voice: verbs said to the person,
+  "Nothing goes out without you.", sign-off "Earnest. Do good work." and
+  earnest.guru. No claims the film doesn't show.
+- **The :06 bumper** runs as a YouTube ad (Google Ads, bumper format), so it
+  needs an ad account and spend: Peter's call entirely. The YouTube upload
+  itself can be unlisted until then.
+- **Burned-in subtitles?** The spot has no voice-over; the spoken line in
+  "Say it. Tap it." is on screen as text. Probably none needed — say so.
 
-## Part B: sound
+## Part B: the email sign-off
 
-A dry percussion bed at 120 bpm that drops out at "Mean it." (room tone
-only), with a tap sound on each real-time tap. The animatic already
-synthesises this (`blip('hat' | 'kick' | 'tap')`, WebAudio). Two options;
-put them to Peter before choosing:
+"Move fast. Mean it." over "Earnest. Do good work." in the app's email
+footer. That's the app repo (`~/Sites/earnest/earnest`):
+`server/emails/_header.mjml`, `_footer.mjml`, `server/utils/email-shell.ts`.
+Which emails? Marketing ones (early-access welcome) certainly; transactional
+ones (password reset, receipts) probably not — ask Peter. App changes go on
+the app's own branch and push rules; ask before pushing either repo.
 
-- **Render the animatic's own synth offline** (an `OfflineAudioContext` with
-  the same schedule, exported to WAV, muxed with ffmpeg). Free, exact to the
-  frame, but it sounds like a sketch.
-- **A licensed track** cut to 120 bpm. Check the licence page before
-  downloading anything; Mixkit has two licences and only the free one allows
-  commercial use. Ask Peter before any download.
+## Part C: the site
 
-## Part C: the cut-downs
-
-- **:15** as the reference says: drop cuts 3 and 4, halve each cut to two
-  beats, keep "Say it. Tap it." at four. Build it as a second timeline in
-  the animatic (a `?cut=15` param), not as a separate page.
-- **:06 bumper**: the open, "Move fast.", "Mean it.", the end card.
-- Both aspects for each. Name the files `move-fast-24-16x9.mp4`, etc.
+If Peter wants the spot on earnest.guru (e.g. the :15 behind a "Watch" link
+or in the hero), it needs a host: video stays out of git, and Vercel serves
+`public/` from the repo. Options: a YouTube/Vimeo embed (privacy-enhanced
+mode, and the privacy policy's third parties), or Vercel Blob. Don't add it
+unasked.
 
 ## How to work here
 
 - Mockups server: `mockups` in `.claude/launch.json`. Marketing dev server:
   `marketing-dev` → http://localhost:3001 (127.0.0.1 gives HTTP 426).
-- Verify with a local Playwright script, not the Browser pane. The homepage
-  has `scroll-behavior: smooth`: scripted scrolls must use
-  `scrollTo({ top, behavior: 'instant' })`. Headless screenshots can catch a
-  140ms CSS entry animation at its first keyframe (the column looks blank);
-  sample `getComputedStyle` per rAF to tell a capture artifact from a bug.
-- Commit in logical pieces on `main` locally. Ask Peter before pushing (a
-  push deploys earnest.guru) and before posting anything anywhere. End
-  commits with `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
-- Done = the :24 in both aspects with sound, the :15 and :06 in both, sent to
-  Peter; the "Beyond the page" row and the Phase 4 card in `move-fast.html`
-  marked; the Phase 5 prompt written here (posting plan: Reels, Shorts,
-  LinkedIn, the YouTube bumper, the email sign-off); memory updated.
+- `record.mjs` needs
+  `PLAYWRIGHT_MODULE=/Users/peterhoffman/Sites/earnest/earnest/node_modules/playwright`
+  and `chromium.launch({ channel: 'chromium' })` (headless-shell crashes).
+- Never post, upload, or send anything without Peter's explicit yes for
+  that action. Commit in logical pieces on `main` locally; ask before
+  pushing (a push deploys earnest.guru). End commits with
+  `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+- Done = the posting plan agreed with Peter and written into
+  `move-fast.html`, the email sign-off decided (and built if he says so),
+  whatever he approves posted, memory updated, the Phase 6 prompt (or a
+  wrap-up) written here.
