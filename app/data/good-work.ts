@@ -109,7 +109,7 @@ export const creed: { lead?: string; rest: string; em: string; after?: string }[
 	{ rest: 'is honest about ', em: 'where it stands', after: '.' },
 	{ rest: 'doesn’t need a bigger team.', em: '' },
 ];
-export const creedTurn = 'It needs a better Tuesday.';
+export const creedTurn = 'It needs a smarter system.';
 
 /* ── The column ───────────────────────────────────────────────────────── */
 export type Lane = 'do' | 'decide' | 'know';
