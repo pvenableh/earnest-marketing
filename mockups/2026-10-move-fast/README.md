@@ -44,6 +44,25 @@ PLAYWRIGHT_MODULE=/Users/peterhoffman/Sites/earnest/earnest/node_modules/playwri
 - The run prints each file's tap holds and whips in frames: holds must be 12
   (400ms), whips 4.
 
+### The After Effects kit
+
+`elements.mjs` takes the :24 apart for an editor: each frame is drawn once
+and captured once per element, the element alone on transparent (the page's
+`solo` mode). Same `PLAYWRIGHT_MODULE` as above; ~30 min for both aspects.
+
+- `out/ae-elements/{16x9,9x16}/`: `00-plate.mov` (ProRes 422 HQ: the footage,
+  photo, vignette and black, exactly as in the spot) and a ProRes 4444
+  clip with alpha for every element: each shot's type and column, the
+  receipts, "Mean it." and its line, the end card's three parts, and the
+  real-time tag per tap. These are full frame and trimmed in time. `stills/`
+  has each element at rest.
+- `audio/`: the synth mix plus stems that sum to it exactly, and the
+  licensed beds retimed to 120 bpm.
+- `timing.json` (shots, taps, whips, beats, the plate's per-frame recipe),
+  `copy.txt`, `README.txt`, and `build-comp.jsx`. Run that in After Effects
+  (File → Scripts → Run Script File…) to rebuild both comps with every layer
+  at its in-point and markers on the shots and taps.
+
 The background footage (`hero.mp4`, Mixkit 914) is 960×540, so it is soft
 when filled to 1080p, more so in 9:16; it sits darkened behind the type and
 the column, which are rendered sharp.

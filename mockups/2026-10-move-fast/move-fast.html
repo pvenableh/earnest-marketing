@@ -209,9 +209,14 @@ h1,h2,h3{font-family:var(--f-light);font-weight:300;letter-spacing:-.03em;line-h
 .stage[data-aspect="v"] .slate,.stage[data-aspect="v"] .rt{font-size:max(9px,2.2cqw)}
 
 /* ── ?record: the stage is the whole window, with no slate (record.mjs) ── */
-html.rec,html.rec body{background:#000;overflow:hidden}
+html.rec,html.rec body{background:#000;overflow:hidden;transition:none}
 html.rec .bar,html.rec .intro,html.rec .controls,html.rec .now,html.rec .sec,html.rec footer,html.rec .stage .slate{display:none}
 html.rec .stage{position:fixed;inset:0;width:100vw;height:100vh;aspect-ratio:auto;border-radius:0;box-shadow:none}
+/* ?record solo: one element of the stage at a time, on transparent (elements.mjs) */
+html.rec.cutout,html.rec.cutout body{background:transparent}
+.stage[data-solo]{background:transparent}
+.stage[data-solo] > *{visibility:hidden}
+.stage[data-solo="plate"] > :is(.bg,.bg2,.shade,.black),.stage[data-solo="rt"] > .rt,.stage[data-solo] .shot [data-solo-on]{visibility:visible}
 
 /* ── controls ── */
 .controls{display:grid;grid-template-columns:auto auto 1fr auto;gap:10px 14px;align-items:center;margin-top:16px}
@@ -842,9 +847,9 @@ footer code{font-size:12.5px}
 	// a seeded noise source, so the offline render is the same every time
 	let seed = 1;
 	const noise = () => { seed = (seed * 16807) % 2147483647; return (seed / 2147483647) * 2 - 1; };
-	function blip(kind, ctx, o) {
+	function blip(kind, ctx, o, dest = ctx.destination) {
 		const g = ctx.createGain();
-		g.connect(ctx.destination);
+		g.connect(dest);
 		if (kind === 'kick') {
 			const s = ctx.createOscillator(); s.frequency.setValueAtTime(140, o); s.frequency.exponentialRampToValueAtTime(45, o + 0.12);
 			g.gain.setValueAtTime(0.5, o); g.gain.exponentialRampToValueAtTime(0.001, o + 0.16); s.connect(g); s.start(o); s.stop(o + 0.17);
@@ -941,6 +946,7 @@ footer code{font-size:12.5px}
 		}
 		window.__animatic = {
 			DUR, CUT, HOLD, WHIP, HOLDS, SCHEDULE, MEAN_AT: MEAN.start,
+			SHOTS: shots.map((s) => { const sc = SCENES.find((x) => x.id === s.id); return { id: s.id, label: sc.label, start: s.start, end: s.end, key: s.start + s.unwarp(sc.key) }; }),
 			seek,
 			setAspect(a) { stage.dataset.aspect = a; fit(); render(); },
 			ready: Promise.all([
@@ -948,19 +954,39 @@ footer code{font-size:12.5px}
 				new Promise((r) => (video.readyState >= 2 ? r() : video.addEventListener('loadeddata', r, { once: true }))),
 				photo.decode().catch(() => {}),
 			]).then(() => { video.pause(); }),
-			// draw film time T; returns what the frame shows, for checking
+			// draw film time T; returns what the frame shows, for checking, and
+			// the plate's recipe (footage time, photo, push, black) for the AE kit
 			async frame(T) {
 				seek(T); settle(); await place(T); await raf(); await raf();
-				const s = shotAt(T);
-				return { t: T, shot: s.id, hold: stage.classList.contains('hold'), whip: s.cut ? +s.el.style.getPropertyValue('--whip') : 0 };
+				const s = shotAt(T), i = Math.min(DUR, Math.max(0, Math.floor(T)));
+				return {
+					t: T, shot: s.id, hold: stage.classList.contains('hold'), whip: s.cut ? +s.el.style.getPropertyValue('--whip') : 0,
+					footage: +(FOOT[i] + (FOOT[i + 1] - FOOT[i]) * (T - i)).toFixed(4), photo: +photo.style.opacity || 0,
+					push: +photo.style.getPropertyValue('--ps'), black: +black.style.opacity || 0,
+				};
+			},
+			// show one element alone on transparent: 'plate' (footage, photo,
+			// shade, black), 'rt' (the real-time tag), a selector inside a shot
+			// (e.g. '[data-id="know"] .colwrap'), or null for the whole stage
+			async solo(which) {
+				stage.querySelectorAll('[data-solo-on]').forEach((e) => e.removeAttribute('data-solo-on'));
+				document.documentElement.classList.toggle('cutout', !!which && which !== 'plate');
+				if (!which) delete stage.dataset.solo;
+				else if (which === 'plate' || which === 'rt') stage.dataset.solo = which;
+				else { stage.dataset.solo = 'shot'; stage.querySelector(which).setAttribute('data-solo-on', ''); }
+				await raf();
 			},
 			// the sound bed, rendered offline from SCHEDULE, as 16-bit stereo WAV
 			// (base64); kit = false leaves only the taps and the room tone, to lay
-			// under a licensed track (record.mjs --bed)
+			// under a licensed track (record.mjs --bed). Or pick stems:
+			// { kinds: ['hat', 'kick', 'snare', 'tap'], air: true }. Everything is
+			// always synthesised (the noise is seeded), so stems sum to the mix.
 			async sound(rate = 48000, kit = true) {
+				const pick = kit === true ? { kinds: ['hat', 'kick', 'snare', 'tap'], air: true } : kit === false ? { kinds: ['tap'], air: true } : kit;
 				seed = 1;
-				const ctx = new OfflineAudioContext(2, Math.ceil(rate * DUR / 1000), rate);
-				for (const e of SCHEDULE) if (kit || e.kind === 'tap') blip(e.kind, ctx, e.at / 1000);
+				const ctx = new OfflineAudioContext(2, Math.ceil(rate * DUR / 1000), rate), mute = ctx.createGain();
+				mute.gain.value = 0; mute.connect(ctx.destination);
+				for (const e of SCHEDULE) blip(e.kind, ctx, e.at / 1000, pick.kinds.includes(e.kind) ? ctx.destination : mute);
 				// room tone under everything: masked by the bed, the air that's
 				// left when it drops out at "Mean it."
 				const air = ctx.createBuffer(1, ctx.length, rate), ch = air.getChannelData(0);
@@ -968,7 +994,7 @@ footer code{font-size:12.5px}
 				const src = ctx.createBufferSource(), lo = ctx.createBiquadFilter(), hi = ctx.createBiquadFilter(), g = ctx.createGain();
 				src.buffer = air; lo.type = 'lowpass'; lo.frequency.value = 500; hi.type = 'highpass'; hi.frequency.value = 50;
 				g.gain.setValueAtTime(0, 0); g.gain.linearRampToValueAtTime(0.012, 0.4);
-				src.connect(lo); lo.connect(hi); hi.connect(g); g.connect(ctx.destination); src.start(0);
+				src.connect(lo); lo.connect(hi); hi.connect(g); g.connect(pick.air ? ctx.destination : mute); src.start(0);
 				const buf = await ctx.startRendering();
 				const L = buf.getChannelData(0), R = buf.getChannelData(1), n = L.length;
 				const out = new DataView(new ArrayBuffer(44 + n * 4));
