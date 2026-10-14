@@ -21,7 +21,7 @@ useSeoMeta({
 	ogSiteName: 'Earnest',
 });
 
-const lastUpdated = 'October 9, 2026';
+const lastUpdated = 'October 13, 2026';
 const contactEmail = 'hello@earnest.guru';
 const businessName = 'Hue';
 const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
@@ -170,6 +170,12 @@ const websiteUrl = 'https://huestudios.com';
 						Messages, meeting notes, files, marketing content, and anything you upload or create, plus information you
 						provide when you contact us for support.
 					</li>
+					<li>
+						<strong>Voice, Calls &amp; Meetings:</strong>
+						What you say to Earnest by voice, once your browser has turned it into text; meeting recordings and
+						transcripts; and, if you use Earnest's phone lines, call records, texts, voicemail and call recordings.
+						Section 18 explains each one.
+					</li>
 				</ul>
 
 				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">3.2 Information From Integrations</h3>
@@ -246,7 +252,8 @@ const websiteUrl = 'https://huestudios.com';
 					<li>
 						<strong>Grounding:</strong>
 						To generate relevant output, Earnest processes the data in your workspace — such as contacts, projects,
-						financial records, messages, and content you have added.
+						financial records, messages, and content you have added — and, when you ask Earnest during a video
+						meeting or it writes a meeting recap, that meeting's transcript.
 					</li>
 					<li>
 						<strong>Isolation between customers:</strong>
@@ -314,8 +321,15 @@ const websiteUrl = 'https://huestudios.com';
 					<li><strong>AI / large language model provider</strong> (Anthropic) — to generate AI output, under no-training business terms.</li>
 					<li><strong>Payment processing and bank sync</strong> (Stripe) — to process subscription and other payments and, if you enable it, retrieve bank transaction data. We do not store full card numbers.</li>
 					<li><strong>Email delivery</strong> (SendGrid) — to send transactional, notification and marketing emails, including marketing email our customers send to their own lists, and to report delivery, opens and clicks.</li>
+					<li><strong>Video meetings</strong> (Daily) — to run Earnest's video meetings and phone dial-in to them, to store meeting recordings when recording is on, and to transcribe meetings when transcription is on, which Daily does through its speech-to-text provider (Deepgram).</li>
+					<li><strong>Phone and text messaging</strong> (Twilio) — for organizations that add Earnest's phone lines: to carry calls and texts, record voicemail and, where switched on, calls, and to transcribe voicemail. Spoken phone menus use Twilio's built-in voices, which Twilio produces with Amazon Polly.</li>
+					<li><strong>Synthetic voices</strong> (ElevenLabs) — to read Earnest's replies aloud in a custom voice, for organizations that add Custom Voice, and to record the greetings and menu prompts of phone lines set to an Earnest voice. ElevenLabs receives the text to be spoken, never your voice.</li>
 					<li><strong>Social and calendar integrations</strong> you choose to connect (such as Instagram/Meta, TikTok, Google) — to power those specific features.</li>
 				</ul>
+				<p class="mt-4">
+					Talking to Earnest uses your web browser's own speech recognition, which is provided by your browser's maker
+					rather than by us; see Section 18.
+				</p>
 				<p class="mt-4">
 					We only request the minimum access necessary to provide a feature, and you can disconnect an integration at
 					any time. See our
@@ -380,6 +394,11 @@ const websiteUrl = 'https://huestudios.com';
 					<li>
 						<strong>Activity &amp; Security Logs:</strong>
 						Retained for a limited period for security and audit purposes.
+					</li>
+					<li>
+						<strong>Recordings &amp; Transcripts:</strong>
+						Meeting and voicemail transcripts are workspace data. Call, voicemail and meeting recordings are held by
+						Twilio or Daily; see Section 18.
 					</li>
 				</ul>
 				<p class="mt-4">
@@ -606,6 +625,127 @@ const websiteUrl = 'https://huestudios.com';
 					<nuxt-link to="/data-deletion" class="text-primary hover:underline">Data Deletion Instructions</nuxt-link>
 					or email <a :href="`mailto:${contactEmail}`" class="text-primary hover:underline">{{ contactEmail }}</a>.
 				</p>
+			</section>
+
+			<!-- Voice, phone and meetings — added 2026-10-13. Keep it true to the code (earnest repo):
+			     useSpeechInput.ts / useSpeechOutput.ts / useHandsFree.ts / shared/speech-wake.ts (browser speech),
+			     server/api/ai/speech.post.ts + server/utils/hosted-voice.ts (ElevenLabs, Custom Voice),
+			     server/utils/daily.ts + meeting-defaults.ts + api/video/webhook.post.ts (Daily, Deepgram, recaps),
+			     server/api/twilio/* + server/utils/phone-*.ts (Twilio, voicemail, recording, notifications).
+			     "Keeping and deleting recordings": server/utils/purge-recordings.ts (run by purge-org.ts and by
+			     POST /api/platform/purge-recordings for requests) and server/api/org/cleanup-archived.ts, which
+			     deletes an archived org's recordings at RECORDINGS_RETENTION_DAYS (shared/org-retention.ts, 23).
+			     The 30-day promise depends on that cron — change the two together. -->
+			<section id="voice" class="mb-10">
+				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">18. Voice, Phone Calls and Video Meetings</h2>
+				<p>
+					Several parts of Earnest involve speech: talking to Earnest, hearing it reply, video meetings, and business
+					phone lines. This section explains who hears what.
+				</p>
+
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">Talking to Earnest</h3>
+				<ul class="list-disc pl-6 space-y-2">
+					<li>
+						When you use the microphone in Earnest, your <strong>web browser</strong> turns your speech into text.
+						Earnest's servers never receive the audio, only the text, and only once it is sent to Earnest.
+					</li>
+					<li>
+						Your browser's maker provides that speech recognition, under its own privacy policy. In Google Chrome
+						the audio is processed on Google's servers. In Safari, including on iPhone and iPad, Apple's dictation
+						handles it, on your device or on Apple's servers depending on your device and settings. Firefox does not
+						offer speech recognition, so the microphone does not appear there.
+					</li>
+					<li>
+						<strong>Hands-free</strong> keeps the microphone open in that browser tab until you turn it off, leave
+						the page or reload. Only what begins with "Earnest" is sent to Earnest; everything else is discarded.
+						Your browser's speech service still hears all of it while Hands-free is on.
+					</li>
+					<li>
+						You can approve some of Earnest's suggestions by saying yes. Email, invoices and meetings can never be
+						approved by voice: they always wait for your tap.
+					</li>
+				</ul>
+
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">Hearing Earnest reply</h3>
+				<ul class="list-disc pl-6 space-y-2">
+					<li>
+						Replies are read aloud by a voice on your device. Some browsers also offer online voices, which Earnest
+						labels "(online)"; with those, the text is sent to your browser's maker to be spoken.
+					</li>
+					<li>
+						With <strong>Custom Voice</strong>, the text of each reply to be read aloud is sent to ElevenLabs, which
+						returns the audio. Replies can include names and figures from your workspace. Your own voice is never
+						sent to ElevenLabs.
+					</li>
+				</ul>
+
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">Video meetings</h3>
+				<ul class="list-disc pl-6 space-y-2">
+					<li>
+						Earnest's video meetings run on Daily. The audio and video of a meeting pass through Daily to reach the
+						other people in it.
+					</li>
+					<li>
+						<strong>Recording</strong> and <strong>transcription</strong> start when the host joins, if they are on
+						for that meeting. Whether they are on by default depends on your plan, and the host can change it.
+						Recordings are stored by Daily, and Earnest keeps a link to them. Transcription is done by Daily through
+						Deepgram, and the transcript is saved in your workspace.
+					</li>
+					<li>
+						When the meeting ends, the transcript is sent to Anthropic to write a recap. If you ask Earnest a question
+						during the meeting, the transcript so far is sent with your question. Earnest does not speak or listen in
+						the meeting itself.
+					</li>
+					<li>
+						If you record or transcribe a meeting, you are responsible for telling the people in it and for having
+						any consent the law requires where you and they are.
+					</li>
+				</ul>
+
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">Phone lines</h3>
+				<p>For organizations that add Earnest's phone lines (the Communications add-on):</p>
+				<ul class="list-disc pl-6 space-y-2">
+					<li>
+						Calls and texts are carried by Twilio, including calls made from the browser. Earnest keeps a record of
+						each call and text, including the caller's number and, when known, their name.
+					</li>
+					<li>
+						<strong>Voicemail</strong> is recorded by Twilio, for up to two minutes, and transcribed by Twilio. The
+						transcript is saved in your workspace, added to the caller's contact record, and quoted (the first 280
+						characters) in the notifications Earnest sends about it, including email and push notifications.
+					</li>
+					<li>
+						<strong>Call recording.</strong> A line set to record every call tells both sides "This call may be
+						recorded." The Record button during a call does not announce itself: if you use it, you are responsible
+						for any notice and consent the law requires.
+					</li>
+					<li>
+						No AI listens to or answers phone calls. Phone menus are press-a-number, and their greetings are spoken by
+						Twilio's built-in voices or by an Earnest voice recorded from the greeting's text by ElevenLabs.
+					</li>
+					<li>
+						To register your business for texting, the business details you enter are sent to Twilio and, through
+						it, to the mobile carriers.
+					</li>
+				</ul>
+
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">Keeping and deleting recordings</h3>
+				<p>
+					Transcripts and voicemail text are part of your workspace and are kept and deleted like the rest of it
+					(Section 9). Call, voicemail and meeting recordings, and the transcripts Twilio and Daily keep with them,
+					are held by Twilio and Daily and played back through Earnest.
+				</p>
+				<ul class="list-disc pl-6 space-y-2 mt-4">
+					<li>
+						<strong>When you close your account,</strong> its recordings are deleted from Twilio and Daily within
+						30 days. They cannot be brought back if you reopen the account after that.
+					</li>
+					<li>
+						<strong>At any other time,</strong> email
+						<a :href="`mailto:${contactEmail}`" class="text-primary hover:underline">{{ contactEmail }}</a>
+						and we will delete your organization's recordings from Twilio and Daily within 30 days.
+					</li>
+				</ul>
 			</section>
 		</div>
 
