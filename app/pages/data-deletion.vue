@@ -122,41 +122,73 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 				</p>
 			</section>
 
-			<!-- Option 3: Disconnect Integrations -->
+			<!-- Option 3: Disconnect an integration. There is no single "Connected
+			     Accounts" screen (app, 2026-10-14): each connection is removed where it
+			     was made. Social: Marketing → Accounts → Settings (SettingsSurface.vue,
+			     DELETE server/api/social/accounts/[id].ts, no provider revoke). Calendars:
+			     Scheduler → Settings → Calendar Sync (server/utils/calendar-disconnect.ts,
+			     Google revoked, Outlook not). Stripe: Money → Deposits
+			     (server/api/stripe/connect/disconnect.post.ts, deauthorized). All
+			     synchronous; no choice of what to delete is offered. -->
 			<section class="mb-10">
 				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">3. Disconnect an Integration</h2>
 				<p>
-					Disconnecting an integration immediately revokes Earnest's access and stops any further data collection from
-					that service.
+					Each connection is disconnected in the part of Earnest where you made it. It takes effect at once: Earnest
+					deletes its stored access to that account straight away and collects nothing more from it.
 				</p>
-				<ol class="list-decimal pl-6 space-y-2">
-					<li>Sign in to your Earnest account.</li>
+				<ul class="list-disc pl-6 space-y-2">
 					<li>
-						Navigate to
-						<strong>Settings &rarr; Connected Accounts</strong>
-						.
+						<strong>Social accounts</strong> (Instagram, Facebook, Threads, LinkedIn, TikTok): go to
+						<strong>Marketing &rarr; Accounts &rarr; Settings</strong>, open the account's menu (&#8942;), choose
+						<strong>Disconnect</strong>, and confirm.
 					</li>
-					<li>Locate the integration you want to remove (for example, Instagram, TikTok, a calendar, or a bank/payment connection).</li>
 					<li>
-						Click
-						<strong>Disconnect</strong>
-						and confirm when prompted.
+						<strong>Calendars</strong> (Google, Outlook): go to
+						<strong>Scheduler &rarr; Settings &rarr; Calendar Sync</strong>. Under
+						<strong>Connected calendars</strong>, choose <strong>Disconnect</strong> and confirm.
 					</li>
-				</ol>
+					<li>
+						<strong>Stripe</strong> (how your clients pay you): go to <strong>Money &rarr; Deposits</strong>, choose
+						<strong>Disconnect &amp; switch</strong>, then <strong>Yes, disconnect</strong>.
+					</li>
+				</ul>
+				<p class="mt-4">What disconnecting removes:</p>
+				<ul class="list-disc pl-6 space-y-2">
+					<li>
+						<strong>A social account:</strong> the connection and its access tokens, and the inbox threads, messages
+						and activity synced from it, are deleted at once. Posts you created in Earnest stay in your workspace, and
+						anything already published stays on the platform. Earnest no longer holds any access to the account. To
+						also take Earnest off the platform's own list of connected apps, remove it there as well (Section 4).
+					</li>
+					<li>
+						<strong>A calendar:</strong> the connection and the busy times synced from it are deleted at once. For
+						Google, Earnest also asks Google to revoke its access, unless another of your Earnest calendar connections
+						uses the same Google account. For Outlook, also remove Earnest from your Microsoft account's app
+						permissions.
+					</li>
+					<li>
+						<strong>Stripe:</strong> Earnest asks Stripe to disconnect the account and removes it from your
+						organization. Your Stripe account and its records stay with Stripe.
+					</li>
+				</ul>
 				<p class="mt-4">
-					Once disconnected, the tokens for that account are revoked and removed from our systems within 24 hours, and
-					data synced from that account is deleted according to your selection on the confirmation screen.
+					Earnest does not offer a choice of what to keep when you disconnect. To have anything else removed, email us
+					(Section 5).
 				</p>
 			</section>
 
-			<!-- Option 4: Revoke from Platform -->
+			<!-- Option 4: Revoke from the platform. Meta (Facebook, Instagram) and
+			     Threads call our deauthorize endpoints, which blank the tokens and mark
+			     the account revoked but keep the row (server/api/social/oauth/facebook/
+			     deauthorize.post.ts, threads/deauthorize.post.ts). TikTok and LinkedIn
+			     call nothing. No timed purge exists, so none is promised. -->
 			<section class="mb-10">
 				<h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
 					4. Revoke Access Directly From a Connected Platform
 				</h2>
 				<p>
-					You can also revoke Earnest's access from the connected service itself. This is useful if you no longer have
-					access to your Earnest account.
+					You can also remove Earnest from the connected service itself. This is useful if you no longer have access
+					to your Earnest account.
 				</p>
 
 				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">4.1 Instagram / Meta</h3>
@@ -197,10 +229,19 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 						.
 					</li>
 				</ol>
-				<p class="mt-4">
-					Revoking access through the platform invalidates our tokens immediately. Any cached data on our side is purged
-					within 30 days as part of our standard retention process.
-				</p>
+
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mt-6 mb-3">4.3 What happens on our side</h3>
+				<ul class="list-disc pl-6 space-y-2">
+					<li>
+						<strong>Instagram, Facebook and Threads</strong> tell us when you remove Earnest, and we erase that
+						account's access tokens immediately. The account then shows in Earnest as disconnected, and what was
+						synced from it stays until you disconnect it in Earnest (Section 3) or ask us by email (Section 5).
+					</li>
+					<li>
+						<strong>TikTok and LinkedIn</strong> do not tell us. Our access stops working, but the connection and
+						what was synced from it stay in Earnest until you disconnect it there or ask us by email.
+					</li>
+				</ul>
 			</section>
 
 			<!-- Option 5: Email Request -->
@@ -244,7 +285,7 @@ const businessAddress = '605 Lincoln Road Suite 200, Miami Beach, FL';
 					<li>
 						<strong>Integration Tokens &amp; Synced Data:</strong>
 						Encrypted access and refresh tokens for connected accounts, and data synced from them (such as social
-						analytics or financial transactions).
+						inbox messages, social analytics and calendar busy times).
 					</li>
 					<li>
 						<strong>Account Metadata:</strong>
