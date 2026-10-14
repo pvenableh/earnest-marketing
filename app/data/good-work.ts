@@ -126,6 +126,8 @@ export interface ColumnCard {
 	/** The first is the primary action. */
 	acts: string[];
 	note?: string;
+	/** What the primary action reads once tapped, in the montage. Default "✓ Approved". */
+	done?: string;
 }
 
 export interface Column {
@@ -145,6 +147,26 @@ export interface Column {
 	chips: { lane: Lane; text: string }[];
 	/** The scope chip in the composer: what Earnest can see. */
 	scope?: { noun: string; name: string };
+	/** The ask arrived by voice (Hands-free): what was heard, wake word and all. `you` is what it became. */
+	heard?: string;
+}
+
+/**
+ * One frame of a column in motion (GoodWork/Montage.vue). Without a frame a
+ * column is drawn whole, as everywhere else on the page.
+ */
+export interface ColumnFrame {
+	/** How much of the ask has arrived, 0–1. */
+	ask: number;
+	/** The composer is listening (Hands-free), showing this much of `heard`, 0–1. */
+	listening?: number | null;
+	lede: boolean;
+	/** How many facts are in. */
+	facts: number;
+	card: boolean;
+	/** How much of the spoken line has been read out, 0–1. */
+	say: number;
+	tap: 'idle' | 'press' | 'done';
 }
 
 export interface Beat {
@@ -291,6 +313,110 @@ export const kept = {
 		{ k: 'Billed', t: 'Milestone 1 · $6,200', s: 'one press · Stripe · lands on cash flow' },
 	],
 };
+
+/* ── The montage: "Move fast." ───────────────────────────────────────────
+   Five cuts, scrolled through on the homepage (GoodWork/Montage.vue), from
+   the animatic in mockups/2026-10-move-fast/move-fast.html. Every column is
+   one already on this page or built from the same claim-map facts — no new
+   numbers. Earnest's half is sped up; each tap plays at real speed, and the
+   ✓ says what really happened. */
+export interface MontageCut {
+	id: string;
+	/** The verb, said to the person. */
+	verb: string;
+	small: string;
+	column: Column;
+	waiting: number;
+	/** The ✓ under the column, after the tap. */
+	stamp: string;
+	/** The receipt it leaves under "Move fast.". */
+	receipt: string;
+}
+
+const [knowBeat, sayBeat] = beatsOpen as [Beat, Beat];
+const [truthBeat, voiceBeat] = beatsOverPhoto as [Beat, Beat];
+const [, project, billed] = kept.steps;
+
+export const montage: MontageCut[] = [
+	{
+		id: 'know',
+		verb: 'Know it',
+		small: 'Where you stand',
+		// The read alone; its Create tasks card waits for the beat below.
+		column: { ...knowBeat.column, card: undefined },
+		waiting: WAITING,
+		stamp: '✓ Read, from your records',
+		receipt: '✓ Read',
+	},
+	{
+		id: 'book',
+		verb: 'Book it',
+		small: 'Friday, 10:00',
+		column: sayBeat.column,
+		waiting: WAITING,
+		stamp: '✓ Booked · invite sent after your tap',
+		receipt: '✓ Booked',
+	},
+	{
+		id: 'voice',
+		verb: 'Say it like you',
+		small: 'Warmer, same three points',
+		column: { ...voiceBeat.column, card: { ...voiceBeat.column.card!, done: '✓ Using this' } },
+		waiting: WAITING - 1,
+		stamp: '✓ Scheduled · not published',
+		receipt: '✓ Scheduled',
+	},
+	{
+		id: 'bill',
+		verb: 'Bill it',
+		small: 'Signed Tuesday',
+		column: {
+			label: 'Earnest billing a milestone',
+			you: 'Bill Helios, milestone one',
+			// The "Keep your word" chain, the same contract and milestone.
+			lede: 'Signed Tuesday: booking site, three phases, $18,500.',
+			card: {
+				kind: 'Create invoice',
+				held: true,
+				title: billed!.t,
+				rows: [['Via', 'Stripe · lands on cash flow']],
+				acts: ['Approve', 'Adjust'],
+			},
+			chips: [{ lane: 'know', text: 'What’s left to bill on Helios?' }],
+			scope: { noun: 'Project', name: project!.t },
+		},
+		waiting: WAITING - 2,
+		stamp: '✓ Billed',
+		receipt: '✓ Billed',
+	},
+	{
+		// Say it. Tap it. — Hands-free. The words are the app's own for a held
+		// card (useHandsFree offer: "… This one needs a tap."); email can never
+		// be approved by voice (AUTONOMY_SAFETY_FLOOR).
+		id: 'saytap',
+		verb: 'Say it. Tap it.',
+		small: 'Chase Meridian, out loud',
+		column: {
+			label: 'Earnest drafting a payment reminder, asked for out loud',
+			heard: 'Hey Earnest, chase Meridian',
+			you: 'Chase Meridian',
+			lede: 'A third reminder to Amara, warmer. 0042 is at 92 days.',
+			card: {
+				kind: 'Send email',
+				held: true,
+				title: '“Amara — checking in on 0042 before the month closes…”',
+				rows: [['To', 'Amara Okafor · Meridian']],
+				acts: ['Approve', 'Adjust'],
+			},
+			say: 'Earnest proposes: send Amara a payment reminder. This one needs a tap.',
+			chips: [truthBeat.column.chips[1]!],
+			scope: truthBeat.column.scope,
+		},
+		waiting: WAITING - 3,
+		stamp: '✓ Sent, after your tap',
+		receipt: '✓ Sent',
+	},
+];
 
 /** What it never does. Each one is a rule in the app, not a setting. */
 export const never = [

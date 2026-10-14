@@ -60,7 +60,10 @@
 				<p class="gw-creed__k" aria-hidden="true">Keep scrolling</p>
 			</section>
 
-			<GoodWorkScrub v-if="appSequence" :frames="appSequence.frames" :count="appSequence.count" :pad="appSequence.pad" :captions="scrubCaptions" />
+			<!-- "Move fast." — the campaign's montage, played by scroll. It took the
+			     parked app scrub's place (GoodWork/Scrub.vue, still ready if the demo
+			     is re-recorded: data/good-work.ts · appSequence). -->
+			<GoodWorkMontage />
 
 			<!-- ─── Know where you stand · Say the next move ─── -->
 			<section
@@ -263,7 +266,6 @@
 import '~/assets/css/good-work.css';
 import { plans, compareRows } from '~/data/landing';
 import {
-	appSequence,
 	beatsOpen,
 	beatsOverPhoto,
 	creed,
@@ -280,13 +282,6 @@ const year = new Date().getFullYear();
 
 /** The capacity ladder: names and prices from `plans`, rows from `compareRows`, both keyed by the app's plan keys. */
 const ladder = plans;
-
-const scrubCaptions = [
-	{ at: 0, title: 'Open it.', text: 'What’s waiting on you, and the number that’s wrong, come first.', where: 'Home' },
-	{ at: 0.35, title: 'Go where the money is.', text: '$12,000 out, all of it past 90 days.', where: 'Money · Invoices' },
-	{ at: 0.7, title: 'Ask.', text: 'In plain words, from the screen you’re on. It knows which invoice you mean.', where: 'The column' },
-	{ at: 0.93, title: 'It answers from your records. You tap.', text: 'Nothing reaches a client or moves money without you.', where: 'The reply' },
-];
 
 /* Light or dark. The head script has already chosen; this only flips it,
    remembers the flip, and follows the system for anyone who never flipped. */

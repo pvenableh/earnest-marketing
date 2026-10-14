@@ -979,6 +979,76 @@ html[data-gw-mode='dark'] .gw-beat--tone {
 	color: var(--pop);
 }
 
+/* the column in motion — a `frame` (GoodWork/Montage.vue): parts arrive,
+   the ask types or is heard, the tap presses and lands */
+.gw .gw-at {
+	opacity: 0;
+	transform: translateY(6px);
+	transition: opacity 0.16s ease, transform 0.16s ease;
+}
+.gw .gw-at.in {
+	opacity: 1;
+	transform: none;
+}
+.gw-col__you.caret::after {
+	content: '';
+	display: inline-block;
+	width: 1.5px;
+	height: 1em;
+	margin-left: 2px;
+	vertical-align: -2px;
+	background: var(--pop);
+}
+.gw-col__you.voice {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+.gw-col__you .mic {
+	color: var(--pop);
+	flex: none;
+}
+.gw-col__row.live {
+	border-color: var(--pop);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--pop) 22%, transparent);
+}
+.gw-col__row .heard {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	overflow: hidden;
+	white-space: nowrap;
+	color: var(--ink);
+}
+.gw-col__row .rec {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--bad);
+	flex: none;
+	animation: gw-rec 1s ease-in-out infinite;
+}
+@keyframes gw-rec {
+	50% {
+		opacity: 0.35;
+	}
+}
+.gw-col--frame .gw-col__acts span.go {
+	transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+.gw-col__acts span.go.press {
+	box-shadow:
+		0 0 0 4px color-mix(in srgb, var(--pop) 35%, transparent),
+		0 0 0 12px color-mix(in srgb, var(--pop) 12%, transparent);
+}
+.gw-col__acts span.go.done {
+	background: var(--ok);
+	border-color: var(--ok);
+	color: var(--pop-ink);
+}
+
 /* ── over a photograph: the two beats on the client, "Keep your word" ──
    These sections are always dark, in both modes; the tokens are redefined
    for them so the column turns to dark glass. */
@@ -1627,6 +1697,301 @@ html[data-gw-mode='dark'] .gw-cta .gw-slot--empty {
 .gw--motion .gw-kept__step.in + .gw-kept__step::before,
 .gw--motion .gw-kept__step.in::before {
 	opacity: 1;
+}
+
+/* ── "Move fast." — the montage (GoodWork/Montage.vue) ──
+   Still (the server render, no JS, reduced motion): the five verbs and what
+   happened, beside one column. Live: a pinned stage over the office loop,
+   one cut at a time, played by scroll. It follows the page's mode: the
+   footage is washed into the page colour, as in the hero. */
+.gw-montage {
+	position: relative;
+}
+.gw-montage .dot {
+	color: var(--pop);
+}
+.gw-montage__fast {
+	font-family: var(--f-light);
+	font-weight: 300;
+	letter-spacing: -0.045em;
+	line-height: 0.9;
+	font-size: clamp(56px, 9vw, 132px);
+	color: var(--ink);
+}
+.gw-montage__still {
+	display: grid;
+	grid-template-columns: 1fr minmax(0, 360px);
+	gap: 48px;
+	align-items: center;
+	padding-block: 96px;
+}
+.gw-montage__list ol {
+	list-style: none;
+	margin: 32px 0 0;
+	padding: 0;
+	display: grid;
+	gap: 14px;
+}
+.gw-montage__list li {
+	display: grid;
+	gap: 2px;
+}
+.gw-montage__list li b {
+	font-family: var(--f-light);
+	font-weight: 300;
+	font-size: clamp(24px, 2.6vw, 32px);
+	letter-spacing: -0.02em;
+	line-height: 1.1;
+	color: var(--ink);
+}
+.gw-montage__list li span {
+	font-size: 14px;
+	color: var(--ok);
+}
+@media (max-width: 900px) {
+	.gw-montage__still {
+		grid-template-columns: 1fr;
+		gap: 36px;
+		padding-block: 64px;
+	}
+	.gw-montage__still .gw-col {
+		justify-self: center;
+	}
+}
+
+.gw-montage.is-live {
+	height: 640vh;
+}
+.gw-montage__sticky {
+	position: sticky;
+	top: 0;
+	height: 100vh;
+	height: 100svh;
+	overflow: hidden;
+	isolation: isolate;
+	display: grid;
+}
+.gw-montage__bg {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+}
+.gw-montage__bg img,
+.gw-montage__bg video {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	filter: saturate(0.6) blur(1px);
+	transform: scale(1.04);
+	transition: filter 0.2s;
+}
+.gw-montage__bg video {
+	opacity: 0;
+	transition: opacity 1.2s ease, filter 0.2s;
+}
+.gw-montage__bg video.on {
+	opacity: 1;
+}
+.gw-montage__bg::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background:
+		linear-gradient(180deg, var(--bg) 0%, transparent 14%, transparent 86%, var(--bg) 100%),
+		linear-gradient(
+			90deg,
+			color-mix(in srgb, var(--bg) 84%, transparent) 0%,
+			color-mix(in srgb, var(--bg) 62%, transparent) 55%,
+			color-mix(in srgb, var(--bg) 50%, transparent) 100%
+		);
+}
+html[data-gw-mode='dark'] .gw-montage__bg img,
+html[data-gw-mode='dark'] .gw-montage__bg video {
+	filter: saturate(0.55) brightness(0.75) blur(1px);
+}
+/* the tap: the room all but stops */
+.gw-montage.hold .gw-montage__bg img,
+.gw-montage.hold .gw-montage__bg video {
+	filter: saturate(0.2) blur(1px);
+}
+.gw-montage__rt {
+	position: absolute;
+	top: 84px;
+	right: 24px;
+	display: flex;
+	align-items: center;
+	gap: 0.6em;
+	font-size: 11px;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--ink-2);
+	opacity: 0;
+	transition: opacity 0.12s;
+}
+.gw-montage__rt::before {
+	content: '';
+	width: 0.7em;
+	height: 0.7em;
+	border-radius: 50%;
+	background: var(--warn);
+}
+.gw-montage.hold .gw-montage__rt {
+	opacity: 1;
+}
+.gw-montage__cut,
+.gw-montage__end {
+	grid-area: 1/1;
+	width: 100%;
+	max-width: var(--measure);
+	margin-inline: auto;
+	padding: 72px 24px 32px;
+}
+.gw-montage__cut {
+	display: grid;
+	grid-template-columns: 1fr 360px;
+	gap: 48px;
+	align-items: center;
+}
+/* the whip: 140ms, motion blur, never a dissolve */
+.gw-montage__word {
+	font-family: var(--f-light);
+	font-weight: 300;
+	letter-spacing: -0.04em;
+	line-height: 0.92;
+	font-size: clamp(56px, 8vw, 120px);
+	color: var(--ink);
+	animation: gw-whip-l 0.14s ease-out both;
+}
+.gw-montage__word small {
+	display: block;
+	margin-top: 18px;
+	font-family: var(--f-body);
+	font-size: 12px;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--ink-3);
+}
+.gw-montage__colwrap {
+	position: relative;
+	animation: gw-whip-r 0.14s ease-out both;
+}
+@keyframes gw-whip-l {
+	from {
+		transform: translateX(-6vw);
+		filter: blur(8px);
+		opacity: 0;
+	}
+}
+@keyframes gw-whip-r {
+	from {
+		transform: translateX(140px);
+		filter: blur(6px);
+		opacity: 0;
+	}
+}
+.gw-montage__colwrap .gw-col {
+	width: 360px;
+	max-width: 100%;
+	height: min(560px, calc(100svh - 150px));
+	min-height: 0;
+}
+.gw-montage__colwrap .gw-col__thread {
+	overflow: hidden;
+	-webkit-mask-image: linear-gradient(180deg, transparent 0, #000 28px);
+	mask-image: linear-gradient(180deg, transparent 0, #000 28px);
+}
+.gw-montage__stamp {
+	position: absolute;
+	left: 50%;
+	bottom: -18px;
+	transform: translateX(-50%) scale(0.85);
+	white-space: nowrap;
+	background: var(--ok);
+	color: var(--pop-ink);
+	border-radius: 999px;
+	padding: 7px 16px;
+	font-size: 13.5px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+	opacity: 0;
+	transition: opacity 0.16s ease, transform 0.16s ease;
+}
+.gw-montage__stamp.in {
+	opacity: 1;
+	transform: translateX(-50%) scale(1);
+}
+.gw-montage__end {
+	display: grid;
+	place-content: center;
+	text-align: center;
+}
+.gw-montage__end .gw-montage__fast {
+	font-size: clamp(72px, 15vw, 220px);
+}
+.gw-montage__receipts {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 8px;
+	margin-top: 32px;
+}
+.gw-montage__receipts span {
+	border: 1px solid color-mix(in srgb, var(--ok) 50%, transparent);
+	background: color-mix(in srgb, var(--ok) 12%, transparent);
+	color: var(--ok);
+	border-radius: 999px;
+	padding: 6px 14px;
+	font-size: 14px;
+}
+.gw-montage__hint {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 22px;
+	text-align: center;
+	font-size: 12px;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--ink-3);
+	transition: opacity 0.4s;
+}
+.gw-montage__hint.off {
+	opacity: 0;
+}
+@media (max-width: 900px) {
+	.gw-montage.is-live {
+		height: 560vh;
+	}
+	.gw-montage__cut {
+		grid-template-columns: 1fr;
+		align-content: center;
+		justify-items: center;
+		gap: 20px;
+		padding: 76px 16px 28px;
+	}
+	.gw-montage__word {
+		justify-self: stretch;
+		font-size: clamp(40px, 11vw, 64px);
+	}
+	.gw-montage__word small {
+		margin-top: 10px;
+		font-size: 11px;
+	}
+	.gw-montage__colwrap .gw-col {
+		height: min(520px, calc(100svh - 240px));
+	}
+	/* a phone has room for the thread or the suggestions, not both */
+	.gw-montage__colwrap .gw-col__chips {
+		display: none;
+	}
+	.gw-montage__rt {
+		top: 76px;
+		right: 16px;
+	}
+	.gw-montage__end {
+		padding-inline: 16px;
+	}
 }
 
 /* ── the app, scrubbed by scroll (GoodWork/Scrub.vue) ── */
