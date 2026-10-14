@@ -30,9 +30,9 @@
 				<ul v-if="column.facts?.length">
 					<li v-for="(f, i) in column.facts" :key="f.t" :class="[at((frame?.facts ?? 0) > i), { bad: f.bad }]"><b>{{ f.v }}</b> — {{ f.t }}</li>
 				</ul>
-				<p v-if="column.prose" class="gw-col__prose" v-html="column.prose"></p>
-				<p v-if="column.hedge" class="gw-col__hedge">{{ column.hedge }}</p>
-				<p v-if="column.ask" class="gw-col__ask">{{ column.ask }}</p>
+				<p v-if="column.prose" class="gw-col__prose" :class="at(frame?.lede)" v-html="column.prose"></p>
+				<p v-if="column.hedge" class="gw-col__hedge" :class="at(frame?.lede)">{{ column.hedge }}</p>
+				<p v-if="column.ask" class="gw-col__ask" :class="at(frame?.lede)">{{ column.ask }}</p>
 				<div v-if="column.card" class="gw-col__card" :class="at(frame?.card)">
 					<div class="gw-col__kind">
 						<b>{{ column.card.kind }}</b>

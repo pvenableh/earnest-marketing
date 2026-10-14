@@ -294,6 +294,7 @@ export const beatsOverPhoto: Beat[] = [
 					'“We changed three things on the Pinecrest site this month. Each one came from something a patient told us at the front desk.”',
 				acts: ['Use this', 'Again'],
 				note: 'scheduled · not published',
+				done: '✓ Using this',
 			},
 			chips: [
 				{ lane: 'do', text: 'Draft two more like it' },
@@ -301,6 +302,7 @@ export const beatsOverPhoto: Beat[] = [
 			],
 			scope: { noun: 'Post', name: 'Three things we changed on the Pinecrest site' },
 		},
+		stamp: '✓ Scheduled · not published',
 	},
 ];
 
@@ -367,9 +369,9 @@ export const montage: MontageCut[] = [
 		id: 'voice',
 		verb: 'Say it like you',
 		small: 'Warmer, same three points',
-		column: { ...voiceBeat.column, card: { ...voiceBeat.column.card!, done: '✓ Using this' } },
+		column: voiceBeat.column,
 		waiting: WAITING - 1,
-		stamp: '✓ Scheduled · not published',
+		stamp: voiceBeat.stamp!,
 		receipt: '✓ Scheduled',
 	},
 	{

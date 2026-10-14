@@ -2,7 +2,8 @@
   GoodWork/Cut — a beat's column that plays its cut once, by clock, when it
   comes into view: the ask types, the reply arrives, the card, the tap at
   real speed, the ✓. Then it rests there, whole and tapped. No whips: those
-  belong to the montage. The timeline is useCutTimeline's, the montage's own.
+  belong to the montage. The timeline is useCutTimeline's, the montage's own;
+  `pace="real"` (the beats over the client photograph) speeds nothing up.
 
   The server render, a visitor without JS, reduced motion, and a column
   already on screen when the page opens (a deep link, a reload) all get the
@@ -20,13 +21,14 @@
 import { columnWaiting, type Column } from '~/data/good-work';
 import { planCut, useCutClock, useCutTimeline } from '~/composables/useCutTimeline';
 
-const props = withDefaults(defineProps<{ cut: string; column: Column; stamp?: string; waiting?: number }>(), {
+const props = withDefaults(defineProps<{ cut: string; column: Column; stamp?: string; waiting?: number; pace?: 'cut' | 'real' }>(), {
 	stamp: undefined,
+	pace: 'cut',
 	waiting: columnWaiting,
 });
 
 const el = ref<HTMLElement | null>(null);
-const plan = planCut(props.cut, props.column);
+const plan = planCut(props.cut, props.column, props.pace);
 /** Null draws the column whole; once armed, the clock draws it. */
 const armed = ref(false);
 const clock = useCutClock();

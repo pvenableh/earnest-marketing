@@ -36,8 +36,14 @@ export interface CutPlan {
 
 export type TapState = 'idle' | 'press' | 'done';
 
-/** A cut is four beats, a voice cut six: the spoken line needs time to be heard. */
-export function planCut(id: string, col: Column): CutPlan {
+/**
+ * A cut is four beats, a voice cut six: the spoken line needs time to be
+ * heard. At `real` pace nothing is sped up — the ask types at about 28ms a
+ * character and each part arrives at reading speed: the "Mean it" beats, the
+ * montage's counterpoint. (Real pace is for typed asks.)
+ */
+export function planCut(id: string, col: Column, pace: 'cut' | 'real' = 'cut'): CutPlan {
+	if (pace === 'real') return planReal(id, col);
 	const voice = !!col.heard;
 	const lede = voice ? 1200 : 620;
 	const facts = (col.facts ?? []).map((_, i) => lede + 140 + i * 100);
@@ -56,6 +62,17 @@ export function planCut(id: string, col: Column): CutPlan {
 		tap,
 		stamp: tap == null ? 1350 : tap + HOLD + 100,
 	};
+}
+
+function planReal(id: string, col: Column): CutPlan {
+	const ask: [number, number] = [200, 200 + 28 * (col.you ?? '').length];
+	const lede = ask[1] + 700;
+	const facts = (col.facts ?? []).map((_, i) => lede + 250 * (i + 1));
+	const card = col.card ? (facts.length ? facts[facts.length - 1]! : lede) + 500 : Infinity;
+	const say: [number, number] = col.say ? [card + 400, card + 400 + 45 * col.say.length] : [Infinity, Infinity];
+	const tap = col.card ? (col.say ? say[1] : card) + 1500 : null;
+	const stamp = tap == null ? lede + 800 : tap + HOLD + 100;
+	return { id, column: col, dur: stamp + 400, ask, lede, facts, card, say, tap, stamp };
 }
 
 const clamp = (v: number) => Math.max(0, Math.min(1, v));
