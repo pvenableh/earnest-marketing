@@ -585,8 +585,17 @@ html[data-gw-mode='dark'] .gw-beat--tone {
 		inset 0 40px 80px -60px rgba(0, 0, 0, 0.6),
 		inset 0 -40px 80px -60px rgba(0, 0, 0, 0.4);
 }
-.gw-beat .gw-col {
+.gw-beat .gw-col,
+.gw-beat .gw-cut {
 	justify-self: center;
+}
+/* a beat's column, played once on the beat (GoodWork/Cut.vue); its ✓ is the montage's */
+.gw-cut {
+	position: relative;
+	width: min(360px, 100%);
+}
+.gw-cut .gw-col {
+	width: 100%;
 }
 .gw-copy__n {
 	display: block;
@@ -646,8 +655,12 @@ html[data-gw-mode='dark'] .gw-beat--tone {
 		position: sticky;
 		top: 22vh;
 	}
-	.gw-beat .gw-col {
+	.gw-beat .gw-col,
+	.gw-beat .gw-cut {
 		margin-top: 22vh;
+	}
+	.gw-beat .gw-cut .gw-col {
+		margin-top: 0;
 	}
 }
 @media (max-width: 900px) {
@@ -1902,7 +1915,8 @@ html[data-gw-mode='dark'] .gw-montage__bg video {
 	-webkit-mask-image: linear-gradient(180deg, transparent 0, #000 28px);
 	mask-image: linear-gradient(180deg, transparent 0, #000 28px);
 }
-.gw-montage__stamp {
+.gw-montage__stamp,
+.gw-cut__stamp {
 	position: absolute;
 	left: 50%;
 	bottom: -18px;
@@ -1917,7 +1931,8 @@ html[data-gw-mode='dark'] .gw-montage__bg video {
 	opacity: 0;
 	transition: opacity 0.16s ease, transform 0.16s ease;
 }
-.gw-montage__stamp.in {
+.gw-montage__stamp.in,
+.gw-cut__stamp.in {
 	opacity: 1;
 	transform: translateX(-50%) scale(1);
 }

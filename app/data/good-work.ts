@@ -178,6 +178,8 @@ export interface Beat {
 	move: { k: string; text: string };
 	more: { to: string; label: string };
 	column: Column;
+	/** The ✓ under the column once its cut has played and the tap landed (GoodWork/Cut.vue). */
+	stamp?: string;
 }
 
 const WAITING = 5;
@@ -215,6 +217,7 @@ export const beatsOpen: Beat[] = [
 				{ lane: 'know', text: 'What’s coming up this week?' },
 			],
 		},
+		stamp: '✓ 2 tasks created',
 	},
 	{
 		eyebrow: 'From any screen',
@@ -247,6 +250,7 @@ export const beatsOpen: Beat[] = [
 			],
 			scope: { noun: 'Client', name: 'Helios Studio' },
 		},
+		stamp: '✓ Booked · invite sent after your tap',
 	},
 ];
 
@@ -354,7 +358,7 @@ export const montage: MontageCut[] = [
 		small: 'Friday, 10:00',
 		column: sayBeat.column,
 		waiting: WAITING,
-		stamp: '✓ Booked · invite sent after your tap',
+		stamp: sayBeat.stamp!,
 		receipt: '✓ Booked',
 	},
 	{

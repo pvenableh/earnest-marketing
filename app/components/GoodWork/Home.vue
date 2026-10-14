@@ -81,7 +81,7 @@
 						<p class="gw-copy__move"><b>{{ b.move.k }}</b>{{ b.move.text }}</p>
 						<nuxt-link class="gw-copy__more" :to="b.more.to">{{ b.more.label }}</nuxt-link>
 					</div>
-					<GoodWorkColumn :column="b.column" data-reveal />
+					<GoodWorkCut :cut="`beat-${i}`" :column="b.column" :stamp="b.stamp" data-reveal />
 				</div>
 			</section>
 
