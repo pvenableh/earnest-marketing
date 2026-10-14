@@ -68,7 +68,7 @@ Stated plainly, because the rest of this file is a sales document and this part 
 - Project Management: Kanban boards, task lists, a timeline, tickets, file attachments, and a project dashboard with stats, documents, billing, and activity feeds
 - Quick Tasks & AI To-Dos: Personal task lists with AI-powered suggestions, day and week scheduling, motivational progress tracking, and confetti celebrations
 - Calendar & Scheduling: Calendar-first scheduling with meetings, follow-ups, and lead touchpoints on one view
-- Meetings & AI Recap: Every Earnest meeting room auto-records and transcribes live the moment the host joins — and the same Earnest is right there in the room, following the conversation as it happens
+- Meetings & AI Recap: Video meetings that remember what was said
 - Phone & Video: Daily.co video meetings on every plan, and a business phone with the Communications add-on ($49/mo): your own numbers on Twilio, bought or ported, with a greeting, hours, a menu, voicemail and SMS
 - Time Tracking & Retainers: Track time against any project and run hourly retainers as first-class projects with a live hour-pool meter on every entry
 - Service Offerings: A per-org library of the services you actually sell — name, color, base price, deliverables, scope tree, and timeline
