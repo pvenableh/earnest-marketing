@@ -275,6 +275,8 @@ h1,h2,h3{font-family:var(--f-light);font-weight:300;letter-spacing:-.03em;line-h
 .map .eff{font-size:11px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
 .map .eff.s{color:var(--ok)}.map .eff.m{color:var(--pop)}.map .eff.l{color:var(--warn)}
 .map .flag{color:var(--bad)}
+.map .st{display:block;margin-top:6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}.map .st.ok{color:var(--ok)}
+.phase .st{display:block;margin-top:12px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}.phase .st.ok{color:var(--ok)}
 @media(max-width:760px){.map{overflow-x:auto}.map table{min-width:720px}}
 
 .phases{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:36px}
@@ -587,29 +589,30 @@ footer code{font-size:12.5px}
 			<table>
 				<thead><tr><th>Section</th><th>Now</th><th>With “Move fast. Mean it.”</th><th>Effort</th></tr></thead>
 				<tbody>
-					<tr><td>Hero</td><td>“Do good work.” / <span class="flag">“Not more work. Not faster work.”</span> over the sped-up office loop.</td><td><b>H1 “Move fast. Mean it.”</b>, lede “It drafts. You decide.”, and “Do good work.” moves to the sign-off. Over the loop, one column cycles four asks on the beat, each with the real-time tap. Reduced motion shows one still column. <i>The “Not faster work” line has to change either way.</i></td><td class="eff s">S · copy + M · loop</td></tr>
+					<tr><td>Hero</td><td>“Do good work.” / <span class="flag">“Not more work. Not faster work.”</span> over the sped-up office loop.</td><td><b>H1 “Move fast. Mean it.”</b>, lede “It drafts. You decide.”, and “Do good work.” moves to the sign-off. Over the loop, one column cycles four asks on the beat, each with the real-time tap. Reduced motion shows one still column. <i>The “Not faster work” line has to change either way.</i></td><td class="eff s">S · copy + M · loop<span class="st ok">Copy ✓ live 13 Oct</span><span class="st">Loop · Phase 3</span></td></tr>
 					<tr><td>Creed</td><td>Six “Good work…” lines, then “It needs a better Tuesday.”</td><td>Keep it. Optionally add a seventh line, “Good work moves fast — and means it.”, before the Tuesday turn. The creed is the slow, thoughtful register; the campaign can stay out of it.</td><td class="eff s">S</td></tr>
-					<tr><td>App scrub</td><td>Parked (<code>appSequence = null</code>): the demo recording disagrees with the page.</td><td><b>Replace with the montage, built from HTML columns rather than video.</b> A pinned section where scroll drives the timeline from this animatic: five cuts, the ✓ receipts, then “Move fast.” It’s always truthful, sharp at any size, works in light and dark, and doesn’t depend on re-recording the demo.</td><td class="eff l">L · new component</td></tr>
-					<tr><td>Know / Say beats</td><td>Static column beside each beat.</td><td>Each column plays its own micro-cut once on entering view: ask types → card → tap → ✓. Eyebrows become the verbs (“Know it”, “Book it”).</td><td class="eff m">M</td></tr>
+					<tr><td>App scrub</td><td>Parked (<code>appSequence = null</code>): the demo recording disagrees with the page.</td><td><b>Replace with the montage, built from HTML columns rather than video.</b> A pinned section where scroll drives the timeline from this animatic: five cuts, the ✓ receipts, then “Move fast.” It’s always truthful, sharp at any size, works in light and dark, and doesn’t depend on re-recording the demo. <i>Built: <code>GoodWork/Montage.vue</code>, five cuts ending on “Say it. Tap it.”, the tap on a real clock while scroll holds the frame; still list under reduced motion.</i></td><td class="eff l">L · new component<span class="st ok">✓ Built 14 Oct</span></td></tr>
+					<tr><td>Know / Say beats</td><td>Static column beside each beat.</td><td>Each column plays its own micro-cut once on entering view: ask types → card → tap → ✓. Eyebrows become the verbs (“Know it”, “Book it”). <i>“Say the next move” now says “typed or out loud”.</i></td><td class="eff m">M<span class="st">Phase 3</span></td></tr>
 					<tr><td>Client photo beats</td><td>Hear the truth / Sound like yourself.</td><td>Unchanged in copy. These are the “Mean it” beats (honesty and voice). Their columns play at real speed with no whips, the counterpoint to the montage.</td><td class="eff s">S</td></tr>
-					<tr><td>Steady.</td><td>Field loop, “Not busy. Not loud.”</td><td><b>This section becomes the speed ramp.</b> The loop slows from 2× to 0.35× as it scrolls into view, so the page itself does what the film does: fast, then still.</td><td class="eff m">M</td></tr>
-					<tr><td>Keep your word</td><td>Signed → Project → Billed cards animate in.</td><td>Stagger the three on the beat (500ms) and finish with a ✓ “Billed” stamp on the last. Same data.</td><td class="eff s">S</td></tr>
-					<tr><td>What it never does</td><td>Five “It won’t…” lines.</td><td>Give it a heading, <b>“Fast is never careless.”</b> This list is the “Mean it” proof.</td><td class="eff s">S</td></tr>
-					<tr><td>Closing</td><td>“Mean it.” / “Do good work.”</td><td><b>“Move fast.”</b> in ink-3, then <b>“Mean it.”</b> lights up in blue, then the wordmark and “Do good work.”, the animatic’s end card. It bookends the hero.</td><td class="eff s">S</td></tr>
-					<tr><td>Beyond the page</td><td>—</td><td>OG image = the end card. A 9:16 cut for Reels, Shorts and LinkedIn (toggle above). Email sign-off “Move fast. Mean it.” A :06 YouTube bumper.</td><td class="eff m">M</td></tr>
+					<tr><td>Questions</td><td>Six answers; nothing on voice.</td><td>Add <b>“Can I just talk to it?”</b>: yes, on every plan, and email, invoices, payments and meetings still wait for your tap. It feeds the FAQPage JSON-LD too.</td><td class="eff s">S<span class="st ok">✓ Built 14 Oct</span></td></tr>
+						<tr><td>Steady.</td><td>Field loop, “Not busy. Not loud.”</td><td><b>This section becomes the speed ramp.</b> The loop slows from 2× to 0.35× as it scrolls into view, so the page itself does what the film does: fast, then still.</td><td class="eff m">M<span class="st">Phase 3</span></td></tr>
+					<tr><td>Keep your word</td><td>Signed → Project → Billed cards animate in.</td><td>Stagger the three on the beat (500ms) and finish with a ✓ “Billed” stamp on the last. Same data.</td><td class="eff s">S<span class="st">Phase 3</span></td></tr>
+					<tr><td>What it never does</td><td>Five “It won’t…” lines.</td><td>Give it a heading, <b>“Fast is never careless.”</b> This list is the “Mean it” proof.</td><td class="eff s">S<span class="st ok">✓ Live 13 Oct</span></td></tr>
+					<tr><td>Closing</td><td>“Mean it.” / “Do good work.”</td><td><b>“Move fast.”</b> in ink-3, then <b>“Mean it.”</b> lights up in blue, then the wordmark and “Do good work.”, the animatic’s end card. It bookends the hero.</td><td class="eff s">S<span class="st ok">✓ Live 13 Oct</span></td></tr>
+					<tr><td>Beyond the page</td><td>—</td><td>OG image = the end card. A 9:16 cut for Reels, Shorts and LinkedIn (toggle above). Email sign-off “Move fast. Mean it.” A :06 YouTube bumper.</td><td class="eff m">M<span class="st ok">OG ✓ live</span><span class="st">Rest · Phase 4</span></td></tr>
 				</tbody>
 			</table>
 		</div>
 
 		<h3 style="font-size:32px;margin-top:56px">Build path</h3>
 		<div class="phases">
-			<div class="phase"><span class="k">Phase 1 · copy</span><h3>The words</h3><p>New hero H1 and lede, the “Fast is never careless.” heading, the closing bookend, and an updated <code>llms.txt</code>. Under an hour, with no motion.</p></div>
-			<div class="phase"><span class="k">Phase 2 · engine</span><h3>Montage.vue</h3><p>Port this page’s timeline (<code>data-at</code> / <code>data-type</code> / <code>data-tap</code>) into a component driven by scroll or by clock, reusing <code>GoodWork/Column.vue</code>. It takes the parked scrub’s place.</p></div>
-			<div class="phase"><span class="k">Phase 3 · page</span><h3>The rhythm</h3><p>Micro-cuts on the beat columns, the Steady speed ramp, the kept cards on the beat, and a hero loop of four asks.</p></div>
-			<div class="phase"><span class="k">Phase 4 · film</span><h3>The spot</h3><p>Record this stage to MP4 with Playwright at 1080p in both aspects, add a real sound bed, and post it. Then a :15 and a :06.</p></div>
+			<div class="phase"><span class="k">Phase 1 · copy</span><h3>The words</h3><p>New hero H1 and lede, the “Fast is never careless.” heading, the closing bookend, and an updated <code>llms.txt</code>. Under an hour, with no motion.</p><span class="st ok">✓ Live 13 Oct · 5cc4be8</span></div>
+			<div class="phase"><span class="k">Phase 2 · engine</span><h3>Montage.vue</h3><p>Port this page’s timeline (<code>data-at</code> / <code>data-type</code> / <code>data-tap</code>) into a component driven by scroll or by clock, reusing <code>GoodWork/Column.vue</code>. It takes the parked scrub’s place.</p><span class="st ok">✓ Built 14 Oct · scroll-driven</span></div>
+			<div class="phase"><span class="k">Phase 3 · page</span><h3>The rhythm</h3><p>Micro-cuts on the beat columns, the Steady speed ramp, the kept cards on the beat, and a hero loop of four asks.</p><span class="st">Next</span></div>
+			<div class="phase"><span class="k">Phase 4 · film</span><h3>The spot</h3><p>Record this stage to MP4 with Playwright at 1080p in both aspects, add a real sound bed, and post it. Then a :15 and a :06.</p><span class="st">Later</span></div>
 		</div>
 
-		<h3 style="font-size:32px;margin-top:56px">Decisions for you</h3>
+		<h3 style="font-size:32px;margin-top:56px">Decisions <span style="color:var(--ink-3)">(the first two made 13 Oct, as recommended)</span></h3>
 		<ol class="decide">
 			<li><b>Hero headline: “Move fast. Mean it.” or keep “Do good work.”?</b><p>Recommendation: <em>“Move fast. Mean it.” as the H1</em>, with “Do good work.” as the sign-off on every ending, the way a campaign line sits under a brand line. The alternative is to keep the H1 and use “Move fast. Mean it.” as the lede.</p></li>
 			<li><b>Is the montage built from HTML or from re-recorded app video?</b><p>Recommendation: <em>HTML</em>. It’s the column you already ship, so it can’t disagree with the page, and the re-record plan’s three open decisions stop blocking the homepage.</p></li>
