@@ -1,7 +1,8 @@
 /**
  * Motion for the homepage ("Do good work."), ported from the mockup's
  * `motion.js`: copy rising into view, the creed arriving one line per scroll
- * step, and ambient video that plays only while it is on screen. The
+ * step, and ambient video that plays only while it is on screen ("Steady."'s
+ * loop slowing as it arrives: the campaign's speed ramp). The
  * scroll-scrubbed app sequence is its own component (`GoodWork/Scrub.vue`).
  *
  * Everything respects prefers-reduced-motion: nothing slides, the creed is a
@@ -110,6 +111,25 @@ export function useGoodWorkMotion(root: Ref<HTMLElement | null>) {
 				io.observe(v);
 			});
 			cleanups.push(() => io.disconnect());
+
+			/* "Steady." is the speed ramp: the field loop eases from 2× to 0.35×
+			   as the section scrolls in (its top at the screen's foot → its middle
+			   at the screen's middle), so the page does what the film does — fast,
+			   then still. Set by position, so it is right wherever it is checked. */
+			el.querySelectorAll<HTMLElement>('.gw-wind').forEach((sec) => {
+				const v = sec.querySelector<HTMLVideoElement>('video[data-ambient]');
+				if (!v) return;
+				onScroll(() => {
+					const r = sec.getBoundingClientRect();
+					const p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight / 2 + r.height / 2)));
+					const e = p * p * (3 - 2 * p);
+					const rate = 2 + (0.35 - 2) * e;
+					try {
+						v.defaultPlaybackRate = rate;
+						v.playbackRate = rate;
+					} catch {}
+				});
+			});
 		}
 	}
 
